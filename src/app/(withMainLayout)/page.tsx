@@ -1,5 +1,5 @@
-const Home = () => {
-  return <div>hello world from main layout</div>;
+const page = () => {
+  return <div>{/* Component content */}</div>;
 };
 
-export default Home;
+export default page;

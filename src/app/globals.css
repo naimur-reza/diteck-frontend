@@ -23,8 +23,10 @@
 :root {
   --background: #ffffff;
   --foreground: #ffffff;
+  --primary: #2563eb;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --bg-primary: var(--primary);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,4 +40,5 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
 }
