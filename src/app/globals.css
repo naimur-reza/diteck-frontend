@@ -1,6 +1,4 @@
-@import 'tailwindcss';
-
- 
+@import "tailwindcss";
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
@@ -20,21 +18,19 @@
   }
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #ffffff;
-  --primary: #2563eb;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --bg-primary: var(--primary);
+@theme {
+  --color-background: #f9f9f9;
+  --color-primary: oklch(0.72 0.11 178);
 }
 
+/* classes for dark-mode */
+/* 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @theme {
+    --color-background: #0a0a0a;
+    --color-primary: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);

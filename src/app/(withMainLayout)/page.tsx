@@ -1,5 +1,5 @@
 const page = () => {
-  return <div>{/* Component content */}</div>;
+  return <div className="bg-primary">awesome</div>;
 };
 
 export default page;
