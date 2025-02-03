@@ -1,5 +1,5 @@
-const page = () => {
-  return <div className="bg-primary">awesome</div>;
+const Home = () => {
+  return <div className="bg-gradient-spectrum   h-screen">awesome</div>;
 };
 
-export default page;
+export default Home;

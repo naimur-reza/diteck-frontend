@@ -20,7 +20,43 @@
 
 @theme {
   --color-background: #f9f9f9;
-  --color-primary: oklch(0.72 0.11 178);
+  --color-primary: #636edf;
+  --color-gradient-spectrum: linear-gradient(
+    135deg,
+    rgb(74, 234, 220) 0%,
+    rgb(151, 120, 209) 20%,
+    rgb(207, 42, 186) 40%,
+    rgb(238, 44, 130) 60%,
+    rgb(251, 105, 98) 80%,
+    rgb(254, 248, 76) 100%
+  );
+  --color-gradient-purple: linear-gradient(
+    135deg,
+    rgb(255, 206, 236) 0%,
+    rgb(152, 150, 240) 100%
+  );
+  --color-gradient-midnight: linear-gradient(
+    135deg,
+    rgb(2, 3, 129) 0%,
+    rgb(40, 116, 252) 100%
+  );
+}
+
+/* global utilities */
+
+@layer utilities {
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-blue-500 to-purple-500;
+  }
+  .bg-gradient-spectrum {
+    background-image: var(--color-gradient-spectrum);
+  }
+  .bg-gradient-purple {
+    background-image: var(--color-gradient-purple);
+  }
+  .bg-gradient-midnight {
+    background-image: var(--color-gradient-midnight);
+  }
 }
 
 /* classes for dark-mode */
