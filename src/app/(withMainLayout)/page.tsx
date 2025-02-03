@@ -1,5 +1,5 @@
 const Home = () => {
-  return <div>hello world from main layout</div>;
+  return <div className="bg-gradient-spectrum   h-screen"></div>;
 };
 
 export default Home;
