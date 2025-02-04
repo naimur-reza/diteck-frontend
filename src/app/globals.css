@@ -21,6 +21,7 @@
 @theme {
   --font-*: initial;
   --font-primary: "Mona Sans", "serif";
+  --font-body: 16px;
   --color-background: #f9f9f9;
   --color-primary: #636edf;
   --color-gradient-spectrum: linear-gradient(
@@ -62,8 +63,13 @@
 }
 
 body {
+  font-size: var(--font-body);
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-primary);
   background-color: var(--color-background);
+}
+
+.footer-text {
+  @apply text-[24px] font-semibold;
 }
