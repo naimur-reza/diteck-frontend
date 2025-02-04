@@ -111,7 +111,7 @@ const Footer = () => {
                     2972 Westheimer Rd. Santa Ana, Illinois 85486
                   </span>
                   <span className="block">support@example.com</span>
-                  <span className="block footer-text text-[#636edf]">
+                  <span className="block footer-text text-primary">
                     + (406) 555-0120
                   </span>
                 </address>
@@ -121,14 +121,14 @@ const Footer = () => {
         </div>
 
         {/* After Main Footer */}
-        <div className="flex flex-col lg:flex-row lg:justify-between items-center border-t-2 gap-2 border-t-[#636EDF] pt-[50px] text-[16px] font-semibold">
+        <div className="flex flex-col lg:flex-row lg:justify-between items-center border-t-2 gap-2 border-t-primary pt-[50px] text-[16px] font-semibold">
           <div>
             <p>
               © {new Date().getFullYear()}{" "}
               <Link
                 href="https://www.enaema.com/"
                 target="_blank"
-                className="text-[#636edf]"
+                className="text-primary"
               >
                 Ena Ema{" "}
               </Link>
