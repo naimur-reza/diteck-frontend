@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+
 @import "tailwindcss";
 
 /*
@@ -22,6 +24,7 @@
   --font-*: initial;
   --font-primary: "Mona Sans", "HelveticaNeue-Light", "Helvetica Neue Light",
     "Helvetica Neue", "Helvetica", "Lucida Grande", "sans-serif";
+  --font-body: 16px;
   --color-background: #f9f9f9;
   --color-primary: #636edf;
   --color-gradient-spectrum: linear-gradient(
@@ -80,8 +83,18 @@
 }
 
 body {
+  font-size: var(--font-body);
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-primary);
   background-color: var(--color-background);
+}
+
+.max-width {
+  max-width: 1280px;
+  margin: auto;
+}
+
+.footer-text {
+  @apply text-[20px] md:text-[24px] font-semibold;
 }
