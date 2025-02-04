@@ -20,7 +20,8 @@
 
 @theme {
   --font-*: initial;
-  --font-primary: "Mona Sans", "serif";
+  --font-primary: "Mona Sans", "HelveticaNeue-Light", "Helvetica Neue Light",
+    "Helvetica Neue", "Helvetica", "Lucida Grande", "sans-serif";
   --color-background: #f9f9f9;
   --color-primary: #636edf;
   --color-gradient-spectrum: linear-gradient(
