@@ -1,11 +1,17 @@
-import assets from "@/assets";
+"use client";
 import { ChevronRight } from "lucide-react";
 
-export const ParallaxBanner = () => {
+export const ParallaxBanner = ({
+  img,
+  title,
+}: {
+  img: string;
+  title: string;
+}) => {
   return (
     <div
       className="relative bg-fixed h-[550px] bg-center bg-no-repeat bg-cover rounded-4xl w-full py-12"
-      style={{ backgroundImage: `url(${assets.banner.serviceBanner.src})` }}
+      style={{ backgroundImage: `url(${img})` }}
     >
       <div className="absolute inset-0 bg-black/50 rounded-4xl "></div>
 
@@ -31,7 +37,7 @@ export const ParallaxBanner = () => {
 
         <div className="flex-1 flex items-center ">
           <h1 className="text-[4rem] font-light leading-tight text-white md:text-[5rem]">
-            Our Services
+            {title ? title : ""}
           </h1>
         </div>
       </div>
