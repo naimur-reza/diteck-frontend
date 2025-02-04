@@ -51,6 +51,23 @@
   .bg-gradient-primary {
     @apply bg-gradient-to-r from-blue-500 to-purple-500;
   }
+  .section-title {
+    @apply font-medium text-[40px] leading-[45px] 
+           md:text-[52px] md:leading-[60px] 
+           lg:text-[56px] lg:leading-[65px] 
+           xl:text-[80px] xl:leading-[80px] 
+           2xl:text-[80px] 2xl:leading-[85px] 
+           text-black;
+  }
+  .section-description {
+    @apply font-normal text-[18px] leading-[26px] 
+           md:text-[20px] md:leading-[30px] 
+           lg:text-[20px] lg:leading-[32px] 
+           xl:text-[20px] xl:leading-[34px] 
+           2xl:text-[20px] 2xl:leading-[36px] 
+           text-gray-600;
+  }
+
   .bg-gradient-spectrum {
     background-image: var(--color-gradient-spectrum);
   }
