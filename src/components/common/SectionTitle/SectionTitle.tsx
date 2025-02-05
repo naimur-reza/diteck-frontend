@@ -7,7 +7,7 @@ export const SectionTitle = ({
 }: {
   title: string;
   buttonText: string;
-  description: string;
+  description?: string;
 }) => {
   return (
     <section className="flex flex-col md:flex-row gap-y-2    md:justify-between max-w-6xl mx-auto   md:items-center py-16">
@@ -20,7 +20,8 @@ export const SectionTitle = ({
           {title ? title : "Your partners for digital success"}
         </h2>
         <p className="section-description mt-8 max-w-2xl">
-          {description ? description : "Your partners for digital success"}
+          {/* {description ? description : "Your partners for digital success"} */}
+          {description}
         </p>
       </div>
     </section>

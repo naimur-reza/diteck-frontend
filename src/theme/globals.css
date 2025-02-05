@@ -48,7 +48,7 @@
   --color-background-light: #f2f1f6;
 
   /* container width */
-  --container-width: 1200px;
+  --container-width: 1280px;
 }
 
 /* global utilities */
@@ -131,4 +131,17 @@ body {
 
 .footer-text {
   @apply text-[20px] md:text-[24px] font-semibold;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
 }
