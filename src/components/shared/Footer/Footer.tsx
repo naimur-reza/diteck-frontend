@@ -57,7 +57,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-[2fr_3fr] lg:grid-cols-2 gap-10 pb-[100px]">
           <div>
             <h6 className="footer-text">Tell us about your project</h6>
-            <h2 className="text-[48px] md:text-[100px] lg:text-[160px] font-semibold md:leading-[130px] font-primary mt-5">
+            <h2 className="text-[48px] md:text-[100px] lg:text-[140px] font-semibold md:leading-[130px] font-primary mt-5">
               Let’s talk
             </h2>
           </div>

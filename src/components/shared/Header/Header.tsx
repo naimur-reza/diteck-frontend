@@ -18,7 +18,7 @@ const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   return (
-    <div className="min-w-full">
+    <div className="absolute min-w-full">
       <header className="container mx-auto px-5">
         <div className="flex justify-between items-center">
           {/* Logo */}
