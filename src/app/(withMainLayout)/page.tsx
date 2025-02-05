@@ -1,6 +1,7 @@
 import assets from "@/assets";
 import { ParallaxBanner } from "../components/common";
 import Hero from "./components/Hero/Hero";
+import WhyUs from "./components/WhyUs/WhyUs";
 
 const Home = () => {
   return (
@@ -13,6 +14,8 @@ const Home = () => {
           title="Our Service"
         />
       </div>
+
+      <WhyUs />
     </>
   );
 };
