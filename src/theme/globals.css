@@ -1,34 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 
 @import "tailwindcss";
-@layer theme, base, components, utilities;
-@import "../theme/theme.css" layer(theme);
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-border, currentColor);
   }
 }
 
-/* @theme {
+@theme {
   --font-*: initial;
   --font-primary: "Mona Sans", "HelveticaNeue-Light", "Helvetica Neue Light",
     "Helvetica Neue", "Helvetica", "Lucida Grande", "sans-serif";
   --font-body: 16px;
-  --color-background: #f2f1f6;
-  --color-primary: #636edf;
   --color-gradient-spectrum: linear-gradient(
     135deg,
     rgb(74, 234, 220) 0%,
@@ -48,7 +36,16 @@
     rgb(2, 3, 129) 0%,
     rgb(40, 116, 252) 100%
   );
-} */
+
+  --color-primary: #636edf;
+  --color-primary-hover: #5963c8;
+  --color-secondary: #484848;
+  --color-light: #888888;
+  --color-accent: #000000;
+  --color-border: #dfdee5;
+  --color-background: #ffffff;
+  --color-background-light: #f2f1f6;
+}
 
 /* global utilities */
 
@@ -82,14 +79,39 @@
   .bg-gradient-midnight {
     background-image: var(--color-gradient-midnight);
   }
+
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .text-primary-hover {
+    color: var(--color-primary-hover);
+  }
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+  .text-light {
+    color: var(--color-light);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .border {
+    border-color: var(--color-border);
+  }
+  .bg-background {
+    background-color: var(--color-background);
+  }
+  .bg-background-light {
+    background-color: var(--color-background-light);
+  }
 }
 
 body {
   font-size: var(--font-body);
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--color-text);
+  background: var(--color-background);
   font-family: var(--font-primary);
-  background-color: var(--color-background);
+  background-color: var(--color-background-light);
 }
 
 .max-width {
