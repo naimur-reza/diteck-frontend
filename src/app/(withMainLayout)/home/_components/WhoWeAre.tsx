@@ -19,10 +19,10 @@ const WhoWeAre = () => {
             className="p-4 md:p-6 lg:p-7 tracking-tight rounded-3xl bg-background   "
           >
             <service.icon size={60} className="text-primary mb-4" />
-            <h2 className="md:text-2xl lg:text-3xl font-medium mb-2 mt-10 md:mt-14 lg:mt-20">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-medium mb-2 mt-10 md:mt-14 lg:mt-20">
               {service.title}
             </h2>
-            <p className="text-light md:text-sm lg:text-base ">
+            <p className="text-light text-sm lg:text-base ">
               {service.description}
             </p>
           </div>
