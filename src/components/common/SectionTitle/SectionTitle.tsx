@@ -10,7 +10,7 @@ export const SectionTitle = ({
   description?: string;
 }) => {
   return (
-    <section className="flex flex-col md:flex-row gap-y-2    md:justify-between max-w-6xl mx-auto   md:items-center py-16">
+    <section className="flex flex-col md:flex-row gap-y-2 md:justify-between max-w-6xl mx-auto   md:items-center py-16">
       <button className="border border-[#636EDF4D] w-fit rounded-[10px] text-black text-sm px-4 py-1.5  flex items-center gap-2 hover:bg-gray-200 transition">
         <span className="w-2 h-2 rounded-[1px] bg-[#636EDF] animate-pulse "></span>
         {buttonText ? buttonText : ""}
