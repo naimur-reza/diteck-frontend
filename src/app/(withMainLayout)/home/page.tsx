@@ -1,6 +1,7 @@
 import Hero from "@/components/sections/Hero/Hero";
 import WhoWeAre from "./_components/WhoWeAre";
-import WhyUs from "../components/WhyUs/WhyUs";
+import WhyUs from "./_components/WhyUs/WhyUs";
+import SelectedWorks from "./_components/SelectedWorks/SelectedWorks";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
       <Hero />
       <WhoWeAre />
       <WhyUs />
+      <SelectedWorks />
     </div>
   );
 };
