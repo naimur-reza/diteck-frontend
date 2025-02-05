@@ -1,26 +1,26 @@
 export const teamsArray = [
   {
-    name: "Alice Johnson",
-    imgUrl:
-      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/team-1.jpg",
-    position: "CEO",
-  },
-  {
-    name: "Michael Smith",
-    imgUrl:
-      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/team-1.jpg",
-    position: "Backend Developer",
-  },
-  {
-    name: "Emily Davis",
+    name: "Anik",
     imgUrl:
       "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/team-1.jpg",
     position: "Frontend Developer",
   },
   {
-    name: "David Brown",
+    name: "Mehedi",
     imgUrl:
-      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/team-1.jpg",
-    position: "UI/UX Designer",
+      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/team-2.jpg",
+    position: "Backend Developer",
+  },
+  {
+    name: "Fahim",
+    imgUrl:
+      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/team-3.jpg",
+    position: "Backend Developer",
+  },
+  {
+    name: "Morshed",
+    imgUrl:
+      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/team-4.jpg",
+    position: "Frontend Developer",
   },
 ];

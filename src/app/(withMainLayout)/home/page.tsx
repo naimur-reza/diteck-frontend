@@ -1,29 +1,22 @@
-import assets from "@/assets";
-import { ParallaxBanner, SectionTitle } from "@/components/common";
-import { TeamMemberCard } from "@/components/ui";
+import Hero from "@/components/sections/Hero/Hero";
+import WhoWeAre from "./_components/WhoWeAre";
+import WhyUs from "./_components/WhyUs/WhyUs";
+import SelectedWorks from "./_components/SelectedWorks/SelectedWorks";
 import { teamsArray } from "@/constants";
+import { TeamMemberCard } from "@/components/ui";
 
 const Home = () => {
   return (
-    <div className="p-3">
-      <ParallaxBanner
-        img={assets.banner.serviceBanner.src}
-        title="Our Service"
-      />
-
-      <div className="grid grid-cols-4 gap-x-10 my-12">
+    <div>
+      <Hero />
+      <WhoWeAre />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-10 my-12 px-12">
         {teamsArray.map((item, idx) => (
           <TeamMemberCard item={item} key={idx} />
         ))}
       </div>
-      <SectionTitle
-        buttonText="Who you are"
-        description="We’re a team of expert designers, web developers and marketers who’ve
-          been delivering digital success for more than a decade. We excel at
-          marketing websites, innovative web apps and mobile applications."
-        title="Your partners for digital success
-"
-      />
+      <WhyUs />
+      <SelectedWorks />
     </div>
   );
 };

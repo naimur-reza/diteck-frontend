@@ -3,7 +3,7 @@ import React from "react";
 
 const WULeftSideBanner = () => {
   return (
-    <div className="relative w-full h-[1000px]">
+    <div className="relative w-full h-[600px] lg:h-[1000px]">
       {/* Background Image */}
       <Image
         src="https://i.ibb.co.com/W4kWqfN7/download.jpg"
@@ -14,7 +14,7 @@ const WULeftSideBanner = () => {
       />
 
       {/* Rotating Circular Text with Center Logo */}
-      <div className="absolute top-[50px] right-[50px] w-[220px] h-[220px] flex items-center justify-center">
+      <div className="absolute top-[50px] right-[50px] w-[150px] h-[150px] flex items-center justify-center bg-white rounded-full">
         {/* Rotating Circle Text */}
         <svg
           className="absolute w-full h-full animate-spin-slow"
@@ -29,21 +29,19 @@ const WULeftSideBanner = () => {
                a 75,75 0 1,1 -150,0"
             />
           </defs>
-          <text fill="#000" fontSize="14" fontWeight="bold">
+          <text fill="#000" fontSize="22" fontWeight="bold">
             <textPath href="#circle" startOffset="0%">
-              BUSINESS DEVELOPMENT IT SOLUTION • BUSINESS DEVELOPMENT IT
-              SOLUTION •
+              BUSINESS DEVELOPMENT • IT SOLUTION •
             </textPath>
           </text>
         </svg>
 
         {/* Center Logo */}
-        <div className="w-[100px] h-[100px] rounded-full bg-white flex items-center justify-center shadow-lg">
+        <div className="relative w-[100px] h-[100px] rounded-full bg-white flex items-center justify-center shadow-lg">
           <Image
-            src="https://i.ibb.co.com/yBhCQt56/h1-img-deco.jpg"
+            src="https://i.ibb.co.com/JNKSBDw/project-logo-2.png"
             alt="Center Logo"
-            width={60}
-            height={60}
+            fill
             className="object-contain"
           />
         </div>
