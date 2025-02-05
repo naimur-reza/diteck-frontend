@@ -50,7 +50,7 @@ const Header = () => {
           {/* Mobile menu sidebar */}
           <div
             className={`min-h-screen bg-white w-[300px] absolute top-0 transition-all duration-300 ease-in-out ${
-              isOpenMenu ? "left-0" : "left-[-300px]"
+              isOpenMenu ? "left-0 z-50" : "left-[-300px]"
             }`}
           >
             <div className="absolute right-4 top-4">
