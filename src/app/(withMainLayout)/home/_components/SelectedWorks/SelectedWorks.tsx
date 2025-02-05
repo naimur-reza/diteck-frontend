@@ -49,9 +49,16 @@ const projects = [
 
 const SelectedWorks = () => {
   return (
-    <div className="container mx-auto">
-      <SectionTitle buttonText="Selected Works" title="Our finished projects" />
-      <div className="grid grid-cols-3 gap-5">
+    <div className="container mx-auto bg-gradient-to-b from-purple-100 via-green-50 to-white rounded-[40px] p-10">
+      <div>
+        <SectionTitle
+          buttonText="Selected Works"
+          title="Our finished projects"
+          rightText="Read how we’ve helped some of the biggest brands transform their business."
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
         {projects.map((project, idx) => (
           <ProjectCard project={project} key={idx} />
         ))}
