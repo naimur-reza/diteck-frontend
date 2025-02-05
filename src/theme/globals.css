@@ -37,6 +37,7 @@
     rgb(40, 116, 252) 100%
   );
 
+  /* colors */
   --color-primary: #636edf;
   --color-primary-hover: #5963c8;
   --color-secondary: #484848;
@@ -45,11 +46,19 @@
   --color-border: #dfdee5;
   --color-background: #ffffff;
   --color-background-light: #f2f1f6;
+
+  /* container width */
+  --container-width: 1200px;
 }
 
 /* global utilities */
 
 @layer utilities {
+  .container {
+    max-width: var(--container-width);
+    margin: auto;
+  }
+
   .bg-gradient-primary {
     @apply bg-gradient-to-r from-blue-500 to-purple-500;
   }
