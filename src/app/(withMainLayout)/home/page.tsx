@@ -1,14 +1,9 @@
 import assets from "@/assets";
-import {
-  LinkButtonWithIcon,
-  ParallaxBanner,
-  SectionTitle,
-} from "@/components/common";
+import { ParallaxBanner, SectionTitle } from "@/components/common";
 
 const Home = () => {
   return (
     <div className="p-3">
-      <LinkButtonWithIcon />
       <ParallaxBanner
         img={assets.banner.serviceBanner.src}
         title="Our Service"
