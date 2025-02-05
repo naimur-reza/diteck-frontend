@@ -17,7 +17,7 @@ const WhyUsCard = ({
         <span className="bg-primary w-[10px] h-[10px] rounded" />
         <h3 className="text-[24px] font-medium">{title}</h3>
       </div>
-      <p className="flex mt-[100px] font-medium">
+      <p className="flex mt-[125px] font-medium">
         <span className="text-[100px]">{count}</span>
         <span className="text-[80px]">{increment || "+"}</span>
       </p>

@@ -1,8 +1,8 @@
-import { SectionTitle } from "@/app/components/common";
 import Image from "next/image";
 import React from "react";
 import WhyUsCard from "./WhyUsCard";
 import WULeftSideBanner from "./WULeftSideBanner";
+import { SectionTitle } from "@/components/common";
 
 const WhyUs = () => {
   return (
@@ -13,7 +13,7 @@ const WhyUs = () => {
       />
       <div className="grid md:grid-cols-3 gap-5 mb-10">
         <div className="flex flex-col gap-5">
-          <div className="relative w-full h-[445px] rounded-[20px]">
+          <div className="relative w-full h-[500px] rounded-[20px]">
             <Image
               src="https://i.ibb.co.com/gFJFQB41/h1-img-2.jpg"
               alt=""
@@ -41,7 +41,7 @@ const WhyUs = () => {
           />
         </div>
         <div>
-          <WULeftSideBanner/>
+          <WULeftSideBanner />
         </div>
       </div>
     </section>
