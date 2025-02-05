@@ -1,4 +1,4 @@
-import { SectionTitle } from "@/app/components/common";
+import { SectionTitle } from "@/components/common";
 import Image from "next/image";
 import React from "react";
 
