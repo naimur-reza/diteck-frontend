@@ -15,7 +15,7 @@ const RecentPost = () => {
         <div></div>
         <div>
           <HeaderPost post={recentPosts[0]} />
-          <div>
+          <div className="mb-[100px]">
             {recentPosts?.map((post, idx) => (
               <SinglePost key={idx} post={post} />
             ))}

@@ -15,8 +15,8 @@ interface IPost {
 const SinglePost = ({ post }: { post: IPost }) => {
   const { category, date, author, title, img } = post;
   return (
-    <div className="flex items-center gap-10 border-y first:border-t-0 last:border-b-0 border-y-black py-10 relative group transition-all duration-600">
-      <div className="relative min-w-[220] h-[220px] rounded-[20px]">
+    <div className="flex items-center gap-10 border-t first:border-t-0 last:border-b border-y-black py-10 bg-[#F2F1F6] relative group transition-all duration-600 -mb-[80px] hover:mb-[0px]">
+      <div className="relative min-w-[220] h-[220px] rounded-[20px]  transition-all duration-600">
         <Image
           src={img}
           alt={title}
