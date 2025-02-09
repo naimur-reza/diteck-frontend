@@ -53,9 +53,13 @@ const HeaderPost = ({ post }: { post: IPost }) => {
         </div>
 
         {/* Hover Arrow Button */}
-        <div className="flex items-center ml-auto p-4 bg-primary text-white rounded-[15px]  transition-all duration-600">
-          <Link href="#">
-            <FaArrowRight />
+        <div>
+          <Link
+            href="#"
+            className="relative flex items-center ml-auto w-[50px] h-[50px] bg-primary text-white rounded-[15px] transition-all duration-600 group overflow-hidden"
+          >
+            <FaArrowRight className="absolute left-1/2 top-1/2 -translate-1/2 group-hover:left-[100px] transition-all duration-300" />
+            <FaArrowRight className="absolute -left-1/2 top-1/2 -translate-1/2 group-hover:left-1/2 transition-all duration-300" />
           </Link>
         </div>
       </div>

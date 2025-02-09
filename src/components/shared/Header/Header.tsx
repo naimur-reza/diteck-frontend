@@ -22,14 +22,17 @@ const Header = () => {
       <header className="container mx-auto px-5">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="md:order-2 lg:order-1 relative w-[120px] h-[80px]">
+          <Link
+            href="/"
+            className="md:order-2 lg:order-1 relative w-[120px] h-[80px]"
+          >
             <Image
               src="https://i.ibb.co.com/0pt9skqy/logo.png"
               alt=""
               fill
               style={{ objectFit: "contain" }}
             />
-          </div>
+          </Link>
           {/* Nav Menu */}
           <div className="order-2 hidden lg:flex gap-5 items-center bg-white rounded-[20px] px-5 py-3 shadow">
             {navMenu.map(({ title, path }, idx) => (
