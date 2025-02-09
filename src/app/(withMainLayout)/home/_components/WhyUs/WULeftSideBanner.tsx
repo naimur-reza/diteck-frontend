@@ -3,7 +3,7 @@ import React from "react";
 
 const WULeftSideBanner = () => {
   return (
-    <div className="relative w-full h-[600px] lg:h-[1000px]">
+    <div className="relative w-full h-[500px] lg:h-[1000px]">
       {/* Background Image */}
       <Image
         src="https://i.ibb.co.com/W4kWqfN7/download.jpg"
