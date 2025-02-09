@@ -28,7 +28,7 @@ export const SectionTitle = ({
         <p className="section-description mt-8 max-w-2xl">{description}</p>
       </div>
       {rightText && (
-        <div className="lg:w-[20%]">
+        <div className="lg:w-[20%] hidden lg:block">
           <p className="lg:text-right text-center">{rightText}</p>
         </div>
       )}

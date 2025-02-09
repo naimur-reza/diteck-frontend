@@ -11,9 +11,9 @@ const WhyUs = () => {
         buttonText="Why choose us"
         title="Results that we successfully deliver"
       />
-      <div className="grid md:grid-cols-3 gap-5 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10 items-start">
         <div className="flex flex-col gap-5">
-          <div className="relative w-full h-[500px] rounded-[20px]">
+          <div className="relative w-full h-[350px] sm:h-[500px] rounded-[20px]">
             <Image
               src="https://i.ibb.co.com/gFJFQB41/h1-img-2.jpg"
               alt=""
@@ -23,7 +23,7 @@ const WhyUs = () => {
           </div>
           <WhyUsCard
             title="satisfied customers"
-            count="98"
+            count={98}
             increment="%"
             description="A 98% satisfaction rate across all our consulting services."
           />
@@ -31,12 +31,13 @@ const WhyUs = () => {
         <div className="flex flex-col gap-5">
           <WhyUsCard
             title="projects completed"
-            count="475"
+            count={475}
             description="Over 400 successful projects delivered to our clients worldwide."
           />
           <WhyUsCard
             title="hours saved"
-            count="843K"
+            count={843}
+            suffix="K"
             description="Our efficiency strategies have saved clients over 800,000 hours collectively."
           />
         </div>

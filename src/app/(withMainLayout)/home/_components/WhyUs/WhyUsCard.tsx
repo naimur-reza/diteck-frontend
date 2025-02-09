@@ -1,13 +1,17 @@
+"use client";
 import React from "react";
+import CountUp from "react-countup";
 
 const WhyUsCard = ({
   title,
   count,
+  suffix,
   description,
   increment,
 }: {
   title: string;
-  count: string;
+  count: number;
+  suffix?: string;
   description: string;
   increment?: string;
 }) => {
@@ -18,8 +22,11 @@ const WhyUsCard = ({
         <h3 className="text-[24px] font-medium">{title}</h3>
       </div>
       <p className="flex mt-[125px] font-medium">
-        <span className="text-[100px]">{count}</span>
-        <span className="text-[80px]">{increment || "+"}</span>
+        <span className="text-[56px] lg:text-[100px]">
+          <CountUp end={Number(count)} />
+          {suffix && suffix}
+        </span>
+        <span className="text-[48px] lg:text-[80px]">{increment || "+"}</span>
       </p>
       <p className="text-[#484848] text-[20px]">{description}</p>
     </div>
