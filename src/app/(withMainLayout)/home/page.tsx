@@ -4,6 +4,7 @@ import WhyUs from "./_components/WhyUs/WhyUs";
 import SelectedWorks from "./_components/SelectedWorks/SelectedWorks";
 import { teamsArray } from "@/constants";
 import { TeamMemberCard } from "@/components/ui";
+import RecentPost from "./_components/RecentPosts/RecentPost";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       </div>
       <WhyUs />
       <SelectedWorks />
+      <RecentPost />
     </div>
   );
 };
