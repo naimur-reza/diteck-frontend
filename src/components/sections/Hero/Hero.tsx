@@ -25,7 +25,6 @@ const Hero = () => {
       </div>
 
       {/* Hero Video */}
-
       <HeroVideo />
     </section>
   );

@@ -23,7 +23,7 @@ const HeaderPost = ({ post }: { post: IPost }) => {
       >
         <div className="absolute z-10 -bottom-4 left-0 bg-[#F2EDF3] flex gap-3 text-xs font-semibold uppercase pr-5 pt-5 pb-3 rounded-tr-[20px]">
           <Link
-            href="#"
+            href="/blog/1"
             className="text-primary hover:text-light transition-colors duration-300"
           >
             {category}
@@ -38,7 +38,7 @@ const HeaderPost = ({ post }: { post: IPost }) => {
         <div className="mt-5">
           <h3>
             <Link
-              href="#"
+              href="/blog/1"
               className="text-[42px] font-medium hover:text-primary transition-colors duration-300 mb-2 block"
             >
               {title}

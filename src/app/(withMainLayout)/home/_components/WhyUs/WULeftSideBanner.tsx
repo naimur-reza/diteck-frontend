@@ -8,9 +8,8 @@ const WULeftSideBanner = () => {
       <Image
         src="https://i.ibb.co.com/W4kWqfN7/download.jpg"
         alt="Background"
-        layout="fill"
-        objectFit="cover"
-        className="rounded-[20px]"
+        fill
+        className="rounded-[20px] object-cover"
       />
 
       {/* Rotating Circular Text with Center Logo */}

@@ -1,4 +1,4 @@
-import React from "react";
+import cn from "classnames";
 
 export const SectionTitle = ({
   title,
@@ -12,26 +12,40 @@ export const SectionTitle = ({
   rightText?: string;
 }) => {
   return (
-    <section
-      className={`flex flex-col md:flex-row gap-y-2 md:justify-between mx-auto md:items-center py-16 ${
-        rightText ? "w-full" : "max-w-6xl"
-      }`}
-    >
-      <button className="border border-[#636EDF4D] min-w-fit lg:min-w-fit rounded-[10px] text-black text-sm px-4 py-1.5  flex items-center gap-2 hover:bg-gray-200 transition">
-        <span className="w-2 h-2 rounded-[1px] bg-[#636EDF] animate-pulse"></span>
-        {buttonText ? buttonText : ""}
-      </button>
-      <div className={rightText ? "ml-28" : ""}>
-        <h2 className="section-title  xl:max-w-3xl">
-          {title ? title : "Your partners for digital success"}
-        </h2>
-        <p className="section-description mt-8 max-w-2xl">{description}</p>
-      </div>
-      {rightText && (
-        <div className="lg:w-[20%] hidden lg:block">
-          <p className="lg:text-right text-center">{rightText}</p>
+    <section className="py-16">
+      <div
+        className={cn(
+          "flex flex-col gap-8 md:grid md:items-center",
+          rightText ? "md:grid-cols-7" : "md:grid-cols-5"
+        )}
+      >
+        <div className="col-span-2">
+          <div className="border border-accent w-fit rounded-[10px] text-accent font-medium text-sm md:text-lg px-4 py-1.5 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-[2px] bg-primary animate-pulse"></span>
+            {buttonText}
+          </div>
         </div>
-      )}
+
+        <div className={rightText ? "col-span-5" : "col-span-3 lg:pr-10"}>
+          {rightText ? (
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+              <h2 className="section-title col-span-3">{title}</h2>
+              <div className="lg:text-right col-span-2">
+                <p className="text-base w-4/5 md:pl-5 md:ml-auto">
+                  {rightText}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-8">
+              <h2 className="section-title">{title}</h2>
+              {description && (
+                <p className="section-description">{description}</p>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
     </section>
   );
 };
