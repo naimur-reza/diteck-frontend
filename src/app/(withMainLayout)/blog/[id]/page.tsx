@@ -17,7 +17,7 @@ const page = () => {
       <div className="pt-40 pb-20">
         {/* Category, Date and Author */}
         <div className="flex justify-center items-center gap-5">
-          <button className="border border-[#636EDF4D] w-fit lg:min-w-fit rounded-[10px] text-black text-[18px] px-4 py-1.5  flex items-center gap-2 hover:bg-gray-200 transition">
+          <button className="border border-[#636EDF4D] w-fit lg:min-w-fit rounded-[10px] text-black text-[14px] md:text-[18px] px-4 py-1.5  flex items-center gap-2 hover:bg-gray-200 transition">
             <span className="w-2 h-2 rounded-[1px] bg-[#636EDF] animate-pulse"></span>
             Company
           </button>
@@ -31,11 +31,11 @@ const page = () => {
         <article>
           {/* Title */}
           <div>
-            <h2 className="text-[80px] font-semibold text-center max-w-[90%] mx-auto">
+            <h2 className="text-[30px] md:text-[52px] lg:text-[80px] font-semibold text-center lg:max-w-[90%] mx-auto mt-5">
               Top Digital Agency Case Studies in Web3 Marketing
             </h2>
           </div>
-          <div className="relative w-full min-h-[600px] rounded-[40px] mt-10">
+          <div className="relative w-full min-h-[300px] lg:min-h-[600px] rounded-[40px] mt-10">
             <Image
               src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/blog_12.jpg"
               fill
@@ -43,7 +43,7 @@ const page = () => {
               className="rounded-[40px] object-cover"
             />
           </div>
-          <div className="mx-[150px] mt-10 text-[20px] text-light">
+          <div className="lg:mx-[150px] mt-10 md:text-[20px] text-light">
             <p>
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -51,12 +51,12 @@ const page = () => {
               dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
               aspernatur aut odit aut fugit, sed quia consequuntur magni
             </p>
-            <blockquote className="flex gap-10 my-10">
+            <blockquote className="flex gap-5 lg:gap-10 my-10">
               <span className="text-primary">
                 <BiSolidQuoteLeft size={72} />
               </span>
               <div className="text-black">
-                <h5 className="text-[32px] font-semibold">
+                <h5 className="text-[24px] md:text-[32px] font-semibold">
                   “African décor reflects harmony with nature which is reflected
                   in its materials.”
                 </h5>
@@ -76,8 +76,8 @@ const page = () => {
               sunt in culpa qui officia.
             </p>
           </div>
-          <div className="flex items-center justify-between gap-10">
-            <div className="relative w-full min-h-[450px] rounded-[40px] mt-10">
+          <div className="grid lg:grid-cols-2 gap-5 lg:gap-10">
+            <div className="relative w-full min-h-[250px] md:min-h-[450px] rounded-[40px] mt-10">
               <Image
                 src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/img_blog1.jpg"
                 fill
@@ -85,7 +85,7 @@ const page = () => {
                 className="rounded-[40px] object-cover"
               />
             </div>
-            <div className="relative w-full min-h-[450px] rounded-[40px] mt-10">
+            <div className="relative w-full min-h-[250px] md:min-h-[450px] rounded-[40px] mt-10">
               <Image
                 src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/img_blog2.jpg"
                 fill
@@ -94,7 +94,7 @@ const page = () => {
               />
             </div>
           </div>
-          <div className="mx-[150px] mt-10 text-[20px] text-light">
+          <div className="lg:mx-[150px] mt-10 md:text-[20px] text-light">
             <p>
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -107,8 +107,8 @@ const page = () => {
         </article>
 
         {/* Tags and social share */}
-        <div className="flex items-center justify-between mt-10 max-w-[90%] mx-[150px]">
-          <div className="flex gap-5 mt-10 items-center">
+        <div className="flex items-center justify-between flex-col md:flex-row mt-10 lg:max-w-[90%] lg:mx-[150px]">
+          <div className="flex gap-5 flex-wrap mt-10 items-center">
             {["Hotel", "Lifestyle", "Luxury", "Resort"].map((tag, idx) => (
               <Link
                 href="#"
@@ -139,7 +139,7 @@ const page = () => {
         </div>
 
         {/* Blog Navigator */}
-        <div className="grid grid-cols-1 md:grid-cols-2 max-w-[90%] mx-[150px] p-10 border-y border-black mt-10">
+        <div className="grid grid-cols-2 lg:max-w-[90%] lg:mx-[150px] px-2 py-5 md:p-10 border-y border-black mt-10 gap-5 md:gap-10">
           <div className="flex items-center gap-5">
             <div className="flex items-end flex-col justify-end  gap-5">
               <span className="text-[12px] text-right font-semibold uppercase text-light flex items-center gap-1">
@@ -156,7 +156,7 @@ const page = () => {
                 </h5>
               </div>
             </div>
-            <div className="relative w-[100px] h-[100px] rounded-[20px] overflow-hidden"></div>
+            {/* <div className="relative w-[100px] h-[100px] rounded-[20px] overflow-hidden"></div> */}
           </div>
           <div className="flex items-center gap-5">
             <div className="flex flex-col  gap-5">
@@ -175,7 +175,7 @@ const page = () => {
                 </h5>
               </div>
             </div>
-            <div className="relative w-[100px] h-[100px] rounded-[20px] overflow-hidden"></div>
+            {/* <div className="relative w-[100px] h-[100px] rounded-[20px] overflow-hidden"></div> */}
           </div>
         </div>
 

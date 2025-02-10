@@ -11,7 +11,7 @@ const comment = {
 
 const CommentBox = () => {
   return (
-    <div className="max-w-[90%] mx-[150px]">
+    <div className="lg:max-w-[90%] lg:mx-[150px]">
       <p className="text-[34px] my-7 font-semibold">3 Comments</p>
       {[1, 2].map((_, idx) => (
         <div key={idx}>

@@ -11,8 +11,8 @@ interface IComment {
 const SingleComment = ({ comment }: { comment: IComment }) => {
   const { name, text, date, userImg } = comment;
   return (
-    <div className="flex gap-4 items-start border-b py-6">
-      <div className="relative w-14 h-14 rounded-full overflow-hidden">
+    <div className="flex gap-4 items-start justify-start border-b py-6">
+      <div className="relative min-w-10 min-h-10 lg:w-14 lg:h-14 rounded-full overflow-hidden">
         <Image src={userImg} fill alt="" />
       </div>
       <div>

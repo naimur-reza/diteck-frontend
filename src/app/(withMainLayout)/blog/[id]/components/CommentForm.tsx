@@ -25,14 +25,14 @@ const CommentForm = () => {
   };
 
   return (
-    <div className="max-w-[90%] mx-[150px]">
+    <div className="lg:max-w-[90%] lg:mx-[150px]">
       <h2 className="text-[42px] my-7 font-medium">Leave A Reply</h2>
       <p>
         Your email address will not be published. Required fields are marked *
       </p>
 
       <form className="my-5" onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-5">
           {/* Name Input */}
           <div>
             <Input
@@ -66,7 +66,7 @@ const CommentForm = () => {
           <Input placeholder="Your Website" {...register("website")} />
 
           {/* Comment Textarea */}
-          <div className="col-span-3">
+          <div className="lg:col-span-3">
             <Textarea
               placeholder="Comment *"
               rows={6}
