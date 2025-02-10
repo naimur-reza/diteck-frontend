@@ -133,6 +133,7 @@ body {
   @apply text-[20px] md:text-[24px] font-semibold;
 }
 
+/* why us start */
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
@@ -145,3 +146,50 @@ body {
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite;
 }
+/* why us end */
+
+.img::before {
+  content: "";
+  z-index: 20;
+  position: absolute;
+  bottom: 64px;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  background: transparent;
+  border-radius: 100%;
+  box-shadow: 10px 10px 0 #f2f1f6;
+}
+.img::after {
+  content: "";
+  z-index: 20;
+  position: absolute;
+  bottom: 0px;
+  right: 64px;
+  width: 22px;
+  height: 22px;
+  background: transparent;
+  border-radius: 100%;
+  box-shadow: 10px 10px 0 #f2f1f6;
+}
+
+/* Recent post starts */
+@keyframes slideOnHover {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-30px);
+    opacity: 1;
+  }
+}
+
+.group:hover .animate-hover {
+  animation: slideOnHover 0.6s ease-in-out;
+}
+
+/* Recent post ends */
