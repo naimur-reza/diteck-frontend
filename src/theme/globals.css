@@ -59,6 +59,10 @@
     @apply mx-auto px-5;
   }
 
+  .rounded-card {
+    @apply rounded-[40px];
+  }
+
   .bg-gradient-primary {
     @apply bg-gradient-to-r from-blue-500 to-purple-500;
   }
@@ -66,9 +70,7 @@
     @apply font-medium text-[40px] leading-[45px] 
            md:text-[52px] md:leading-[60px] 
            lg:text-[70px] lg:leading-[70px] 
-           xl:text-[80px] xl:leading-[80px] 
-          
-           text-black;
+           xl:text-[80px] xl:leading-[80px];
   }
   .section-description {
     @apply font-normal text-[18px] leading-[26px] 
