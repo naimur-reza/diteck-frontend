@@ -57,7 +57,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-[2fr_3fr] lg:grid-cols-2 gap-10 pb-[100px]">
           <div>
             <h6 className="footer-text">Tell us about your project</h6>
-            <h2 className="text-[48px] md:text-[100px] lg:text-[140px] font-semibold md:leading-[130px] font-primary mt-5">
+            <h2 className="text-[65px] md:text-[100px] md:leading-[130px] lg:text-[135px] font-semibold font-primary mt-5">
               Let’s talk
             </h2>
           </div>
@@ -79,7 +79,7 @@ const Footer = () => {
                 </div>
               </div>
             </form>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 pt-[50px] border-t-2 border-t-[#ffffff33]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-[50px] border-t-2 border-t-[#ffffff33]">
               <div className="flex flex-col">
                 {works.map(({ title, link }, idx) => (
                   <Link
@@ -112,12 +112,12 @@ const Footer = () => {
 
               <div>
                 <h3 className="footer-text">Head Office</h3>
-                <address className="text-[16px] font-normal not-italic">
+                <address className="text-[16px] font-normal not-italic flex flex-col gap-2">
                   <span className="block">
                     2972 Westheimer Rd. Santa Ana, Illinois 85486
                   </span>
                   <span className="block">support@example.com</span>
-                  <span className="block footer-text text-primary">
+                  <span className="block footer-text text-primary w-full">
                     + (406) 555-0120
                   </span>
                 </address>
