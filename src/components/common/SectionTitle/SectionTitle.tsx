@@ -26,7 +26,7 @@ export const SectionTitle = ({
           </div>
         </div>
 
-        <div className={rightText ? "col-span-5" : "col-span-3 md:pr-10"}>
+        <div className={rightText ? "col-span-5" : "col-span-3 lg:pr-10"}>
           {rightText ? (
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
               <h2 className="section-title col-span-3">{title}</h2>

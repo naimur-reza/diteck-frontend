@@ -16,7 +16,7 @@ const WhyUsCard = ({
   increment?: string;
 }) => {
   return (
-    <div className="bg-white rounded-[20px] shadow px-[60px] py-[50px]">
+    <div className="bg-white rounded-[20px]  px-[60px] py-[50px]">
       <div className="flex items-center gap-5">
         <span className="bg-primary w-[10px] h-[10px] rounded" />
         <h3 className="text-[24px] font-medium">{title}</h3>
