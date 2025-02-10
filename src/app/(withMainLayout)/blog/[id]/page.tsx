@@ -107,7 +107,7 @@ const page = () => {
         </article>
 
         {/* Tags and social share */}
-        <div className="flex items-center justify-between flex-col md:flex-row mt-10 lg:max-w-[90%] lg:mx-[150px]">
+        <div className="flex items-center justify-between flex-col sm:flex-row mt-10 lg:max-w-[90%] lg:mx-[150px]">
           <div className="flex gap-5 flex-wrap mt-10 items-center">
             {["Hotel", "Lifestyle", "Luxury", "Resort"].map((tag, idx) => (
               <Link
