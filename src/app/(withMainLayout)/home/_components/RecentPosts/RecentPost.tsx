@@ -11,7 +11,7 @@ const RecentPost = () => {
         buttonText="Recent post"
         title="Latest news and industry insights"
       />
-      <div className="grid lg:grid-cols-[400px_1fr]">
+      <div className="grid md:grid-cols-[250px_1fr] lg:grid-cols-[400px_1fr]">
         <div></div>
         <div>
           <HeaderPost post={recentPosts[0]} />
