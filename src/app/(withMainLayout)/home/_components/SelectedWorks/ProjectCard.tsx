@@ -23,7 +23,7 @@ const ProjectCard = ({ project }: { project: IProject }) => {
         />
 
         {/* Full Image Overlay */}
-        <div className="absolute inset-0 bg-black opacity-20 rounded-[20px]"></div>
+        <div className="absolute inset-0 bg-black/5 rounded-[20px]"></div>
 
         {/* Centered Icon */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[200px] h-[80px]">
