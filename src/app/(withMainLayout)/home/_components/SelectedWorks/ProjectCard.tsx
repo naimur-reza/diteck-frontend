@@ -24,6 +24,7 @@ const ProjectCard = ({ project }: { project: IProject }) => {
               title="Website Promo Video"
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
+              loading="lazy"
             ></iframe>
           </div>
         ) : (
