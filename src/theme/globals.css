@@ -192,4 +192,30 @@ body {
   animation: slideOnHover 0.6s ease-in-out;
 }
 
+.post-img::before {
+  content: "";
+  z-index: 20;
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  background: none;
+  border-radius: 100%;
+  box-shadow: -8px 7px #f2f1f6;
+}
+
+.post-img::after {
+  content: "";
+  z-index: 20;
+  position: absolute;
+  bottom: 0;
+  left: 224px;
+  width: 22px;
+  height: 22px;
+  background: none;
+  border-radius: 100%;
+  box-shadow: -8px 7px #f2f1f6;
+}
+
 /* Recent post ends */
