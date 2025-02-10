@@ -1,5 +1,4 @@
 "use client";
-import { LinkButtonWithIcon } from "@/components/common";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -98,7 +97,7 @@ const Header = () => {
           </div>
           {/* Button */}
           <div className="order-3 hidden md:flex">
-            <LinkButtonWithIcon link="/" text="Get in touch" />
+            <button>Get In Touch</button>
           </div>
         </div>
       </header>

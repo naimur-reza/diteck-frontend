@@ -1,10 +1,18 @@
 import assets from "@/assets";
+import { SectionTitle } from "@/components/common";
 import Image from "next/image";
 import { services } from "../_constant/homeData";
 
 const WhoWeAre = () => {
   return (
     <div className="container mx-auto py-12">
+      <SectionTitle
+        buttonText="Who we are"
+        description="We’re a team of expert designers, web developers and marketers who’ve
+          been delivering digital success for more than a decade. We excel at
+          marketing websites, innovative web apps and mobile applications."
+        title="Your partners for digital success"
+      />
       <div className="grid grid-cols-1 md:grid-cols-3  lg:grid-cols-4 gap-8 mt-8">
         {services.map((service) => (
           <div

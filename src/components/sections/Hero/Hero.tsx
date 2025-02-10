@@ -1,7 +1,5 @@
-import { SectionTitle } from "@/components/common";
 import Image from "next/image";
 import React from "react";
-import HeroVideo from "./HeroVideo";
 
 const Hero = () => {
   return (
@@ -27,18 +25,6 @@ const Hero = () => {
 
       {/* Hero Video */}
       {/* <HeroVideo /> */}
-
-      <div>
-        <div className="container mx-auto pb-5">
-          <SectionTitle
-            buttonText="Who you are"
-            description="We’re a team of expert designers, web developers and marketers who’ve
-          been delivering digital success for more than a decade. We excel at
-          marketing websites, innovative web apps and mobile applications."
-            title="Your partners for digital success"
-          />
-        </div>
-      </div>
     </section>
   );
 };
