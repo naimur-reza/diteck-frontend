@@ -49,8 +49,17 @@ const projects = [
 
 const SelectedWorks = () => {
   return (
-    <div className={`container border  p-10`}>
-      <div>
+    <div
+      style={{
+        backgroundImage: `url("https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h1_bg-3.png")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: "rgba(255, 255, 255, 0.9)",
+      }}
+      className={`container  rounded-[40px] relative p-10 `}
+    >
+      <div className="absolute inset-0   w-full bg-gradient-to-b from-white/60 via-transparent to-transparent  rounded-[40px]"></div>
+      <div className="relative z-10">
         <SectionTitle
           buttonText="Selected Works"
           title="Our finished projects"
@@ -58,7 +67,7 @@ const SelectedWorks = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+      <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10 pb-20 relative z-10">
         {projects.map((project, idx) => (
           <ProjectCard project={project} key={idx} />
         ))}
