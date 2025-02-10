@@ -1,8 +1,8 @@
+import { SectionTitle } from "@/components/common";
 import Image from "next/image";
 import React from "react";
 import WhyUsCard from "./WhyUsCard";
 import WULeftSideBanner from "./WULeftSideBanner";
-import { SectionTitle } from "@/components/common";
 
 const WhyUs = () => {
   return (
@@ -11,7 +11,7 @@ const WhyUs = () => {
         buttonText="Why choose us"
         title="Results that we successfully deliver"
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5  items-start">
         <div className="flex flex-col gap-5">
           <div className="relative w-full h-[350px] sm:h-[500px] rounded-[20px]">
             <Image
