@@ -7,7 +7,7 @@ const WhoWeAre = () => {
   return (
     <div className="container mx-auto py-12">
       <SectionTitle
-        buttonText="Who you are"
+        buttonText="Who we are"
         description="We’re a team of expert designers, web developers and marketers who’ve
           been delivering digital success for more than a decade. We excel at
           marketing websites, innovative web apps and mobile applications."
