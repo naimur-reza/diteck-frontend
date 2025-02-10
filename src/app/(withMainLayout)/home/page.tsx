@@ -1,14 +1,18 @@
 import Hero from "@/components/sections/Hero/Hero";
-import RecentPost from "./_components/RecentPosts/RecentPost";
-import SelectedWorks from "./_components/SelectedWorks/SelectedWorks";
-import WhoWeAre from "./_components/WhoWeAre";
-import WhyUs from "./_components/WhyUs/WhyUs";
+import {
+  OurServices,
+  RecentPost,
+  SelectedWorks,
+  WhoWeAre,
+  WhyUs,
+} from "./_components";
 
 const Home = () => {
   return (
     <div>
       <Hero />
       <WhoWeAre />
+      <OurServices />
       <WhyUs />
       <SelectedWorks />
       <RecentPost />

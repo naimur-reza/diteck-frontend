@@ -49,7 +49,7 @@ const projects = [
 
 const SelectedWorks = () => {
   return (
-    <div className="container mx-auto bg-gradient-to-b from-purple-100 via-green-50 to-white rounded-[40px] p-10">
+    <div className={`container border  p-10`}>
       <div>
         <SectionTitle
           buttonText="Selected Works"

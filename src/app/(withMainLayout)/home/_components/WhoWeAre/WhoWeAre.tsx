@@ -1,7 +1,7 @@
 import assets from "@/assets";
 import { SectionTitle } from "@/components/common";
 import Image from "next/image";
-import { services } from "../_constant/homeData";
+import { services } from "../../_constant/homeData";
 
 const WhoWeAre = () => {
   return (
