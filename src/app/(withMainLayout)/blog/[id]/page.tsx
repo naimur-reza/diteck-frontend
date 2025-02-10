@@ -182,7 +182,8 @@ const page = () => {
         {/* Comments box */}
         <CommentBox />
 
-        
+        {/* Comments form */}
+        <CommentForm />
       </div>
     </div>
   );
