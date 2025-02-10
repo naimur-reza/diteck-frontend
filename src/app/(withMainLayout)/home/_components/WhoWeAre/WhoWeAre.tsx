@@ -5,7 +5,7 @@ import { services } from "../../_constant/homeData";
 
 const WhoWeAre = () => {
   return (
-    <div className="container mx-auto py-12">
+    <div className="container mx-auto">
       <SectionTitle
         buttonText="Who we are"
         description="We’re a team of expert designers, web developers and marketers who’ve

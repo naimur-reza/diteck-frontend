@@ -59,7 +59,7 @@ const SelectedWorks = () => {
         backgroundPosition: "center",
         backgroundColor: "rgba(255, 255, 255, 0.9)",
       }}
-      className={`container  rounded-[40px] relative  `}
+      className={`container  rounded-[40px] relative pt-5 md:pt-10  lg:pt-14`}
     >
       <div className="absolute inset-0   w-full bg-gradient-to-b from-white/60 via-transparent to-transparent  rounded-[40px]"></div>
       <div className="relative z-10">

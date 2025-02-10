@@ -15,7 +15,7 @@ export const SectionTitle = ({
     <section className="py-16">
       <div
         className={cn(
-          "flex flex-col gap-8 md:grid md:items-center",
+          "flex flex-col gap-4 md:grid md:items-center",
           rightText ? "md:grid-cols-7" : "md:grid-cols-5"
         )}
       >
@@ -28,7 +28,7 @@ export const SectionTitle = ({
 
         <div className={rightText ? "col-span-5" : "col-span-3 lg:pr-10"}>
           {rightText ? (
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 items-center">
               <h2 className="section-title col-span-3">{title}</h2>
               <div className="lg:text-right col-span-2">
                 <p className="text-base w-4/5 md:pl-5 md:ml-auto">
