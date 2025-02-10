@@ -1,12 +1,12 @@
 import { SectionTitle } from "@/components/common";
 import React from "react";
 import { recentPosts } from "../../_constant/recentPost";
-import SinglePost from "./SinglePost";
 import HeaderPost from "./HeaderPost";
+import SinglePost from "./SinglePost";
 
 const RecentPost = () => {
   return (
-    <div className="container mx-auto p-5 mt-10 mb-20">
+    <div className="container mx-auto p-5">
       <SectionTitle
         buttonText="Recent post"
         title="Latest news and industry insights"

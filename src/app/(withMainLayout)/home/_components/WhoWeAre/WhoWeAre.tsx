@@ -5,7 +5,7 @@ import { services } from "../../_constant/homeData";
 
 const WhoWeAre = () => {
   return (
-    <div className="container mx-auto py-12">
+    <div className="container mx-auto">
       <div>
         <div className="container mx-auto pb-5">
           <SectionTitle

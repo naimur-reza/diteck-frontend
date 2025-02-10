@@ -9,7 +9,8 @@ import {
 
 const Home = () => {
   return (
-    <div>
+    // Used space for global styling
+    <div className="space-y-8 md:space-y-14 lg:space-y-20">
       <Hero />
       <WhoWeAre />
       <OurServices />
