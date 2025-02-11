@@ -7,3 +7,4 @@ export { default as SelectedWorks } from "./SelectedWorks/SelectedWorks";
 export { default as WhoWeAre } from "./WhoWeAre/WhoWeAre";
 export { default as WhyUs } from "./WhyUs/WhyUs";
 export * from "./TeamMembers/TeamMember";
+export * from "./Testimonial/Testimonial";

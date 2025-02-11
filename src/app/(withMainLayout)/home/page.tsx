@@ -4,6 +4,7 @@ import {
   RecentPost,
   SelectedWorks,
   TeamMember,
+  Testimonial,
   WhoWeAre,
   WhyUs,
 } from "./_components";
@@ -17,6 +18,7 @@ const Home = () => {
       <WhyUs />
       <SelectedWorks />
       <TeamMember />
+      <Testimonial />
       <RecentPost />
     </div>
   );
