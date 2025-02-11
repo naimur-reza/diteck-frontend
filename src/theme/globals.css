@@ -220,3 +220,20 @@ body {
 }
 
 /* Recent post ends */
+
+.hero-video-left {
+  background-color: var(--color-background);
+  width: 40px;
+  height: 40px;
+  margin-bottom: 20px;
+  clip-path: path("M0 0 Q0,40 40,40 L 0 40 Z");
+}
+
+.hero-video-right {
+  background-color: var(--color-background);
+  width: 40px;
+  height: 40px;
+  margin-left: 399px;
+  margin-bottom: -60px;
+  clip-path: path("M0 0 Q0,40 40,40 L 0 40 Z");
+}
