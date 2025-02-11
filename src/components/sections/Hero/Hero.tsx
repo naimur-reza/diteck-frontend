@@ -5,7 +5,16 @@ import HeroVideo from "./HeroVideo";
 const Hero = () => {
   return (
     // <div className="min-h-[130vh] bg-[linear-gradient(140deg,_#BEDBEA,_#EFC7C2,_#F1ECF1)]">
-    <section className="bg-[linear-gradient(140deg,_#BEDBEA,_#EFC7C2,_#F1ECF1)] pb-10">
+    <section
+      style={{
+        backgroundImage:
+          "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h1_bg-1.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundColor: "rgba(255, 255, 255  , 0.9)",
+      }}
+      className="pb-10"
+    >
       <div className="container mx-auto px-5">
         <div className="pt-[200px] pb-[100px]">
           <h1 className="flex items-center flex-wrap text-5xl md:text-7xl lg:text-[110px] font-bold">

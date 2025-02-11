@@ -106,9 +106,7 @@
   .text-accent {
     color: var(--color-accent);
   }
-  .border {
-    border-color: var(--color-border);
-  }
+
   .bg-background {
     background-color: var(--color-background);
   }
