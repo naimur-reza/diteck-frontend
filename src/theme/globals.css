@@ -149,7 +149,7 @@ body {
 }
 /* why us end */
 
-.img::before {
+.teamMember::before {
   content: "";
   z-index: 20;
   position: absolute;
@@ -161,7 +161,7 @@ body {
   border-radius: 100%;
   box-shadow: 10px 10px 0 #f2f1f6;
 }
-.img::after {
+.teamMember::after {
   content: "";
   z-index: 20;
   position: absolute;
@@ -172,6 +172,31 @@ body {
   background: transparent;
   border-radius: 100%;
   box-shadow: 10px 10px 0 #f2f1f6;
+}
+
+.linkButtonWithIcon::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  z-index: 20;
+  background: transparent;
+  border-bottom-right-radius: 20px;
+  box-shadow: 5px 5px 0 5px #f2f1f6;
+}
+.linkButtonWithIcon::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  z-index: 20;
+  background: transparent;
+  border-bottom-left-radius: 20px;
+  box-shadow: -5px 5px 0 5px #f2f1f6;
 }
 
 /* Recent post starts */

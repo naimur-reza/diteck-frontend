@@ -98,7 +98,11 @@ const Header = () => {
           </div>
           {/* Button */}
           <div className="order-3 hidden md:flex">
-            <LinkButtonWithIcon link="/" text="Get In Touch" />
+            <LinkButtonWithIcon
+              invertedBorder={false}
+              link="/"
+              text="Get In Touch"
+            />
           </div>
         </div>
       </header>
