@@ -1,4 +1,4 @@
-import { SectionTitle } from "@/components/common";
+import { LinkButtonWithIcon, SectionTitle } from "@/components/common";
 import React from "react";
 import ProjectCard from "./ProjectCard";
 
@@ -75,6 +75,7 @@ const SelectedWorks = () => {
           <ProjectCard project={project} key={idx} />
         ))}
       </div>
+      <LinkButtonWithIcon link="/" text="view all works" />
     </div>
   );
 };
