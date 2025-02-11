@@ -20,3 +20,38 @@ export const services = [
     icon: TrendingUp,
   },
 ];
+
+export const ourDigitalServices = [
+  {
+    title: "Advanced Analytics",
+    description:
+      "We provide advanced analytics to help you understand your customers better.",
+    services: ["Banner Design", "Graphic Design", "Logo Design"],
+    image:
+      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/service_7-1024x576.jpg",
+  },
+  {
+    title: "SEO Optimization",
+    description:
+      "We provide advanced analytics to help you understand your customers better.",
+    services: ["Banner Design", "Graphic Design", "Logo Design"],
+    image:
+      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/service_6-1024x683.jpg",
+  },
+  {
+    title: "Social Media Marketing",
+    description:
+      "We provide advanced analytics to help you understand your customers better.",
+    services: ["Banner Design", "Graphic Design", "Logo Design"],
+    image:
+      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/service_4-1024x683.jpg",
+  },
+  {
+    title: "Web Development",
+    description:
+      "We provide advanced analytics to help you understand your customers better.",
+    services: ["Banner Design", "Graphic Design", "Logo Design"],
+    image:
+      "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/service_3-1024x683.jpg",
+  },
+];
