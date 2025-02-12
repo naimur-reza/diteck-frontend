@@ -7,30 +7,37 @@ export const LinkButtonWithIcon = ({
   invertedBorder = true,
   position = "center",
   textColor = "text-black",
+  bgColor = "bg-white",
+  isBorder = true,
 }: {
   text: string;
   link: string;
   invertedBorder?: boolean;
   position?: "start" | "center" | "end";
   textColor?: string;
+  bgColor?: string;
+  isBorder?: boolean;
 }) => {
   const positioning = {
     start: "justify-start",
     center: "justify-center",
     end: "justify-end",
   };
+
   return (
     <div className={`flex relative ${positioning[position]} w-full mx-auto`}>
       <Link className="" href={link ? link : "/"}>
         <div
-          className={`relative  flex items-center min-w-[180px] w-fit   h-12       ${
+          className={`relative flex items-center min-w-[180px] w-fit h-12 cursor-pointer group ${bgColor} ${
             invertedBorder
               ? "bg-[#F2F1F6] px-3 pt-5 rounded-t-[20px] linkButtonWithIcon"
-              : "border border-gray-200  bg-white rounded-[10px] px-1 py-1"
-          }     cursor-pointer group`}
+              : isBorder
+              ? "border border-gray-200 rounded-[20px] px-1 py-1"
+              : "rounded-[20px] px-1 py-1"
+          }`}
         >
           <div className="relative  flex items-center min-w-[180px] w-fit   h-12 overflow-hidden">
-            <span className="flex items-center w-10 h-10 rounded-[10px] bg-[#5865F2]  transition-all duration-500 ease-in-out group-hover:w-full group-hover:justify-between px-3">
+            <span className="flex items-center w-10 h-10 rounded-[15px] bg-[#5865F2]  transition-all duration-500 ease-in-out group-hover:w-full group-hover:justify-between px-3">
               <MoveRight className="text-white transition-transform duration-500 group-hover:translate-x-0" />
               <span
                 className={`absolute right-5 opacity-0 translate-y-8 transition-all duration-400 ease-out group-hover:opacity-100 group-hover:translate-y-0 text-white`}

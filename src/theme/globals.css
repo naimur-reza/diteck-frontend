@@ -244,6 +244,7 @@ body {
 
 /* Recent post ends */
 
+/* Hero video starts */
 .hero-video-left {
   background-color: var(--color-background);
   width: 40px;
@@ -259,4 +260,14 @@ body {
   margin-left: 399px;
   margin-bottom: -70px;
   clip-path: path("M0 0 Q0,40 40,40 L 0 40 Z");
+}
+/* Hero video ends */
+
+.cyber-icon {
+  fill: gray; /* Default color */
+  transition: fill 0.3s ease-in-out;
+}
+
+.cyber-icon:hover {
+  fill: var(--color-primary); /* Blue on hover */
 }
