@@ -1,3 +1,4 @@
+"use client";
 import { achievements } from "@/app/(withMainLayout)/home/_constant/achievements";
 import { SectionTitle } from "@/components/common";
 import React from "react";
@@ -10,7 +11,7 @@ const OurAchievements = () => {
         buttonText="Our Achievements"
         title={`Awards & recognition`}
       />
-      <div className="w-[calc(100%-400px)] ml-auto">
+      <div className="w-full md:w-[calc(100%-200px)] lg:w-[calc(100%-400px)] ml-auto">
         {achievements?.map((achievement, idx) => (
           <AchievementCard key={idx} achievement={achievement} />
         ))}
