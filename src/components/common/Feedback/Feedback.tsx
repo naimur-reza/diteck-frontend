@@ -39,7 +39,7 @@ export const Feedback = ({
           loop={true}
           className="pb-96  flex flex-col items-center justify-center  max-w-6xl w-full mx-auto md:h-[350px] lg:h-[400px] mt-[40px]"
         >
-          {feedbackData.map((feedback, index) => (
+          {feedbackData?.map((feedback, index) => (
             <SwiperSlide key={index}>
               <blockquote className="text-[28px] leading-[38px] md:text-[34px] md:leading-[45px] lg:text-[48px] lg:leading-[64px] xl:text-[60px] xl:leading-[80px] text-black font-medium">
                 {feedback.quote}
