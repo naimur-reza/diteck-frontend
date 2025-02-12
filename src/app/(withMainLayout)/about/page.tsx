@@ -1,9 +1,10 @@
-import { ParallaxBanner } from "@/components/common";
+import { Feedback, ParallaxBanner } from "@/components/common";
 import ExploreCompany from "./components/ExploreCompany/ExploreCompany";
 import HighlightFeatures from "./components/HighlightFeatures/HighlightFeatures";
 import CompanyOverView from "./components/CompanyOverview/CompanyOverview";
 import OurAchievements from "./components/OurAchievements/OurAchievements";
 import ConnectWithUs from "./components/ConnectWithUs/ConnectWithUs";
+import { feedbacks } from "../home/_constant/feedback";
 
 const page = () => {
   return (
@@ -17,6 +18,7 @@ const page = () => {
       <CompanyOverView />
       <ExploreCompany />
       <HighlightFeatures />
+      <Feedback feedbackData={feedbacks} buttonText="Hear from customer" />
       <OurAchievements />
       <ConnectWithUs />
     </div>
