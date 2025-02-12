@@ -1,7 +1,9 @@
 "use client";
 import { LinkButtonWithIcon } from "@/components/common";
+import cn from "classnames";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
@@ -17,8 +19,14 @@ const navMenu = [
 const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
+  const pathName = usePathname();
+
   return (
-    <div className="absolute min-w-full">
+    <div
+      className={cn({
+        "absolute min-w-full": pathName === "/",
+      })}
+    >
       <header className="container mx-auto px-5">
         <div className="flex justify-between items-center">
           {/* Logo */}
