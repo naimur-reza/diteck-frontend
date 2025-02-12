@@ -48,7 +48,7 @@
   --color-background-light: #f2f1f6;
 
   /* container width */
-  --container-width: 1245px;
+  --container-width: 1440px;
 }
 
 /* global utilities */
@@ -147,7 +147,7 @@ body {
 }
 /* why us end */
 
-.img::before {
+.teamMember::before {
   content: "";
   z-index: 20;
   position: absolute;
@@ -159,7 +159,7 @@ body {
   border-radius: 100%;
   box-shadow: 10px 10px 0 #f2f1f6;
 }
-.img::after {
+.teamMember::after {
   content: "";
   z-index: 20;
   position: absolute;
@@ -170,6 +170,31 @@ body {
   background: transparent;
   border-radius: 100%;
   box-shadow: 10px 10px 0 #f2f1f6;
+}
+
+.linkButtonWithIcon::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  z-index: 20;
+  background: transparent;
+  border-bottom-right-radius: 20px;
+  box-shadow: 5px 5px 0 5px #f2f1f6;
+}
+.linkButtonWithIcon::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  z-index: 20;
+  background: transparent;
+  border-bottom-left-radius: 20px;
+  box-shadow: -5px 5px 0 5px #f2f1f6;
 }
 
 /* Recent post starts */
@@ -223,7 +248,7 @@ body {
   background-color: var(--color-background);
   width: 40px;
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   clip-path: path("M0 0 Q0,40 40,40 L 0 40 Z");
 }
 
@@ -232,6 +257,6 @@ body {
   width: 40px;
   height: 40px;
   margin-left: 399px;
-  margin-bottom: -60px;
+  margin-bottom: -70px;
   clip-path: path("M0 0 Q0,40 40,40 L 0 40 Z");
 }

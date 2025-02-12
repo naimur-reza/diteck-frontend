@@ -4,3 +4,4 @@ export * from "./LinkButtonWithIcon/LinkButtonWithIcon";
 export * from "./ButtonWithIcon/ButtonWithIcon";
 export * from "./Input/Input";
 export * from "./TextArea/TextArea";
+export * from "./Feedback/Feedback";

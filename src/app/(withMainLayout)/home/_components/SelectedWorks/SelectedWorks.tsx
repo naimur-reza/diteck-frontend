@@ -1,4 +1,4 @@
-import { SectionTitle } from "@/components/common";
+import { LinkButtonWithIcon, SectionTitle } from "@/components/common";
 import React from "react";
 import ProjectCard from "./ProjectCard";
 
@@ -56,7 +56,7 @@ const SelectedWorks = () => {
       style={{
         backgroundImage: `url("https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h1_bg-3.png")`,
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "",
         backgroundColor: "rgba(255, 255, 255, 0.9)",
       }}
       className={`container  rounded-card relative pt-5 md:pt-10  lg:pt-14`}
@@ -75,6 +75,7 @@ const SelectedWorks = () => {
           <ProjectCard project={project} key={idx} />
         ))}
       </div>
+      <LinkButtonWithIcon link="/" text="view all works" />
     </div>
   );
 };
