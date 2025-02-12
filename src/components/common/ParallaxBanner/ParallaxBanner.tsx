@@ -14,7 +14,7 @@ export const ParallaxBanner = ({
 }) => {
   return (
     <div
-      className="relative bg-fixed h-[550px] bg-center bg-no-repeat bg-cover rounded-4xl w-full py-6 m-2"
+      className="relative bg-fixed h-[550px] bg-center bg-no-repeat bg-cover rounded-4xl w-full py-6 mx-2"
       style={{ backgroundImage: `url(${img})` }}
     >
       <div className="absolute inset-0 bg-black/50 rounded-4xl "></div>
