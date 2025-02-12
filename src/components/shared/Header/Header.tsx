@@ -7,11 +7,11 @@ import { FaBars } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 
 const navMenu = [
-  { title: "Home", path: "#" },
-  { title: "About", path: "#" },
-  { title: "Services", path: "#" },
-  { title: "Career", path: "#" },
-  { title: "Contact", path: "#" },
+  { title: "Home", path: "/" },
+  { title: "About", path: "about" },
+  { title: "Services", path: "service" },
+  { title: "Career", path: "career" },
+  { title: "Contact", path: "contact" },
 ];
 
 const Header = () => {
