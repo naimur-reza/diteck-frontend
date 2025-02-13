@@ -10,6 +10,9 @@
   ::file-selector-button {
     border-color: var(--color-border, currentColor);
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @theme {

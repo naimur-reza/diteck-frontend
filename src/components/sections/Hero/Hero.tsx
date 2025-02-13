@@ -11,9 +11,8 @@ const Hero = () => {
           "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h1_bg-1.png)",
         backgroundSize: "cover",
         backgroundPosition: "center center",
-        backgroundColor: "rgba(255, 255, 255  , 0.9)",
       }}
-      className="pb-10"
+      className="pb-10 "
     >
       <div className="container mx-auto px-5">
         <div className="pt-[200px] pb-[100px]">

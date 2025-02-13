@@ -22,7 +22,7 @@ const HeroVideo = () => {
       <div className="absolute bottom-[6px] z-10 max-w-[400px]">
         <div className="hero-video-left"></div>
         <div className="hero-video-right"></div>
-        <div className="bg-white pb-5 pl-8 pt-[50px] rounded-tr-4xl rounded-bl-[25px] h-15 flex items-center gap-4 w-full">
+        <div className="bg-[#F2F1F6] pb-5 pl-8 pt-[50px] rounded-tr-4xl rounded-bl-[25px] h-15 flex items-center gap-4 w-full">
           <div className="flex items-center">
             {userImg.map((img, idx) => (
               <Image
