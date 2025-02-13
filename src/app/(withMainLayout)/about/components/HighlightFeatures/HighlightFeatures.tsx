@@ -11,12 +11,12 @@ const HighlightFeatures = () => {
         buttonText="Highlight features"
         title="We are leader in digital solutions"
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-x-20">
         {/* first col */}
         <div className="flex flex-col gap-5">
           <div className="hidden md:block max-w-full rounded-[20px] overflow-hidden">
             <iframe
-              className="max-w-full rounded-[20px] transform scale-[1.7]"
+              className="max-w-full rounded-[20px] w-full h-[400px] lg:h-[600px] transform scale-[1.7]"
               allowFullScreen
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -25,7 +25,6 @@ const HighlightFeatures = () => {
               height="360"
               src="https://www.youtube.com/embed/1aX-7dDGAYQ?controls=0&rel=0&playsinline=1&enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=1aX-7dDGAYQ"
               id="widget2"
-              style={{ width: "100%", height: "600px" }}
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -36,8 +35,8 @@ const HighlightFeatures = () => {
                   "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h3_img-1.jpg)",
               }}
             />
-            <div className="bg-primary rounded-[20px] w-full p-14 flex flex-col justify-between">
-              <p className="text-[32px] font-medium text-white leading-8">
+            <div className="bg-primary rounded-[20px] w-full p-5 lg:p-14 flex flex-col justify-between">
+              <p className="text-[24px] lg:text-[32px] font-medium text-white leading-8">
                 “We are committed to providing supportive and positive work”
               </p>
               <div className="relative mt-10 pb-5">
@@ -58,7 +57,7 @@ const HighlightFeatures = () => {
 
         {/* second col */}
         <div>
-          <div>
+          <div className="my-5 md:my-0">
             <p className="text-[20px] text-[#484848]">
               We’re a team of expert designers, web developers and marketers
               who’ve been delivering digital success for more than a decade. We
@@ -66,7 +65,7 @@ const HighlightFeatures = () => {
               applications.
             </p>
           </div>
-          <div className="mt-[500px]">
+          <div className="lg:mt-[500px]">
             {highlightFeatures.map((feature, idx) => (
               <SingleFeature key={idx} feature={feature} />
             ))}
