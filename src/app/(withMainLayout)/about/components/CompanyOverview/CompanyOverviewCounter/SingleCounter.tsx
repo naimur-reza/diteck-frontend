@@ -10,19 +10,19 @@ type TCompany = {
 
 const SingleCounter = ({ company }: { company: TCompany }) => {
   return (
-    <div className="border-r p-5 flex flex-col justify-between">
+    <div className="border-l p-5 flex flex-col justify-between last:border-r">
       <div
-        className={`min-w-fit rounded-[10px]  font-medium text-sm md:text-lg px-4 py-1.5 flex items-baseline justify-center gap-4 mb-28`}
+        className={`min-w-fit rounded-[10px]  font-medium text-base md:text-lg px-4 py-1.5 flex items-baseline justify-center gap-4 lg:mb-28`}
       >
         <span className="min-w-2 h-2 rounded-[2px]  bg-primary"></span>
         {company.title}
       </div>
 
-      <p className="flex items-start">
-        <span className="text-[100px] font-medium">
+      <p>
+        <span className="text-[64px] lg:text-[100px] font-medium">
           <CountUp end={company.count} />
         </span>
-        <span className="text-[60px]">+</span>
+        <sup className="text-[48px] lg:text-[75px]">+</sup>
       </p>
     </div>
   );

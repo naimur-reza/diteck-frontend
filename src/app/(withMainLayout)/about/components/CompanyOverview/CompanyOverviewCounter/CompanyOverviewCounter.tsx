@@ -4,7 +4,7 @@ import SingleCounter from "./SingleCounter";
 
 const CompanyOverviewCounter = () => {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 py-10">
+    <div className="grid grid-cols-2 lg:grid-cols-4">
       {companyOverview.map((company, idx) => (
         <SingleCounter key={idx} company={company} />
       ))}

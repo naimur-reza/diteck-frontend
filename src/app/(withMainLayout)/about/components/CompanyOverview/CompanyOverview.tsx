@@ -1,29 +1,23 @@
 import { PulseButton } from "@/components/ui";
 import Image from "next/image";
 import React from "react";
-import DownloadBrochure from "./DownloadBrochure/DownloadBrochure";
+import DownloadBrochure from "../../../../../components/common/DownloadBrochure/DownloadBrochure";
 import CompanyOverviewCounter from "./CompanyOverviewCounter/CompanyOverviewCounter";
 
 const CompanyOverView = () => {
   return (
-    <section
-      style={{
-        backgroundImage:
-          "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/12/404-bg.png)",
-      }}
-      className="bg-cover bg-no-repeat bg-left-top pb-0"
-    >
-      <div className="container mx-auto pt-16">
-        <div className="flex items-center gap-8 py-5">
+    <section>
+      <div className="container mx-auto py-16">
+        <div className="flex flex-col md:flex-row items-center lg:gap-8 py-5">
           <PulseButton buttonText="Company overview" />
-          <p className="section-title ml-[190px]">
+          <p className="section-title md:ml-[80px] lg:ml-[190px]">
             Bring new digital <br /> ideas to life
           </p>
         </div>
-        <div>
-          <div className="grid grid-cols-[400px_1fr] gap-10 items-start">
-            <div>
-              <div className="relative min-w-full h-[600px] rounded-[20px] mr-[50px]">
+        <div className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] lg:grid-cols-[400px_1fr] gap-10 items-start">
+            <div className="hidden md:block">
+              <div className="relative min-w-full h-[300px] lg:h-[600px] rounded-[20px] mr-[50px]">
                 <Image
                   src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/about-img1.jpg"
                   alt=""
@@ -34,7 +28,7 @@ const CompanyOverView = () => {
             </div>
             <div>
               <div className="flex items-start gap-x-5">
-                <div className="max-w-[calc(100%-300px)]">
+                <div className="w-full lg:max-w-[calc(100%-350px)]">
                   <p className="text-lg text-black mb-5">
                     We are a global technology provider who assists businesses
                     to accelerate their digital transformation journey while
@@ -50,14 +44,21 @@ const CompanyOverView = () => {
                     to stay ahead of the curve.
                   </p>
                 </div>
-                <div className="relative -top-[200px] min-w-[320px]">
-                  <DownloadBrochure />
-                </div>
               </div>
-              <div className="relative -top-[100px]">
+
+              <div className="mt-5 md:block lg:hidden">
+                <DownloadBrochure />
+              </div>
+
+              <div className="mt-18">
                 <CompanyOverviewCounter />
               </div>
             </div>
+          </div>
+
+          {/* position brochure */}
+          <div className="absolute top-[-170px] right-0 max-w-[320px] hidden lg:block">
+            <DownloadBrochure />
           </div>
         </div>
       </div>
