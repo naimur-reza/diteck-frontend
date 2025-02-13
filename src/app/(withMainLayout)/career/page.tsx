@@ -1,8 +1,8 @@
 import { ParallaxBanner, SectionTitle } from "@/components/common";
 
-const page = () => {
+const Career = () => {
   return (
-    <div className="container">
+    <div className="container bg-gradient-to-t from-transparent via-rose-100 to-transparent">
       <ParallaxBanner
         img="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/career_bc.jpg"
         pageTitle="Career"
@@ -14,4 +14,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Career;
