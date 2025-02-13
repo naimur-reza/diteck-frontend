@@ -9,6 +9,7 @@ export const LinkButtonWithIcon = ({
   textColor = "text-black",
   bgColor = "bg-transparent",
   isBorder = true,
+  invertedBgColor = "bg-[#F2F1F6]",
 }: {
   text: string;
   link: string;
@@ -17,6 +18,7 @@ export const LinkButtonWithIcon = ({
   textColor?: string;
   bgColor?: string;
   isBorder?: boolean;
+  invertedBgColor?: string;
 }) => {
   const positioning = {
     start: "justify-start",
@@ -28,12 +30,12 @@ export const LinkButtonWithIcon = ({
     <div className={`flex relative ${positioning[position]} w-full mx-auto`}>
       <Link className="" href={link ? link : "/"}>
         <div
-          className={`relative flex items-center min-w-[180px] w-fit  cursor-pointer group ${bgColor} ${
+          className={`relative flex items-center min-w-[180px] w-fit  cursor-pointer group  ${
             invertedBorder
-              ? " px-3 pt-5 rounded-t-[20px] linkButtonWithIcon"
+              ? `px-3 pt-2 rounded-t-[20px] linkButtonWithIcon ${invertedBgColor}`
               : isBorder
-              ? "border border-gray-300 rounded-[20px] px-1.5 py-0.5"
-              : "rounded-[20px] px-1.5 py-0.5"
+              ? `border border-gray-300 rounded-[20px] px-1.5 py-0.5 ${bgColor}`
+              : `rounded-[20px] px-1.5 py-0.5 ${bgColor}`
           }`}
         >
           <div className="relative flex items-center min-w-[180px] w-fit h-12 overflow-hidden">
@@ -47,7 +49,7 @@ export const LinkButtonWithIcon = ({
             </span>
 
             <p
-              className={`absolute right-3 font-semibold transition-all  ease-[0.4s]  group-hover:-translate-y-8 group-hover:opacity-0 ${textColor}`}
+              className={`absolute right-3 font-semibold transition-all  ease-[0.4s]   group-hover:opacity-0 group-hover:-translate-y-8 opacity-100 ${textColor}`}
             >
               {text ? text : "Get in touch"}
             </p>
