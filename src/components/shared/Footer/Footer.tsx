@@ -52,7 +52,7 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <div className="bg-gradient-to-br from-[#0A0F42] to-[#1B3A61] text-white px-[20px] md:px-[30px] pb-[50px] pt-[50px] md:pt-[150px] rounded-[40px] m-2">
+    <div className="bg-gradient-to-br  from-[#0A0F42] to-[#1B3A61] text-white px-[20px] md:px-[30px] pb-[50px] pt-[50px] md:pt-[150px] rounded-[40px] m-2">
       <div className="container mx-auto">
         <div className="grid md:grid-cols-[2fr_3fr] lg:grid-cols-2 gap-10 pb-[100px]">
           <div>
