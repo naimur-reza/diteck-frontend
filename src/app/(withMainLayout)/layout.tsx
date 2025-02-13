@@ -6,7 +6,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Header />
-      {children}
+      <div>{children}</div>
       <Footer />
     </>
   );
