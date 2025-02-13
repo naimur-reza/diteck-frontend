@@ -21,7 +21,7 @@ const OurServices = () => {
           title="Digital services to grow your business"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-5 lg:mt-10 pb-10">
           {/* Left: Image Section */}
           <div className="relative h-[400px] lg:h-[600px] rounded-xl overflow-hidden">
             <AnimatePresence mode="wait">
@@ -47,7 +47,7 @@ const OurServices = () => {
               >
                 <button
                   onClick={() => setActiveIndex(index)}
-                  className="w-full flex items-center justify-between p-4 text-left text-white hover:bg-white/5 transition-colors"
+                  className="w-full hover:cursor-pointer flex items-center justify-between p-4 text-left text-white hover:bg-white/5 transition-colors"
                 >
                   <h3 className="text-xl md:text-2xl font-semibold">
                     {service.title}
@@ -66,9 +66,9 @@ const OurServices = () => {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
+                      className="overflow-hidden "
                     >
-                      <div className="p-4 pt-0 text-white/70">
+                      <div className="p-4 pt-0 text-white/70 ">
                         <p className="mb-4">{service.description}</p>
                         <div className="flex flex-wrap gap-2">
                           {service.services.map((item) => (

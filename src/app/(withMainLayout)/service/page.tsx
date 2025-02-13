@@ -5,7 +5,7 @@ import { ServiceCard, WhyChooseUs } from "./_components";
 
 const Service = () => {
   return (
-    <div className="  pt-[80px]">
+    <div className="  ">
       <ParallaxBanner
         img={assets.banner.serviceBanner.src}
         title="Our Services"
