@@ -33,7 +33,7 @@ export const LinkButtonWithIcon = ({
               ? "bg-[#F2F1F6] px-3 pt-5 rounded-t-[20px] linkButtonWithIcon"
               : isBorder
               ? "border border-gray-200 rounded-[20px] px-1 py-1"
-              : "rounded-[20px] px-1 py-1"
+              : "rounded-[20px]"
           }`}
         >
           <div className="relative  flex items-center min-w-[180px] w-fit   h-12 overflow-hidden">
@@ -47,7 +47,7 @@ export const LinkButtonWithIcon = ({
             </span>
 
             <p
-              className={`absolute right-5  duration-400 opacity-100 transition-opacity  group-hover:opacity-0 ${textColor}`}
+              className={`absolute right-5    duration-400 opacity-100 transition-opacity  group-hover:opacity-0 ${textColor}`}
             >
               {text ? text : "Get in touch"}
             </p>
