@@ -7,27 +7,34 @@ export const LinkButtonWithIcon = ({
   invertedBorder = true,
   position = "center",
   textColor = "text-black",
+  bgColor = "bg-white",
+  isBorder = true,
 }: {
   text: string;
   link: string;
   invertedBorder?: boolean;
   position?: "start" | "center" | "end";
   textColor?: string;
+  bgColor?: string;
+  isBorder?: boolean;
 }) => {
   const positioning = {
     start: "justify-start",
     center: "justify-center",
     end: "justify-end",
   };
+
   return (
     <div className={`flex relative ${positioning[position]} w-full mx-auto`}>
       <Link className="" href={link ? link : "/"}>
         <div
-          className={`relative  flex items-center min-w-[180px] w-fit   h-12       ${
+          className={`relative flex items-center min-w-[180px] w-fit h-12 cursor-pointer group ${bgColor} ${
             invertedBorder
               ? "bg-[#F2F1F6] px-3 pt-5 rounded-t-[20px] linkButtonWithIcon"
-              : "border border-gray-200  bg-white rounded-[10px] px-1 py-1"
-          }     cursor-pointer group`}
+              : isBorder
+              ? "border border-gray-200 rounded-[20px] px-1 py-1"
+              : "rounded-[20px] px-1 py-1"
+          }`}
         >
           <div className="relative  flex items-center min-w-[180px] w-fit   h-12 overflow-hidden">
             <span className="flex items-center size-[45px] rounded-[10px] bg-primary  transition-all duration-500 ease-in-out group-hover:w-full group-hover:justify-between px-3">
