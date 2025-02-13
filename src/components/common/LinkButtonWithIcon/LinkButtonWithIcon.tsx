@@ -32,8 +32,8 @@ export const LinkButtonWithIcon = ({
             invertedBorder
               ? " px-3 pt-5 rounded-t-[20px] linkButtonWithIcon"
               : isBorder
-              ? "border border-gray-300 rounded-[20px] px-1 py-0.5"
-              : "rounded-[20px] px-1 py-0.5"
+              ? "border border-gray-300 rounded-[20px] px-1.5 py-0.5"
+              : "rounded-[20px] px-1.5 py-0.5"
           }`}
         >
           <div className="relative flex items-center min-w-[180px] w-fit h-12 overflow-hidden">

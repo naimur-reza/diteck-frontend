@@ -27,7 +27,7 @@ const Header = () => {
         "absolute min-w-full": pathName === "/",
       })}
     >
-      <header className="container mx-auto px-5">
+      <header className="container mx-auto px-5 mt-2">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link
@@ -42,17 +42,17 @@ const Header = () => {
             />
           </Link>
           {/* Nav Menu */}
-          <div className="order-2 hidden lg:flex gap-5 items-center bg-white rounded-[20px] px-5 py-3 shadow">
+          <div className="order-2 hidden lg:flex gap-5 items-center bg-white rounded-[20px] px-6 py-4 ">
             {navMenu.map(({ title, path }, idx) => (
               <Link
                 key={idx}
                 href={path}
-                className="flex items-center gap-2 hover:text-primary font-semibold transition-colors"
+                className="flex items-center text-lg gap-2 hover:text-primary font-medium transition-colors"
               >
                 {title}
                 {/* Square Box */}
                 {idx !== navMenu.length - 1 ? (
-                  <span className="ml-2 w-1.5 h-1.5 bg-primary" />
+                  <span className="ml-2 w-1.5 h-1.5 bg-primary " />
                 ) : (
                   ""
                 )}
