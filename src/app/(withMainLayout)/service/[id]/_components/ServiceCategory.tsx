@@ -12,7 +12,7 @@ const menuItems = [
   "UX/UI Design",
 ];
 
-const ServiceCategory = () => {
+export const ServiceCategory = () => {
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
@@ -28,6 +28,7 @@ const ServiceCategory = () => {
           }
           
           ${selected === menuItems[index + 1] ? "" : "border-b border-gray-200"}
+          ${index == menuItems.length - 1 ? "border-none" : ""}
           `}
         >
           {item}
@@ -41,5 +42,3 @@ const ServiceCategory = () => {
     </div>
   );
 };
-
-export default ServiceCategory;

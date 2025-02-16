@@ -1,13 +1,12 @@
 import assets from "@/assets";
 import { ParallaxBanner } from "@/components/common";
 import { ReactNode } from "react";
-import ServiceCategory from "./_components/ServiceCategory";
-import SidebarAds from "./_components/SidebarAds";
+import { ServiceCategory, SidebarAds } from "./_components";
 
 const ServiceDetailsLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div
-      className="min-h-screen"
+      className="xl:min-h-screen h-full"
       style={{
         backgroundImage: `url("https://demo2.wpopal.com/diteck/wp-content/uploads/2024/12/404-bg.png")`,
         backgroundPosition: "top center",
@@ -20,7 +19,7 @@ const ServiceDetailsLayout = ({ children }: { children: ReactNode }) => {
         title="Our Services"
         pageTitle="services"
       />
-      <div className="flex flex-row container  xl:gap-x-24 my-[70px]">
+      <div className="flex flex-row container  xl:gap-x-24 my-[20px] xl:my-[70px]">
         {/* sidebar */}
         <div className="xl:basis-1/3 hidden xl:block space-y-8">
           {/* sidebar category menu list */}

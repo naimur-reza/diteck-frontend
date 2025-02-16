@@ -1,7 +1,7 @@
 import { LinkButtonWithIcon } from "@/components/common";
 import Image from "next/image";
 
-const SidebarAds = () => {
+export const SidebarAds = () => {
   return (
     <div className="bg-primary p-16 sidebarAds  relative rounded-3xl font-medium h-[500px] min-h-[460px] text-white  w-full">
       <div className="flex items-center gap-x-2">
@@ -24,7 +24,7 @@ const SidebarAds = () => {
           className="max-w-full h-auto  "
         />
       </div>
-      <div className="bg-[#F2F1F6] absolute p-1 rounded-tl-2xl right-0 bottom-0">
+      <div className="bg-[#F2F1F6]  absolute p-1 rounded-tl-2xl right-0 bottom-0">
         <LinkButtonWithIcon
           link="/"
           text="Get a copy"
@@ -36,5 +36,3 @@ const SidebarAds = () => {
     </div>
   );
 };
-
-export default SidebarAds;
