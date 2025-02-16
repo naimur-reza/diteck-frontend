@@ -1,5 +1,6 @@
 import { LinkButtonWithIcon } from "@/components/common";
 import Image from "next/image";
+import Link from "next/link";
 
 type TItem = {
   icon: string;
@@ -10,7 +11,7 @@ type TItem = {
 
 export const ServiceCard = ({ item }: { item: TItem }) => {
   return (
-    <div className="relative flex flex-col md:flex-row h-auto md:h-[500px] w-full bg-white rounded-2xl overflow-hidden gap-6 md:gap-8">
+    <div className="cursor-pointer relative flex flex-col md:flex-row h-auto md:h-[500px] w-full bg-white rounded-2xl overflow-hidden gap-6 md:gap-8">
       {/* Left Side - Content */}
       <div className="px-6 py-8 md:py-12 md:px-8 lg:px-12 flex-1 flex flex-col justify-between">
         <div>
@@ -32,7 +33,7 @@ export const ServiceCard = ({ item }: { item: TItem }) => {
         </div>
         <div className="mt-6 md:mt-0">
           <LinkButtonWithIcon
-            link="/"
+            link={`/service/${item.title}`}
             text="Learn more"
             invertedBorder={false}
             position="start"
@@ -48,7 +49,7 @@ export const ServiceCard = ({ item }: { item: TItem }) => {
           alt="service"
           height={500}
           width={500}
-          className="w-full h-[250px] rounded-2xl  md:h-full object-cover"
+          className="w-full h-[250px] rounded-2xl  md:h-full object-cover transition-transform duration-500 ease-in-out hover:scale-105"
         />
       </div>
     </div>
