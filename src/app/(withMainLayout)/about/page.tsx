@@ -6,10 +6,10 @@ import OurAchievements from "./components/OurAchievements/OurAchievements";
 import ConnectWithUs from "./components/ConnectWithUs/ConnectWithUs";
 import { feedbacks } from "../home/_constant/feedback";
 
-const page = () => {
+const AboutPage = () => {
   return (
     <div
-      className="pt-20 bg-no-repeat bg-top"
+      className="pt-5 bg-no-repeat bg-top"
       style={{
         backgroundImage:
           "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/12/404-bg.png)",
@@ -31,4 +31,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AboutPage;

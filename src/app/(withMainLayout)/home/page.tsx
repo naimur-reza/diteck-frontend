@@ -9,7 +9,7 @@ import {
   WhyUs,
 } from "./_components";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div className="space-y-8 md:space-y-14 lg:space-y-20">
       <Hero />
@@ -24,4 +24,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
