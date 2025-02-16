@@ -12,7 +12,7 @@ export const ParallaxBanner = ({
   description?: string;
 }) => {
   return (
-    <div className="p-2">
+    <section className="p-2">
       <div
         className="relative bg-fixed h-[400px] lg:h-[550px] bg-center bg-no-repeat bg-cover rounded-4xl w-full py-6"
         style={{ backgroundImage: `url(${img})` }}
@@ -49,6 +49,6 @@ export const ParallaxBanner = ({
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
