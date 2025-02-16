@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const SidebarAds = () => {
   return (
-    <div className="bg-primary p-16 relative rounded-3xl font-medium h-[500px] min-h-[460px] text-white shadow-lg w-full">
+    <div className="bg-primary p-16 sidebarAds  relative rounded-3xl font-medium h-[500px] min-h-[460px] text-white  w-full">
       <div className="flex items-center gap-x-2">
         <span className="size-[6px] rounded-[1px] bg-white"></span>
         <h4 className="text-lg ">Just starting out ?</h4>
@@ -24,7 +24,7 @@ const SidebarAds = () => {
           className="max-w-full h-auto  "
         />
       </div>
-      {/* <div className="bg-[#F2F1F6] absolute right-0 bottom-0">
+      <div className="bg-[#F2F1F6] absolute p-1 rounded-tl-2xl right-0 bottom-0">
         <LinkButtonWithIcon
           link="/"
           text="Get a copy"
@@ -32,7 +32,7 @@ const SidebarAds = () => {
           isBorder={false}
           bgColor="bg-[#F2F1F6]"
         />
-      </div> */}
+      </div>
     </div>
   );
 };
