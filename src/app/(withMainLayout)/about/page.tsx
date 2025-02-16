@@ -8,7 +8,13 @@ import { feedbacks } from "../home/_constant/feedback";
 
 const page = () => {
   return (
-    <div className="pt-20">
+    <div
+      className="pt-20 bg-no-repeat bg-top"
+      style={{
+        backgroundImage:
+          "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/12/404-bg.png)",
+      }}
+    >
       <ParallaxBanner
         img="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/about_bc.jpg"
         pageTitle="About Us"
