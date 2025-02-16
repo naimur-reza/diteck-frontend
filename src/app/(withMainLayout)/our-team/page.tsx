@@ -27,7 +27,7 @@ const OurTeamPage = () => {
 
       {/* Team Member lists */}
       <section className="container mx-auto py-10">
-        <div className="md:px-20 lg:px-32">
+        <div className="lg:px-32">
           <SectionTitle
             buttonText="Our expert crew"
             title="Meet the leadership team"
@@ -44,8 +44,8 @@ const OurTeamPage = () => {
       </section>
 
       {/* Dual banner */}
-      <section className="container mx-auto grid grid-cols-2 gap-5 py-20">
-        <div className="bg-primary p-20 rounded-[20px] text-white relative">
+      <section className="container mx-auto grid md:grid-cols-2 gap-5 py-20">
+        <div className="bg-primary p-5 lg:p-20 rounded-[20px] text-white relative">
           <PulseButton
             buttonText="Join Our Team"
             isAnimate={false}
@@ -64,7 +64,7 @@ const OurTeamPage = () => {
               position="start"
             />
           </div>
-          <div className="absolute w-[330px] h-[570px] -bottom-[65px] right-10 z-0">
+          <div className="absolute w-[330px] h-[570px] -bottom-[65px] right-10 z-0 hidden lg:block">
             <Image
               src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/team-img.png"
               alt=""
@@ -75,7 +75,7 @@ const OurTeamPage = () => {
         </div>
 
         <div
-          className="p-20 rounded-[20px] relative bg-white"
+          className="p-5 lg:p-20 rounded-[20px] relative bg-white "
           style={{
             backgroundImage:
               "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/team-bg.png)",
@@ -99,7 +99,7 @@ const OurTeamPage = () => {
             />
           </div>
           {/* diamond */}
-          <div className="absolute w-[100px] h-[100px] -top-[40px] left-[45%] z-0">
+          <div className="absolute w-[100px] h-[100px] -top-[40px] left-[45%] z-0 hidden lg:block">
             <Image
               src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h3_innovation.png"
               alt=""
@@ -109,7 +109,7 @@ const OurTeamPage = () => {
           </div>
 
           {/* circle */}
-          <div className="absolute w-[150px] h-[150px] bottom-[50px] right-[120px] z-0 blur-xs">
+          <div className="absolute w-[150px] h-[150px] bottom-[50px] right-[120px] z-0 blur-xs hidden lg:block">
             <Image
               src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h3_cost-effective.png"
               alt=""
