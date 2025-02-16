@@ -40,10 +40,10 @@ export const ParallaxBanner = ({
           </nav>
 
           <div>
-            <h1 className="leading-tight text-white font-semibold text-[48px] md:text-[52px] lg:text-[100px]">
+            <h2 className="leading-tight text-white font-semibold text-[48px] md:text-[52px] lg:text-[100px]">
               {title || ""}
-            </h1>
-            <p className="max-w-[80%] lg:max-w-[50%] text-[16px] md:text-[18px] lg:text-[26px] text-white font-medium">
+            </h2>
+            <p className="max-w-[80%] lg:max-w-[50%] text-[16px] md:text-[18px] lg:text-[20px] text-white font-normal">
               {description}
             </p>
           </div>

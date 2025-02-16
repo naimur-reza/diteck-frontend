@@ -10,10 +10,11 @@ import { RxCross1 } from "react-icons/rx";
 
 const navMenu = [
   { title: "Home", path: "/" },
-  { title: "About", path: "about" },
-  { title: "Services", path: "service" },
-  { title: "Career", path: "career" },
-  { title: "Contact", path: "contact" },
+  { title: "About", path: "/about" },
+  { title: "Services", path: "/service" },
+  { title: "Our Team", path: "/our-team" },
+  { title: "Career", path: "/career" },
+  { title: "Contact", path: "/contact" },
 ];
 
 const Header = () => {
