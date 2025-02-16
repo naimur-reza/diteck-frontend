@@ -19,7 +19,7 @@ export const ParallaxBanner = ({
       >
         <div className="absolute inset-0 bg-black/50 rounded-4xl "></div>
 
-        <div className="container mx-auto relative z-10 flex flex-col h-full w-full px-5 py-8 ">
+        <div className="container  relative z-10 flex flex-col h-full w-full  py-8 ">
           <nav className="border border-[#FFFFFF4D] w-fit px-5 py-2 rounded-[10px] text-[16px] transition duration-300 mb-[30px] lg:mb-[100px]">
             <ol className="flex items-center space-x-2 text-sm text-[#FFFFFF99]">
               {/* Home Link */}
