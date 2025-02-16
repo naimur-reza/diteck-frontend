@@ -1,31 +1,10 @@
-import { Check, CheckCircle } from "lucide-react";
+import { Check } from "lucide-react";
 import { ServiceTitleAndDescription } from "./ServiceTitleAndDescription";
-
-const features = [
-  {
-    title: "Quality & Reliable",
-    description: "We provide all types of business & financial consultations.",
-  },
-  {
-    title: "Licensed & Insured",
-    description:
-      "Our dynamic resourcing calibration can replicate any solution for a much larger playing ground.",
-  },
-  {
-    title: "Skilled Staff",
-    description:
-      "Cognitive capabilities and data analytics bring efficiency and competitive edge.",
-  },
-  {
-    title: "Warranty & Maintenance",
-    description:
-      "Our quick time and proactive approach assist our clients to rehearse the future.",
-  },
-];
+import { features } from "../constant";
 
 export const ServiceFeatures = () => {
   return (
-    <div>
+    <div className="border-b border-gray-300 pb-[60px] lg:pb-[100px]">
       <ServiceTitleAndDescription
         title="Service features"
         description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate"

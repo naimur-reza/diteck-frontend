@@ -1,19 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
-
-const menuItems = [
-  "Advanced Analytics",
-  "Marketing Strategy",
-  "System and Software",
-  "Digital Strategy",
-  "Web Development",
-  "Brand Identity",
-  "UX/UI Design",
-];
+import { menuItems } from "../constant";
 
 export const ServiceCategory = () => {
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>("Marketing Strategy");
 
   return (
     <div className="bg-white px-8 py-4 rounded-3xl shadow w-full">
