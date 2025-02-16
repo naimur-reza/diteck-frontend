@@ -12,7 +12,7 @@ const Career = () => {
       />
       <SectionTitle title="Current openings" buttonText="Apply now" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-7 py-10">
         {jobs.map((job, index) => (
           <CareerCard key={index} {...job} />
         ))}

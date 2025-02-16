@@ -1,4 +1,5 @@
 import { ButtonWithIcon } from "@/components/common";
+import { PulseButton } from "@/components/ui";
 
 const CareerCard = (job: {
   title: string;
@@ -8,9 +9,12 @@ const CareerCard = (job: {
 }) => {
   return (
     <div className="bg-white rounded-3xl p-6 ">
-      <h3 className="text-3xl font-semibold">{job.title}</h3>
-      <p className="text-gray-500">{job.location}</p>
-      <p className="text-gray-500">{job.type}</p>
+      <div className="flex items-center justify-between">
+        <PulseButton buttonText={job.type} />
+        <p className="text-gray-500">{job.location}</p>
+      </div>
+      <h3 className="text-3xl font-semibold mt-14">{job.title}</h3>
+
       <p className="mt-4 mb-6">{job.description}</p>
       <ButtonWithIcon text="Learn more" />
     </div>
