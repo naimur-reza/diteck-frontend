@@ -59,3 +59,28 @@ export const services = [
     ],
   },
 ];
+
+
+export const faqData = [
+  {
+    question: "How to soft launch your business?",
+    answer: "A soft launch allows you to introduce your business to a limited audience before going fully public. It helps test the market and refine your offerings."
+  },
+  {
+    question: "What is the transfer application process?",
+    answer: "The transfer application process involves submitting necessary documentation, meeting eligibility requirements, and completing any required approvals."
+  },
+  {
+    question: "Where should I incorporate my business?",
+    answer: "The best location to incorporate depends on tax laws, business regulations, and the market you plan to serve. Common choices include Delaware, Wyoming, and Nevada."
+  },
+  {
+    question: "How can SEO optimization help my business?",
+    answer: "SEO optimization improves your website’s visibility on search engines, helping you attract organic traffic and potential customers."
+  },
+  {
+    question: "Why should I make branding strategies for startups?",
+    answer: "Strong branding builds trust, differentiates your business, and creates a lasting impression on customers, making your startup more competitive."
+  }
+];
+

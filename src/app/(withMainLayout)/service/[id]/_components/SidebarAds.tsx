@@ -24,7 +24,7 @@ export const SidebarAds = () => {
           className="max-w-full h-auto  "
         />
       </div>
-      <div className="bg-[#F2F1F6]  absolute p-1 rounded-tl-2xl right-0 bottom-0">
+      <div className="bg-[#F2F1F6]  w-fit  absolute p-1 rounded-tl-2xl right-0 bottom-0 ">
         <LinkButtonWithIcon
           link="/"
           text="Get a copy"
