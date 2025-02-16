@@ -48,7 +48,7 @@ export const ServiceCard = ({ item }: { item: TItem }) => {
           alt="service"
           height={500}
           width={500}
-          className="w-full h-[250px] rounded-2xl  md:h-full object-cover"
+          className="w-full h-[250px] rounded-2xl  md:h-full object-cover transition-transform duration-500 ease-in-out hover:scale-105"
         />
       </div>
     </div>
