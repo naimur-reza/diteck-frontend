@@ -12,7 +12,7 @@ const Hero = () => {
         backgroundSize: "cover",
         backgroundPosition: "center center",
       }}
-      className="pb-10"
+      className="pb-10 "
     >
       <div className="container mx-auto px-5">
         <div className="pt-[200px] pb-[100px]">

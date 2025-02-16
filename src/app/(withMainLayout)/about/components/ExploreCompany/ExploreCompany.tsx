@@ -5,7 +5,7 @@ import { companies } from "@/app/(withMainLayout)/home/_constant/companies";
 
 const ExploreCompany = () => {
   return (
-    <section className="bg-[#121646] py-[150px] rounded-[40px] m-2">
+    <section className="bg-[#121646] py-[40px] md:py-[80px] lg:py-[150px] rounded-[40px] m-2">
       <div className="container mx-auto text-white">
         <SectionTitle
           buttonText="Explore company"
@@ -14,7 +14,7 @@ const ExploreCompany = () => {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {companies.map((company, idx) => (
+          {companies?.map((company, idx) => (
             <CompanyCard key={idx} company={company} />
           ))}
         </div>
