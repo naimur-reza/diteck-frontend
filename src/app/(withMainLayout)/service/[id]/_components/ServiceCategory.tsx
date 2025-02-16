@@ -16,7 +16,7 @@ const ServiceCategory = () => {
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
-    <div className="bg-white px-8 py-4 rounded-3xl shadow-lg w-full">
+    <div className="bg-white px-8 py-4 rounded-3xl shadow w-full">
       {menuItems.map((item, index) => (
         <button
           key={index}
