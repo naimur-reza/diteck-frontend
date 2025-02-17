@@ -300,3 +300,41 @@ body {
 .cyber-icon:hover {
   fill: var(--color-primary); /* Blue on hover */
 }
+
+.diamond-loading {
+  animation-duration: 3s;
+  animation-name: diamond-loading;
+  animation-timing-function: ease-in-out;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-play-state: running;
+}
+
+@keyframes diamond-loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.circle-loading {
+  animation-duration: 3s;
+  animation-name: circle-loading;
+  animation-timing-function: ease-in-out;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-play-state: running;
+}
+
+@keyframes circle-loading {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-right: 50px;
+  }
+}

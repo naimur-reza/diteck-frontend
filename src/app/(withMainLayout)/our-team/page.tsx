@@ -99,7 +99,7 @@ const OurTeamPage = () => {
             />
           </div>
           {/* diamond */}
-          <div className="absolute w-[100px] h-[100px] -top-[40px] left-[45%] z-0 hidden lg:block">
+          <div className="diamond-loading absolute w-[100px] h-[100px] -top-[40px] left-[45%] z-0 hidden lg:block">
             <Image
               src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h3_innovation.png"
               alt=""
@@ -109,7 +109,7 @@ const OurTeamPage = () => {
           </div>
 
           {/* circle */}
-          <div className="absolute w-[150px] h-[150px] bottom-[50px] right-[120px] z-0 blur-xs hidden lg:block">
+          <div className="circle-loading absolute w-[150px] h-[150px] bottom-[50px] right-[120px] z-0 blur-xs hidden lg:block">
             <Image
               src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h3_cost-effective.png"
               alt=""
@@ -119,6 +119,8 @@ const OurTeamPage = () => {
           </div>
         </div>
       </section>
+
+      {/* <div className="loading"></div> */}
     </div>
   );
 };
