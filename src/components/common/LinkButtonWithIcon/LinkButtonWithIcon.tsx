@@ -10,6 +10,7 @@ export const LinkButtonWithIcon = ({
   bgColor = "bg-transparent",
   isBorder = true,
   invertedBgColor = "bg-[#F2F1F6]",
+  className,
 }: {
   text: string;
   link: string;
@@ -19,6 +20,7 @@ export const LinkButtonWithIcon = ({
   bgColor?: string;
   isBorder?: boolean;
   invertedBgColor?: string;
+  className?: string;
 }) => {
   const positioning = {
     start: "justify-start",
@@ -27,7 +29,9 @@ export const LinkButtonWithIcon = ({
   };
 
   return (
-    <div className={`flex relative ${positioning[position]} w-full mx-auto`}>
+    <div
+      className={`flex relative ${className} ${positioning[position]} w-full mx-auto`}
+    >
       <Link className="" href={link ? link : "/"}>
         <div
           className={`relative flex items-center min-w-[180px] w-fit  cursor-pointer group  ${

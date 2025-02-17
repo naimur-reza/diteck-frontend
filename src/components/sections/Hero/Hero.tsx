@@ -1,40 +1,62 @@
+import assets from "@/assets";
+import { LinkButtonWithIcon } from "@/components/common";
+
+import { PulseButton } from "@/components/ui";
 import Image from "next/image";
 import React from "react";
-import HeroVideo from "./HeroVideo";
 
 const Hero = () => {
   return (
-    // <div className="min-h-[130vh] bg-[linear-gradient(140deg,_#BEDBEA,_#EFC7C2,_#F1ECF1)]">
-    <section
+    <div
       style={{
-        backgroundImage:
-          "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/h1_bg-1.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
+        backgroundImage: `url(${assets.background.gridBg.src})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
-      className="pb-10 "
+      className=" relative  z-30"
     >
-      <div className="container mx-auto px-5">
-        <div className="pt-[200px] pb-[100px]">
-          <h1 className="flex items-center flex-wrap text-5xl md:text-7xl lg:text-[110px] font-bold">
-            Finest solutions for all
-            <div className="inline mx-2">
-              <Image
-                src="https://i.ibb.co/yBhCQt56/h1-img-deco.jpg"
-                alt="Hero"
-                width={250}
-                height={120}
-                className="align-middle rounded-md"
+      <div className="container grid grid-cols-1 md:grid-cols-2  in-h-screen pt-44 pb-14 ">
+        <div className="absolute inset-0 -z-50 bg-black/20" />
+        <div className="relative aspect-square md:h-[550px] md:w-[95%] ">
+          <Image
+            src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/12/h5_img-1.jpg"
+            alt="hero_image"
+            className="object-cover rounded-3xl"
+            fill
+          />
+        </div>
+        <section className="pt-10 md:pt-0 text-center md:text-start">
+          <div className="flex flex-col gap-4 md:grid md:items-center">
+            <div className="col-span-2 flex justify-center md:block">
+              <PulseButton
+                color="text-white border-"
+                buttonText="Hear from customer"
               />
             </div>
-            challenges
-          </h1>
-        </div>
-      </div>
 
-      {/* Hero Video */}
-      <HeroVideo />
-    </section>
+            <div className="col-span-3">
+              <div className="flex flex-col gap-6">
+                <h2 className={`section-title px-10 md:px-0`}>
+                  The digital agency built for brands
+                </h2>
+
+                <p className={`section-description lg:pr-20`}>
+                  We’re a team of expert who’ve been delivering digital success
+                  for more than a decade.
+                </p>
+
+                <LinkButtonWithIcon
+                  className="justify-center md:justify-start"
+                  invertedBorder={false}
+                  link="/"
+                  text="View Our Work"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
   );
 };
 
