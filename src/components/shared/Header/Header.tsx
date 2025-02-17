@@ -22,10 +22,12 @@ const Header = () => {
 
   const pathName = usePathname();
 
+  const isHome = pathName === "/";
+
   return (
     <div
       className={cn({
-        "absolute min-w-full z-20": pathName === "/",
+        "absolute min-w-full z-20": isHome,
       })}
     >
       <header className="container mx-auto px-5 mt-2">
@@ -38,8 +40,8 @@ const Header = () => {
             <Image
               src={cn({
                 "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/logo_white.svg":
-                  pathName === "/",
-                "https://i.ibb.co.com/0pt9skqy/logo.png": pathName !== "/",
+                  isHome,
+                "https://i.ibb.co.com/0pt9skqy/logo.png": !isHome,
               })}
               alt=""
               fill
@@ -50,8 +52,8 @@ const Header = () => {
           <div
             className={cn(
               {
-                "bg-white/10 text-white": pathName === "/",
-                "bg-white text-black": pathName !== "/",
+                "bg-white/10 text-white": isHome,
+                "bg-white text-black": !isHome,
               },
               "order-2 hidden lg:flex gap-5 items-center  rounded-[20px] px-6 py-4 "
             )}
@@ -120,6 +122,7 @@ const Header = () => {
           {/* Button */}
           <div className="order-3 hidden md:flex">
             <LinkButtonWithIcon
+              textColor={isHome ? "text-white" : "text-black"}
               invertedBorder={false}
               link="/"
               text="Get In Touch"

@@ -12,7 +12,7 @@ const Hero = () => {
         backgroundImage: `url(${assets.background.gridBg.src})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        backgroundSize: "850px",
+        backgroundSize: "700px",
       }}
       className=" relative"
     >
@@ -49,6 +49,7 @@ const Hero = () => {
                 </p>
 
                 <LinkButtonWithIcon
+                  textColor="text-white"
                   className="justify-center md:justify-start text-white relative"
                   invertedBorder={false}
                   link="/"

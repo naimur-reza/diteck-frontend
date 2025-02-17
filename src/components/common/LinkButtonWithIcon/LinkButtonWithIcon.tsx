@@ -38,7 +38,7 @@ export const LinkButtonWithIcon = ({
             invertedBorder
               ? `px-3 pt-2 rounded-t-[20px] linkButtonWithIcon ${invertedBgColor}`
               : isBorder
-              ? `border border-gray-300 rounded-[20px] px-1.5 py-0.5 ${bgColor}`
+              ? `border border-white/30 rounded-[20px] px-1.5 py-0.5 ${bgColor}`
               : `rounded-[20px] px-1.5 py-0.5 ${bgColor}`
           }`}
         >
