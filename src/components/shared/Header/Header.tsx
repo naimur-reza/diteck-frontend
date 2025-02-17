@@ -47,7 +47,15 @@ const Header = () => {
             />
           </Link>
           {/* Nav Menu */}
-          <div className="order-2 hidden lg:flex gap-5 items-center bg-white rounded-[20px] px-6 py-4 ">
+          <div
+            className={cn(
+              {
+                "bg-white/10 text-white": pathName === "/",
+                "bg-white text-black": pathName !== "/",
+              },
+              "order-2 hidden lg:flex gap-5 items-center  rounded-[20px] px-6 py-4 "
+            )}
+          >
             {navMenu.map(({ title, path }, idx) => (
               <Link
                 key={idx}
