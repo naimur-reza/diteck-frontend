@@ -19,9 +19,9 @@ const ServiceDetailsLayout = ({ children }: { children: ReactNode }) => {
         title="Our Services"
         pageTitle="services"
       />
-      <div className="flex flex-row container  xl:gap-x-24 my-[20px] xl:my-[70px]">
+      <div className="flex flex-row container  xl:gap-x-16 my-[20px] xl:my-[70px]">
         {/* sidebar */}
-        <div className="xl:basis-1/3 hidden xl:block space-y-8">
+        <div className="xl:basis-[30%] hidden xl:block space-y-8">
           {/* sidebar category menu list */}
           <ServiceCategory />
           {/* sidebar ads */}
@@ -29,7 +29,7 @@ const ServiceDetailsLayout = ({ children }: { children: ReactNode }) => {
         </div>
 
         {/* content */}
-        <div className="xl:basis-2/3  basis-full">{children}</div>
+        <div className="xl:basis-[70%]  basis-full">{children}</div>
       </div>
     </div>
   );
