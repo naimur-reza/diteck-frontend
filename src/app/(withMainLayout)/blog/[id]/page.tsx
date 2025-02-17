@@ -11,7 +11,7 @@ import { FaChevronRight } from "react-icons/fa";
 import CommentBox from "./components/CommentBox";
 import CommentForm from "./components/CommentForm";
 
-const page = () => {
+const BlogDetailPage = () => {
   return (
     <div className="container mx-auto">
       <div className="pt-40 pb-20">
@@ -189,4 +189,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default BlogDetailPage;
