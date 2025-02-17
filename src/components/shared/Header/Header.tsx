@@ -22,10 +22,12 @@ const Header = () => {
 
   const pathName = usePathname();
 
+  const isHome = pathName === "/";
+
   return (
     <div
       className={cn({
-        "absolute min-w-full": pathName === "/",
+        "absolute min-w-full z-20": isHome,
       })}
     >
       <header className="container mx-auto px-5 mt-2">
@@ -36,14 +38,26 @@ const Header = () => {
             className="md:order-2 lg:order-1 relative w-[120px] h-[80px]"
           >
             <Image
-              src="https://i.ibb.co.com/0pt9skqy/logo.png"
+              src={cn({
+                "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/logo_white.svg":
+                  isHome,
+                "https://i.ibb.co.com/0pt9skqy/logo.png": !isHome,
+              })}
               alt=""
               fill
               style={{ objectFit: "contain" }}
             />
           </Link>
           {/* Nav Menu */}
-          <div className="order-2 hidden lg:flex gap-5 items-center bg-white rounded-[20px] px-6 py-4 ">
+          <div
+            className={cn(
+              {
+                "bg-white/10 text-white": isHome,
+                "bg-white text-black": !isHome,
+              },
+              "order-2 hidden lg:flex gap-5 items-center  rounded-[20px] px-6 py-4 "
+            )}
+          >
             {navMenu.map(({ title, path }, idx) => (
               <Link
                 key={idx}
@@ -108,6 +122,7 @@ const Header = () => {
           {/* Button */}
           <div className="order-3 hidden md:flex">
             <LinkButtonWithIcon
+              textColor={isHome ? "text-white" : "text-black"}
               invertedBorder={false}
               link="/"
               text="Get In Touch"
