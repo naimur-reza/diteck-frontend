@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <div
       className={cn({
-        "absolute min-w-full": pathName === "/",
+        "absolute min-w-full z-20": pathName === "/",
       })}
     >
       <header className="container mx-auto px-5 mt-2">
@@ -36,7 +36,11 @@ const Header = () => {
             className="md:order-2 lg:order-1 relative w-[120px] h-[80px]"
           >
             <Image
-              src="https://i.ibb.co.com/0pt9skqy/logo.png"
+              src={cn({
+                "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/logo_white.svg":
+                  pathName === "/",
+                "https://i.ibb.co.com/0pt9skqy/logo.png": pathName !== "/",
+              })}
               alt=""
               fill
               style={{ objectFit: "contain" }}
