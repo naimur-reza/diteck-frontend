@@ -14,7 +14,7 @@ const ProjectDetailPage = () => {
   return (
     <div className="container mx-auto">
       <div
-        className="pt-40 pb-20 bg-no-repeat bg-top bg-contain"
+        className="pt-5 md:pt-10 lg:pt-40 pb-20 bg-no-repeat bg-top bg-contain"
         style={{
           backgroundImage:
             "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/12/404-bg.png)",
@@ -40,7 +40,7 @@ const ProjectDetailPage = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 lg:max-w-[70%] mx-auto mt-10 mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:max-w-[70%] mx-auto mt-10 mb-20">
             {data?.map(({ title, desc }, idx) => (
               <div className="text-center" key={idx}>
                 <span className="text-light">{title}</span>
@@ -50,7 +50,7 @@ const ProjectDetailPage = () => {
           </div>
 
           {/* Featured image */}
-          <div className="relative w-full min-h-[300px] lg:min-h-[600px] rounded-[40px] mt-10">
+          <div className="relative w-full min-h-[150px] md:min-h-[300px] lg:min-h-[600px] rounded-[40px] mt-10">
             <Image
               src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/single_project_img1.jpg"
               fill
@@ -59,7 +59,7 @@ const ProjectDetailPage = () => {
             />
           </div>
           <div className="lg:max-w-[80%] mx-auto mt-10 md:text-[20px]">
-            <h6 className="text-accent font-medium text-[24px] pb-10">
+            <h6 className="text-accent font-medium text-[24px] leading-[24px] pb-10">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -68,13 +68,13 @@ const ProjectDetailPage = () => {
             </h6>
 
             {/* First */}
-            <div className="grid grid-cols-[2fr_4fr] gap-20 border-t py-10">
+            <div className="grid md:grid-cols-[2fr_4fr] gap-x-20 border-t py-10">
               <div>
-                <h4 className="font-medium text-[42px] leading-[42px]">
+                <h4 className="font-medium text-[30px] lg:text-[42px] leading-[42px]">
                   Challenge & Solution
                 </h4>
               </div>
-              <div className="">
+              <div>
                 <p className="text-[20px] text-light pb-5">
                   Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
                   odit aut fugit, sed quia consequuntur magni dolores eos qui
@@ -96,9 +96,9 @@ const ProjectDetailPage = () => {
             </div>
 
             {/* Second */}
-            <div className="grid grid-cols-[2fr_4fr] gap-20 border-t py-10">
+            <div className="grid md:grid-cols-[2fr_4fr] gap-x-20 border-t py-10">
               <div>
-                <h4 className="font-medium text-[42px] leading-[42px]">
+                <h4 className="font-medium text-[30px] lg:text-[42px] leading-[42px]">
                   Our Process
                 </h4>
               </div>
@@ -112,9 +112,10 @@ const ProjectDetailPage = () => {
               </div>
             </div>
           </div>
+
           {/* Dual image */}
-          <div className="grid lg:grid-cols-2 gap-5">
-            <div className="relative w-full min-h-[250px] md:min-h-[450px] rounded-[40px]">
+          <div className="grid md:grid-cols-2 gap-5">
+            <div className="relative w-full min-h-[250px] lg:min-h-[450px] rounded-[40px]">
               <Image
                 src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/single_project_img2.jpg"
                 fill
@@ -122,7 +123,7 @@ const ProjectDetailPage = () => {
                 className="rounded-[40px] object-cover"
               />
             </div>
-            <div className="relative w-full min-h-[250px] md:min-h-[450px] rounded-[40px]">
+            <div className="relative w-full min-h-[250px] lg:min-h-[450px] rounded-[40px]">
               <Image
                 src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/single_project_img3.jpg"
                 fill
@@ -134,9 +135,9 @@ const ProjectDetailPage = () => {
 
           {/* Third */}
           <div className="lg:max-w-[80%] mx-auto">
-            <div className="grid grid-cols-[2fr_4fr] gap-20 border-t pt-10 mt-10">
+            <div className="grid md:grid-cols-[2fr_4fr] gap-x-20 border-t pt-10 mt-10">
               <div>
-                <h4 className="font-medium text-[42px] leading-[42px]">
+                <h4 className="font-medium text-[30px] lg:text-[42px] leading-[42px]">
                   Result Driven
                 </h4>
               </div>
@@ -166,10 +167,10 @@ const ProjectDetailPage = () => {
         </article>
 
         {/* Blog Navigator */}
-        <div className="grid grid-cols-2 px-2 mt-10 gap-1 rounded-lg">
+        <div className="grid md:grid-cols-2 px-2 mt-10 gap-1 rounded-lg">
           <div className="flex items-center justify-center gap-5 bg-white rounded-l-[20px] p-5">
             <Link href={"#"}>
-              <span className="text-[24px] text-right font-semibold uppercase flex items-center gap-1">
+              <span className="text-[24px] text-right font-semibold flex items-center gap-1">
                 <FaChevronLeft /> <span>Previous Post</span>
               </span>
             </Link>
@@ -177,7 +178,7 @@ const ProjectDetailPage = () => {
           </div>
           <div className="flex items-center justify-center gap-5 rounded-r-[20px] bg-white p-5">
             <Link href={"#"}>
-              <span className="text-[24px] font-semibold uppercase flex items-center gap-1">
+              <span className="text-[24px] font-semibold flex items-center gap-1">
                 <span>Next Post</span>
                 <FaChevronRight />
               </span>
