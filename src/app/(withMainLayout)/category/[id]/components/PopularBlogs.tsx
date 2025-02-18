@@ -6,8 +6,10 @@ import React from "react";
 const PopularBlogs = () => {
   return (
     <div>
-      <h3 className="text-[32px] font-medium mb-5">Popular Blogs</h3>
-      <div className="flex flex-col items-center justify-center">
+      <h3 className="text-[32px] font-medium border-t lg:border-t-0 mb-5 pt-5 lg:pt-0">
+        Popular Blogs
+      </h3>
+      <div className="flex flex-col">
         {recentPosts.map(({ img, title, date }, idx) => (
           <div
             key={idx}

@@ -14,16 +14,16 @@ const SingleCategoryPage = () => {
           "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/12/404-bg.png)",
       }}
     >
-      <div className="container mx-auto grid md:grid-cols-[1fr_400px] gap-10">
-        <div className="grid grid-cols-3 gap-5">
-          {categories.map(({ img, title }, idx) => (
+      <div className="container mx-auto lg:grid md:grid-cols-[1fr_400px] gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {categories?.map(({ img, title }, idx) => (
             <div key={idx}>
-              <div className="relative w-full h-[300px] rounded-[20px]">
+              <div className="relative w-full h-[300px] rounded-[20px] group overflow-hidden">
                 <Image
                   src={img}
                   alt={title}
                   fill
-                  className="object-cover rounded-[20px]"
+                  className="object-cover rounded-[20px] group-hover:transform group-hover:scale-[1.1] transition-all duration-300"
                 />
               </div>
               <h3 className="text-[32px] lg:leading-[32px] font-medium mt-5 hover:text-primary transition-colors duration-300">
