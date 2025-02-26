@@ -1,6 +1,6 @@
 "use client";
-import { EnaForm, EnaInput } from "@/components/forms";
-import { FieldValues } from "react-hook-form";
+import { EnaForm, EnaInput, EnaSelect } from "@/components/forms";
+import { FieldValues, } from "react-hook-form";
 
 const Dashboard = () => {
 
@@ -17,6 +17,21 @@ const Dashboard = () => {
         placeholder="Enter your email"
         className="mb-4"
       />
+
+
+      <EnaSelect
+
+        name="theme"
+        options={[
+          { value: "light", label: "Light" },
+          { value: "dark", label: "Dark" },
+          { value: "system", label: "System" },
+        ]}
+        placeholder="Select Theme"
+        className="mb-4"
+      />
+
+
 
       <button type="submit">
         Submit
