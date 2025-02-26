@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/dashboard/Sidebar";
+import { AppSidebar } from "@/components/dashboard/Sidebar/Sidebar";
 import {
   SidebarInset,
   SidebarProvider,
@@ -6,18 +6,11 @@ import {
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 
-const layout = ({
-  children,
-  className,
-  ...props
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className={cn("bg-background", className)} {...props}>
+      <SidebarInset className={cn("bg-background")}>
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-background px-6">
           <SidebarTrigger />
           <div className="flex items-center gap-2">
