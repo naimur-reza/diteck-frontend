@@ -73,10 +73,10 @@ export function AppSidebar() {
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                 <BriefcaseIcon className="size-4" />
               </div>
-              <div className="flex flex-col gap-0.5 leading-none">
+              <Link href={"/"} className="flex flex-col gap-0.5 leading-none">
                 <span className="font-semibold">EnaEma</span>
                 <span className="text-xs text-muted-foreground">Dashboard</span>
-              </div>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
