@@ -11,6 +11,7 @@ export const LinkButtonWithIcon = ({
   isBorder = true,
   invertedBgColor = "bg-[#F2F1F6]",
   minWidth = 180,
+  className,
 }: {
   text: string;
   link: string;
@@ -21,6 +22,7 @@ export const LinkButtonWithIcon = ({
   isBorder?: boolean;
   invertedBgColor?: string;
   minWidth?: number;
+  className?: string;
 }) => {
   const positioning = {
     start: "justify-start",
@@ -29,14 +31,16 @@ export const LinkButtonWithIcon = ({
   };
 
   return (
-    <div className={`flex relative ${positioning[position]} w-full mx-auto `}>
+    <div
+      className={`flex relative ${className} ${positioning[position]} w-full mx-auto`}
+    >
       <Link className="" href={link ? link : "/"}>
         <div
           className={`relative flex items-center  w-full  cursor-pointer group  ${
             invertedBorder
               ? `px-3 pt-2 rounded-t-[20px] linkButtonWithIcon ${invertedBgColor}`
               : isBorder
-              ? `border border-gray-300 rounded-[20px] px-1.5 py-0.5 ${bgColor}`
+              ? `border border-white/30 rounded-[20px] px-1.5 py-0.5 ${bgColor}`
               : `rounded-[20px] px-1.5 py-0.5 ${bgColor}`
           }`}
         >

@@ -11,10 +11,16 @@ import { FaChevronRight } from "react-icons/fa";
 import CommentBox from "./components/CommentBox";
 import CommentForm from "./components/CommentForm";
 
-const page = () => {
+const BlogDetailPage = () => {
   return (
-    <div className="container mx-auto">
-      <div className="pt-40 pb-20">
+    <div
+      className="container mx-auto bg-no-repeat bg-contain"
+      style={{
+        backgroundImage:
+          "url(https://demo2.wpopal.com/diteck/wp-content/uploads/2024/12/404-bg.png)",
+      }}
+    >
+      <div className="pt-5 md:pt-10 lg:pt-40 pb-20">
         {/* Category, Date and Author */}
         <div className="flex justify-center items-center gap-5">
           <button className="border border-[#636EDF4D] w-fit lg:min-w-fit rounded-[10px] text-black text-[14px] md:text-[18px] px-4 py-1.5  flex items-center gap-2 hover:bg-gray-200 transition">
@@ -35,7 +41,7 @@ const page = () => {
               Top Digital Agency Case Studies in Web3 Marketing
             </h2>
           </div>
-          <div className="relative w-full min-h-[300px] lg:min-h-[600px] rounded-[40px] mt-10">
+          <div className="relative w-full min-h-[150px] md:min-h-[300px] lg:min-h-[600px] rounded-[40px] mt-10">
             <Image
               src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/blog_12.jpg"
               fill
@@ -189,4 +195,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default BlogDetailPage;
