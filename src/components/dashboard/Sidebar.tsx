@@ -60,7 +60,6 @@ const navigation = [
 
 export function AppSidebar() {
   const handleLogout = () => {
-    // Add your logout logic here
     console.log("Logging out...");
   };
 
