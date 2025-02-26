@@ -12,7 +12,6 @@ interface EnaInputProps {
   disabled?: boolean;
   className?: string;
 }
-
 const EnaInput: React.FC<EnaInputProps> = ({
   type,
   name,

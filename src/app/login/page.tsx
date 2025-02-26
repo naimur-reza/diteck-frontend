@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React from "react";
 import { z } from "zod";
-import { SubmitHandler } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useRouter } from "next/navigation";
@@ -20,16 +21,13 @@ const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const handleLogin: SubmitHandler<{ email: string; password: string }> = async (data) => {
+  const handleLogin = async (data: FieldValues) => {
     try {
       const response = await loginUser(data).unwrap();
-
       // Store user data in Redux
       dispatch(setUser(response));
-
       // Success toast
       toast.success("Login Successful! Redirecting...");
-
       // Redirect to dashboard after short delay
       setTimeout(() => {
         router.push("/dashboard");
@@ -46,9 +44,23 @@ const Login = () => {
       <div className="min-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold mb-5 text-center">Login</h2>
 
-        <EnaForm onSubmit={handleLogin} schema={loginSchema} defaultValues={{ email: "", password: "" }}>
-          <EnaInput name="email" type="email" placeholder="Enter your email" className="mb-4" />
-          <EnaInput name="password" type="password" placeholder="Enter your password" className="mb-4" />
+        <EnaForm
+          onSubmit={handleLogin}
+          schema={loginSchema}
+          defaultValues={{ email: "", password: "" }}
+        >
+          <EnaInput
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            className="mb-4"
+          />
+          <EnaInput
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            className="mb-4"
+          />
 
           <button
             type="submit"

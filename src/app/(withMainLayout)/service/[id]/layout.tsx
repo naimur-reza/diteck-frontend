@@ -1,7 +1,7 @@
 import assets from "@/assets";
 import { ParallaxBanner } from "@/components/common";
 import { ReactNode } from "react";
-import { ServiceCategory, SidebarAds, Support } from "./_components";
+import { ServiceCategory, SidebarAds,  } from "./_components";
 
 const ServiceDetailsLayout = ({ children }: { children: ReactNode }) => {
   return (
