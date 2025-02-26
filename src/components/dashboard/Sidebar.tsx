@@ -3,10 +3,12 @@
 import {
   BriefcaseIcon,
   FileTextIcon,
+  Globe,
+  Handshake,
   HomeIcon,
   LogOutIcon,
-  PlusCircleIcon,
-  UserIcon,
+  Network,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
@@ -30,19 +32,29 @@ const navigation = [
     icon: HomeIcon,
   },
   {
-    title: "My Applications",
-    href: "/applications",
+    title: "Job Applications",
+    href: "/job-applications",
     icon: FileTextIcon,
   },
   {
-    title: "Post a Job",
+    title: "Team Members",
     href: "/post-job",
-    icon: PlusCircleIcon,
+    icon: Network,
   },
   {
-    title: "My Profile",
-    href: "/profile",
-    icon: UserIcon,
+    title: "Users",
+    href: "/users",
+    icon: Users,
+  },
+  {
+    title: "Careers",
+    href: "/careers",
+    icon: Handshake,
+  },
+  {
+    title: "Blogs",
+    href: "/blogs",
+    icon: Globe,
   },
 ];
 
