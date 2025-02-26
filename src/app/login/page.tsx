@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import EnaForm from "@/components/forms/EnaForm";
 import EnaInput from "@/components/forms/EnaInput";
 import { useLoginUserMutation } from "@/redux/api/authApi/authApi";
+import { toast } from "sonner";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email").min(1, "Email is required"),
@@ -15,23 +16,28 @@ const loginSchema = z.object({
 });
 
 const Login = () => {
-  const [loginUser, { isLoading, isError, error }] = useLoginUserMutation();
+  const [loginUser, { isLoading }] = useLoginUserMutation();
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleLogin: SubmitHandler<{ email: string; password: string }> = async (data) => {
     try {
       const response = await loginUser(data).unwrap();
-      console.log("Login Success:", response);
 
       // Store user data in Redux
       dispatch(setUser(response));
 
-      // Redirect to dashboard or home page
-      router.push("/dashboard");
-    } catch (err) {
+      // Success toast
+      toast.success("Login Successful! Redirecting...");
+
+      // Redirect to dashboard after short delay
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1500);
+    } catch (err: any) {
       console.error("Login Error:", err);
-      alert("Login failed! Please check your credentials.");
+      const errorMessage = err?.data?.message || "Invalid email or password.";
+      toast.error(errorMessage);
     }
   };
 
@@ -43,8 +49,6 @@ const Login = () => {
         <EnaForm onSubmit={handleLogin} schema={loginSchema} defaultValues={{ email: "", password: "" }}>
           <EnaInput name="email" type="email" placeholder="Enter your email" className="mb-4" />
           <EnaInput name="password" type="password" placeholder="Enter your password" className="mb-4" />
-
-          {isError && <p className="text-red-500 text-center">{(error as any)?.data?.message || "Login failed"}</p>}
 
           <button
             type="submit"
