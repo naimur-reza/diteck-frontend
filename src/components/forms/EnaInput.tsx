@@ -1,46 +1,25 @@
-import { Input } from "@headlessui/react";
+import { Input } from "@/components/ui/input";
 import classNames from "classnames";
 import { Controller } from "react-hook-form";
 
-interface EnaInputProps {
-  type: "text" | "email" | "password";
+interface EnaInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  placeholder?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
-  disabled?: boolean;
-  className?: string;
 }
-const EnaInput: React.FC<EnaInputProps> = ({
-  type,
-  name,
-  placeholder,
-  value,
-  onChange,
-  error,
-  disabled,
-  className,
-}) => {
+
+const EnaInput: React.FC<EnaInputProps> = ({ name, error, className, ...rest }) => {
   return (
     <div className={classNames("flex flex-col", className)}>
       <Controller
-        defaultValue=""
         name={name}
         render={({ field }) => (
           <Input
             {...field}
-            type={type}
-            placeholder={placeholder}
-            onChange={(e) => {
-              field.onChange(e);
-              if (onChange) onChange(e);
-            }}
-            value={value}
-            disabled={disabled}
-            className={classNames("border rounded-md p-2", {
-              "border-red-500": error,
-            })}
+            {...rest} // Accepts additional props
+            className={classNames(
+              "border rounded-md p-2 focus:outline-none",
+              { "border-red-500": error }
+            )}
           />
         )}
       />
