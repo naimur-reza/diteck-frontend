@@ -10,6 +10,7 @@ export const LinkButtonWithIcon = ({
   bgColor = "bg-transparent",
   isBorder = true,
   invertedBgColor = "bg-[#F2F1F6]",
+  minWidth = 180,
 }: {
   text: string;
   link: string;
@@ -19,6 +20,7 @@ export const LinkButtonWithIcon = ({
   bgColor?: string;
   isBorder?: boolean;
   invertedBgColor?: string;
+  minWidth?: number;
 }) => {
   const positioning = {
     start: "justify-start",
@@ -27,10 +29,10 @@ export const LinkButtonWithIcon = ({
   };
 
   return (
-    <div className={`flex relative ${positioning[position]} w-full mx-auto`}>
+    <div className={`flex relative ${positioning[position]} w-full mx-auto `}>
       <Link className="" href={link ? link : "/"}>
         <div
-          className={`relative flex items-center min-w-[180px] w-fit  cursor-pointer group  ${
+          className={`relative flex items-center  w-full  cursor-pointer group  ${
             invertedBorder
               ? `px-3 pt-2 rounded-t-[20px] linkButtonWithIcon ${invertedBgColor}`
               : isBorder
@@ -38,7 +40,10 @@ export const LinkButtonWithIcon = ({
               : `rounded-[20px] px-1.5 py-0.5 ${bgColor}`
           }`}
         >
-          <div className="relative flex items-center min-w-[180px] w-fit h-12 overflow-hidden">
+          <div
+            style={{ minWidth: `${minWidth}px` }}
+            className={`relative flex items-center  w-full h-12 overflow-hidden`}
+          >
             <span className="flex items-center w-10 h-10 rounded-[15px] bg-[#5865F2] transition-all duration-400 ease-in-out group-hover:w-full group-hover:justify-between px-3">
               <MoveRight className="text-white transition-transform duration-500 group-hover:translate-x-0" />
               <span
