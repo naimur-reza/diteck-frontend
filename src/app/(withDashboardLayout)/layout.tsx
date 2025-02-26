@@ -21,7 +21,7 @@ const layout = ({
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-background px-6">
           <SidebarTrigger />
           <div className="flex items-center gap-2">
-            <h2 className="font-semibold">JobBoard Dashboard</h2>
+            <h2 className="font-semibold">EnaEma Dashboard</h2>
           </div>
         </header>
         <main className="flex-1">
