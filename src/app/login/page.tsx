@@ -1,9 +1,13 @@
 "use client";
 import React from "react";
 import { z } from "zod";
+import { SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 import EnaForm from "@/components/forms/EnaForm";
 import EnaInput from "@/components/forms/EnaInput";
-import { SubmitHandler } from "react-hook-form";
+import { useLoginUserMutation } from "@/redux/api/authApi/authApi";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email").min(1, "Email is required"),
@@ -11,9 +15,24 @@ const loginSchema = z.object({
 });
 
 const Login = () => {
+  const [loginUser, { isLoading, isError, error }] = useLoginUserMutation();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const handleLogin: SubmitHandler<{ email: string; password: string }> = async (data) => {
-    console.log("Login Data:", data);
-    // Handle API call here
+    try {
+      const response = await loginUser(data).unwrap();
+      console.log("Login Success:", response);
+
+      // Store user data in Redux
+      dispatch(setUser(response));
+
+      // Redirect to dashboard or home page
+      router.push("/dashboard");
+    } catch (err) {
+      console.error("Login Error:", err);
+      alert("Login failed! Please check your credentials.");
+    }
   };
 
   return (
@@ -25,8 +44,14 @@ const Login = () => {
           <EnaInput name="email" type="email" placeholder="Enter your email" className="mb-4" />
           <EnaInput name="password" type="password" placeholder="Enter your password" className="mb-4" />
 
-          <button type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-secondary cursor-pointer">
-            Login
+          {isError && <p className="text-red-500 text-center">{(error as any)?.data?.message || "Login failed"}</p>}
+
+          <button
+            type="submit"
+            className="w-full bg-primary text-white py-2 rounded-md hover:bg-secondary cursor-pointer"
+            disabled={isLoading}
+          >
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </EnaForm>
       </div>
