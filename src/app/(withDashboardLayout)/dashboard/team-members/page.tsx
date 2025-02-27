@@ -134,14 +134,8 @@ export default function TeamMembers() {
     }
   };
 
-  const handleEdit = () => {
-    // setCurrentMember(member);
-    // setFormData({
-    //   name: member.name,
-    //   email: member.email,
-    //   role: member.role,
-    //   status: member.status,
-    // });
+  const handleEdit = (member: TeamMember) => {
+    setCurrentMember(member);
     // setIsEditDialogOpen(true);
   };
 
@@ -151,12 +145,7 @@ export default function TeamMembers() {
   };
 
   const resetForm = () => {
-    setFormData({
-      name: "",
-      email: "",
-      role: "",
-      status: "Active",
-    });
+    resetForm();
     setCurrentMember(null);
   };
 

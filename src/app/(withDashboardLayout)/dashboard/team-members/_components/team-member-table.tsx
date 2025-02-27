@@ -26,13 +26,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { TeamMember, TeamMemberFormData } from "@/types/team-member";
+import { TeamMember } from "@/types/team-member";
 import { MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 interface TeamMembersTableProps {
   members: TeamMember[];
-  onEdit: (member: TeamMemberFormData) => void;
+  onEdit: (member: TeamMember) => void;
   onDelete: (member: TeamMember) => void;
 }
 
