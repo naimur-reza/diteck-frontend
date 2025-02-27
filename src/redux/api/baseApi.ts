@@ -8,7 +8,6 @@ export const baseApi = createApi({
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
-      console.log("token", token);
       if (token) {
         headers.set("authorization", `bearer ${token}`);
       }
@@ -19,7 +18,7 @@ export const baseApi = createApi({
   endpoints: () => ({}),
   tagTypes: [
     "Auth",
-    "hiring",
+    "Hiring",
     "jobApplication",
     "teamMember",
     "service",
