@@ -23,6 +23,11 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { removeClientAuthCookie } from "@/lib/auth";
+import { logout } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 // This is sample navigation data
 const navigation = [
@@ -59,8 +64,21 @@ const navigation = [
 ];
 
 export function AppSidebar() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const handleLogout = () => {
-    console.log("Logging out...");
+    // Clear user from Redux
+    dispatch(logout());
+
+    // Remove the auth cookie
+    removeClientAuthCookie();
+
+    // Show success message
+    toast.success("Logged out successfully");
+
+    // Redirect to login page
+    router.push("/login");
   };
 
   return (
