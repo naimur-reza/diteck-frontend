@@ -4,7 +4,7 @@ import { teamsArray } from "../../_constant/teamMember";
 
 export const TeamMember = () => {
   return (
-    <div className="relative container mx-auto ">
+    <div className="relative container mx-auto">
       <SectionTitle
         buttonText="Selected Works"
         title="Meet the leadership team"
