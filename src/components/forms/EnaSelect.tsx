@@ -1,6 +1,13 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Controller } from "react-hook-form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import clsx from "clsx";
+import { Controller } from "react-hook-form";
+import { Label } from "../ui/label";
 
 interface EnaSelectOption {
   value: string;
@@ -16,6 +23,7 @@ interface EnaSelectProps extends React.ComponentPropsWithoutRef<typeof Select> {
   error?: string;
   disabled?: boolean;
   className?: string;
+  label?: string;
 }
 
 const EnaSelect: React.FC<EnaSelectProps> = ({
@@ -28,6 +36,7 @@ const EnaSelect: React.FC<EnaSelectProps> = ({
   error,
   disabled,
   className,
+  label,
   ...restProps
 }) => {
   return (
@@ -36,26 +45,34 @@ const EnaSelect: React.FC<EnaSelectProps> = ({
         defaultValue=""
         name={name}
         render={({ field }) => (
-          <Select
-            {...field}
-            {...restProps}
-            disabled={disabled}
-            onValueChange={(selectedValue) => {
-              field.onChange(selectedValue);
-              if (onChange) onChange(selectedValue);
-            }}
-          >
-            <SelectTrigger className={clsx("w-full border rounded-md p-2", error && "border-red-500")}>
-              <SelectValue placeholder={placeholder || "Select an option"} />
-            </SelectTrigger>
-            <SelectContent>
-              {options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="grid gap-2">
+            {label && <Label htmlFor={name}>{label}</Label>}
+            <Select
+              {...field}
+              {...restProps}
+              disabled={disabled}
+              onValueChange={(selectedValue) => {
+                field.onChange(selectedValue);
+                if (onChange) onChange(selectedValue);
+              }}
+            >
+              <SelectTrigger
+                className={clsx(
+                  "w-full border rounded-md p-2",
+                  error && "border-red-500"
+                )}
+              >
+                <SelectValue placeholder={placeholder || "Select an option"} />
+              </SelectTrigger>
+              <SelectContent>
+                {options.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         )}
       />
 

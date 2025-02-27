@@ -33,27 +33,27 @@ const navigation = [
   },
   {
     title: "Job Applications",
-    href: "/job-applications",
+    href: "/dashboard/job-applications",
     icon: FileTextIcon,
   },
   {
     title: "Team Members",
-    href: "/post-job",
+    href: "/dashboard/team-members",
     icon: Network,
   },
   {
     title: "Users",
-    href: "/users",
+    href: "/dashboard/users",
     icon: Users,
   },
   {
     title: "Careers",
-    href: "/careers",
+    href: "/dashboard/careers",
     icon: Handshake,
   },
   {
     title: "Blogs",
-    href: "/blogs",
+    href: "/dashboard/blogs",
     icon: Globe,
   },
 ];
