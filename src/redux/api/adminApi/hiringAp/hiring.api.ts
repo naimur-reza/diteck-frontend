@@ -11,7 +11,7 @@ export const hiringApi = baseApi.injectEndpoints({
         body: data,
         formData: true,
       }),
-      invalidatesTags: ["hiring"],
+      invalidatesTags: ["Hiring"],
     }),
 
     getAllHiringPost: builder.query({
@@ -28,7 +28,7 @@ export const hiringApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      providesTags: ["hiring"],
+      providesTags: ["Hiring"],
       transformResponse: (res: TResponseWithRedux<THiring[]>) => {
         return { data: res.data, meta: res.meta };
       },
@@ -40,7 +40,7 @@ export const hiringApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["hiring"],
+      providesTags: ["Hiring"],
       transformResponse: (res: TResponseWithRedux<THiring>) => {
         return { data: res.data, meta: res.meta };
       },
@@ -52,7 +52,7 @@ export const hiringApi = baseApi.injectEndpoints({
         body: data,
         formData: true,
       }),
-      invalidatesTags: ["hiring"],
+      invalidatesTags: ["Hiring"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
@@ -62,14 +62,14 @@ export const hiringApi = baseApi.injectEndpoints({
         url: `/hiring-post/soft-delete-post/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["hiring"],
+      invalidatesTags: ["Hiring"],
     }),
     deleteHiringPost: builder.mutation({
       query: ({ id }) => ({
         url: `/hiring-post/hard-delete-post/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["hiring"],
+      invalidatesTags: ["Hiring"],
     }),
   }),
 });
