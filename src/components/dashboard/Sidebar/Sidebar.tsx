@@ -38,7 +38,7 @@ const navigation = [
   },
   {
     title: "Team Members",
-    href: "/dashboard/post-job",
+    href: "/dashboard/team-members",
     icon: Network,
   },
   {
