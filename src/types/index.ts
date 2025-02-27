@@ -4,3 +4,4 @@ export * from "./global.types";
 export * from "./jobApplication.types";
 export * from "./teamMember.types";
 export * from "./service.types";
+export * from "./admin-manager.types";
