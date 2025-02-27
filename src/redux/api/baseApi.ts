@@ -24,5 +24,6 @@ export const baseApi = createApi({
     "teamMember",
     "service",
     "user",
+    "blog",
   ],
 });

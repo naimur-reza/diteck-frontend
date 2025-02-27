@@ -5,3 +5,4 @@ export * from "./jobApplication.types";
 export * from "./teamMember.types";
 export * from "./service.types";
 export * from "./admin-manager.types";
+export * from "./blog.types";
