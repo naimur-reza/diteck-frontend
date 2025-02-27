@@ -8,8 +8,8 @@ import { toast } from "sonner";
 import EnaForm from "@/components/forms/EnaForm";
 import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
-import { useCreateHiringPostMutation } from "@/redux/api/adminApi/hiringAp/hiring.api";
 import EnaMultiSelect from "@/components/forms/EnaMultiSelect";
+import { useCreateHiringPostMutation } from "@/redux/api/adminApi/hiringApi/hiring.api";
 
 // Validation Schema
 const hiringSchema = z.object({
@@ -69,7 +69,7 @@ const CreateHiringPost = () => {
             <EnaForm onSubmit={handleHiring} schema={hiringSchema} defaultValues={{ companyName: "", title: "" }}>
                 <div className="grid grid-cols-2 gap-5 mb-5">
                     <EnaInput name="companyName" placeholder="Company Name" />
-                    <EnaInput name="title" placeholder="Job Title" />
+                    {/* <EnaInput name="title" placeholder="Job Title" />
                     <EnaInput name="hiringImage" placeholder="Image URL" />
                     <EnaInput name="jobNature" placeholder="Job Nature (e.g., Remote, On-Site)" />
                     <EnaInput name="workingHours" placeholder="Working Hours" />
@@ -81,17 +81,17 @@ const CreateHiringPost = () => {
                     <EnaInput name="applicationDeadline" type="date" placeholder="Application Deadline" />
                     <EnaInput name="jobType" placeholder="Job Type (e.g., Full-time, Part-time)" />
                     <EnaInput name="status" placeholder="Status (e.g., Active, Inactive)" />
-                    <EnaInput name="department" placeholder="Department" />
-                    {/* 
+                    <EnaInput name="department" placeholder="Department" /> */}
+                    
                     <EnaMultiSelect control={control} name="skillsRequired" placeholder="Skills Required" options={skillsOptions} />
                     <EnaMultiSelect control={control} name="benefits" placeholder="Benefits Offered" options={skillsOptions} />
                     <EnaMultiSelect control={control} name="responsibilities" placeholder="Job Responsibilities" options={skillsOptions} />
-                    <EnaMultiSelect control={control} name="interviewRounds" placeholder="Interview Rounds" options={skillsOptions} /> */}
+                    <EnaMultiSelect control={control} name="interviewRounds" placeholder="Interview Rounds" options={skillsOptions} />
                 </div>
 
                 <button
                     type="submit"
-                    
+
                     className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"
                     disabled={isLoading}
                 >

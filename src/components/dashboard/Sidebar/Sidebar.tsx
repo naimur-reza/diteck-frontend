@@ -3,14 +3,18 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
-  BriefcaseIcon,
-  FileTextIcon,
-  Globe,
-  Handshake,
-  HomeIcon,
-  LogOutIcon,
-  Network,
+  Home,
+  FileText,
   Users,
+  Briefcase,
+  MessageSquare,
+  UserCheck,
+  Handshake,
+  Globe,
+  LayoutDashboard,
+  Newspaper,
+  BriefcaseIcon,
+  LogOutIcon,
 } from "lucide-react";
 import * as React from "react";
 
@@ -26,12 +30,56 @@ import {
 } from "@/components/ui/sidebar";
 
 const navigation = [
-  { title: "Dashboard", href: "/dashboard", icon: HomeIcon },
-  { title: "Job Applications", href: "/dashboard/job-applications", icon: FileTextIcon },
-  { title: "Team Members", href: "/dashboard/post-job", icon: Network },
-  { title: "Users", href: "/dashboard/users", icon: Users },
-  { title: "Hiring", href: "/dashboard/hiring", icon: Handshake },
-  { title: "Blogs", href: "/dashboard/blogs", icon: Globe },
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Job Applications",
+    href: "/dashboard/job-applications",
+    icon: FileText,
+  },
+  {
+    title: "Team Members",
+    href: "/dashboard/team-members",
+    icon: UserCheck,
+  },
+  {
+    title: "Reviews",
+    href: "/dashboard/reviews",
+    icon: MessageSquare,
+  },
+  {
+    title: "Query",
+    href: "/dashboard/query",
+    icon: MessageSquare,
+  },
+  {
+    title: "Users",
+    href: "/dashboard/users",
+    icon: Users,
+  },
+  {
+    title: "Hiring",
+    href: "/dashboard/hiring",
+    icon: Handshake,
+  },
+  {
+    title: "Services",
+    href: "/dashboard/service",
+    icon: Globe,
+  },
+  {
+    title: "Projects", // previews work
+    href: "/dashboard/projects",
+    icon: Briefcase,
+  },
+  {
+    title: "Blogs",
+    href: "/dashboard/blogs",
+    icon: Newspaper,
+  },
 ];
 
 export function AppSidebar() {

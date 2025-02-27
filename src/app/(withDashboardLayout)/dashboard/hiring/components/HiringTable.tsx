@@ -11,8 +11,8 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useGetAllHiringPostQuery } from "@/redux/api/adminApi/hiringAp/hiring.api";
 import { THiring } from "@/types"; // Import the hiring type
+import { useGetAllHiringPostQuery } from "@/redux/api/adminApi/hiringApi/hiring.api";
 
 // Table columns
 const columns: ColumnDef<THiring>[] = [
