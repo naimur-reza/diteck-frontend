@@ -3,14 +3,13 @@
 
 import React from "react";
 import { z } from "zod";
-import { FieldValues } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import EnaForm from "@/components/forms/EnaForm";
 import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useCreateHiringPostMutation } from "@/redux/api/adminApi/hiringAp/hiring.api";
-// import EnaMultiSelect from "@/components/forms/EnaMultiSelect";
+import EnaMultiSelect from "@/components/forms/EnaMultiSelect";
 
 // Validation Schema
 const hiringSchema = z.object({
@@ -35,31 +34,39 @@ const hiringSchema = z.object({
 });
 
 const CreateHiringPost = () => {
-    const router = useRouter();
+
     const [createHiringPost, { isLoading }] = useCreateHiringPostMutation();
 
-    const handleSubmit = async (data: FieldValues) => {
-        try {
-            const newPost = {
-                ...data,
-                createdBy: "64c8f43b4b5a7b001f3a6e5d", // Hardcoded for now; should be dynamic
-                slug: data.title.toLowerCase().replace(/ /g, "-"),
-            };
+    const { control } = useForm({ defaultValues: { skills: [] }, });
+    const skillsOptions = [
+        { label: "JavaScript", value: "javascript" },
+        { label: "React", value: "react" },
+        { label: "Node.js", value: "node" },
+        { label: "TypeScript", value: "typescript" },
+    ];
 
-            await createHiringPost(newPost).unwrap();
-            toast.success("Job post created successfully!");
-            router.push("/dashboard/hiring"); // Redirect after creation
-        } catch (err: any) {
-            console.error("Error creating job post:", err);
-            toast.error(err?.data?.message || "Failed to create job post.");
-        }
+    const handleHiring = async (data: FieldValues) => {
+        console.log(data);
+        // try {
+        //     const newPost = {
+        //         ...data,
+        //         createdBy: "64c8f43b4b5a7b001f3a6e5d", // Hardcoded for now; should be dynamic
+        //         slug: data.title.toLowerCase().replace(/ /g, "-"),
+        //     };
+
+        //     await createHiringPost(newPost).unwrap();
+        //     toast.success("Job post created successfully!");
+
+        // } catch (err: any) {
+        //     console.error("Error creating job post:", err);
+        //     toast.error(err?.data?.message || "Failed to create job post.");
+        // }
     };
 
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-            <h2 className="text-2xl font-bold mb-5 text-center">Create Hiring Post</h2>
 
-            <EnaForm onSubmit={handleSubmit} schema={hiringSchema} defaultValues={{}}>
+            <EnaForm onSubmit={handleHiring} schema={hiringSchema} defaultValues={{ companyName: "", title: "" }}>
                 <div className="grid grid-cols-2 gap-5 mb-5">
                     <EnaInput name="companyName" placeholder="Company Name" />
                     <EnaInput name="title" placeholder="Job Title" />
@@ -75,15 +82,16 @@ const CreateHiringPost = () => {
                     <EnaInput name="jobType" placeholder="Job Type (e.g., Full-time, Part-time)" />
                     <EnaInput name="status" placeholder="Status (e.g., Active, Inactive)" />
                     <EnaInput name="department" placeholder="Department" />
-
-                    {/* <EnaMultiSelect name="skillsRequired" placeholder="Skills Required" />
-        <EnaMultiSelect name="benefits" placeholder="Benefits Offered" />
-        <EnaMultiSelect name="responsibilities" placeholder="Job Responsibilities" />
-        <EnaMultiSelect name="interviewRounds" placeholder="Interview Rounds" /> */}
+                    {/* 
+                    <EnaMultiSelect control={control} name="skillsRequired" placeholder="Skills Required" options={skillsOptions} />
+                    <EnaMultiSelect control={control} name="benefits" placeholder="Benefits Offered" options={skillsOptions} />
+                    <EnaMultiSelect control={control} name="responsibilities" placeholder="Job Responsibilities" options={skillsOptions} />
+                    <EnaMultiSelect control={control} name="interviewRounds" placeholder="Interview Rounds" options={skillsOptions} /> */}
                 </div>
 
                 <button
                     type="submit"
+                    
                     className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"
                     disabled={isLoading}
                 >

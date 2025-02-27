@@ -1,8 +1,8 @@
-import { Input } from "@/components/ui/input";
 import classNames from "classnames";
 import { Controller } from "react-hook-form";
+import { Textarea } from "../ui/textarea";
 
-interface EnaInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface EnaInputProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   name: string;
   error?: string;
 }
@@ -13,7 +13,7 @@ const EnaTextArea: React.FC<EnaInputProps> = ({ name, error, className, ...rest 
       <Controller
         name={name}
         render={({ field }) => (
-          <Input
+          <Textarea
             {...field}
             {...rest} // Accepts additional props
             className={classNames(
