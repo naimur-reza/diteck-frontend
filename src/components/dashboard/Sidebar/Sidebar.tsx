@@ -28,7 +28,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-const navigation = [
+const navigation = [  
   {
     title: "Dashboard",
     href: "/dashboard",
@@ -66,7 +66,7 @@ const navigation = [
   },
   {
     title: "Services",
-    href: "/dashboard/service",
+    href: "/dashboard/services",
     icon: Globe,
   },
   {
@@ -116,8 +116,9 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <Link
                     href={item.href}
-                    className={`pl-5 py-5 flex items-center gap-2 rounded-md ${isActive ? "bg-primary text-white" : ""
-                      }`}
+                    className={`pl-5 py-5 flex items-center gap-2 rounded-md ${
+                      isActive ? "bg-primary text-white" : ""
+                    }`}
                   >
                     <item.icon className="size-6" />
                     <span className="text-base">{item.title}</span>
