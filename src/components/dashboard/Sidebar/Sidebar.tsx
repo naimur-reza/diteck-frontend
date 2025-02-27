@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
-  Home,
   FileText,
   Users,
   Briefcase,
