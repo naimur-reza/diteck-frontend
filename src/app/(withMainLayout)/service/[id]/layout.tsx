@@ -1,7 +1,7 @@
 import assets from "@/assets";
 import { ParallaxBanner } from "@/components/common";
 import { ReactNode } from "react";
-import { ServiceCategory, SidebarAds } from "./_components";
+import { ServiceCategory, SidebarAds,  } from "./_components";
 
 const ServiceDetailsLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -11,7 +11,6 @@ const ServiceDetailsLayout = ({ children }: { children: ReactNode }) => {
         backgroundImage: `url("https://demo2.wpopal.com/diteck/wp-content/uploads/2024/12/404-bg.png")`,
         backgroundPosition: "top center",
         backgroundRepeat: "no-repeat",
-        // backgroundColor: "rgba(255, 255, 255, 0.9)",
       }}
     >
       <ParallaxBanner
@@ -31,6 +30,9 @@ const ServiceDetailsLayout = ({ children }: { children: ReactNode }) => {
         {/* content */}
         <div className="xl:basis-[70%]  basis-full">{children}</div>
       </div>
+      {/* <div className="container">
+
+      </div> */}
     </div>
   );
 };

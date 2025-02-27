@@ -1,6 +1,6 @@
 import { TeamMemberCard } from "@/components/ui";
-import { teamsArray } from "../../_constant/teamMember";
 import { SectionTitle } from "@/components/common";
+import { teamsArray } from "../../_constant/teamMember";
 
 export const TeamMember = () => {
   return (

@@ -60,7 +60,6 @@ const navigation = [
 
 export function AppSidebar() {
   const handleLogout = () => {
-    // Add your logout logic here
     console.log("Logging out...");
   };
 
@@ -86,9 +85,9 @@ export function AppSidebar() {
           {navigation.map((item) => (
             <SidebarMenuItem key={item.href}>
               <SidebarMenuButton asChild>
-                <Link href={item.href}>
-                  <item.icon className="size-4" />
-                  <span>{item.title}</span>
+                <Link href={item.href} className="py-5">
+                  <item.icon className="size-8" />
+                  <span className="text-base">{item.title}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -99,8 +98,8 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton onClick={handleLogout}>
-              <LogOutIcon className="size-4" />
-              <span>Logout</span>
+              <LogOutIcon className="size-8" />
+              <span className="text-base cursor-pointer">Logout</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
