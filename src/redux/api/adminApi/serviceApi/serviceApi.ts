@@ -13,7 +13,6 @@ export const serviceApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["service"],
     }),
-
     getAllService: builder.query({
       query: (arg) => {
         const params = new URLSearchParams();

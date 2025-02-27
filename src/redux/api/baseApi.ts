@@ -25,5 +25,6 @@ export const baseApi = createApi({
     "service",
     "user",
     "blog",
+    "query",
   ],
 });
