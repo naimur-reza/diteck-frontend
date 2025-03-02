@@ -129,11 +129,11 @@ export function AppSidebar() {
             const isActive = pathname === item.href; // Check if the route is active
 
             return (
-              <SidebarMenuItem key={item.href}>
+              <SidebarMenuItem key={item.href} className="mx-2">
                 <SidebarMenuButton asChild>
                   <Link
                     href={item.href}
-                    className={`pl-5 py-5 flex items-center gap-2 rounded-md ${
+                    className={`pl-5 py-5 flex items-center gap-2 rounded-md  ${
                       isActive ? "bg-primary text-white" : ""
                     }`}
                   >
