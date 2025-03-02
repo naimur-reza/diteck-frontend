@@ -31,11 +31,10 @@ const EnaForm = ({ children, onSubmit, schema, defaultValues }: TFormProps) => {
   }
 
   const methods = useForm({ ...formConfig, mode: "all" });
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit } = methods;
 
   const submit: SubmitHandler<FieldValues> = async (data) => {
     await onSubmit(data);
-    reset();
   };
 
   return (

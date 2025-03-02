@@ -36,12 +36,12 @@ export function CommonDialog({
           {triggerLabel}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[1200px] w-auto max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
-        {children}
+        <div className="overflow-y-auto max-h-[60vh]">{children}</div>
       </DialogContent>
     </Dialog>
   );

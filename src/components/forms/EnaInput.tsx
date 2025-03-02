@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import classNames from "classnames";
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { Label } from "../ui/label";
 
 interface EnaInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -16,16 +16,20 @@ const EnaInput: React.FC<EnaInputProps> = ({
   label,
   ...rest
 }) => {
+  const { control } = useFormContext();
+
   return (
     <div className={classNames("flex flex-col", className)}>
       <Controller
         name={name}
+        control={control} // Fix: Pass control to Controller
+        defaultValue={rest.defaultValue ?? ""} // Ensure defaultValue is set
         render={({ field }) => (
           <div className="grid gap-2">
             {label && <Label htmlFor={name}>{label}</Label>}
             <Input
               {...field}
-              {...rest} // Accepts additional props
+              {...rest}
               className={classNames(
                 "border rounded-md p-2 focus:outline-none",
                 { "border-red-500": error }
