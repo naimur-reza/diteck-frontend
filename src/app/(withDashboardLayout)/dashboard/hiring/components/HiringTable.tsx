@@ -1,118 +1,67 @@
 "use client";
-
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/dashboard/Table/Table";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { THiring } from "@/types"; // Import the hiring type
+import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
+import { Card, CardContent } from "@/components/ui/card";
+import ETable, { TableColumn } from "@/components/ui/table/ETable";
 import { useGetAllHiringPostQuery } from "@/redux/api/adminApi/hiringApi/hiring.api";
-
-// Table columns
-const columns: ColumnDef<THiring>[] = [
-    {
-        accessorKey: "title",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            >
-                Job Title
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-        ),
-    },
-    {
-        accessorKey: "companyName",
-        header: "Company Name",
-    },
-    {
-        accessorKey: "jobType",
-        header: "Job Type",
-    },
-    {
-        accessorKey: "location",
-        header: "Location",
-    },
-    {
-        accessorKey: "salaryRange",
-        header: "Salary",
-    },
-    {
-        accessorKey: "status",
-        header: "Status",
-        cell: ({ row }) => {
-            const status = row.getValue("status") as string;
-            return (
-                <div
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
-          ${status === "active"
-                            ? "bg-green-100 text-green-700"
-                            : status === "inactive"
-                                ? "bg-red-100 text-red-700"
-                                : "bg-yellow-100 text-yellow-700"
-                        }`}
-                >
-                    {status}
-                </div>
-            );
-        },
-    },
-    {
-        id: "actions",
-        cell: ({ row }) => {
-            const job = row.original;
-
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={() => console.log("View:", job._id)}>
-                            View details
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => console.log("Edit:", job._id)}>
-                            Edit
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            );
-        },
-    },
-];
-
-// Status filter options
-const statusOptions = [
-    { value: "active", label: "Active" },
-    { value: "inactive", label: "Inactive" },
-    { value: "pending", label: "Pending" },
-];
+import { THiring } from "@/types";
+import { useState } from "react";
 
 const HiringTable = () => {
-    const { data: hiringData, error, isLoading } = useGetAllHiringPostQuery([]);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [limit, setLimit] = useState(50);
 
-    if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Something went wrong!</p>;
+    const { data } = useGetAllHiringPostQuery(undefined);
+
+    const handlePageChange = (newPage: number) => {
+        setPageNumber(newPage); // Update the current page
+    };
+
+    const handleSearchChange = (value: string) => {
+        setSearchTerm(value);
+    };
+
+    const columns = [
+        { key: "hiringImage", label: "Photo" }, // Updated "thumbnail" to "hiringImage"
+        { key: "title", label: "Title" },
+        { key: "companyName", label: "Company Name" }, // Added company name
+        { key: "jobType", label: "Job Type" }, // Added job type
+        { key: "jobNature", label: "Job Nature" }, // Added job nature
+        { key: "salaryRange", label: "Salary Range" }, // Added salary range
+        { key: "location", label: "Location" }, // Added location
+        { key: "experience", label: "Experience" }, // Added experience
+        { key: "status", label: "Status" }, // Added status
+        { key: "views", label: "Views" }, // Added views count
+        { key: "applicationDeadline", label: "Application Deadline" }, // Added application deadline
+    ];
 
     return (
-        <div className="space-y-4">
-            <DataTable
-                columns={columns}
-                data={hiringData?.data || []} // Ensure data is an array
-                searchableColumn="title"
-                filterOptions={statusOptions}
-            />
+        <div>
+            <Card>
+                <CardContent>
+                    <TableSearchBar
+                        searchPlaceholder="Search Post Title..."
+                        onSearchChange={handleSearchChange}
+                        searchValue={searchTerm}
+                        setLimit={setLimit}
+                        limit={limit}
+                    />
+                    <ETable
+                        columns={columns as TableColumn<THiring>[]}
+                        data={data?.data as THiring[]}
+                        onEdit={(row) => console.log("edit:", row)}
+                        onView={(row) => console.log("View:", row)}
+                        onDelete={(row) => console.log("Delete:", row)}
+                        handleStatusChanger={(row, newStatus) =>
+                            console.log("Status Changed:", row, newStatus)
+                        }
+                        meta={data?.meta}
+                        handlePageChange={handlePageChange}
+                        pageNumber={pageNumber}
+                        defaultKey="blog"
+                    />
+                </CardContent>
+            </Card>
         </div>
     );
 };

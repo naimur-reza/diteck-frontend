@@ -160,8 +160,8 @@ export default function ETable<T>({
                     </span>
                   ) : col.label === "Img" || col.label === "Thumbnail" || col.label === "Photo" ? (
                     <PhotoProvider>
-                      <PhotoView src={row[col.key] as string}>
-                        {row[col.key] ? ( // Only render the image if there's a valid source
+                      <PhotoView src={String(row[col.key] ?? "")}>
+                        {typeof row[col.key] === "string" && (row[col.key] as string).startsWith("http") ? (
                           <Image
                             width={30}
                             height={30}

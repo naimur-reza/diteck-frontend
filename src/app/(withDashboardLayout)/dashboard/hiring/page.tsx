@@ -13,7 +13,10 @@ const HiringPage = () => {
     return (
         <section>
             <div className='flex justify-between items-center mb-10'>
-                <h2 className='text-2xl font-medium'>Hiring Posts</h2>
+                <div>
+                    <h1 className="text-2xl font-bold tracking-tight">Hiring Posts</h1>
+                    <p className="text-muted-foreground">Manage your Hiring Posts.</p>
+                </div>
                 <Button onClick={openModal} className='cursor-pointer'><Plus className="size-4" /> New Hiring</Button>
                 <Modal isOpen={isOpen} onClose={closeModal} title='Add New Hiring Post'>
                     <CreateHiringPost />
