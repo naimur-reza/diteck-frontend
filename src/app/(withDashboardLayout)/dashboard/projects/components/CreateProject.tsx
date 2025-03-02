@@ -12,7 +12,7 @@ import { blogSchema } from "@/schema/blogSchema";
 const CreateProject = () => {
     const [createBlog, { isLoading }] = useCreateBlogMutation();
 
-    const handleCreateBlog = async (data: FieldValues) => {
+    const handleCreateProject = async (data: FieldValues) => {
         console.log("Blog Data:", data);
 
         try {
@@ -38,7 +38,7 @@ const CreateProject = () => {
 
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-            <EnaForm onSubmit={handleCreateBlog} schema={blogSchema} defaultValues={{ title: "", bio: "", content: "" }}>
+            <EnaForm onSubmit={handleCreateProject} schema={blogSchema} defaultValues={{ title: "", bio: "", content: "" }}>
                 <div className="grid grid-cols-1 gap-5 mb-5">
                     <EnaInput name="title" placeholder="Blog Title" />
                     <EnaTextArea name="bio" placeholder="Short Description (Bio)" />
