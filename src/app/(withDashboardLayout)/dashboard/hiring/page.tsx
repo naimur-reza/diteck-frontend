@@ -19,7 +19,7 @@ const HiringPage = () => {
                 </div>
                 <Button onClick={openModal} className='cursor-pointer'><Plus className="size-4" /> New Hiring</Button>
                 <Modal isOpen={isOpen} onClose={closeModal} title='Add New Hiring Post'>
-                    <CreateHiringPost />
+                    <CreateHiringPost closeModal={closeModal} />
                 </Modal>
             </div>
             <HiringTable />

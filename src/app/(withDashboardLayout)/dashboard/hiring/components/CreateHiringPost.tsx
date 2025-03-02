@@ -9,8 +9,9 @@ import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useCreateHiringPostMutation } from "@/redux/api/adminApi/hiringApi/hiring.api";
 import { hiringSchema } from "@/schema/hiringSchema";
 import EnaMultiInput2 from "@/components/forms/EnaMultiInput2";
+import { EnaSelect } from "@/components/forms";
 
-const CreateHiringPost = () => {
+const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
     const [createHiringPost, { isLoading }] = useCreateHiringPostMutation();
 
     // Multi-input fields state
@@ -75,6 +76,7 @@ const CreateHiringPost = () => {
 
             await createHiringPost(formData).unwrap();
             toast.success("Job post created successfully!");
+            closeModal()
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.error("Error creating job post:", err);
@@ -97,8 +99,8 @@ const CreateHiringPost = () => {
                     <EnaInput name="location" placeholder="Job Location" />
                     <EnaInput name="experience" placeholder="Required Experience" />
                     <EnaInput name="applicationDeadline" type="date" placeholder="Application Deadline" />
-                    <EnaInput name="jobType" placeholder="Job Type (full-time, part-time, remote, hybrid)" />
-                    <EnaInput name="status" placeholder="Status (active, inactive, expired)" />
+                    <EnaSelect options={jobTypes} name="jobType" placeholder="Job Type (full-time, part-time, remote, hybrid)" />
+                    <EnaSelect options={status} name="status" placeholder="Status (active, inactive, expired)" />
                     <EnaInput name="department" placeholder="Department" />
 
                     {/* Multi-input fields */}
@@ -122,3 +124,16 @@ const CreateHiringPost = () => {
 };
 
 export default CreateHiringPost;
+
+
+const jobTypes = [
+    { value: "full-time", label: "Full-Time" },
+    { value: "part-time", label: "Part-Time" },
+    { value: "remote", label: "Remote" },
+    { value: "hybrid", label: "Hybrid" },
+];
+const status = [
+    { value: "active", label: "Active" },
+    { value: "inactive", label: "Inactive" },
+    { value: "expired", label: "Expired" },
+];
