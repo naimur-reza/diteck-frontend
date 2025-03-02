@@ -26,8 +26,14 @@ export default function TeamMembers() {
   const [formData, setFormData] = useState<TeamMemberFormData>({
     name: "",
     email: "",
-    role: "",
-    status: "Active",
+    teamRole: "",
+    startDate: "",
+    designation: "",
+    profilePhoto: "",
+    address: "",
+    phoneNumber: "",
+    emergencyContactNumber: "",
+    education: "",
   });
 
   // fetch all team members
@@ -61,7 +67,6 @@ export default function TeamMembers() {
       //   );
       //   setMembers(updatedMembers);
       setIsEditDialogOpen(false);
-      resetForm();
     } catch (error) {
       console.error("Failed to update team member:", error);
     } finally {
@@ -89,7 +94,7 @@ export default function TeamMembers() {
 
   const handleEdit = (member: TTeamMember) => {
     setCurrentMember(member);
-    // setIsEditDialogOpen(true);
+    setIsEditDialogOpen(true);
   };
 
   const handleDelete = (member: TTeamMember) => {
@@ -98,7 +103,6 @@ export default function TeamMembers() {
   };
 
   const resetForm = () => {
-    resetForm();
     setCurrentMember(null);
   };
 
@@ -118,7 +122,6 @@ export default function TeamMembers() {
           setFormData={setFormData}
           onAdd={addTeamMember}
           isLoading={isLoading}
-          resetForm={resetForm}
         />
       </div>
 

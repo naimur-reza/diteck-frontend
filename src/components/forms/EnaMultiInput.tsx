@@ -1,64 +1,95 @@
-import React, { useState } from "react";
+"use client";
 
-interface MultiInputProps {
-    label?: string;
-    placeholder?: string;
-    onChange?: (items: string[]) => void;
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { X } from "lucide-react";
+import React, { KeyboardEvent, useRef } from "react";
+import {
+  Controller,
+  FieldValues,
+  Path,
+  PathValue,
+  useForm,
+} from "react-hook-form";
+
+interface EnaMultiInputProps<T extends FieldValues> {
+  name: Path<T>;
+  label?: string;
+  placeholder?: string;
+  helperText?: string;
 }
 
-const EnaMultiInput: React.FC<MultiInputProps> = ({
-    label = "",
-    placeholder = "Type something and press Enter...",
-    onChange,
-}) => {
-    const [items, setItems] = useState<string[]>([]);
+export function EnaMultiInput<T extends FieldValues>({
+  name,
+  label,
+  placeholder = "Type something and press Enter...",
+  helperText,
+}: EnaMultiInputProps<T>) {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-    // Handle input on Enter key
-    const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
+  const { control } = useForm();
+
+  return (
+    <Controller
+      name={name}
+      control={control}
+      defaultValue={[] as PathValue<T, Path<T>>}
+      render={({ field }) => {
+        const items: string[] = field.value || [];
+
+        const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+          if (event.key === "Enter") {
             event.preventDefault();
-            const value = event.currentTarget.value.trim();
-            if (value && !items.includes(value)) {
-                const updatedItems = [...items, value];
-                setItems(updatedItems);
-                onChange?.(updatedItems); // Notify parent component
+            const value = inputRef.current?.value.trim();
+
+            if (value && !items.includes(value!)) {
+              const updatedItems = [...items, value];
+              field.onChange(updatedItems);
+              if (inputRef.current) {
+                inputRef.current.value = "";
+              }
             }
-            event.currentTarget.value = "";
-        }
-    };
+          }
+        };
 
-    // Remove an item from the list
-    const removeItem = (itemToRemove: string) => {
-        const updatedItems = items.filter((item) => item !== itemToRemove);
-        setItems(updatedItems);
-        onChange?.(updatedItems); // Notify parent component
-    };
+        const removeItem = (itemToRemove: string) => {
+          const updatedItems = items.filter(
+            (item: string) => item !== itemToRemove
+          );
+          field.onChange(updatedItems);
+        };
 
-    return (
-        <div>
-            {label && <label className="block text-sm">{label} (Press Enter to Add)</label>}
-            <input
-                type="text"
-                placeholder={placeholder}
-                onKeyDown={handleInput}
-                className="mt-2 w-full rounded border p-2 focus:outline-0"
+        return (
+          <div className="grid gap-2">
+            {label && <Label htmlFor={name}>{label}</Label>}
+            <Input
+              ref={inputRef}
+              id={name}
+              placeholder={placeholder}
+              onKeyDown={handleKeyDown}
+              className="w-full p-2"
             />
-            <div className="mt-2 flex flex-wrap gap-2">
-                {items.map((item) => (
-                    <span key={item} className="flex items-center gap-2 rounded-md bg-gray-200 px-3 py-1 text-sm">
-                        {item}
-                        <button
-                            type="button"
-                            className="text-red-500 hover:text-red-700"
-                            onClick={() => removeItem(item)}
-                        >
-                            ×
-                        </button>
-                    </span>
-                ))}
+            {helperText && (
+              <p className="text-sm text-muted-foreground">{helperText}</p>
+            )}
+            <div className="flex flex-wrap gap-2 mt-2">
+              {items.map((item: string) => (
+                <Badge key={item} variant="secondary" className="px-3 py-1.5">
+                  {item}
+                  <button
+                    type="button"
+                    className="ml-2 text-muted-foreground hover:text-foreground"
+                    onClick={() => removeItem(item)}
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </Badge>
+              ))}
             </div>
-        </div>
-    );
-};
-
-export default EnaMultiInput;
+          </div>
+        );
+      }}
+    />
+  );
+}
