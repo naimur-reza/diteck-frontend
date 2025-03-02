@@ -49,6 +49,7 @@ interface DataTableProps<T> {
   handlePageChange?: (page: number) => void;
   meta?: TMeta;
   pageNumber?: number;
+  isLoading: boolean;
 }
 
 export default function ETable<T>({
@@ -62,7 +63,18 @@ export default function ETable<T>({
   handlePageChange,
   meta,
   pageNumber,
+  isLoading,
 }: DataTableProps<T>) {
+  if (isLoading) {
+    return <>loading ...</>;
+  }
+  if (data?.length == 0) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <h2 className="text-xl font-bold text-gray-700">No data found</h2>
+      </div>
+    );
+  }
   return (
     <>
       <Table>
@@ -159,9 +171,9 @@ export default function ETable<T>({
                     <Image
                       width={20}
                       height={20}
-                      alt=""
+                      alt="sdf"
                       className=" rounded-md"
-                      src={row[col.key] as string}
+                      src={row[col?.key] as string}
                     ></Image>
                   ) : col.key === "startDate" ||
                     col.key === "endDate" ||

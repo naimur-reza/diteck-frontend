@@ -6,6 +6,7 @@ import ETable, { TableColumn } from "@/components/ui/table/ETable";
 import { useGetAllServiceQuery } from "@/redux/api/adminApi/serviceApi/serviceApi";
 import { TService } from "@/types";
 import { useState } from "react";
+import AddService from "./_components/AddService";
 
 const Services = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -13,7 +14,7 @@ const Services = () => {
   const [limit, setLimit] = useState(50);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
-  const { data } = useGetAllServiceQuery(undefined);
+  const { data, isLoading } = useGetAllServiceQuery(undefined);
 
   const handlePageChange = (newPage: number) => {
     setPageNumber(newPage); // Update the current page
@@ -24,7 +25,7 @@ const Services = () => {
   };
 
   const columns = [
-    { key: "photo", label: "Photo" },
+    { key: "photo", label: "Img" },
     { key: "title", label: "Title" },
     { key: "price.basePrice", label: "Base Price" },
     { key: "price.currency", label: "Currency" },
@@ -48,7 +49,7 @@ const Services = () => {
           isOpen={isAddDialogOpen}
           setIsOpen={setIsAddDialogOpen}
         >
-          <p>Add a new service.</p>
+          <AddService></AddService>
         </CommonDialog>
       </div>
 
@@ -65,6 +66,7 @@ const Services = () => {
             limit={limit}
           />
           <ETable
+            isLoading={isLoading}
             columns={columns as TableColumn<TService>[]}
             data={data?.data as TService[]}
             onEdit={(row) => console.log("edit:", row)}
