@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import clsx from "clsx";
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { Label } from "../ui/label";
 
 interface EnaSelectOption {
@@ -39,9 +39,12 @@ const EnaSelect: React.FC<EnaSelectProps> = ({
   label,
   ...restProps
 }) => {
+  const { control } = useFormContext();
+
   return (
     <div className={clsx("flex flex-col", className)}>
       <Controller
+        control={control}
         defaultValue=""
         name={name}
         render={({ field }) => (

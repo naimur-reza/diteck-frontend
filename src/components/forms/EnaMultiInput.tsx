@@ -10,7 +10,7 @@ import {
   FieldValues,
   Path,
   PathValue,
-  useForm,
+  useFormContext,
 } from "react-hook-form";
 
 interface EnaMultiInputProps<T extends FieldValues> {
@@ -28,7 +28,7 @@ export function EnaMultiInput<T extends FieldValues>({
 }: EnaMultiInputProps<T>) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { control } = useForm();
+  const { control } = useFormContext();
 
   return (
     <Controller

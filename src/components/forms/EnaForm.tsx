@@ -35,6 +35,7 @@ const EnaForm = ({ children, onSubmit, schema, defaultValues }: TFormProps) => {
 
   const submit: SubmitHandler<FieldValues> = async (data) => {
     await onSubmit(data);
+    console.log("Submitted data:", data);
     reset();
   };
 

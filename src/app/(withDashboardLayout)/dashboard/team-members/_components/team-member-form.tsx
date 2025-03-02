@@ -4,6 +4,7 @@ import { EnaForm, EnaInput, EnaSelect } from "@/components/forms";
 import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
 import { useEffect } from "react";
+import { z } from "zod";
 
 interface TeamMemberFormProps {
   formData: TeamMemberFormData;
@@ -19,10 +20,22 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
     }
   }, [member, setFormData]);
 
+  const schema = z.object({
+    name: z.string().nonempty(),
+    email: z.string().email(),
+    phoneNumber: z.string().nonempty(),
+    emergencyContactNumber: z.string().nonempty(),
+    address: z.string().nonempty(),
+    role: z.string().nonempty(),
+    designation: z.string().nonempty(),
+    startDate: z.string().nonempty(),
+  });
+
   return (
     <EnaForm
       onSubmit={(data) => console.log(data)}
       defaultValues={member ?? {}}
+      schema={schema}
     >
       <div className="grid grid-cols-2 gap-3">
         <EnaInput label="Name" name="name" placeholder="John Doe" />
