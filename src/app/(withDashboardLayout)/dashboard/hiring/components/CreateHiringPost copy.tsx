@@ -9,7 +9,7 @@ import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
 import EnaMultiSelect from "@/components/forms/EnaMultiSelect";
 import { useCreateHiringPostMutation } from "@/redux/api/adminApi/hiringApi/hiring.api";
-import { hiringSchema } from "@/schema/hiring";
+import { hiringSchema } from "@/schema/hiringSchema";
 
 const CreateHiringPost = () => {
 

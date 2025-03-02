@@ -1,0 +1,24 @@
+"use client"
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import Modal from '@/components/ui/modal/Modal';
+import { useModal } from '@/hooks/useModal';
+import { Plus } from 'lucide-react';
+import CreateBlog from './components/CreateBlog';
+
+const BlogsPage = () => {
+    const { isOpen, openModal, closeModal } = useModal();
+    return (
+        <div>
+            <div className='flex justify-between items-center mb-10'>
+                <h2 className='text-2xl font-medium'>Blogs</h2>
+                <Button onClick={openModal} className='cursor-pointer'><Plus className="size-4" /> New Blog</Button>
+                <Modal isOpen={isOpen} onClose={closeModal} title='Add New Blog'>
+                    <CreateBlog />
+                </Modal>
+            </div>
+        </div>
+    );
+};
+
+export default BlogsPage;
