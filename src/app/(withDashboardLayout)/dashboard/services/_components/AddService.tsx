@@ -2,14 +2,37 @@
 import { EnaFileUpload, EnaForm, EnaInput } from "@/components/forms";
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
+import { useNotification } from "@/hooks/useNotification";
+import { useCreateServiceMutation } from "@/redux/api/adminApi/serviceApi/serviceApi";
 import { addServiceSchema } from "@/schema/serviceSchema";
+import { TError } from "@/types";
 import { FieldValues } from "react-hook-form";
 
 const AddService = () => {
+  const [createService, { isLoading, isError, isSuccess, data, error }] =
+    useCreateServiceMutation();
   const handleSubmit = (data: FieldValues) => {
-    console.log(data);
+    const formData = new FormData();
+    if (data.coverImage) {
+      formData.append("coverImage", data.coverImage);
+    }
+
+    const bodyData = {
+      ...data,
+      price: Number(data?.price),
+    };
+
+    formData.append("data", JSON.stringify(bodyData));
+    createService(formData);
   };
 
+  useNotification({
+    isLoading,
+    isError,
+    isSuccess,
+    data,
+    error: error as TError,
+  });
   return (
     <div className="">
       <EnaForm
