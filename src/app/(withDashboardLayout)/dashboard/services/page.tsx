@@ -1,4 +1,5 @@
 "use client";
+import { CommonDialog } from "@/components/dashboard/CommonDialog/CommonDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
@@ -10,6 +11,7 @@ const Services = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [limit, setLimit] = useState(50);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   const { data } = useGetAllServiceQuery(undefined);
 
@@ -39,15 +41,15 @@ const Services = () => {
           <h1 className="text-2xl font-bold tracking-tight">Services</h1>
           <p className="text-muted-foreground">Manage your services.</p>
         </div>
-        {/* <AddMemberDialog
-      isOpen={isAddDialogOpen}
-      setIsOpen={setIsAddDialogOpen}
-      formData={formData}
-      setFormData={setFormData}
-      onAdd={addTeamMember}
-      isLoading={isLoading}
-      resetForm={resetForm}
-    /> */}
+        <CommonDialog
+          triggerLabel="New Service"
+          title="Add Service"
+          dialogType="create"
+          isOpen={isAddDialogOpen}
+          setIsOpen={setIsAddDialogOpen}
+        >
+          <p>Add a new service.</p>
+        </CommonDialog>
       </div>
 
       <Card>
