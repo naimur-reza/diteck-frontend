@@ -1,6 +1,12 @@
 "use client";
 
-import { EnaForm, EnaInput, EnaSelect } from "@/components/forms";
+import {
+  EnaFileUpload,
+  EnaForm,
+  EnaInput,
+  EnaSelect,
+} from "@/components/forms";
+import { EnaDatePicker } from "@/components/forms/EnaDatePicker";
 import { teamMemberSchema } from "@/schema/teamMemberSchema";
 import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
@@ -12,12 +18,14 @@ interface TeamMemberFormProps {
   setFormData: (data: TeamMemberFormData) => void;
   member?: TTeamMember | null;
   onSubmit: (data: FieldValues) => void;
+  isLoading: boolean;
 }
 
 export function TeamMemberForm({
   setFormData,
   member,
   onSubmit,
+  isLoading,
 }: TeamMemberFormProps) {
   // Initialize form with member data if editing
   useEffect(() => {
@@ -33,6 +41,7 @@ export function TeamMemberForm({
       schema={teamMemberSchema}
       buttonPosition="right"
       buttonText="Add Member"
+      isLoading={isLoading}
     >
       <div className="grid grid-cols-2 gap-3">
         <EnaInput label="Name" name="name" placeholder="John Doe" />
@@ -70,14 +79,15 @@ export function TeamMemberForm({
           placeholder="Software Engineer"
         />
 
-        <EnaInput
+        <EnaDatePicker
           name="startDate"
           label="Start Date"
-          type="date"
           placeholder="2021-01-01"
         />
 
-        <EnaInput name="thumbnail" placeholder="Upload Thumbnail" type="file" />
+        <div className="col-span-2">
+          <EnaFileUpload label="Photo" name="profilePhoto" accept="image/*" />
+        </div>
       </div>
     </EnaForm>
   );
@@ -90,11 +100,11 @@ const roles = [
   },
   {
     label: "Frontend Developer",
-    value: "frontendDeveloper",
+    value: "frontEndDeveloper",
   },
   {
     label: "Backend Developer",
-    value: "backendDeveloper",
+    value: "backEndDeveloper",
   },
   {
     label: "UI/UX Designer",

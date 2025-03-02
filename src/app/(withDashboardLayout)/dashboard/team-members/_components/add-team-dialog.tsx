@@ -20,6 +20,7 @@ interface AddMemberDialogProps {
   setFormData: (data: TeamMemberFormData) => void;
   resetForm: () => void;
   onAdd: (data: FieldValues) => void;
+  isLoading: boolean;
 }
 
 export function AddMemberDialog({
@@ -28,6 +29,7 @@ export function AddMemberDialog({
   formData,
   setFormData,
   onAdd,
+  isLoading,
 }: AddMemberDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -45,6 +47,7 @@ export function AddMemberDialog({
           </DialogDescription>
         </DialogHeader>
         <TeamMemberForm
+          isLoading={isLoading}
           onSubmit={onAdd}
           formData={formData}
           setFormData={setFormData}

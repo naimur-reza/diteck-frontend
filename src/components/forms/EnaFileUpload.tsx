@@ -1,5 +1,5 @@
 "use client";
-import { Upload, X, FileIcon } from "lucide-react";
+import { FileIcon, Upload, X } from "lucide-react";
 import { Controller, useFormContext } from "react-hook-form";
 import { FormControl, FormItem, FormLabel } from "../ui/form";
 
@@ -53,7 +53,7 @@ const EnaFileUpload: React.FC<GUploadProps> = ({ name, label, accept }) => {
                   </div>
                 ) : (
                   <div>
-                    <Upload className="mx-auto w-12 h-12 text-gray-400" />
+                    <Upload className="mx-auto size-8 text-gray-400" />
                     <p className="mt-2 text-sm text-gray-600">
                       Drag and drop your file here, or{" "}
                       <label
