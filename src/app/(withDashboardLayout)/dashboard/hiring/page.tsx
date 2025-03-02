@@ -15,7 +15,7 @@ const HiringPage = () => {
             <div className='flex justify-between items-center mb-10'>
                 <h2 className='text-2xl font-medium'>Hiring Posts</h2>
                 <Button onClick={openModal} className='cursor-pointer'><Plus className="size-4" /> New Hiring</Button>
-                <Modal isOpen={isOpen} onClose={closeModal} title='New Hiring'>
+                <Modal isOpen={isOpen} onClose={closeModal} title='Add New Hiring Post'>
                     <CreateHiringPost />
                 </Modal>
             </div>

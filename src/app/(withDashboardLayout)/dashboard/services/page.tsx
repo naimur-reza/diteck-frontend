@@ -1,8 +1,37 @@
 "use client";
+import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import ETable from "@/components/ui/table/ETable";
+import ETable, { TableColumn } from "@/components/ui/table/ETable";
+import { useGetAllServiceQuery } from "@/redux/api/adminApi/serviceApi/serviceApi";
+import { TService } from "@/types";
+import { useState } from "react";
 
 const Services = () => {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [limit, setLimit] = useState(50);
+
+  const { data } = useGetAllServiceQuery(undefined);
+
+  const handlePageChange = (newPage: number) => {
+    setPageNumber(newPage); // Update the current page
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+  };
+
+  const columns = [
+    { key: "photo", label: "Photo" },
+    { key: "title", label: "Title" },
+    { key: "price.basePrice", label: "Base Price" },
+    { key: "price.currency", label: "Currency" },
+    { key: "turnAroundTime", label: "Turnaround Time" },
+    { key: "status", label: "Status" },
+    { key: "serviceCategory", label: "Service Category" },
+  ];
+
+  console.log(data);
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -26,28 +55,26 @@ const Services = () => {
           <CardTitle>All Services</CardTitle>
         </CardHeader>
         <CardContent>
-          {/* <TeamMembersTable
-        members={members}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      /> */}
-
+          <TableSearchBar
+            searchPlaceholder="Search book title"
+            onSearchChange={handleSearchChange}
+            searchValue={searchTerm}
+            setLimit={setLimit}
+            limit={limit}
+          />
           <ETable
-            columns={[
-              { key: "name", label: "Name" },
-              { key: "email", label: "Email" },
-              { key: "status", label: "Status" },
-            ]}
-            data={[
-              { name: "John Doe", email: "john@example.com", status: true },
-              { name: "Jane Doe", email: "jane@example.com", status: false },
-            ]}
+            columns={columns as TableColumn<TService>[]}
+            data={data?.data as TService[]}
             onEdit={(row) => console.log("edit:", row)}
             onView={(row) => console.log("View:", row)}
             onDelete={(row) => console.log("Delete:", row)}
             handleStatusChanger={(row, newStatus) =>
               console.log("Status Changed:", row, newStatus)
             }
+            meta={data?.meta}
+            handlePageChange={handlePageChange}
+            pageNumber={pageNumber}
+            defaultKey="service"
           />
         </CardContent>
       </Card>
