@@ -37,7 +37,7 @@ const BlogTable = () => {
                 </CardHeader>
                 <CardContent>
                     <TableSearchBar
-                        searchPlaceholder="Search book title"
+                        searchPlaceholder="Search Blog Title..."
                         onSearchChange={handleSearchChange}
                         searchValue={searchTerm}
                         setLimit={setLimit}
