@@ -13,7 +13,8 @@ interface DeleteConfirmationDialogProps {
     setIsOpen: (isOpen: boolean) => void;
     entityName: string;
     entityType?: string;
-    onDelete: () => void;
+    onHardDelete: () => void;
+    onSoftDelete?: () => void;
     isLoading: boolean;
 }
 
@@ -22,7 +23,8 @@ export function DeleteConfirmationDialog({
     setIsOpen,
     entityName,
     entityType = "item",
-    onDelete,
+    onHardDelete,
+    onSoftDelete,
     isLoading,
 }: DeleteConfirmationDialogProps) {
     return (
@@ -38,8 +40,11 @@ export function DeleteConfirmationDialog({
                     <Button variant="outline" onClick={() => setIsOpen(false)}>
                         Cancel
                     </Button>
-                    <Button variant="destructive" onClick={onDelete} disabled={isLoading}>
-                        {isLoading ? "Deleting..." : `Delete ${entityType}`}
+                    <Button variant="default" onClick={onSoftDelete} disabled={isLoading}>
+                        {isLoading ? "Deleting..." : `Soft Delete`}
+                    </Button>
+                    <Button variant="destructive" onClick={onHardDelete} disabled={isLoading}>
+                        {isLoading ? "Deleting..." : `Hard Delete`}
                     </Button>
                 </DialogFooter>
             </DialogContent>

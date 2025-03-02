@@ -3,7 +3,7 @@ import { DeleteConfirmationDialog } from "@/components/common/DeleteConfirmation
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-import { useDeleteProjectMutation, useGetAllProjectsQuery } from "@/redux/api/adminApi/projectApi/projectApi";
+import { useDeleteProjectMutation, useGetAllProjectsQuery, useSoftDeleteProjectMutation } from "@/redux/api/adminApi/projectApi/projectApi";
 import { TProject } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -32,13 +32,30 @@ const ProjectTable = () => {
         setIsDeleteDialog(true)
         setSingleProject(project);
     }
-    const [deleteProject, { isLoading }] = useDeleteProjectMutation();
 
-    const handleDeleteProject = async () => {
+    // Hard Delete
+    const [hardDeleteProject, { isLoading }] = useDeleteProjectMutation();
+    const handleHardDeleteProject = async () => {
         if (!singleProject?._id) return;
 
         try {
-            await deleteProject({ id: singleProject._id }).unwrap();
+            await hardDeleteProject({ id: singleProject._id }).unwrap();
+            toast.success(`Project "${singleProject.title}" deleted successfully!`);
+            setIsDeleteDialog(false);
+            setSingleProject(null);
+        } catch (error) {
+            console.error("Delete Error:", error);
+            toast.error("Failed to delete the project. Please try again.");
+        }
+    };
+
+    // Soft Delete
+    const [softDeleteProject, { isLoading: softIsLoading }] = useSoftDeleteProjectMutation();
+    const handleSoftDeleteProject = async () => {
+        if (!singleProject?._id) return;
+
+        try {
+            await softDeleteProject({ id: singleProject._id }).unwrap();
             toast.success(`Project "${singleProject.title}" deleted successfully!`);
             setIsDeleteDialog(false);
             setSingleProject(null);
@@ -92,9 +109,10 @@ const ProjectTable = () => {
                 isOpen={isDeleteDialog}
                 setIsOpen={setIsDeleteDialog}
                 entityType="Project"
-                onDelete={handleDeleteProject}
+                onHardDelete={handleHardDeleteProject}
+                onSoftDelete={handleSoftDeleteProject}
                 entityName={singleProject?.title as string}
-                isLoading={isLoading}
+                isLoading={isLoading || softIsLoading}
             />
         </div>
     );

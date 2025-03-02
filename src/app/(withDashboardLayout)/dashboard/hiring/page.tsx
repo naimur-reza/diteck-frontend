@@ -12,7 +12,7 @@ const HiringPage = () => {
 
     return (
         <section>
-            <div className='flex justify-between items-center mb-10'>
+            <div className='flex justify-between items-center mb-5'>
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight">Hiring Posts</h1>
                     <p className="text-muted-foreground">Manage your Hiring Posts.</p>

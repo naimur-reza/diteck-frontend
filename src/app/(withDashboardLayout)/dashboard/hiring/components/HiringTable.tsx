@@ -3,7 +3,7 @@ import { DeleteConfirmationDialog } from "@/components/common/DeleteConfirmation
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-import { useDeleteHiringPostMutation, useGetAllHiringPostQuery } from "@/redux/api/adminApi/hiringApi/hiring.api";
+import { useDeleteHiringPostMutation, useGetAllHiringPostQuery, useSoftDeleteHiringPostMutation } from "@/redux/api/adminApi/hiringApi/hiring.api";
 import { THiring } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -30,13 +30,14 @@ const HiringTable = () => {
         setIsDeleteDialog(true)
         setSingleHiring(blog);
     }
-    const [deleteHiring, { isLoading }] = useDeleteHiringPostMutation();
 
+    // Hard Delete
+    const [hardDeleteHiring, { isLoading }] = useDeleteHiringPostMutation();
     const handleHardDeleteHiring = async () => {
         if (!singleHiring?._id) return;
 
         try {
-            await deleteHiring({ id: singleHiring._id }).unwrap();
+            await hardDeleteHiring({ id: singleHiring._id }).unwrap();
             toast.success(`Hiring "${singleHiring.title}" deleted successfully!`);
             setIsDeleteDialog(false);
             setSingleHiring(null);
@@ -45,6 +46,24 @@ const HiringTable = () => {
             toast.error("Failed to delete the Hiring. Please try again.");
         }
     };
+
+    // Soft Delete
+    const [softDeleteHiring, { isLoading: softIsLoading }] = useSoftDeleteHiringPostMutation();
+    const handleSoftDeleteHiring = async () => {
+        if (!singleHiring?._id) return;
+
+        try {
+            await softDeleteHiring({ id: singleHiring._id }).unwrap();
+            toast.success(`Hiring "${singleHiring.title}" deleted successfully!`);
+            setIsDeleteDialog(false);
+            setSingleHiring(null);
+        } catch (error) {
+            console.error("Delete Error:", error);
+            toast.error("Failed to delete the Hiring. Please try again.");
+        }
+    };
+
+
 
     const columns = [
         { key: "hiringImage", label: "Photo" },
@@ -93,9 +112,10 @@ const HiringTable = () => {
                 isOpen={isDeleteDialog}
                 setIsOpen={setIsDeleteDialog}
                 entityType="Hiring"
-                onDelete={handleHardDeleteHiring}
+                onHardDelete={handleHardDeleteHiring}
+                onSoftDelete={handleSoftDeleteHiring}
                 entityName={singleHiring?.title as string}
-                isLoading={isLoading}
+                isLoading={isLoading || softIsLoading}
             />
         </div>
     );

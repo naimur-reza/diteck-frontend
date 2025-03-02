@@ -11,7 +11,7 @@ const ProjectPage = () => {
     const { isOpen, openModal, closeModal } = useModal();
     return (
         <div>
-            <div className='flex justify-between items-center mb-10'>
+            <div className='flex justify-between items-center mb-5'>
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight">Projects</h1>
                     <p className="text-muted-foreground">Manage your projects.</p>

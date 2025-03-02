@@ -3,7 +3,7 @@ import { DeleteConfirmationDialog } from "@/components/common/DeleteConfirmation
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-import { useDeleteBlogMutation, useGetAllBlogsQuery } from "@/redux/api/adminApi/blogApi/blogApi";
+import { useDeleteBlogMutation, useGetAllBlogsQuery, useSoftDeleteBlogMutation } from "@/redux/api/adminApi/blogApi/blogApi";
 import { TBlog } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -29,13 +29,30 @@ const BlogTable = () => {
         setIsDeleteDialog(true)
         setSingleBlog(blog);
     }
-    const [deleteBlog, { isLoading }] = useDeleteBlogMutation();
 
-    const handleDeleteBlog = async () => {
+    // Hard Delete
+    const [hardDeleteBlog, { isLoading }] = useDeleteBlogMutation();
+    const handleHardDeleteBlog = async () => {
         if (!singleBlog?._id) return;
 
         try {
-            await deleteBlog({ id: singleBlog._id }).unwrap();
+            await hardDeleteBlog({ id: singleBlog._id }).unwrap();
+            toast.success(`Blog "${singleBlog.title}" deleted successfully!`);
+            setIsDeleteDialog(false);
+            setSingleBlog(null);
+        } catch (error) {
+            console.error("Delete Error:", error);
+            toast.error("Failed to delete the blog. Please try again.");
+        }
+    };
+
+    // Soft Delete
+    const [softDeleteBlog, { isLoading: softIsLoading }] = useSoftDeleteBlogMutation();
+    const handleSoftDeleteBlog = async () => {
+        if (!singleBlog?._id) return;
+
+        try {
+            await softDeleteBlog({ id: singleBlog._id }).unwrap();
             toast.success(`Blog "${singleBlog.title}" deleted successfully!`);
             setIsDeleteDialog(false);
             setSingleBlog(null);
@@ -84,9 +101,10 @@ const BlogTable = () => {
                 isOpen={isDeleteDialog}
                 setIsOpen={setIsDeleteDialog}
                 entityType="Blog"
-                onDelete={handleDeleteBlog}
+                onHardDelete={handleHardDeleteBlog}
+                onSoftDelete={handleSoftDeleteBlog}
                 entityName={singleBlog?.title as string}
-                isLoading={isLoading}
+                isLoading={isLoading || softIsLoading}
             />
         </div>
     );
