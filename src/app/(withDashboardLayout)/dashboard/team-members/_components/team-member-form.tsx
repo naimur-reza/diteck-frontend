@@ -85,19 +85,19 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
 
 const roles = [
   {
-    label: "Admin",
-    value: "Admin",
+    label: "Manager",
+    value: "manager",
   },
   {
     label: "Frontend Developer",
-    value: "Frontend Developer",
+    value: "frontendDeveloper",
   },
   {
     label: "Backend Developer",
-    value: "Backend Developer",
+    value: "backendDeveloper",
   },
   {
     label: "UI/UX Designer",
-    value: "Designer",
+    value: "uiuxDesigner",
   },
 ];

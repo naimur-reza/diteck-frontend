@@ -1,13 +1,15 @@
 import { z } from "zod";
 
 export const teamMemberSchema = z.object({
-  name: z.string().nonempty(),
-  email: z.string().email(),
-  phoneNumber: z.string().nonempty(),
-  emergencyContactNumber: z.string().nonempty(),
-  address: z.string().nonempty(),
-  role: z.string().nonempty(),
-  designation: z.string().nonempty(),
-  startDate: z.string().nonempty(),
-  // profilePhoto: z.string().nonempty(),
+  name: z.string().nonempty({ message: "Name is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  phoneNumber: z.string().nonempty({ message: "Phone number is required" }),
+  emergencyContactNumber: z
+    .string()
+    .nonempty({ message: "Emergency contact number is required" }),
+  address: z.string().nonempty({ message: "Address is required" }),
+  teamRole: z.string().nonempty({ message: "Team role is required" }),
+  designation: z.string().nonempty({ message: "Designation is required" }),
+  startDate: z.string().nonempty({ message: "Start date is required" }),
+  // profilePhoto: z.string().nonempty({ message: "Profile photo is required" }),
 });
