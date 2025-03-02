@@ -34,9 +34,12 @@ import Image from "next/image";
 import { formatDateTime } from "@/utils";
 import CommonPagination from "@/components/dashboard/pagination/Pagination";
 import { TMeta } from "@/types";
-
+export type TableColumn<T> = {
+  label: string;
+  key: keyof T;
+};
 interface DataTableProps<T> {
-  columns: { key: keyof T; label: string }[];
+  columns: TableColumn<T>[];
   data: T[];
   onEdit?: (row: T) => void;
   onView?: (row: T) => void;
@@ -65,7 +68,7 @@ export default function ETable<T>({
       <Table>
         <TableHeader>
           <TableRow>
-            {columns.map((col) => (
+            {columns?.map((col) => (
               <TableHead key={col.key as string}>{col.label}</TableHead>
             ))}
             {(onEdit || onView || onDelete || handleStatusChanger) && (
@@ -74,9 +77,9 @@ export default function ETable<T>({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((row, index) => (
+          {data?.map((row, index) => (
             <TableRow key={index}>
-              {columns.map((col) => (
+              {columns?.map((col) => (
                 <TableCell key={col.key as string}>
                   {col.key === "availabilityStatus" ||
                   col.key === "status" ||
