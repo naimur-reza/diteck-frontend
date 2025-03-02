@@ -26,14 +26,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { TeamMember } from "@/types/team-member";
+import { TTeamMember } from "@/types";
 import { MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 interface TeamMembersTableProps {
-  members: TeamMember[];
-  onEdit: (member: TeamMember) => void;
-  onDelete: (member: TeamMember) => void;
+  members: TTeamMember[];
+  onEdit: (member: TTeamMember) => void;
+  onDelete: (member: TTeamMember) => void;
 }
 
 export function TeamMembersTable({
@@ -49,11 +49,11 @@ export function TeamMembersTable({
     const matchesSearch =
       member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       member.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.role.toLowerCase().includes(searchQuery.toLowerCase());
+      member.teamRole.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesRole =
       roleFilter === "all" ||
-      member.role.toLowerCase() === roleFilter.toLowerCase();
+      member.teamRole.toLowerCase() === roleFilter.toLowerCase();
 
     return matchesSearch && matchesRole;
   });
@@ -107,11 +107,14 @@ export function TeamMembersTable({
             </TableRow>
           ) : (
             filteredMembers.map((member) => (
-              <TableRow key={member.id}>
+              <TableRow key={member._id}>
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <Avatar>
-                      <AvatarImage src={member.avatar} alt={member.name} />
+                      <AvatarImage
+                        src={member.profilePhoto}
+                        alt={member.name}
+                      />
                       <AvatarFallback>
                         {member.name
                           .split(" ")
@@ -127,7 +130,7 @@ export function TeamMembersTable({
                     </div>
                   </div>
                 </TableCell>
-                <TableCell>{member.role}</TableCell>
+                <TableCell>{member.teamRole}</TableCell>
                 <TableCell>
                   <span
                     className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
@@ -139,7 +142,7 @@ export function TeamMembersTable({
                     {member.status}
                   </span>
                 </TableCell>
-                <TableCell>{member.joinedDate}</TableCell>
+                <TableCell>{Date.now()}</TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>

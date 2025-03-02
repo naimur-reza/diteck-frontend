@@ -7,12 +7,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { TeamMember } from "@/types/team-member";
+import { TTeamMember } from "@/types";
 
 interface DeleteMemberDialogProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  member: TeamMember | null;
+  member: TTeamMember | null;
   onDelete: () => void;
   isLoading: boolean;
 }

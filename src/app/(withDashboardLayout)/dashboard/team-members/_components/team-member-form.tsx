@@ -1,13 +1,14 @@
 "use client";
 
 import { EnaForm, EnaInput, EnaSelect } from "@/components/forms";
-import { TeamMember, TeamMemberFormData } from "@/types/team-member";
+import { TTeamMember } from "@/types";
+import { TeamMemberFormData } from "@/types/team-member";
 import { useEffect } from "react";
 
 interface TeamMemberFormProps {
   formData: TeamMemberFormData;
   setFormData: (data: TeamMemberFormData) => void;
-  member?: TeamMember | null;
+  member?: TTeamMember | null;
 }
 
 export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
@@ -17,7 +18,7 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
       setFormData({
         name: member.name,
         email: member.email,
-        role: member.role,
+        role: member.teamRole,
         status: member.status,
       });
     }
