@@ -11,8 +11,8 @@ import { EditMemberDialog } from "./_components/edit-team-member";
 import { TeamMembersTable } from "./_components/team-member-table";
 
 export default function TeamMembers() {
-  const { data: TeamMembersData } = useGetAllTeamMemberQuery(undefined);
-  console.log(TeamMembersData);
+  const { data: TeamMembersData, isFetching } =
+    useGetAllTeamMemberQuery(undefined);
   const [members, setMembers] = useState<TTeamMember[]>(
     TeamMembersData?.data || []
   );
@@ -30,13 +30,10 @@ export default function TeamMembers() {
     status: "Active",
   });
 
-  // Load team members on component mount
+  // fetch all team members
   useEffect(() => {
-    // In a real implementation, this would fetch data from the API
-    // loadTeamMembers();
-  }, []);
-
-  //   const loadTeamMembers = async () => {};
+    setMembers(TeamMembersData?.data || []);
+  }, [TeamMembersData]);
 
   const addTeamMember = async () => {
     setIsLoading(true);
@@ -44,7 +41,6 @@ export default function TeamMembers() {
       //   const newMember = await "";
       //   setMembers([...members, newMember]);
       setIsAddDialogOpen(false);
-      resetForm();
     } catch (error) {
       console.error("Failed to add team member:", error);
     } finally {
@@ -132,6 +128,7 @@ export default function TeamMembers() {
         </CardHeader>
         <CardContent>
           <TeamMembersTable
+            isFetching={isFetching}
             members={members}
             onEdit={handleEdit}
             onDelete={handleDelete}
