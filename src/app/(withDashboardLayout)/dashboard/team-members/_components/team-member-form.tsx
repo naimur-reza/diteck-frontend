@@ -1,18 +1,32 @@
 "use client";
 
-import { EnaForm, EnaInput, EnaSelect } from "@/components/forms";
+import {
+  EnaFileUpload,
+  EnaForm,
+  EnaInput,
+  EnaSelect,
+} from "@/components/forms";
+import { EnaDatePicker } from "@/components/forms/EnaDatePicker";
 import { teamMemberSchema } from "@/schema/teamMemberSchema";
 import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
 import { useEffect } from "react";
+import { FieldValues } from "react-hook-form";
 
 interface TeamMemberFormProps {
   formData: TeamMemberFormData;
   setFormData: (data: TeamMemberFormData) => void;
   member?: TTeamMember | null;
+  onSubmit: (data: FieldValues) => void;
+  isLoading: boolean;
 }
 
-export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
+export function TeamMemberForm({
+  setFormData,
+  member,
+  onSubmit,
+  isLoading,
+}: TeamMemberFormProps) {
   // Initialize form with member data if editing
   useEffect(() => {
     if (member) {
@@ -22,11 +36,12 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
 
   return (
     <EnaForm
-      onSubmit={(data) => console.log(data)}
+      onSubmit={onSubmit}
       defaultValues={member ?? {}}
       schema={teamMemberSchema}
       buttonPosition="right"
       buttonText="Add Member"
+      isLoading={isLoading}
     >
       <div className="grid grid-cols-2 gap-3">
         <EnaInput label="Name" name="name" placeholder="John Doe" />
@@ -64,20 +79,15 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
           placeholder="Software Engineer"
         />
 
-        <EnaInput
+        <EnaDatePicker
           name="startDate"
           label="Start Date"
-          type="date"
           placeholder="2021-01-01"
         />
 
-        <EnaInput
-          name="Photo"
-          label="Photo"
-          type="file"
-          placeholder="Upload Photo"
-          accept="image/*"
-        />
+        <div className="col-span-2">
+          <EnaFileUpload label="Photo" name="profilePhoto" accept="image/*" />
+        </div>
       </div>
     </EnaForm>
   );
@@ -85,19 +95,19 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
 
 const roles = [
   {
-    label: "Admin",
-    value: "Admin",
+    label: "Manager",
+    value: "manager",
   },
   {
     label: "Frontend Developer",
-    value: "Frontend Developer",
+    value: "frontEndDeveloper",
   },
   {
     label: "Backend Developer",
-    value: "Backend Developer",
+    value: "backEndDeveloper",
   },
   {
     label: "UI/UX Designer",
-    value: "Designer",
+    value: "uiuxDesigner",
   },
 ];

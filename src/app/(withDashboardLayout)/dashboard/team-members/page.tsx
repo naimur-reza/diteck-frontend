@@ -1,21 +1,30 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useGetAllTeamMemberQuery } from "@/redux/api/adminApi/teamMemberApi/teamMemberApi";
+import {
+  useCreateTeamMemberMutation,
+  useGetAllTeamMemberQuery,
+} from "@/redux/api/adminApi/teamMemberApi/teamMemberApi";
 import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
 import { useEffect, useState } from "react";
+import { FieldValues } from "react-hook-form";
 import { AddMemberDialog } from "./_components/add-team-dialog";
 import { DeleteMemberDialog } from "./_components/delete-team-member";
 import { EditMemberDialog } from "./_components/edit-team-member";
 import { TeamMembersTable } from "./_components/team-member-table";
 
 export default function TeamMembers() {
+  // redux hooks
   const { data: TeamMembersData, isFetching } =
     useGetAllTeamMemberQuery(undefined);
   const [members, setMembers] = useState<TTeamMember[]>(
     TeamMembersData?.data || []
   );
+  const [createMember, { isLoading: isCreating }] =
+    useCreateTeamMemberMutation();
+
+  // states
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -41,16 +50,20 @@ export default function TeamMembers() {
     setMembers(TeamMembersData?.data || []);
   }, [TeamMembersData]);
 
-  const addTeamMember = async () => {
-    setIsLoading(true);
+  const addTeamMember = async (data: FieldValues) => {
+    const { profilePhoto, ...restData } = data;
+
+    console.log("Data:", data);
     try {
-      //   const newMember = await "";
-      //   setMembers([...members, newMember]);
-      // setIsAddDialogOpen(false);
+      const formData = new FormData();
+      formData.append("data", JSON.stringify(restData));
+      formData.append("file", profilePhoto);
+      const newMember = await createMember(formData).unwrap();
+      setMembers([...members, newMember]);
+
+      console.log("New Member:", newMember);
     } catch (error) {
       console.error("Failed to add team member:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -121,6 +134,8 @@ export default function TeamMembers() {
           formData={formData}
           setFormData={setFormData}
           resetForm={resetForm}
+          onAdd={addTeamMember}
+          isLoading={isCreating}
         />
       </div>
 

@@ -10,6 +10,7 @@ import {
 
 import { TeamMemberFormData } from "@/types/team-member";
 import { Plus } from "lucide-react";
+import { FieldValues } from "react-hook-form";
 import { TeamMemberForm } from "./team-member-form";
 
 interface AddMemberDialogProps {
@@ -18,6 +19,8 @@ interface AddMemberDialogProps {
   formData: TeamMemberFormData;
   setFormData: (data: TeamMemberFormData) => void;
   resetForm: () => void;
+  onAdd: (data: FieldValues) => void;
+  isLoading: boolean;
 }
 
 export function AddMemberDialog({
@@ -25,6 +28,8 @@ export function AddMemberDialog({
   setIsOpen,
   formData,
   setFormData,
+  onAdd,
+  isLoading,
 }: AddMemberDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -41,7 +46,12 @@ export function AddMemberDialog({
             Add a new member to your agency team.
           </DialogDescription>
         </DialogHeader>
-        <TeamMemberForm formData={formData} setFormData={setFormData} />
+        <TeamMemberForm
+          isLoading={isLoading}
+          onSubmit={onAdd}
+          formData={formData}
+          setFormData={setFormData}
+        />
       </DialogContent>
     </Dialog>
   );

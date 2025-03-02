@@ -36,7 +36,7 @@ const EnaInput: React.FC<EnaInputProps> = ({
               )}
             />
             {error && (
-              <span className="text-red-500 text-sm mt-1">{error.message}</span>
+              <span className="text-red-500 text-xs">{error.message}</span>
             )}
           </div>
         )}
