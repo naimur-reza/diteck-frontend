@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React from "react";
-import { z } from "zod";
-import { FieldValues } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { setUser } from "@/redux/features/auth/authSlice";
-import { useRouter } from "next/navigation";
 import EnaForm from "@/components/forms/EnaForm";
 import EnaInput from "@/components/forms/EnaInput";
+import { setClientAuthCookie } from "@/lib/auth";
 import { useLoginUserMutation } from "@/redux/api/authApi/authApi";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { FieldValues } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
+import { z } from "zod";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email").min(1, "Email is required"),
@@ -25,13 +26,26 @@ const Login = () => {
     try {
       const response = await loginUser(data).unwrap();
       // Store user data in Redux
-      dispatch(setUser(response));
+
+      console.log(response);
+      dispatch(
+        setUser({
+          token: response.token,
+          user: response.data,
+        })
+      );
+
+      // store token
+      if (response.token) {
+        setClientAuthCookie(response.token);
+      }
+
       // Success toast
       toast.success("Login Successful! Redirecting...");
       // Redirect to dashboard after short delay
       setTimeout(() => {
         router.push("/dashboard");
-      }, 1500);
+      }, 500);
     } catch (err: any) {
       console.error("Login Error:", err);
       const errorMessage = err?.data?.message || "Invalid email or password.";
@@ -47,7 +61,10 @@ const Login = () => {
         <EnaForm
           onSubmit={handleLogin}
           schema={loginSchema}
-          defaultValues={{ email: "", password: "" }}
+          defaultValues={{
+            email: "super.admin@example.com",
+            password: "securePassword123",
+          }}
         >
           <EnaInput
             name="email"

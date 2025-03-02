@@ -1,16 +1,3 @@
-export interface TeamMember {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-  status: string;
-  avatar: string;
-  joinedDate: string;
-}
+import { TTeamMember } from "./teamMember.types";
 
-export interface TeamMemberFormData {
-  name: string;
-  email: string;
-  role: string;
-  status: string;
-}
+export type TeamMemberFormData = Partial<Omit<TTeamMember, "_id" | "status">>;

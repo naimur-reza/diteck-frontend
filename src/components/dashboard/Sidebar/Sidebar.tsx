@@ -1,20 +1,20 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 import {
-  FileText,
-  Users,
   Briefcase,
-  MessageSquare,
-  UserCheck,
-  Handshake,
-  Globe,
-  LayoutDashboard,
-  Newspaper,
   BriefcaseIcon,
+  FileText,
+  Globe,
+  Handshake,
+  LayoutDashboard,
   LogOutIcon,
+  MessageSquare,
+  Newspaper,
+  UserCheck,
+  Users,
 } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import * as React from "react";
 
 import {
@@ -27,8 +27,13 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { removeClientAuthCookie } from "@/lib/auth";
+import { logout } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-const navigation = [  
+const navigation = [
   {
     title: "Dashboard",
     href: "/dashboard",
@@ -83,9 +88,21 @@ const navigation = [
 
 export function AppSidebar() {
   const pathname = usePathname(); // Get the current route
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleLogout = () => {
-    console.log("Logging out...");
+    // Clear user from Redux
+    dispatch(logout());
+
+    // Remove the auth cookie
+    removeClientAuthCookie();
+
+    // Show success message
+    toast.success("Logged out successfully");
+
+    // Redirect to login page
+    router.push("/login");
   };
 
   return (
@@ -112,11 +129,11 @@ export function AppSidebar() {
             const isActive = pathname === item.href; // Check if the route is active
 
             return (
-              <SidebarMenuItem key={item.href}>
+              <SidebarMenuItem key={item.href} className="mx-2">
                 <SidebarMenuButton asChild>
                   <Link
                     href={item.href}
-                    className={`pl-5 py-5 flex items-center gap-2 rounded-md ${
+                    className={`pl-5 py-5 flex items-center gap-2 rounded-md  ${
                       isActive ? "bg-primary text-white" : ""
                     }`}
                   >

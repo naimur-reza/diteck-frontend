@@ -7,6 +7,7 @@ interface EnaInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   error?: string;
   label?: string;
+  register?: string;
 }
 
 const EnaInput: React.FC<EnaInputProps> = ({
