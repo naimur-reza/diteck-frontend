@@ -1,8 +1,21 @@
 "use client";
+import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ETable from "@/components/ui/table/ETable";
+import { useState } from "react";
 
 const Services = () => {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [limit, setLimit] = useState(50);
+
+  const handlePageChange = (newPage: number) => {
+    setPageNumber(newPage); // Update the current page
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+  };
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -31,26 +44,34 @@ const Services = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
       /> */}
+
+          <TableSearchBar
+            searchPlaceholder="Search book title"
+            onSearchChange={handleSearchChange}
+            searchValue={searchTerm}
+            setLimit={setLimit}
+            limit={limit}
+          />
+
+          <ETable
+            columns={[
+              { key: "name", label: "Name" },
+              { key: "email", label: "Email" },
+              { key: "status", label: "Status" },
+            ]}
+            data={[
+              { name: "John Doe", email: "john@example.com", status: true },
+              { name: "Jane Doe", email: "jane@example.com", status: false },
+            ]}
+            onEdit={(row) => console.log("edit:", row)}
+            onView={(row) => console.log("View:", row)}
+            onDelete={(row) => console.log("Delete:", row)}
+            handleStatusChanger={(row, newStatus) =>
+              console.log("Status Changed:", row, newStatus)
+            }
+          />
         </CardContent>
       </Card>
-
-      <ETable
-        columns={[
-          { key: "name", label: "Name" },
-          { key: "email", label: "Email" },
-          { key: "status", label: "Status" },
-        ]}
-        data={[
-          { name: "John Doe", email: "john@example.com", status: true },
-          { name: "Jane Doe", email: "jane@example.com", status: false },
-        ]}
-        onEdit={(row) => console.log("edit:", row)}
-        onView={(row) => console.log("View:", row)}
-        onDelete={(row) => console.log("Delete:", row)}
-        handleStatusChanger={(row, newStatus) =>
-          console.log("Status Changed:", row, newStatus)
-        }
-      />
 
       {/* Edit Member Dialog */}
       {/* <EditMemberDialog
