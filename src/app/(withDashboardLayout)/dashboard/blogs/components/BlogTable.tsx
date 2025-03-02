@@ -25,13 +25,6 @@ const BlogTable = () => {
         setSearchTerm(value);
     };
 
-    const columns = [
-        { key: "thumbnail", label: "Img" },
-        { key: "title", label: "Title" },
-        { key: "bio", label: "Bio" },
-        { key: "content", label: "Content" },
-    ];
-
     const handleDialog = (blog: TBlog) => {
         setIsDeleteDialog(true)
         setSingleBlog(blog);
@@ -51,6 +44,13 @@ const BlogTable = () => {
             toast.error("Failed to delete the blog. Please try again.");
         }
     };
+
+    const columns = [
+        { key: "thumbnail", label: "Img" },
+        { key: "title", label: "Title" },
+        { key: "bio", label: "Bio" },
+        { key: "content", label: "Content" },
+    ];
 
     return (
         <div>
