@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   FieldValues,
@@ -7,11 +9,15 @@ import {
   useForm,
 } from "react-hook-form";
 import { z } from "zod";
+import { Button } from "../ui/button";
 
 type TFormConfig = {
   schema?: z.ZodSchema<any>;
   defaultValues?: Record<string, any>;
   resolver?: any;
+  buttonPosition?: "left" | "right";
+  isLoading?: boolean;
+  buttonText?: string;
 };
 
 type TFormProps = {
@@ -19,7 +25,15 @@ type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
 } & TFormConfig;
 
-const EnaForm = ({ children, onSubmit, schema, defaultValues }: TFormProps) => {
+const EnaForm = ({
+  children,
+  onSubmit,
+  schema,
+  defaultValues,
+  buttonPosition,
+  isLoading,
+  buttonText = "Submit",
+}: TFormProps) => {
   const formConfig: TFormConfig = {};
 
   if (schema) {
@@ -30,17 +44,33 @@ const EnaForm = ({ children, onSubmit, schema, defaultValues }: TFormProps) => {
     formConfig["defaultValues"] = defaultValues;
   }
 
-  const methods = useForm({ ...formConfig, mode: "all" });
-  const { handleSubmit, reset } = methods;
+  const methods = useForm({ ...formConfig, mode: "onSubmit" });
+  const { handleSubmit } = methods;
 
   const submit: SubmitHandler<FieldValues> = async (data) => {
     await onSubmit(data);
-    reset();
   };
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(submit)}>{children}</form>
+      <form onSubmit={handleSubmit(submit)}>
+        {children}
+
+        <Button
+          type="submit"
+          size="sm"
+          className={cn(
+            {
+              "float-right": buttonPosition === "right",
+              "float-left": buttonPosition === "left",
+            },
+            "mt-5"
+          )}
+          disabled={isLoading}
+        >
+          {isLoading ? "Submitting..." : buttonText}
+        </Button>
+      </form>
     </FormProvider>
   );
 };
