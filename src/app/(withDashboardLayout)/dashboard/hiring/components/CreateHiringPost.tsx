@@ -8,7 +8,7 @@ import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useCreateHiringPostMutation } from "@/redux/api/adminApi/hiringApi/hiring.api";
 import { hiringSchema } from "@/schema/hiringSchema";
-import EnaMultiInput from "@/components/forms/EnaMultiInput";
+import EnaMultiInput2 from "@/components/forms/EnaMultiInput2";
 
 const CreateHiringPost = () => {
     const [createHiringPost, { isLoading }] = useCreateHiringPostMutation();
@@ -102,11 +102,11 @@ const CreateHiringPost = () => {
                     <EnaInput name="department" placeholder="Department" />
 
                     {/* Multi-input fields */}
-                    <EnaMultiInput label="Skills Required" placeholder="Add skills..." onChange={setSkillsRequired} />
-                    <EnaMultiInput label="Benefits Offered" placeholder="Add benefits..." onChange={setBenefits} />
-                    <EnaMultiInput label="Job Responsibilities" placeholder="Add responsibilities..." onChange={setResponsibilities} />
-                    <EnaMultiInput label="Interview Rounds" placeholder="Add interview rounds..." onChange={setInterviewRounds} />
-                    <EnaMultiInput label="Requirements" placeholder="Add requirements..." onChange={setRequirements} />
+                    <EnaMultiInput2 label="Skills Required" placeholder="Add skills..." onChange={setSkillsRequired} />
+                    <EnaMultiInput2 label="Benefits Offered" placeholder="Add benefits..." onChange={setBenefits} />
+                    <EnaMultiInput2 label="Job Responsibilities" placeholder="Add responsibilities..." onChange={setResponsibilities} />
+                    <EnaMultiInput2 label="Interview Rounds" placeholder="Add interview rounds..." onChange={setInterviewRounds} />
+                    <EnaMultiInput2 label="Requirements" placeholder="Add requirements..." onChange={setRequirements} />
                 </div>
 
                 <button
