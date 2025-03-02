@@ -19,6 +19,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
+
 const getNestedValue = (obj: any, path: string) => {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
 };
@@ -82,87 +86,96 @@ export default function ETable<T>({
               {columns?.map((col) => (
                 <TableCell key={col.key as string}>
                   {col.key === "availabilityStatus" ||
-                  col.key === "status" ||
-                  col.key === "reviewStatus" ? (
+                    col.key === "status" ||
+                    col.key === "reviewStatus" ? (
                     <span
-                      className={`inline-block px-3 py-1 text-xs font-medium rounded-md ${
-                        row[col.key] === "approved"
-                          ? "bg-blue-100 text-blue-700"
-                          : row[col.key] === "rejected"
+                      className={`inline-block px-3 py-1 text-xs font-medium rounded-md ${row[col.key] === "approved"
+                        ? "bg-blue-100 text-blue-700"
+                        : row[col.key] === "rejected"
                           ? "bg-red-100 text-red-700"
                           : row[col.key] === "pending"
-                          ? "bg-yellow-100 text-yellow-700"
-                          : row[col.key] === true
-                          ? "bg-green-100 text-green-700"
-                          : row[col.key] === false
-                          ? "bg-gray-100 text-gray-700"
-                          : row[col.key] === "selected"
-                          ? "bg-purple-100 text-purple-700"
-                          : row[col.key] === "completed"
-                          ? "bg-orange-100 text-orange-700"
-                          : row[col.key] === "active"
-                          ? "bg-green-100 text-green-700"
-                          : row[col.key] === "inactive"
-                          ? "bg-gray-200 text-gray-800"
-                          : row[col.key] === "blocked"
-                          ? "bg-red-200 text-red-800"
-                          : row[col.key] === "trialing"
-                          ? "bg-blue-100 text-blue-700"
-                          : row[col.key] === "resolved"
-                          ? "bg-teal-100 text-teal-700"
-                          : row[col.key] === "shortlisted"
-                          ? "bg-indigo-100 text-indigo-700"
-                          : row[col.key] === "archived"
-                          ? "bg-gray-300 text-gray-900"
-                          : row[col.key] === "available"
-                          ? "bg-green-200 text-green-800"
-                          : row[col.key] === "unavailable"
-                          ? "bg-gray-400 text-gray-900"
-                          : "bg-gray-100 text-gray-700"
-                      }`}
+                            ? "bg-yellow-100 text-yellow-700"
+                            : row[col.key] === true
+                              ? "bg-green-100 text-green-700"
+                              : row[col.key] === false
+                                ? "bg-gray-100 text-gray-700"
+                                : row[col.key] === "selected"
+                                  ? "bg-purple-100 text-purple-700"
+                                  : row[col.key] === "completed"
+                                    ? "bg-orange-100 text-orange-700"
+                                    : row[col.key] === "active"
+                                      ? "bg-green-100 text-green-700"
+                                      : row[col.key] === "inactive"
+                                        ? "bg-gray-200 text-gray-800"
+                                        : row[col.key] === "blocked"
+                                          ? "bg-red-200 text-red-800"
+                                          : row[col.key] === "trialing"
+                                            ? "bg-blue-100 text-blue-700"
+                                            : row[col.key] === "resolved"
+                                              ? "bg-teal-100 text-teal-700"
+                                              : row[col.key] === "shortlisted"
+                                                ? "bg-indigo-100 text-indigo-700"
+                                                : row[col.key] === "archived"
+                                                  ? "bg-gray-300 text-gray-900"
+                                                  : row[col.key] === "available"
+                                                    ? "bg-green-200 text-green-800"
+                                                    : row[col.key] === "unavailable"
+                                                      ? "bg-gray-400 text-gray-900"
+                                                      : "bg-gray-100 text-gray-700"
+                        }`}
                     >
                       {row[col.key] === "approved"
                         ? "Approved"
                         : row[col.key] === "rejected"
-                        ? "Rejected"
-                        : row[col.key] === "pending"
-                        ? "Pending"
-                        : row[col.key] === true
-                        ? "Activated"
-                        : row[col.key] === false
-                        ? "Deactivated"
-                        : row[col.key] === "selected"
-                        ? "Selected"
-                        : row[col.key] === "completed"
-                        ? "Completed"
-                        : row[col.key] === "active"
-                        ? "Active"
-                        : row[col.key] === "inactive"
-                        ? "Inactive"
-                        : row[col.key] === "blocked"
-                        ? "Blocked"
-                        : row[col.key] === "trialing"
-                        ? "Trialing"
-                        : row[col.key] === "resolved"
-                        ? "Resolved"
-                        : row[col.key] === "shortlisted"
-                        ? "Shortlisted"
-                        : row[col.key] === "archived"
-                        ? "Archived"
-                        : row[col.key] === "available"
-                        ? "Available"
-                        : row[col.key] === "unavailable"
-                        ? "Unavailable"
-                        : "Unknown"}
+                          ? "Rejected"
+                          : row[col.key] === "pending"
+                            ? "Pending"
+                            : row[col.key] === true
+                              ? "Activated"
+                              : row[col.key] === false
+                                ? "Deactivated"
+                                : row[col.key] === "selected"
+                                  ? "Selected"
+                                  : row[col.key] === "completed"
+                                    ? "Completed"
+                                    : row[col.key] === "active"
+                                      ? "Active"
+                                      : row[col.key] === "inactive"
+                                        ? "Inactive"
+                                        : row[col.key] === "blocked"
+                                          ? "Blocked"
+                                          : row[col.key] === "trialing"
+                                            ? "Trialing"
+                                            : row[col.key] === "resolved"
+                                              ? "Resolved"
+                                              : row[col.key] === "shortlisted"
+                                                ? "Shortlisted"
+                                                : row[col.key] === "archived"
+                                                  ? "Archived"
+                                                  : row[col.key] === "available"
+                                                    ? "Available"
+                                                    : row[col.key] === "unavailable"
+                                                      ? "Unavailable"
+                                                      : "Unknown"}
                     </span>
-                  ) : col.label === "Img" ? (
-                    <Image
-                      width={20}
-                      height={20}
-                      alt=""
-                      className=" rounded-md"
-                      src={row[col.key] as string}
-                    ></Image>
+                  ) : col.label === "Img" || col.label === "Thumbnail" || col.label === "Photo" ? (
+                    <PhotoProvider>
+                      <PhotoView src={row[col.key] as string}>
+                        {row[col.key] ? ( // Only render the image if there's a valid source
+                          <Image
+                            width={30}
+                            height={30}
+                            alt={col.label}
+                            className="rounded-md"
+                            src={row[col.key] as string}
+                          />
+                        ) : (
+                          <div className="w-[30px] h-[30px] bg-gray-200 flex items-center justify-center rounded-md">
+                            ❌
+                          </div> // Placeholder for missing images
+                        )}
+                      </PhotoView>
+                    </PhotoProvider>
                   ) : col.key === "startDate" ||
                     col.key === "endDate" ||
                     col.key === "createdAt" ||
@@ -208,7 +221,7 @@ export default function ETable<T>({
                         <DropdownMenuItem className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
                             {row["isActive" as keyof T] ||
-                            row["status" as keyof T] ? (
+                              row["status" as keyof T] ? (
                               <ToggleRight className="w-4 h-4 text-green-500" />
                             ) : (
                               <ToggleLeft className="w-4 h-4 text-gray-500" />
@@ -223,7 +236,7 @@ export default function ETable<T>({
                             }}
                             checked={Boolean(
                               row["isActive" as keyof T] ||
-                                row["status" as keyof T]
+                              row["status" as keyof T]
                             )}
                           />
                         </DropdownMenuItem>

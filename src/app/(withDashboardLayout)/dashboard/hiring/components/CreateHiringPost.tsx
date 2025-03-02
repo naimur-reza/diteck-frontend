@@ -7,7 +7,7 @@ import EnaForm from "@/components/forms/EnaForm";
 import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useCreateHiringPostMutation } from "@/redux/api/adminApi/hiringApi/hiring.api";
-import { hiringSchema } from "@/schema/hiring";
+import { hiringSchema } from "@/schema/hiringSchema";
 import EnaMultiInput from "@/components/forms/EnaMultiInput";
 
 const CreateHiringPost = () => {
