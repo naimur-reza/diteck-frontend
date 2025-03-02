@@ -1,3 +1,4 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import classNames from "classnames";
 import { Controller, useFormContext } from "react-hook-form";
@@ -7,7 +8,6 @@ interface EnaInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
 
   label?: string;
-  register?: string;
 }
 
 const EnaInput: React.FC<EnaInputProps> = ({
@@ -18,12 +18,11 @@ const EnaInput: React.FC<EnaInputProps> = ({
   ...rest
 }) => {
   const { control } = useFormContext();
-
   return (
     <div className={classNames("flex flex-col", className)}>
       <Controller
+        control={control}
         name={name}
-        control={control} // Fix: Pass control to Controller
         defaultValue={rest.defaultValue ?? ""} // Ensure defaultValue is set
         render={({ field, fieldState: { error } }) => (
           <div className="grid gap-2">

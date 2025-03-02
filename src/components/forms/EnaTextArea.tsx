@@ -1,3 +1,4 @@
+"use client";
 import classNames from "classnames";
 import { Controller } from "react-hook-form";
 import { Textarea } from "../ui/textarea";

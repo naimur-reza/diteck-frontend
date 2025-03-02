@@ -7,9 +7,7 @@ import { FieldValues } from "react-hook-form";
 
 const AddService = () => {
   const handleSubmit = (data: FieldValues) => {
-    if (data.name) {
-      alert("serea");
-    }
+    console.log(data);
   };
 
   return (
@@ -20,14 +18,12 @@ const AddService = () => {
         onSubmit={handleSubmit}
       >
         <div className="grid grid-cols-2 gap-5 mb-5">
-          {/* Service Title */}
           <EnaInput
             label="Service Title"
             name="title"
             placeholder="Enter title"
           />
 
-          {/* Base Price */}
           <EnaInput
             label="Base Price (USD)"
             name="price"
@@ -35,7 +31,6 @@ const AddService = () => {
             type="number"
           />
 
-          {/* Features */}
           <EnaMultiInput
             label="Features"
             helperText="Add multiple features"
@@ -43,14 +38,12 @@ const AddService = () => {
             placeholder="Enter a feature"
           />
 
-          {/* Turnaround Time */}
           <EnaInput
             label="Turnaround Time"
             name="turnAroundTime"
             placeholder="e.g., 3-6 weeks"
           />
 
-          {/* Frontend Technologies */}
           <EnaMultiInput
             label="Frontend Technologies"
             helperText="List the frontend frameworks used"
@@ -58,7 +51,6 @@ const AddService = () => {
             placeholder="Enter frontend tech"
           />
 
-          {/* CSS Frameworks */}
           <EnaMultiInput
             label="CSS Frameworks"
             helperText="List the CSS frameworks used"
@@ -66,7 +58,6 @@ const AddService = () => {
             placeholder="Enter CSS framework"
           />
 
-          {/* Component Libraries */}
           <EnaMultiInput
             label="Component Libraries"
             helperText="List the UI component libraries"
@@ -74,7 +65,6 @@ const AddService = () => {
             placeholder="Enter component library"
           />
 
-          {/* Animation Libraries */}
           <EnaMultiInput
             label="Animation Libraries"
             helperText="List animation libraries used"
@@ -82,7 +72,6 @@ const AddService = () => {
             placeholder="Enter animation library"
           />
 
-          {/* File Storage */}
           <EnaMultiInput
             label="File Storage Options"
             helperText="List storage services used"
@@ -90,7 +79,6 @@ const AddService = () => {
             placeholder="Enter storage service"
           />
 
-          {/* Backend Technologies */}
           <EnaMultiInput
             label="Backend Technologies"
             helperText="List the backend frameworks"
@@ -98,7 +86,6 @@ const AddService = () => {
             placeholder="Enter backend tech"
           />
 
-          {/* Databases */}
           <EnaMultiInput
             label="Databases"
             helperText="List databases used"
@@ -106,7 +93,6 @@ const AddService = () => {
             placeholder="Enter database"
           />
 
-          {/* Payment Gateways */}
           <EnaMultiInput
             label="Payment Gateways"
             helperText="List supported payment gateways"
@@ -114,7 +100,6 @@ const AddService = () => {
             placeholder="Enter payment gateway"
           />
 
-          {/* Testing Tools */}
           <EnaMultiInput
             label="Testing Tools"
             helperText="List testing frameworks used"
@@ -122,7 +107,6 @@ const AddService = () => {
             placeholder="Enter testing tool"
           />
 
-          {/* Relevant Work Samples */}
           <EnaMultiInput
             label="Relevant Work Samples"
             helperText="Add links to previous projects"
@@ -130,7 +114,6 @@ const AddService = () => {
             placeholder="Enter project URL"
           />
 
-          {/* Description */}
           <div className="col-span-2">
             <EnaTextArea
               name="description"
@@ -145,13 +128,6 @@ const AddService = () => {
             />
           </div>
         </div>
-
-        <button
-          type="submit"
-          className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"
-        >
-          Create Service
-        </button>
       </EnaForm>
     </div>
   );

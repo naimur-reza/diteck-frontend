@@ -1,3 +1,4 @@
+"use client";
 import { Upload, X, FileIcon } from "lucide-react";
 import { Controller, useFormContext } from "react-hook-form";
 import { FormControl, FormItem, FormLabel } from "../ui/form";

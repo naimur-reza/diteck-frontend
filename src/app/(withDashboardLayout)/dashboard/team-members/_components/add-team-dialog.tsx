@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -18,8 +17,7 @@ interface AddMemberDialogProps {
   setIsOpen: (isOpen: boolean) => void;
   formData: TeamMemberFormData;
   setFormData: (data: TeamMemberFormData) => void;
-  onAdd: () => void;
-  isLoading: boolean;
+  resetForm: () => void;
 }
 
 export function AddMemberDialog({
@@ -27,8 +25,6 @@ export function AddMemberDialog({
   setIsOpen,
   formData,
   setFormData,
-  onAdd,
-  isLoading,
 }: AddMemberDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -38,7 +34,7 @@ export function AddMemberDialog({
           Add Member
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent className="sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle>Add Team Member</DialogTitle>
           <DialogDescription>
@@ -46,14 +42,6 @@ export function AddMemberDialog({
           </DialogDescription>
         </DialogHeader>
         <TeamMemberForm formData={formData} setFormData={setFormData} />
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setIsOpen(false)}>
-            Cancel
-          </Button>
-          <Button type="submit" onClick={onAdd} disabled={isLoading}>
-            {isLoading ? "Adding..." : "Add Member"}
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

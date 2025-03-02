@@ -185,9 +185,7 @@ export default function ETable<T>({
                             src={row[col.key] as string}
                           />
                         ) : (
-                          <div className="w-[30px] h-[30px] bg-gray-200 flex items-center justify-center rounded-md">
-                            ❌
-                          </div>
+                          <span className="w-[30px] h-[30px] bg-gray-200 flex items-center justify-center rounded-md"></span>
                         )}
                       </PhotoView>
                     </PhotoProvider>

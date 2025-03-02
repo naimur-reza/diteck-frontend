@@ -35,7 +35,7 @@ export const addServiceSchema = z.object({
     .array(z.string().min(1))
     .min(1, "At least one testing tool is required"),
   relevantWorkSamples: z
-    .array(z.string().url("Must be a valid URL"))
+    .array(z.string().min(1))
     .min(1, "At least one work sample is required"),
   description: z.string().min(1, "Description is required"),
   coverImage: z.instanceof(File, { message: "Cover image is required" }),

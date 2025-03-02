@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import clsx from "clsx";
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { Label } from "../ui/label";
 
 interface EnaSelectOption {
@@ -20,7 +20,6 @@ interface EnaSelectProps extends React.ComponentPropsWithoutRef<typeof Select> {
   value?: string;
   onChange?: (value: string) => void;
   placeholder?: string;
-  error?: string;
   disabled?: boolean;
   className?: string;
   label?: string;
@@ -33,18 +32,20 @@ const EnaSelect: React.FC<EnaSelectProps> = ({
   value,
   onChange,
   placeholder,
-  error,
   disabled,
   className,
   label,
   ...restProps
 }) => {
+  const { control } = useFormContext();
+
   return (
     <div className={clsx("flex flex-col", className)}>
       <Controller
+        control={control}
         defaultValue=""
         name={name}
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <div className="grid gap-2">
             {label && <Label htmlFor={name}>{label}</Label>}
             <Select
@@ -72,11 +73,13 @@ const EnaSelect: React.FC<EnaSelectProps> = ({
                 ))}
               </SelectContent>
             </Select>
+
+            {error && (
+              <span className="text-red-500 text-sm mt-1">{error.message}</span>
+            )}
           </div>
         )}
       />
-
-      {error && <span className="text-red-500 text-sm mt-1">{error}</span>}
     </div>
   );
 };
