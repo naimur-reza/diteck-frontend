@@ -1,85 +1,45 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TeamMember, TeamMemberFormData } from "@/types/team-member";
+import { useGetAllTeamMemberQuery } from "@/redux/api/adminApi/teamMemberApi/teamMemberApi";
+import { TTeamMember } from "@/types";
+import { TeamMemberFormData } from "@/types/team-member";
 import { useEffect, useState } from "react";
 import { AddMemberDialog } from "./_components/add-team-dialog";
 import { DeleteMemberDialog } from "./_components/delete-team-member";
 import { EditMemberDialog } from "./_components/edit-team-member";
 import { TeamMembersTable } from "./_components/team-member-table";
 
-// Mock data - replace with Redux store data
-const mockTeamMembers = [
-  {
-    id: 1,
-    name: "Alex Johnson",
-    email: "alex@example.com",
-    role: "Admin",
-    status: "Active",
-    avatar: "/placeholder.svg?height=40&width=40",
-    joinedDate: "Jan 10, 2023",
-  },
-  {
-    id: 2,
-    name: "Sarah Williams",
-    email: "sarah@example.com",
-    role: "Designer",
-    status: "Active",
-    avatar: "/placeholder.svg?height=40&width=40",
-    joinedDate: "Mar 15, 2023",
-  },
-  {
-    id: 3,
-    name: "Michael Brown",
-    email: "michael@example.com",
-    role: "Developer",
-    status: "Inactive",
-    avatar: "/placeholder.svg?height=40&width=40",
-    joinedDate: "Jun 22, 2023",
-  },
-  {
-    id: 4,
-    name: "Emily Davis",
-    email: "emily@example.com",
-    role: "Marketing",
-    status: "Active",
-    avatar: "/placeholder.svg?height=40&width=40",
-    joinedDate: "Sep 5, 2023",
-  },
-  {
-    id: 5,
-    name: "David Wilson",
-    email: "david@example.com",
-    role: "Developer",
-    status: "Active",
-    avatar: "/placeholder.svg?height=40&width=40",
-    joinedDate: "Nov 30, 2023",
-  },
-];
-
 export default function TeamMembers() {
-  const [members, setMembers] = useState<TeamMember[]>(mockTeamMembers);
+  const { data: TeamMembersData, isFetching } =
+    useGetAllTeamMemberQuery(undefined);
+  const [members, setMembers] = useState<TTeamMember[]>(
+    TeamMembersData?.data || []
+  );
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [currentMember, setCurrentMember] = useState<TeamMember | null>(null);
+  const [currentMember, setCurrentMember] = useState<TTeamMember | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   // Form state for add/edit
   const [formData, setFormData] = useState<TeamMemberFormData>({
     name: "",
     email: "",
-    role: "",
-    status: "Active",
+    teamRole: "",
+    startDate: "",
+    designation: "",
+    profilePhoto: "",
+    address: "",
+    phoneNumber: "",
+    emergencyContactNumber: "",
+    education: "",
   });
 
-  // Load team members on component mount
+  // fetch all team members
   useEffect(() => {
-    // In a real implementation, this would fetch data from the API
-    // loadTeamMembers();
-  }, []);
-
-  //   const loadTeamMembers = async () => {};
+    setMembers(TeamMembersData?.data || []);
+  }, [TeamMembersData]);
 
   const addTeamMember = async () => {
     setIsLoading(true);
@@ -87,7 +47,6 @@ export default function TeamMembers() {
       //   const newMember = await "";
       //   setMembers([...members, newMember]);
       setIsAddDialogOpen(false);
-      resetForm();
     } catch (error) {
       console.error("Failed to add team member:", error);
     } finally {
@@ -108,7 +67,6 @@ export default function TeamMembers() {
       //   );
       //   setMembers(updatedMembers);
       setIsEditDialogOpen(false);
-      resetForm();
     } catch (error) {
       console.error("Failed to update team member:", error);
     } finally {
@@ -123,7 +81,7 @@ export default function TeamMembers() {
     try {
       //   await deleteMember(currentMember.id);
       const updatedMembers = members.filter(
-        (member) => member.id !== currentMember.id
+        (member) => member._id !== currentMember._id
       );
       setMembers(updatedMembers);
       setIsDeleteDialogOpen(false);
@@ -134,18 +92,17 @@ export default function TeamMembers() {
     }
   };
 
-  const handleEdit = (member: TeamMember) => {
+  const handleEdit = (member: TTeamMember) => {
     setCurrentMember(member);
-    // setIsEditDialogOpen(true);
+    setIsEditDialogOpen(true);
   };
 
-  const handleDelete = (member: TeamMember) => {
+  const handleDelete = (member: TTeamMember) => {
     setCurrentMember(member);
     setIsDeleteDialogOpen(true);
   };
 
   const resetForm = () => {
-    resetForm();
     setCurrentMember(null);
   };
 
@@ -165,7 +122,6 @@ export default function TeamMembers() {
           setFormData={setFormData}
           onAdd={addTeamMember}
           isLoading={isLoading}
-          resetForm={resetForm}
         />
       </div>
 
@@ -175,6 +131,7 @@ export default function TeamMembers() {
         </CardHeader>
         <CardContent>
           <TeamMembersTable
+            isFetching={isFetching}
             members={members}
             onEdit={handleEdit}
             onDelete={handleDelete}

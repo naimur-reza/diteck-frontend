@@ -1,3 +1,4 @@
+import { tokenName } from "@/constants";
 import { configureStore } from "@reduxjs/toolkit";
 import {
   FLUSH,
@@ -14,7 +15,7 @@ import { baseApi } from "./api/baseApi";
 import authSlice from "./features/auth/authSlice";
 
 const persistConfig = {
-  key: "auth",
+  key: tokenName,
   storage,
 };
 

@@ -15,7 +15,7 @@ export interface TTeamMember {
   startDate: string;
   teamRole: string;
   bio: string;
-  status: string;
+  status?: string;
   skills: string[];
   endDate: string;
   isDeleted: boolean;
