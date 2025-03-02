@@ -79,13 +79,15 @@ const BlogTable = () => {
                     />
                 </CardContent>
             </Card>
+            {/* Delete confirmation */}
             <DeleteConfirmationDialog
                 isOpen={isDeleteDialog}
                 setIsOpen={setIsDeleteDialog}
                 entityType="Blog"
                 onDelete={handleDeleteBlog}
                 entityName={singleBlog?.title as string}
-                isLoading={isLoading} />
+                isLoading={isLoading}
+            />
         </div>
     );
 };

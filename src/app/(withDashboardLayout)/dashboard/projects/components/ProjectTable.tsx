@@ -1,15 +1,21 @@
 "use client";
+import { DeleteConfirmationDialog } from "@/components/common/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-import { useGetAllProjectsQuery } from "@/redux/api/adminApi/projectApi/projectApi";
+import { useDeleteProjectMutation, useGetAllProjectsQuery } from "@/redux/api/adminApi/projectApi/projectApi";
 import { TProject } from "@/types";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const ProjectTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [limit, setLimit] = useState(50);
+
+    const [isDeleteDialog, setIsDeleteDialog] = useState(false);
+    const [singleProject, setSingleProject] = useState<TProject | null>();
+
 
     const { data } = useGetAllProjectsQuery(undefined);
 
@@ -21,16 +27,37 @@ const ProjectTable = () => {
         setSearchTerm(value);
     };
 
+
+    const handleDialog = (project: TProject) => {
+        setIsDeleteDialog(true)
+        setSingleProject(project);
+    }
+    const [deleteProject, { isLoading }] = useDeleteProjectMutation();
+
+    const handleDeleteProject = async () => {
+        if (!singleProject?._id) return;
+
+        try {
+            await deleteProject({ id: singleProject._id }).unwrap();
+            toast.success(`Project "${singleProject.title}" deleted successfully!`);
+            setIsDeleteDialog(false);
+            setSingleProject(null);
+        } catch (error) {
+            console.error("Delete Error:", error);
+            toast.error("Failed to delete the project. Please try again.");
+        }
+    };
+
     const columns = [
         { key: "thumbnail", label: "Img" },
         { key: "title", label: "Title" },
-        { key: "description", label: "Description" }, // Updated "bio" to "description"
-        { key: "category", label: "Category" }, // Added category
-        { key: "timeTakenToDevelop", label: "Development Time" }, // Added time taken
-        { key: "frontendTech", label: "Frontend Tech" }, // Added frontend tech
-        { key: "backendTech", label: "Backend Tech" }, // Added backend tech
-        { key: "requirement", label: "Requirement" }, // Added requirement
-        { key: "createdAt", label: "Created At" }, // Added created date
+        { key: "description", label: "Description" },
+        { key: "category", label: "Category" },
+        { key: "timeTakenToDevelop", label: "Development Time" },
+        { key: "frontendTech", label: "Frontend Tech" },
+        { key: "backendTech", label: "Backend Tech" },
+        { key: "requirement", label: "Requirement" },
+        { key: "createdAt", label: "Created At" },
     ];
 
     return (
@@ -49,7 +76,7 @@ const ProjectTable = () => {
                         data={data?.data as TProject[]}
                         onEdit={(row) => console.log("edit:", row)}
                         onView={(row) => console.log("View:", row)}
-                        onDelete={(row) => console.log("Delete:", row)}
+                        onDelete={(row) => handleDialog(row)}
                         handleStatusChanger={(row, newStatus) =>
                             console.log("Status Changed:", row, newStatus)
                         }
@@ -60,6 +87,15 @@ const ProjectTable = () => {
                     />
                 </CardContent>
             </Card>
+            {/* Delete confirmation */}
+            <DeleteConfirmationDialog
+                isOpen={isDeleteDialog}
+                setIsOpen={setIsDeleteDialog}
+                entityType="Project"
+                onDelete={handleDeleteProject}
+                entityName={singleProject?.title as string}
+                isLoading={isLoading}
+            />
         </div>
     );
 };
