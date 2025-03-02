@@ -1,6 +1,7 @@
 "use client";
 
 import { EnaForm, EnaInput, EnaSelect } from "@/components/forms";
+import { teamMemberSchema } from "@/schema/teamMemberSchema";
 import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
 import { useEffect } from "react";
@@ -23,6 +24,9 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
     <EnaForm
       onSubmit={(data) => console.log(data)}
       defaultValues={member ?? {}}
+      schema={teamMemberSchema}
+      buttonPosition="right"
+      buttonText="Add Member"
     >
       <div className="grid grid-cols-2 gap-3">
         <EnaInput label="Name" name="name" placeholder="John Doe" />
@@ -52,28 +56,7 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
           placeholder="Block C, Dhanmondi, Dhaka"
         />
 
-        <EnaSelect
-          label="Select role"
-          name="role"
-          options={[
-            {
-              label: "Admin",
-              value: "Admin",
-            },
-            {
-              label: "Frontend Developer",
-              value: "Frontend Developer",
-            },
-            {
-              label: "Backend Developer",
-              value: "Backend Developer",
-            },
-            {
-              label: "UI/UX Designer",
-              value: "Designer",
-            },
-          ]}
-        />
+        <EnaSelect label="Select role" name="teamRole" options={roles} />
 
         <EnaInput
           name="designation"
@@ -99,3 +82,22 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
     </EnaForm>
   );
 }
+
+const roles = [
+  {
+    label: "Admin",
+    value: "Admin",
+  },
+  {
+    label: "Frontend Developer",
+    value: "Frontend Developer",
+  },
+  {
+    label: "Backend Developer",
+    value: "Backend Developer",
+  },
+  {
+    label: "UI/UX Designer",
+    value: "Designer",
+  },
+];

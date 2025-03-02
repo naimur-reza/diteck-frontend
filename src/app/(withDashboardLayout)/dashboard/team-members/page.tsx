@@ -46,7 +46,7 @@ export default function TeamMembers() {
     try {
       //   const newMember = await "";
       //   setMembers([...members, newMember]);
-      setIsAddDialogOpen(false);
+      // setIsAddDialogOpen(false);
     } catch (error) {
       console.error("Failed to add team member:", error);
     } finally {
@@ -120,8 +120,7 @@ export default function TeamMembers() {
           setIsOpen={setIsAddDialogOpen}
           formData={formData}
           setFormData={setFormData}
-          onAdd={addTeamMember}
-          isLoading={isLoading}
+          resetForm={resetForm}
         />
       </div>
 
