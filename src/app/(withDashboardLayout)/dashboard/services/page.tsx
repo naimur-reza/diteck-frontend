@@ -3,18 +3,35 @@ import { CommonDialog } from "@/components/dashboard/CommonDialog/CommonDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-import { useGetAllServiceQuery } from "@/redux/api/adminApi/serviceApi/serviceApi";
-import { TService } from "@/types";
+import {
+  useDeleteServiceMutation,
+  useGetAllServiceQuery,
+} from "@/redux/api/adminApi/serviceApi/serviceApi";
+import { TError, TService } from "@/types";
 import { useState } from "react";
 import AddService from "./_components/AddService";
+import { columns } from "./_constant/constant";
+import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
 
 const Services = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [limit, setLimit] = useState(50);
+  const [singleData, setSingleData] = useState<TService | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
 
   const { data, isLoading } = useGetAllServiceQuery(undefined);
+  const [
+    deleteService,
+    {
+      isLoading: dIsloading,
+      isSuccess: dIssuccess,
+      isError: dIsError,
+      data: dData,
+      error: dError,
+    },
+  ] = useDeleteServiceMutation();
 
   const handlePageChange = (newPage: number) => {
     setPageNumber(newPage); // Update the current page
@@ -24,17 +41,15 @@ const Services = () => {
     setSearchTerm(value);
   };
 
-  const columns = [
-    { key: "photo", label: "Img" },
-    { key: "title", label: "Title" },
-    { key: "price.basePrice", label: "Base Price" },
-    { key: "price.currency", label: "Currency" },
-    { key: "turnAroundTime", label: "Turnaround Time" },
-    { key: "status", label: "Status" },
-    { key: "serviceCategory", label: "Service Category" },
-  ];
+  const handleDeleteModal = (item: TService) => {
+    setIsDeleteModal(true);
+    setSingleData(item);
+  };
 
-  console.log(data);
+  const handleDelete = () => {
+    deleteService({ id: singleData?._id });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -72,10 +87,7 @@ const Services = () => {
             data={data?.data as TService[]}
             onEdit={(row) => console.log("edit:", row)}
             onView={(row) => console.log("View:", row)}
-            onDelete={(row) => console.log("Delete:", row)}
-            handleStatusChanger={(row, newStatus) =>
-              console.log("Status Changed:", row, newStatus)
-            }
+            onDelete={handleDeleteModal}
             meta={data?.meta}
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
@@ -84,26 +96,17 @@ const Services = () => {
         </CardContent>
       </Card>
 
-      {/* Edit Member Dialog */}
-      {/* <EditMemberDialog
-    isOpen={isEditDialogOpen}
-    setIsOpen={setIsEditDialogOpen}
-    member={currentMember}
-    formData={formData}
-    setFormData={setFormData}
-    onUpdate={updateTeamMember}
-    isLoading={isLoading}
-    resetForm={resetForm}
-  /> */}
-
-      {/* Delete Confirmation Dialog */}
-      {/* <DeleteMemberDialog
-    isOpen={isDeleteDialogOpen}
-    setIsOpen={setIsDeleteDialogOpen}
-    member={currentMember}
-    onDelete={deleteTeamMember}
-    isLoading={isLoading}
-  /> */}
+      <DeleteConfirm
+        isError={dIsError}
+        setIsOpen={setIsDeleteModal}
+        isLoading={dIsloading}
+        isOpen={isDeleteModal}
+        onDelete={handleDelete}
+        isSuccess={dIssuccess}
+        data={dData}
+        error={dError as TError}
+        title="are you sure to delete this service?"
+      ></DeleteConfirm>
     </div>
   );
 };
