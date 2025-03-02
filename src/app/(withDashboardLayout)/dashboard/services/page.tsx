@@ -31,26 +31,26 @@ const Services = () => {
         onEdit={handleEdit}
         onDelete={handleDelete}
       /> */}
-
-          <ETable
-            columns={[
-              { key: "name", label: "Name" },
-              { key: "email", label: "Email" },
-              { key: "status", label: "Status" },
-            ]}
-            data={[
-              { name: "John Doe", email: "john@example.com", status: true },
-              { name: "Jane Doe", email: "jane@example.com", status: false },
-            ]}
-            onEdit={(row) => console.log("edit:", row)}
-            onView={(row) => console.log("View:", row)}
-            onDelete={(row) => console.log("Delete:", row)}
-            handleStatusChanger={(row, newStatus) =>
-              console.log("Status Changed:", row, newStatus)
-            }
-          />
         </CardContent>
       </Card>
+
+      <ETable
+        columns={[
+          { key: "name", label: "Name" },
+          { key: "email", label: "Email" },
+          { key: "status", label: "Status" },
+        ]}
+        data={[
+          { name: "John Doe", email: "john@example.com", status: true },
+          { name: "Jane Doe", email: "jane@example.com", status: false },
+        ]}
+        onEdit={(row) => console.log("edit:", row)}
+        onView={(row) => console.log("View:", row)}
+        onDelete={(row) => console.log("Delete:", row)}
+        handleStatusChanger={(row, newStatus) =>
+          console.log("Status Changed:", row, newStatus)
+        }
+      />
 
       {/* Edit Member Dialog */}
       {/* <EditMemberDialog

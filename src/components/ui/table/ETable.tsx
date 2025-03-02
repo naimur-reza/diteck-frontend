@@ -32,6 +32,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { formatDateTime } from "@/utils";
+import CommonPagination from "@/components/dashboard/pagination/Pagination";
+import { TMeta } from "@/types";
 
 interface DataTableProps<T> {
   columns: { key: keyof T; label: string }[];
@@ -41,6 +43,9 @@ interface DataTableProps<T> {
   onDelete?: (row: T) => void;
   handleStatusChanger?: (row: T, newStatus: boolean) => void;
   defaultKey?: string;
+  handlePageChange?: (page: number) => void;
+  meta?: TMeta;
+  pageNumber?: number;
 }
 
 export default function ETable<T>({
@@ -51,6 +56,9 @@ export default function ETable<T>({
   onDelete,
   handleStatusChanger,
   defaultKey,
+  handlePageChange,
+  meta,
+  pageNumber,
 }: DataTableProps<T>) {
   return (
     <Table>
@@ -235,6 +243,15 @@ export default function ETable<T>({
           </TableRow>
         ))}
       </TableBody>
+      <div className="mt-[12px]">
+        {meta && handlePageChange && pageNumber && (
+          <CommonPagination
+            page={pageNumber}
+            meta={meta}
+            onPageChange={handlePageChange}
+          />
+        )}
+      </div>
     </Table>
   );
 }
