@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import EnaForm from "@/components/forms/EnaForm";
@@ -8,19 +8,10 @@ import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useCreateProjectMutation } from "@/redux/api/adminApi/projectApi/projectApi";
 import { projectSchema } from "@/schema/projectSchema";
-import EnaMultiInput2 from "@/components/forms/EnaMultiInput2";
+import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 
 const CreateProject = () => {
     const [createProject, { isLoading }] = useCreateProjectMutation();
-
-    // Manage multi-input fields using state
-    const [frontendTech, setFrontendTech] = useState<string[]>([]);
-    const [backendTech, setBackendTech] = useState<string[]>([]);
-    const [databases, setDatabases] = useState<string[]>([]);
-    const [deployment, setDeployment] = useState<string[]>([]);
-    const [testing, setTesting] = useState<string[]>([]);
-    const [websiteFeatures, setWebsiteFeatures] = useState<string[]>([]);
-    const [securityFeatures, setSecurityFeatures] = useState<string[]>([]);
 
     const handleCreateProject = async (data: FieldValues) => {
         console.log("Project Data:", data);
@@ -68,17 +59,26 @@ const CreateProject = () => {
         }
     };
 
-
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
             <EnaForm
                 onSubmit={handleCreateProject}
+                // schema={projectSchema}
                 defaultValues={{
                     title: "",
                     description: "",
+                    frontendTech: [],
+                    backendTech: [],
+                    databases: [],
+                    deployment: [],
+                    testing: [],
                     requirement: "",
                     timeTakenToDevelop: "",
+                    websiteFeatures: [],
+                    securityFeatures: [],
                     category: "",
+                    slug: "",
+                    createdBy: "",
                 }}
             >
                 <div className="grid grid-cols-2 gap-5 mb-5">
@@ -88,14 +88,14 @@ const CreateProject = () => {
                     <EnaTextArea name="requirement" placeholder="Project Requirements" />
                     <EnaInput name="timeTakenToDevelop" placeholder="Time Taken to Develop" />
 
-                    {/* Multi-input fields using EnaMultiInput2 */}
-                    <EnaMultiInput2 label="Frontend Technologies" placeholder="Add frontend tech..." onChange={setFrontendTech} />
-                    <EnaMultiInput2 label="Backend Technologies" placeholder="Add backend tech..." onChange={setBackendTech} />
-                    <EnaMultiInput2 label="Databases" placeholder="Add databases..." onChange={setDatabases} />
-                    <EnaMultiInput2 label="Deployment Methods" placeholder="Add deployment methods..." onChange={setDeployment} />
-                    <EnaMultiInput2 label="Testing Tools" placeholder="Add testing tools..." onChange={setTesting} />
-                    <EnaMultiInput2 label="Website Features" placeholder="Add website features..." onChange={setWebsiteFeatures} />
-                    <EnaMultiInput2 label="Security Features" placeholder="Add security features..." onChange={setSecurityFeatures} />
+                    {/* Multi-input fields using EnaMultiInput */}
+                    <EnaMultiInput name="frontendTech" label="Frontend Technologies" />
+                    <EnaMultiInput name="backendTech" label="Backend Technologies" />
+                    <EnaMultiInput name="databases" label="Databases" />
+                    <EnaMultiInput name="deployment" label="Deployment Methods" />
+                    <EnaMultiInput name="testing" label="Testing Tools" />
+                    <EnaMultiInput name="websiteFeatures" label="Website Features" />
+                    <EnaMultiInput name="securityFeatures" label="Security Features" />
 
                     {/* Thumbnail Upload */}
                     <EnaInput name="thumbnail" placeholder="Upload Thumbnail" type="file" />
