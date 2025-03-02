@@ -11,8 +11,12 @@ const BlogsPage = () => {
     const { isOpen, openModal, closeModal } = useModal();
     return (
         <div>
-            <div className='flex justify-between items-center mb-10'>
-                <h2 className='text-2xl font-medium'>Blogs</h2>
+            <div className='flex justify-between items-center mb-5'>
+                {/* <h2 className='text-2xl font-medium'>Blogs</h2> */}
+                <div>
+                    <h1 className="text-2xl font-bold tracking-tight">Blogs</h1>
+                    <p className="text-muted-foreground">Manage your blogs.</p>
+                </div>
                 <Button onClick={openModal} className='cursor-pointer'><Plus className="size-4" /> New Blog</Button>
                 <Modal isOpen={isOpen} onClose={closeModal} title='Add New Blog'>
                     <CreateBlog />

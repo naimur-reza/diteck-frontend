@@ -158,19 +158,24 @@ export default function ETable<T>({
                                                       ? "Unavailable"
                                                       : "Unknown"}
                     </span>
-                  ) : col.label === "Img" || col.label === "Thumbnail" ? (
+                  ) : col.label === "Img" || col.label === "Thumbnail" || col.label === "Photo" ? (
                     <PhotoProvider>
                       <PhotoView src={row[col.key] as string}>
-                        <Image
-                          width={30}
-                          height={30}
-                          alt={col.label}
-                          className=" rounded-md"
-                          src={row[col.key] as string}
-                        />
+                        {row[col.key] ? ( // Only render the image if there's a valid source
+                          <Image
+                            width={30}
+                            height={30}
+                            alt={col.label}
+                            className="rounded-md"
+                            src={row[col.key] as string}
+                          />
+                        ) : (
+                          <div className="w-[30px] h-[30px] bg-gray-200 flex items-center justify-center rounded-md">
+                            ❌
+                          </div> // Placeholder for missing images
+                        )}
                       </PhotoView>
                     </PhotoProvider>
-
                   ) : col.key === "startDate" ||
                     col.key === "endDate" ||
                     col.key === "createdAt" ||

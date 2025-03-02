@@ -1,11 +1,10 @@
 "use client";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
 import { useGetAllBlogsQuery } from "@/redux/api/adminApi/blogApi/blogApi";
 import { TBlog } from "@/types";
 import { useState } from "react";
-
 
 const BlogTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -23,7 +22,7 @@ const BlogTable = () => {
     };
 
     const columns = [
-        { key: "thumbnail", label: "Thumbnail" },
+        { key: "thumbnail", label: "Img" },
         { key: "title", label: "Title" },
         { key: "bio", label: "Bio" },
         { key: "content", label: "Content" },
@@ -32,9 +31,6 @@ const BlogTable = () => {
     return (
         <div>
             <Card>
-                <CardHeader className="pb-3">
-                    <CardTitle>All Blogs</CardTitle>
-                </CardHeader>
                 <CardContent>
                     <TableSearchBar
                         searchPlaceholder="Search Blog Title..."
