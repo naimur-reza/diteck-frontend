@@ -43,6 +43,7 @@ const Services = () => {
           <p className="text-muted-foreground">Manage your services.</p>
         </div>
         <CommonDialog
+          width={800}
           triggerLabel="New Service"
           title="Add Service"
           dialogType="create"

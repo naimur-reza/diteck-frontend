@@ -17,6 +17,7 @@ interface CommonDialogProps {
   triggerLabel: string;
   dialogType?: string; // Can be any string, not just "edit" or "create"
   description?: string;
+  width?: number;
 }
 
 export function CommonDialog({
@@ -27,6 +28,7 @@ export function CommonDialog({
   triggerLabel,
   dialogType,
   description,
+  width = 500,
 }: CommonDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -36,7 +38,12 @@ export function CommonDialog({
           {triggerLabel}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[1200px] w-auto max-h-[80vh] overflow-y-auto">
+      <DialogContent
+        style={{
+          width: `${width}px`,
+        }}
+        className="sm:max-w-[1200px] w-auto max-h-[80vh] overflow-y-auto"
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}

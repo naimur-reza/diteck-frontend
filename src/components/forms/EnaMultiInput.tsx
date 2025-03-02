@@ -10,7 +10,7 @@ import {
   FieldValues,
   Path,
   PathValue,
-  useForm,
+  useFormContext,
 } from "react-hook-form";
 
 interface EnaMultiInputProps<T extends FieldValues> {
@@ -28,14 +28,14 @@ export function EnaMultiInput<T extends FieldValues>({
 }: EnaMultiInputProps<T>) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { control } = useForm();
+  const { control } = useFormContext();
 
   return (
     <Controller
       name={name}
       control={control}
       defaultValue={[] as PathValue<T, Path<T>>}
-      render={({ field }) => {
+      render={({ field, fieldState: { error } }) => {
         const items: string[] = field.value || [];
 
         const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -73,6 +73,7 @@ export function EnaMultiInput<T extends FieldValues>({
             {helperText && (
               <p className="text-sm text-muted-foreground">{helperText}</p>
             )}
+
             <div className="flex flex-wrap gap-2 mt-2">
               {items.map((item: string) => (
                 <Badge key={item} variant="secondary" className="px-3 py-1.5">
@@ -87,6 +88,9 @@ export function EnaMultiInput<T extends FieldValues>({
                 </Badge>
               ))}
             </div>
+            {error && (
+              <span className="text-red-500 text-sm mt-1">{error.message}</span>
+            )}
           </div>
         );
       }}

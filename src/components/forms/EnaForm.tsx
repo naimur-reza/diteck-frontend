@@ -30,7 +30,7 @@ const EnaForm = ({ children, onSubmit, schema, defaultValues }: TFormProps) => {
     formConfig["defaultValues"] = defaultValues;
   }
 
-  const methods = useForm({ ...formConfig, mode: "all" });
+  const methods = useForm({ ...formConfig, mode: "onSubmit" });
   const { handleSubmit } = methods;
 
   const submit: SubmitHandler<FieldValues> = async (data) => {

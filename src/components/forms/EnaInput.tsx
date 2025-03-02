@@ -5,14 +5,14 @@ import { Label } from "../ui/label";
 
 interface EnaInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  error?: string;
+
   label?: string;
   register?: string;
 }
 
 const EnaInput: React.FC<EnaInputProps> = ({
   name,
-  error,
+
   className,
   label,
   ...rest
@@ -25,7 +25,7 @@ const EnaInput: React.FC<EnaInputProps> = ({
         name={name}
         control={control} // Fix: Pass control to Controller
         defaultValue={rest.defaultValue ?? ""} // Ensure defaultValue is set
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <div className="grid gap-2">
             {label && <Label htmlFor={name}>{label}</Label>}
             <Input
@@ -36,10 +36,12 @@ const EnaInput: React.FC<EnaInputProps> = ({
                 { "border-red-500": error }
               )}
             />
+            {error && (
+              <span className="text-red-500 text-sm mt-1">{error.message}</span>
+            )}
           </div>
         )}
       />
-      {error && <span className="text-red-500 text-sm mt-1">{error}</span>}
     </div>
   );
 };

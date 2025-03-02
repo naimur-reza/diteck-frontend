@@ -2,35 +2,21 @@
 import { EnaFileUpload, EnaForm, EnaInput } from "@/components/forms";
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
+import { addServiceSchema } from "@/schema/serviceSchema";
 import { FieldValues } from "react-hook-form";
 
 const AddService = () => {
   const handleSubmit = (data: FieldValues) => {
-    console.log(data);
+    if (data.name) {
+      alert("serea");
+    }
   };
 
   return (
     <div className="">
       <EnaForm
-        defaultValues={{
-          title: "",
-          price: "",
-          currency: "USD",
-          features: [],
-          description: "",
-          turnAroundTime: "",
-          frontendTech: [],
-          cssFramework: [],
-          componentLibrary: [],
-          animationLibrary: [],
-          fileStorage: [],
-          backendTech: [],
-          database: [],
-          paymentGateway: [],
-          testing: [],
-          relevantWorkSamples: [],
-          serviceCategory: "E-Commerce",
-        }}
+        schema={addServiceSchema}
+        defaultValues={{}}
         onSubmit={handleSubmit}
       >
         <div className="grid grid-cols-2 gap-5 mb-5">
