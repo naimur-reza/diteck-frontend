@@ -5,6 +5,7 @@ import Modal from '@/components/ui/modal/Modal';
 import { useModal } from '@/hooks/useModal';
 import { Plus } from 'lucide-react';
 import CreateBlog from './components/CreateBlog';
+import BlogTable from './components/BlogTable';
 
 const BlogsPage = () => {
     const { isOpen, openModal, closeModal } = useModal();
@@ -17,6 +18,8 @@ const BlogsPage = () => {
                     <CreateBlog />
                 </Modal>
             </div>
+
+            <BlogTable />
         </div>
     );
 };
