@@ -32,7 +32,7 @@ const EnaForm = ({
   defaultValues,
   buttonPosition,
   isLoading,
-  buttonText = "Submit",
+  buttonText,
 }: TFormProps) => {
   const formConfig: TFormConfig = {};
 
@@ -56,20 +56,22 @@ const EnaForm = ({
       <form onSubmit={handleSubmit(submit)}>
         {children}
 
-        <Button
-          type="submit"
-          size="sm"
-          className={cn(
-            {
-              "float-right": buttonPosition === "right",
-              "float-left": buttonPosition === "left",
-            },
-            "mt-5"
-          )}
-          disabled={isLoading}
-        >
-          {isLoading ? "Submitting..." : buttonText}
-        </Button>
+        {buttonText && (
+          <Button
+            type="submit"
+            size="sm"
+            className={cn(
+              {
+                "float-right": buttonPosition === "right",
+                "float-left": buttonPosition === "left",
+              },
+              "mt-2"
+            )}
+            disabled={isLoading}
+          >
+            {isLoading ? "Submitting..." : buttonText}
+          </Button>
+        )}
       </form>
     </FormProvider>
   );
