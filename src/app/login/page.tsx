@@ -61,7 +61,10 @@ const Login = () => {
         <EnaForm
           onSubmit={handleLogin}
           schema={loginSchema}
-          defaultValues={{ email: "admin.1@example.com", password: "12345678" }}
+          defaultValues={{
+            email: "super.admin@example.com",
+            password: "securePassword123",
+          }}
         >
           <EnaInput
             name="email"
