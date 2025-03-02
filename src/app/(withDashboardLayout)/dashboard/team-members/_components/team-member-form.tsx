@@ -5,14 +5,20 @@ import { teamMemberSchema } from "@/schema/teamMemberSchema";
 import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
 import { useEffect } from "react";
+import { FieldValues } from "react-hook-form";
 
 interface TeamMemberFormProps {
   formData: TeamMemberFormData;
   setFormData: (data: TeamMemberFormData) => void;
   member?: TTeamMember | null;
+  onSubmit: (data: FieldValues) => void;
 }
 
-export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
+export function TeamMemberForm({
+  setFormData,
+  member,
+  onSubmit,
+}: TeamMemberFormProps) {
   // Initialize form with member data if editing
   useEffect(() => {
     if (member) {
@@ -22,7 +28,7 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
 
   return (
     <EnaForm
-      onSubmit={(data) => console.log(data)}
+      onSubmit={onSubmit}
       defaultValues={member ?? {}}
       schema={teamMemberSchema}
       buttonPosition="right"
@@ -71,13 +77,7 @@ export function TeamMemberForm({ setFormData, member }: TeamMemberFormProps) {
           placeholder="2021-01-01"
         />
 
-        <EnaInput
-          name="Photo"
-          label="Photo"
-          type="file"
-          placeholder="Upload Photo"
-          accept="image/*"
-        />
+        <EnaInput name="thumbnail" placeholder="Upload Thumbnail" type="file" />
       </div>
     </EnaForm>
   );

@@ -41,16 +41,17 @@ export default function TeamMembers() {
     setMembers(TeamMembersData?.data || []);
   }, [TeamMembersData]);
 
-  const addTeamMember = async () => {
-    setIsLoading(true);
+  const addTeamMember = async (data: TeamMemberFormData) => {
+    console.log(data);
+
     try {
-      //   const newMember = await "";
+      console.log(data);
+      // const newMember = await createMember
+
       //   setMembers([...members, newMember]);
       // setIsAddDialogOpen(false);
     } catch (error) {
       console.error("Failed to add team member:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -121,6 +122,7 @@ export default function TeamMembers() {
           formData={formData}
           setFormData={setFormData}
           resetForm={resetForm}
+          onAdd={addTeamMember}
         />
       </div>
 
