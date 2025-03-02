@@ -19,6 +19,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
+
 const getNestedValue = (obj: any, path: string) => {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
 };
@@ -167,14 +171,26 @@ export default function ETable<T>({
                         ? "Unavailable"
                         : "Unknown"}
                     </span>
-                  ) : col.label === "Img" ? (
-                    <Image
-                      width={20}
-                      height={20}
-                      alt="sdf"
-                      className=" rounded-md"
-                      src={row[col?.key] as string}
-                    ></Image>
+                  ) : col.label === "Img" ||
+                    col.label === "Thumbnail" ||
+                    col.label === "Photo" ? (
+                    <PhotoProvider>
+                      <PhotoView src={row[col.key] as string}>
+                        {row[col.key] ? ( // Only render the image if there's a valid source
+                          <Image
+                            width={30}
+                            height={30}
+                            alt={col.label}
+                            className="rounded-md"
+                            src={row[col.key] as string}
+                          />
+                        ) : (
+                          <div className="w-[30px] h-[30px] bg-gray-200 flex items-center justify-center rounded-md">
+                            ❌
+                          </div>
+                        )}
+                      </PhotoView>
+                    </PhotoProvider>
                   ) : col.key === "startDate" ||
                     col.key === "endDate" ||
                     col.key === "createdAt" ||

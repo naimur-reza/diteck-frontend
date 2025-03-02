@@ -70,7 +70,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
               </button>
 
               {title && (
-                <h2 id="modal-title" className="pr-8 text-3xl font-bold">
+                <h2 id="modal-title" className="pr-8 text-2xl font-semibold">
                   {title}
                 </h2>
               )}
