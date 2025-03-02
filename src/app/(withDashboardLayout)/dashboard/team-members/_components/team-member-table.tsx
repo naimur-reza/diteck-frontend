@@ -26,17 +26,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { TeamMember } from "@/types/team-member";
+import { TTeamMember } from "@/types";
 import { MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 interface TeamMembersTableProps {
-  members: TeamMember[];
-  onEdit: (member: TeamMember) => void;
-  onDelete: (member: TeamMember) => void;
+  members: TTeamMember[];
+  onEdit: (member: TTeamMember) => void;
+  onDelete: (member: TTeamMember) => void;
+  isFetching: boolean;
 }
 
 export function TeamMembersTable({
+  isFetching,
   members,
   onEdit,
   onDelete,
@@ -49,11 +51,11 @@ export function TeamMembersTable({
     const matchesSearch =
       member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       member.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.role.toLowerCase().includes(searchQuery.toLowerCase());
+      member.teamRole.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesRole =
       roleFilter === "all" ||
-      member.role.toLowerCase() === roleFilter.toLowerCase();
+      member.teamRole.toLowerCase() === roleFilter.toLowerCase();
 
     return matchesSearch && matchesRole;
   });
@@ -99,77 +101,94 @@ export function TeamMembersTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredMembers.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={5} className="text-center py-8">
-                No team members found
-              </TableCell>
-            </TableRow>
-          ) : (
-            filteredMembers.map((member) => (
-              <TableRow key={member.id}>
-                <TableCell>
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src={member.avatar} alt={member.name} />
-                      <AvatarFallback>
-                        {member.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div className="font-medium">{member.name}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {member.email}
-                      </div>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>{member.role}</TableCell>
-                <TableCell>
-                  <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                      member.status === "Active"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-yellow-100 text-yellow-800"
-                    }`}
-                  >
-                    {member.status}
-                  </span>
-                </TableCell>
-                <TableCell>{member.joinedDate}</TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontal className="h-4 w-4" />
-                        <span className="sr-only">Open menu</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        onClick={() => onEdit(member)}
-                        className="cursor-pointer"
-                      >
-                        <Pencil className="mr-2 h-4 w-4" />
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => onDelete(member)}
-                        className="cursor-pointer text-destructive focus:text-destructive"
-                      >
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+          {isFetching ? (
+            <>
+              <TableRow>
+                <TableCell colSpan={5} className="text-center py-8">
+                  Loading team members...
                 </TableCell>
               </TableRow>
-            ))
+            </>
+          ) : (
+            <>
+              {filteredMembers?.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} className="text-center py-8">
+                    No team members found
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredMembers.map((member) => (
+                  <TableRow key={member._id}>
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <Avatar>
+                          <AvatarImage
+                            src={member.profilePhoto}
+                            alt={member.name}
+                          />
+                          <AvatarFallback>
+                            {member.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">{member.name}</div>
+                          <div className="text-sm text-muted-foreground">
+                            {member.email}
+                          </div>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>{member.teamRole}</TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                          member.status === "Active"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-yellow-100 text-yellow-800"
+                        }`}
+                      >
+                        {member.status}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      {new Date(member.startDate).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon">
+                            <MoreHorizontal className="h-4 w-4" />
+                            <span className="sr-only">Open menu</span>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => onEdit(member)}
+                            className="cursor-pointer"
+                          >
+                            <Pencil className="mr-2 h-4 w-4" />
+                            Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => onDelete(member)}
+                            className="cursor-pointer text-destructive focus:text-destructive"
+                          >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </>
           )}
         </TableBody>
       </Table>

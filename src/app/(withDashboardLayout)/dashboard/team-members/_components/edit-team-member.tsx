@@ -7,13 +7,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { TeamMember, TeamMemberFormData } from "@/types/team-member";
+import { TTeamMember } from "@/types";
+import { TeamMemberFormData } from "@/types/team-member";
 import { TeamMemberForm } from "./team-member-form";
 
 interface EditMemberDialogProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  member: TeamMember | null;
+  member: TTeamMember | null;
   formData: TeamMemberFormData;
   setFormData: (data: TeamMemberFormData) => void;
   onUpdate: () => void;
@@ -33,7 +34,7 @@ export function EditMemberDialog({
 }: EditMemberDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Edit Team Member</DialogTitle>
           <DialogDescription>Update team member information.</DialogDescription>
