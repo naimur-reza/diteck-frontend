@@ -1,16 +1,20 @@
 "use client";
 
 import {
+  Briefcase,
   BriefcaseIcon,
-  FileTextIcon,
+  FileText,
   Globe,
   Handshake,
-  HomeIcon,
+  LayoutDashboard,
   LogOutIcon,
-  Network,
+  MessageSquare,
+  Newspaper,
+  UserCheck,
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import * as React from "react";
 
 import {
@@ -29,22 +33,31 @@ import { useAppDispatch } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-// This is sample navigation data
 const navigation = [
   {
     title: "Dashboard",
     href: "/dashboard",
-    icon: HomeIcon,
+    icon: LayoutDashboard,
   },
   {
     title: "Job Applications",
     href: "/dashboard/job-applications",
-    icon: FileTextIcon,
+    icon: FileText,
   },
   {
     title: "Team Members",
     href: "/dashboard/team-members",
-    icon: Network,
+    icon: UserCheck,
+  },
+  {
+    title: "Reviews",
+    href: "/dashboard/reviews",
+    icon: MessageSquare,
+  },
+  {
+    title: "Query",
+    href: "/dashboard/query",
+    icon: MessageSquare,
   },
   {
     title: "Users",
@@ -52,20 +65,31 @@ const navigation = [
     icon: Users,
   },
   {
-    title: "Careers",
-    href: "/dashboard/careers",
+    title: "Hiring",
+    href: "/dashboard/hiring",
     icon: Handshake,
+  },
+  {
+    title: "Services",
+    href: "/dashboard/services",
+    icon: Globe,
+  },
+  {
+    title: "Projects", // previews work
+    href: "/dashboard/projects",
+    icon: Briefcase,
   },
   {
     title: "Blogs",
     href: "/dashboard/blogs",
-    icon: Globe,
+    icon: Newspaper,
   },
 ];
 
 export function AppSidebar() {
-  const router = useRouter();
+  const pathname = usePathname(); // Get the current route
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleLogout = () => {
     // Clear user from Redux
@@ -98,20 +122,31 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarMenu>
-          {navigation.map((item) => (
-            <SidebarMenuItem key={item.href}>
-              <SidebarMenuButton asChild>
-                <Link href={item.href} className="py-5">
-                  <item.icon className="size-8" />
-                  <span className="text-base">{item.title}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {navigation.map((item) => {
+            const isActive = pathname === item.href; // Check if the route is active
+
+            return (
+              <SidebarMenuItem key={item.href}>
+                <SidebarMenuButton asChild>
+                  <Link
+                    href={item.href}
+                    className={`pl-5 py-5 flex items-center gap-2 rounded-md ${
+                      isActive ? "bg-primary text-white" : ""
+                    }`}
+                  >
+                    <item.icon className="size-6" />
+                    <span className="text-base">{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarContent>
+
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -122,6 +157,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
+
       <SidebarRail />
     </Sidebar>
   );
