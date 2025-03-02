@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -43,13 +44,11 @@ const EnaForm = ({
     formConfig["defaultValues"] = defaultValues;
   }
 
-  const methods = useForm({ ...formConfig, mode: "all" });
-  const { handleSubmit, reset } = methods;
+  const methods = useForm({ ...formConfig, mode: "onSubmit" });
+  const { handleSubmit } = methods;
 
   const submit: SubmitHandler<FieldValues> = async (data) => {
     await onSubmit(data);
-    console.log("Submitted data:", data);
-    reset();
   };
 
   return (

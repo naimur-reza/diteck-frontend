@@ -1,17 +1,20 @@
 "use client";
+import { CommonDialog } from "@/components/dashboard/CommonDialog/CommonDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
 import { useGetAllServiceQuery } from "@/redux/api/adminApi/serviceApi/serviceApi";
 import { TService } from "@/types";
 import { useState } from "react";
+import AddService from "./_components/AddService";
 
 const Services = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [limit, setLimit] = useState(50);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
-  const { data } = useGetAllServiceQuery(undefined);
+  const { data, isLoading } = useGetAllServiceQuery(undefined);
 
   const handlePageChange = (newPage: number) => {
     setPageNumber(newPage); // Update the current page
@@ -22,7 +25,7 @@ const Services = () => {
   };
 
   const columns = [
-    { key: "photo", label: "Photo" },
+    { key: "photo", label: "Img" },
     { key: "title", label: "Title" },
     { key: "price.basePrice", label: "Base Price" },
     { key: "price.currency", label: "Currency" },
@@ -39,15 +42,16 @@ const Services = () => {
           <h1 className="text-2xl font-bold tracking-tight">Services</h1>
           <p className="text-muted-foreground">Manage your services.</p>
         </div>
-        {/* <AddMemberDialog
-      isOpen={isAddDialogOpen}
-      setIsOpen={setIsAddDialogOpen}
-      formData={formData}
-      setFormData={setFormData}
-      onAdd={addTeamMember}
-      isLoading={isLoading}
-      resetForm={resetForm}
-    /> */}
+        <CommonDialog
+          width={800}
+          triggerLabel="New Service"
+          title="Add Service"
+          dialogType="create"
+          isOpen={isAddDialogOpen}
+          setIsOpen={setIsAddDialogOpen}
+        >
+          <AddService></AddService>
+        </CommonDialog>
       </div>
 
       <Card>
@@ -63,6 +67,7 @@ const Services = () => {
             limit={limit}
           />
           <ETable
+            isLoading={isLoading}
             columns={columns as TableColumn<TService>[]}
             data={data?.data as TService[]}
             onEdit={(row) => console.log("edit:", row)}
