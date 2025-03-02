@@ -120,8 +120,7 @@ export default function TeamMembers() {
           setIsOpen={setIsAddDialogOpen}
           formData={formData}
           setFormData={setFormData}
-          onAdd={addTeamMember}
-          isLoading={isLoading}
+          resetForm={resetForm}
         />
       </div>
 
