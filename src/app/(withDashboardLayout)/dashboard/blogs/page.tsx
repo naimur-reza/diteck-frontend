@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Modal from '@/components/ui/modal/Modal';
 import { useModal } from '@/hooks/useModal';
 import { Plus } from 'lucide-react';
-import CreateBlog from './components/CreateBlog';
+import CreateUpdateBlog from './components/CreateUpdateBlog';
 import BlogTable from './components/BlogTable';
 
 const BlogsPage = () => {
@@ -19,7 +19,7 @@ const BlogsPage = () => {
                 </div>
                 <Button onClick={openModal} className='cursor-pointer'><Plus className="size-4" /> New Blog</Button>
                 <Modal isOpen={isOpen} onClose={closeModal} title='Add New Blog'>
-                    <CreateBlog closeModal={closeModal}/>
+                    <CreateUpdateBlog closeModal={closeModal} />
                 </Modal>
             </div>
 

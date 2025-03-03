@@ -10,10 +10,10 @@ import { useCreateBlogMutation } from "@/redux/api/adminApi/blogApi/blogApi";
 import { blogSchema } from "@/schema/blogSchema";
 import { EnaFileUpload } from "@/components/forms";
 
-const CreateBlog = ({ closeModal }: { closeModal: () => void }) => {
+const CreateUpdateBlog = ({ closeModal }: { closeModal: () => void }) => {
     const [createBlog, { isLoading }] = useCreateBlogMutation();
 
-    const handleCreateBlog = async (data: FieldValues) => {
+    const handleCreateUpdate = async (data: FieldValues) => {
 
         try {
             const formData = new FormData();
@@ -41,7 +41,7 @@ const CreateBlog = ({ closeModal }: { closeModal: () => void }) => {
 
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-            <EnaForm onSubmit={handleCreateBlog} schema={blogSchema} defaultValues={{ title: "", bio: "", content: "" }}>
+            <EnaForm onSubmit={handleCreateUpdate} schema={blogSchema} defaultValues={{ title: "", bio: "", content: "" }}>
                 <div className="grid grid-cols-1 gap-5 mb-5">
                     <EnaInput label="Blog Title" name="title" placeholder="Blog Title" />
                     <EnaTextArea label="Short Description" name="bio" placeholder="Short Description (Bio)" />
@@ -65,4 +65,4 @@ const CreateBlog = ({ closeModal }: { closeModal: () => void }) => {
     );
 };
 
-export default CreateBlog;
+export default CreateUpdateBlog;

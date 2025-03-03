@@ -2,11 +2,14 @@
 import { DeleteConfirmationDialog } from "@/components/common/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent } from "@/components/ui/card";
+import Modal from "@/components/ui/modal/Modal";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
+import { useModal } from "@/hooks/useModal";
 import { useDeleteBlogMutation, useGetAllBlogsQuery, useSoftDeleteBlogMutation } from "@/redux/api/adminApi/blogApi/blogApi";
 import { TBlog } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
+import CreateUpdateBlog from "./CreateUpdateBlog";
 
 const BlogTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -14,6 +17,8 @@ const BlogTable = () => {
     const [limit, setLimit] = useState(50);
     const [isDeleteDialog, setIsDeleteDialog] = useState(false);
     const [singleBlog, setSingleBlog] = useState<TBlog | null>();
+
+    const { isOpen, openModal, closeModal } = useModal();
 
     const { data, isLoading: dataIsLoading } = useGetAllBlogsQuery(undefined);
 
@@ -25,6 +30,13 @@ const BlogTable = () => {
         setSearchTerm(value);
     };
 
+    // handle edit modal
+    const handleEditModal = (blog: TBlog) => {
+        openModal()
+        setSingleBlog(blog);
+    }
+
+    // delete modal
     const handleDialog = (blog: TBlog) => {
         setIsDeleteDialog(true)
         setSingleBlog(blog);
@@ -84,7 +96,7 @@ const BlogTable = () => {
                         isLoading={dataIsLoading}
                         columns={columns as TableColumn<TBlog>[]}
                         data={data?.data as TBlog[]}
-                        onEdit={(row) => console.log("edit:", row)}
+                        onEdit={(row) => handleEditModal(row)}
                         onView={(row) => console.log("View:", row)}
                         onDelete={(row) => handleDialog(row)}
                         handleStatusChanger={(row, newStatus) =>
@@ -107,6 +119,10 @@ const BlogTable = () => {
                 entityName={singleBlog?.title as string}
                 isLoading={isLoading || softIsLoading}
             />
+            {/* Update blog */}
+            <Modal isOpen={isOpen} onClose={closeModal} title='Edit Blog'>
+                <CreateUpdateBlog closeModal={closeModal} blog={singleBlog} />
+            </Modal>
         </div>
     );
 };
