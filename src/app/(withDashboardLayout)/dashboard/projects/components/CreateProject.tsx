@@ -14,46 +14,6 @@ import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 const CreateProject = () => {
     const [createProject, { isLoading }] = useCreateProjectMutation();
 
-    // const handleCreateProject = async (data: FieldValues) => {
-    //     console.log("Project Data:", data);
-
-    //     try {
-    //         const formData = new FormData();
-    //         formData.append("title", data.title);
-    //         formData.append("description", data.description);
-    //         formData.append("requirement", data.requirement);
-    //         formData.append("timeTakenToDevelop", data.timeTakenToDevelop);
-    //         formData.append("category", data.category);
-    //         formData.append("createdBy", "65a3f2b9d4eabc1234567892"); // Hardcoded for now
-
-    //         // Handle Image Upload (Cover Image)
-    //         if (data.coverImage && data.coverImage.length > 0) {
-    //             formData.append("coverImage", data.coverImage[0]);
-    //         }
-
-    //         // Handle Multiple Images Upload
-    //         if (data.images && data.images.length > 0) {
-    //             data.images.forEach((image: File) => formData.append("images", image));
-    //         }
-
-    //         // Append Multi-input fields as JSON
-    //         formData.append("frontendTech", JSON.stringify(data.frontendTech || []));
-    //         formData.append("backendTech", JSON.stringify(data.backendTech || []));
-    //         formData.append("databases", JSON.stringify(data.databases || []));
-    //         formData.append("deployment", JSON.stringify(data.deployment || []));
-    //         formData.append("testing", JSON.stringify(data.testing || []));
-    //         formData.append("websiteFeatures", JSON.stringify(data.websiteFeatures || []));
-    //         formData.append("securityFeatures", JSON.stringify(data.securityFeatures || []));
-
-    //         await createProject(formData).unwrap();
-    //         toast.success("Project created successfully!");
-    //         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //     } catch (err: any) {
-    //         console.error("Error creating project:", err);
-    //         toast.error(err?.data?.message || "Failed to create project.");
-    //     }
-    // };
-
     const handleCreateProject = async (data: FieldValues) => {
         console.log("Project Data:", data);
 
@@ -68,26 +28,21 @@ const CreateProject = () => {
                 timeTakenToDevelop: data.timeTakenToDevelop,
                 category: data.category,
                 createdBy: "65a3f2b9d4eabc1234567892",
-                frontendTech: data.frontendTech || [],
-                backendTech: data.backendTech || [],
-                databases: data.databases || [],
-                deployment: data.deployment || [],
-                testing: data.testing || [],
-                websiteFeatures: data.websiteFeatures || [],
-                securityFeatures: data.securityFeatures || [],
+                frontendTech: data?.frontendTech || [],
+                backendTech: data?.backendTech || [],
+                databases: data?.databases || [],
+                deployment: data?.deployment || [],
+                testing: data?.testing || [],
+                websiteFeatures: data?.websiteFeatures || [],
+                securityFeatures: data?.securityFeatures || [],
             };
 
+            console.log('json ', JSON.stringify(jsonData));
+            console.log("Thumbnail Data:", data.thumbnail);
+
+
             formData.append("data", JSON.stringify(jsonData)); // ✅ Send JSON as a string
-
-            // 🛠 FIX: Ensure Thumbnail is Uploaded as File
-            if (data.thumbnail) {
-                formData.append("thumbnail", data.thumbnail);
-            }
-
-            // // Handle Multiple Images Upload
-            // if (data.images && Array.isArray(data.images)) {
-            //     data.images.forEach((image: File) => formData.append("images", image));
-            // }
+            formData.append("thumbnail", data.thumbnail); // ✅ Append directly if it's a single 
 
             await createProject(formData).unwrap();
             toast.success("Project created successfully!");
@@ -97,7 +52,6 @@ const CreateProject = () => {
             toast.error(err?.data?.message || "Failed to create project.");
         }
     };
-
 
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">

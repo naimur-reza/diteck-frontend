@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import EnaForm from "@/components/forms/EnaForm";
@@ -8,93 +9,67 @@ import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useCreateHiringPostMutation } from "@/redux/api/adminApi/hiringApi/hiring.api";
 import { hiringSchema } from "@/schema/hiringSchema";
-import EnaMultiInput2 from "@/components/forms/EnaMultiInput2";
-import { EnaSelect } from "@/components/forms";
+import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
+import { EnaFileUpload, EnaSelect } from "@/components/forms";
 
 const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
+
     const [createHiringPost, { isLoading }] = useCreateHiringPostMutation();
 
-    // Multi-input fields state
-    const [skillsRequired, setSkillsRequired] = useState<string[]>([]);
-    const [benefits, setBenefits] = useState<string[]>([]);
-    const [responsibilities, setResponsibilities] = useState<string[]>([]);
-    const [interviewRounds, setInterviewRounds] = useState<string[]>([]);
-    const [requirements, setRequirements] = useState<string[]>([]);
-
     const handleHiring = async (data: FieldValues) => {
-        console.log("Form Data:", data);
-
-        // Validate salary format
-        const salaryRegex = /^\d{4,6} - \d{4,6}$/;
-        if (!salaryRegex.test(data.salaryRange)) {
-            toast.error("Salary range must be in the format '5000 - 10000'.");
-            return;
-        }
-
-        // Validate jobType and status enums
-        const validJobTypes = ["full-time", "part-time", "remote", "hybrid"];
-        const validStatuses = ["active", "inactive", "expired"];
-
-        if (!validJobTypes.includes(data.jobType)) {
-            toast.error(`Invalid job type. Expected one of ${validJobTypes.join(", ")}`);
-            return;
-        }
-
-        if (!validStatuses.includes(data.status)) {
-            toast.error(`Invalid status. Expected one of ${validStatuses.join(", ")}`);
-            return;
-        }
 
         try {
             const formData = new FormData();
-            formData.append("companyName", data.companyName);
-            formData.append("title", data.title);
-            formData.append("jobNature", data.jobNature);
-            formData.append("workingHours", data.workingHours);
-            formData.append("workingDays", data.workingDays);
-            formData.append("description", data.description);
-            formData.append("salaryRange", data.salaryRange);
-            formData.append("location", data.location);
-            formData.append("experience", data.experience);
-            formData.append("applicationDeadline", data.applicationDeadline);
-            formData.append("jobType", data.jobType);
-            formData.append("status", data.status);
-            formData.append("department", data.department);
-            formData.append("createdBy", "67c0129af2550046d53c104b"); // Hardcoded for now
 
-            // Append Multi-input fields as actual arrays, NOT JSON strings
-            skillsRequired.forEach(skill => formData.append("skillsRequired[]", skill))
-            benefits.forEach(benefit => formData.append("benefits[]", benefit))
-            responsibilities.forEach(resp => formData.append("responsibilities[]", resp));
-            interviewRounds.forEach(round => formData.append("interviewRounds[]", round));
-            requirements.forEach(requirement => formData.append("requirements[]", requirement));
+            // Convert JSON data into a string and append it to the "data" field
+            const jsonData = {
+                companyName: data.companyName,
+                title: data.title,
+                jobNature: data.jobNature,
+                workingHours: data.workingHours,
+                workingDays: data.workingDays,
+                description: data.description,
+                salaryRange: data.salaryRange,
+                location: data.location,
+                experience: data.experience,
+                applicationDeadline: data.applicationDeadline,
+                jobType: data.jobType,
+                status: data.status,
+                department: data.department,
+                createdBy: "67c0129af2550046d53c104b",
 
-            // Handle Image Upload
-            if (data.hiringImage && data.hiringImage.length > 0) {
-                formData.append("hiringImage", data.hiringImage[0]); // Get first file
-            }
+                requirements: data.requirements || [],
+                skillsRequired: data?.skillsRequired || [],
+                benefits: data?.benefits || [],
+                responsibilities: data?.responsibilities || [],
+                interviewRounds: data?.interviewRounds || [],
+            };
+
+            formData.append("data", JSON.stringify(jsonData)); // ✅ Send JSON as a string
+            formData.append("file", data.file);
 
             await createHiringPost(formData).unwrap();
-            toast.success("Job post created successfully!");
-            closeModal()
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            toast.success("Hiring Post created successfully!");
+            closeModal();
         } catch (err: any) {
-            console.error("Error creating job post:", err);
-            toast.error(err?.data?.message || "Failed to create job post.");
+            console.error("Error creating blog:", err);
+            toast.error(err?.data?.message || "Failed to create Hiring Post.");
         }
     };
 
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-            <EnaForm onSubmit={handleHiring} schema={hiringSchema} defaultValues={{ companyName: "", title: "" }}>
+
+            <EnaForm onSubmit={handleHiring}
+                schema={hiringSchema} 
+                defaultValues={{ companyName: "", title: "" }}>
                 <div className="grid grid-cols-2 gap-5 mb-5">
                     <EnaInput label="Company Name" name="companyName" placeholder="Company Name" />
                     <EnaInput label="Job Title" name="title" placeholder="Job Title" />
-                    <EnaInput label="Upload Image" name="hiringImage" placeholder="Upload Image" type="file" />
+
                     <EnaInput label="Job Nature" name="jobNature" placeholder="Job Nature (e.g., Remote, On-Site)" />
                     <EnaInput label="Working Hours" name="workingHours" placeholder="Working Hours" />
                     <EnaInput label="Working Days" name="workingDays" placeholder="Working Days" />
-                    <EnaTextArea label="Job Description" name="description" placeholder="Job Description" />
                     <EnaInput label="Salary RangeSalary Range" name="salaryRange" placeholder="Salary Range (e.g., 5000 - 10000)" />
                     <EnaInput label="Job Location" name="location" placeholder="Job Location" />
                     <EnaInput label="Experience" name="experience" placeholder="Required Experience" />
@@ -102,17 +77,50 @@ const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
                     <EnaSelect label="Job Type" options={jobTypes} name="jobType" placeholder="Job Type (full-time, part-time, remote, hybrid)" />
                     <EnaSelect label="Status" options={status} name="status" placeholder="Status (active, inactive, expired)" />
                     <EnaInput label="Department" name="department" placeholder="Department" />
+                    <EnaTextArea label="Job Description" name="description" placeholder="Job Description" />
 
-                    {/* Multi-input fields */}
-                    <EnaMultiInput2 label="Skills Required" placeholder="Add skills..." onChange={setSkillsRequired} />
-                    <EnaMultiInput2 label="Benefits Offered" placeholder="Add benefits..." onChange={setBenefits} />
-                    <EnaMultiInput2 label="Job Responsibilities" placeholder="Add responsibilities..." onChange={setResponsibilities} />
-                    <EnaMultiInput2 label="Interview Rounds" placeholder="Add interview rounds..." onChange={setInterviewRounds} />
-                    <EnaMultiInput2 label="Requirements" placeholder="Add requirements..." onChange={setRequirements} />
+                    <EnaMultiInput
+                        name="requirements"
+                        placeholder="Requirements Required"
+                        label="Requirements Required"
+                        helperText="List of Requirements"
+                    />
+                    <EnaMultiInput
+                        name="skillsRequired"
+                        placeholder="Skills Required"
+                        label="Skills Required"
+                        helperText="List of Skills"
+                    />
+                    <EnaMultiInput
+                        name="benefits"
+                        placeholder="Benefits Offered"
+                        label="Benefits Offered"
+                        helperText="List of Benefits"
+                    />
+                    <EnaMultiInput
+                        name="responsibilities"
+                        placeholder="Job Responsibilities"
+                        label="Job Responsibilities"
+                        helperText="List of Job Responsibilities"
+                    />
+                    <EnaMultiInput
+                        name="interviewRounds"
+                        placeholder="Interview Rounds"
+                        label="Interview Rounds"
+                        helperText="List Interview Rounds"
+                    />
+                    <div className="col-span-2">
+                        <EnaFileUpload
+                            label="Thumbnail"
+                            name="file"
+                            accept="image/*"
+                        />
+                    </div>
                 </div>
 
                 <button
                     type="submit"
+
                     className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"
                     disabled={isLoading}
                 >
@@ -124,7 +132,6 @@ const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
 };
 
 export default CreateHiringPost;
-
 
 const jobTypes = [
     { value: "full-time", label: "Full-Time" },

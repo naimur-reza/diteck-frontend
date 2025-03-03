@@ -16,7 +16,6 @@ const CreateBlog = ({ closeModal }: { closeModal: () => void }) => {
     const handleCreateBlog = async (data: FieldValues) => {
 
         try {
-
             const formData = new FormData();
 
             // Convert JSON data into a string and append it to the "data" field
