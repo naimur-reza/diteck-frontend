@@ -36,7 +36,7 @@ const EnaMultiInput2: React.FC<MultiInput2Props> = ({
 
     return (
         <div>
-            {label && <label className="block text-sm">{label} (Press Enter to Add)</label>}
+            {label && <label className="block text-sm font-medium">{label} (Press Enter to Add)</label>}
             <input
                 type="text"
                 placeholder={placeholder}

@@ -8,27 +8,31 @@ import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useCreateBlogMutation } from "@/redux/api/adminApi/blogApi/blogApi";
 import { blogSchema } from "@/schema/blogSchema";
+import { EnaFileUpload } from "@/components/forms";
 
-const CreateBlog = () => {
+const CreateBlog = ({ closeModal }: { closeModal: () => void }) => {
     const [createBlog, { isLoading }] = useCreateBlogMutation();
 
     const handleCreateBlog = async (data: FieldValues) => {
-        console.log("Blog Data:", data);
 
         try {
-            const formData = new FormData();
-            formData.append("title", data.title);
-            formData.append("bio", data.bio);
-            formData.append("author", "65a3f2b9d4eabc1234567892"); // now hard coded
-            formData.append("content", data.content);
 
-            // Handle Thumbnail Upload
-            if (data.thumbnail && data.thumbnail.length > 0) {
-                formData.append("thumbnail", data.thumbnail[0]);
-            }
+            const formData = new FormData();
+
+            // Convert JSON data into a string and append it to the "data" field
+            const jsonData = {
+                title: data.title,
+                bio: data.bio,
+                author: "65a3f2b9d4eabc1234567892",
+                content: data.content,
+            };
+
+            formData.append("data", JSON.stringify(jsonData)); // ✅ Send JSON as a string
+            formData.append("file", data.file);
 
             await createBlog(formData).unwrap();
             toast.success("Blog created successfully!");
+            closeModal();
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.error("Error creating blog:", err);
@@ -43,7 +47,11 @@ const CreateBlog = () => {
                     <EnaInput label="Blog Title" name="title" placeholder="Blog Title" />
                     <EnaTextArea label="Short Description" name="bio" placeholder="Short Description (Bio)" />
                     <EnaTextArea label="Blog Content" name="content" placeholder="Blog Content" />
-                    <EnaInput label="Thumbnail" name="thumbnail" placeholder="Upload Thumbnail" type="file" />
+                    <EnaFileUpload
+                        label="Thumbnail"
+                        name="file"
+                        accept="image/*"
+                    />
                 </div>
 
                 <button

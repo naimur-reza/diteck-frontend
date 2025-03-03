@@ -128,6 +128,7 @@ const AddService = () => {
             />
           </div>
         </div>
+        <button>submit</button>
       </EnaForm>
     </div>
   );

@@ -19,7 +19,7 @@ const BlogsPage = () => {
                 </div>
                 <Button onClick={openModal} className='cursor-pointer'><Plus className="size-4" /> New Blog</Button>
                 <Modal isOpen={isOpen} onClose={closeModal} title='Add New Blog'>
-                    <CreateBlog />
+                    <CreateBlog closeModal={closeModal}/>
                 </Modal>
             </div>
 

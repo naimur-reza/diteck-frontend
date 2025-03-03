@@ -88,20 +88,20 @@ const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
             <EnaForm onSubmit={handleHiring} schema={hiringSchema} defaultValues={{ companyName: "", title: "" }}>
                 <div className="grid grid-cols-2 gap-5 mb-5">
-                    <EnaInput name="companyName" placeholder="Company Name" />
-                    <EnaInput name="title" placeholder="Job Title" />
-                    <EnaInput name="hiringImage" placeholder="Upload Image" type="file" />
-                    <EnaInput name="jobNature" placeholder="Job Nature (e.g., Remote, On-Site)" />
-                    <EnaInput name="workingHours" placeholder="Working Hours" />
-                    <EnaInput name="workingDays" placeholder="Working Days" />
-                    <EnaTextArea name="description" placeholder="Job Description" />
-                    <EnaInput name="salaryRange" placeholder="Salary Range (e.g., 5000 - 10000)" />
-                    <EnaInput name="location" placeholder="Job Location" />
-                    <EnaInput name="experience" placeholder="Required Experience" />
-                    <EnaInput name="applicationDeadline" type="date" placeholder="Application Deadline" />
-                    <EnaSelect options={jobTypes} name="jobType" placeholder="Job Type (full-time, part-time, remote, hybrid)" />
-                    <EnaSelect options={status} name="status" placeholder="Status (active, inactive, expired)" />
-                    <EnaInput name="department" placeholder="Department" />
+                    <EnaInput label="Company Name" name="companyName" placeholder="Company Name" />
+                    <EnaInput label="Job Title" name="title" placeholder="Job Title" />
+                    <EnaInput label="Upload Image" name="hiringImage" placeholder="Upload Image" type="file" />
+                    <EnaInput label="Job Nature" name="jobNature" placeholder="Job Nature (e.g., Remote, On-Site)" />
+                    <EnaInput label="Working Hours" name="workingHours" placeholder="Working Hours" />
+                    <EnaInput label="Working Days" name="workingDays" placeholder="Working Days" />
+                    <EnaTextArea label="Job Description" name="description" placeholder="Job Description" />
+                    <EnaInput label="Salary RangeSalary Range" name="salaryRange" placeholder="Salary Range (e.g., 5000 - 10000)" />
+                    <EnaInput label="Job Location" name="location" placeholder="Job Location" />
+                    <EnaInput label="Experience" name="experience" placeholder="Required Experience" />
+                    <EnaInput label="Application Deadline" name="applicationDeadline" type="date" placeholder="Application Deadline" />
+                    <EnaSelect label="Job Type" options={jobTypes} name="jobType" placeholder="Job Type (full-time, part-time, remote, hybrid)" />
+                    <EnaSelect label="Status" options={status} name="status" placeholder="Status (active, inactive, expired)" />
+                    <EnaInput label="Department" name="department" placeholder="Department" />
 
                     {/* Multi-input fields */}
                     <EnaMultiInput2 label="Skills Required" placeholder="Add skills..." onChange={setSkillsRequired} />
