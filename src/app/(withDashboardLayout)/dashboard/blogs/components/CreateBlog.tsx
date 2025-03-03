@@ -40,10 +40,10 @@ const CreateBlog = () => {
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
             <EnaForm onSubmit={handleCreateBlog} schema={blogSchema} defaultValues={{ title: "", bio: "", content: "" }}>
                 <div className="grid grid-cols-1 gap-5 mb-5">
-                    <EnaInput name="title" placeholder="Blog Title" />
-                    <EnaTextArea name="bio" placeholder="Short Description (Bio)" />
-                    <EnaTextArea name="content" placeholder="Blog Content" />
-                    <EnaInput name="thumbnail" placeholder="Upload Thumbnail" type="file" />
+                    <EnaInput label="Blog Title" name="title" placeholder="Blog Title" />
+                    <EnaTextArea label="Short Description" name="bio" placeholder="Short Description (Bio)" />
+                    <EnaTextArea label="Blog Content" name="content" placeholder="Blog Content" />
+                    <EnaInput label="Thumbnail" name="thumbnail" placeholder="Upload Thumbnail" type="file" />
                 </div>
 
                 <button
