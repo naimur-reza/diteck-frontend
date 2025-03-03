@@ -2,24 +2,21 @@
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-import {
-  useDeleteServiceMutation,
-  useGetAllServiceQuery,
-} from "@/redux/api/adminApi/serviceApi/serviceApi";
-import { TError, TService } from "@/types";
+import { useDeleteServiceMutation } from "@/redux/api/adminApi/serviceApi/serviceApi";
+import { TError, TJobApplication } from "@/types";
 import { useState } from "react";
 import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
 import { useGetAllJobApplicationQuery } from "@/redux/api/adminApi/jobApplicationApi/JobApplicationApi.api";
+import { jobApplicationColumns } from "./_constants/constant";
+import BulkDeleteButton from "@/components/dashboard/BulkDelete/BulkDeleteButton";
 
 const JobApplication = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [limit, setLimit] = useState(50);
-  const [singleData, setSingleData] = useState<TService | null>(null);
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [isEditModal, setIsEditModal] = useState(false);
+  const [singleData, setSingleData] = useState<TJobApplication | null>(null);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
-
+  const [selectedRows, setSelectedRows] = useState<TJobApplication[]>([]);
   const { data, isLoading } = useGetAllJobApplicationQuery([]);
   const [
     deleteService,
@@ -40,12 +37,8 @@ const JobApplication = () => {
     setSearchTerm(value);
   };
 
-  const handleDeleteModal = (item: TService) => {
+  const handleDeleteModal = (item: TJobApplication) => {
     setIsDeleteModal(true);
-    setSingleData(item);
-  };
-  const handleEditModal = (item: TService) => {
-    setIsEditModal(true);
     setSingleData(item);
   };
 
@@ -76,18 +69,25 @@ const JobApplication = () => {
             setLimit={setLimit}
             limit={limit}
           />
-          {/* <ETable
+
+          <BulkDeleteButton
+            selectedRows={selectedRows}
+            setIsDeleteModal={setIsDeleteModal}
+          ></BulkDeleteButton>
+          <ETable
+            checkboxMode={true}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
             isLoading={isLoading}
-            columns={columns as TableColumn<TService>[]}
-            data={data?.data as TService[]}
-            onEdit={handleEditModal}
+            columns={jobApplicationColumns as TableColumn<TJobApplication>[]}
+            data={data?.data as TJobApplication[]}
             onView={(row) => console.log("View:", row)}
             onDelete={handleDeleteModal}
             meta={data?.meta}
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
             defaultKey="service"
-          /> */}
+          />
         </CardContent>
       </Card>
 
