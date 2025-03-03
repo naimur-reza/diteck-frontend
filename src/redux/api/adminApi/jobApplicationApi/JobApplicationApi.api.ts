@@ -49,7 +49,6 @@ export const jobApplicationApi = baseApi.injectEndpoints({
         return { data: res.data, meta: res.meta };
       },
     }),
-
     updateJobApplicationStatus: builder.mutation({
       query: ({ id, data }) => ({
         url: `/job-application/toggle-archive-status/${id}`,
@@ -61,7 +60,6 @@ export const jobApplicationApi = baseApi.injectEndpoints({
         return res;
       },
     }),
-
     bulkDeleteJobApplication: builder.mutation({
       query: ({ data }) => ({
         url: `/job-application/bulk-delete-shortlisted`,
