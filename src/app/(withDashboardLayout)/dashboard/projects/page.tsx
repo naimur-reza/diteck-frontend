@@ -4,11 +4,12 @@ import { Button } from '@/components/ui/button';
 import Modal from '@/components/ui/modal/Modal';
 import { useModal } from '@/hooks/useModal';
 import { Plus } from 'lucide-react';
-import CreateProject from './components/CreateProject';
 import ProjectTable from './components/ProjectTable';
+import CreateUpdateProject from './components/CreateUpdateProject';
 
 const ProjectPage = () => {
     const { isOpen, openModal, closeModal } = useModal();
+    
     return (
         <div>
             <div className='flex justify-between items-center mb-5'>
@@ -18,7 +19,7 @@ const ProjectPage = () => {
                 </div>
                 <Button onClick={openModal} className='cursor-pointer'><Plus className="size-4" /> New Project</Button>
                 <Modal isOpen={isOpen} onClose={closeModal} title='Add New Project'>
-                    <CreateProject />
+                    <CreateUpdateProject closeModal={closeModal} />
                 </Modal>
             </div>
             <ProjectTable />
