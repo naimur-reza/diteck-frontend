@@ -11,3 +11,5 @@ export const jobApplicationColumns = [
   //   { key: "submissionDate", label: "Submission Date" },
   { key: "applicationScore", label: "Application Score" },
 ];
+
+export const statusOptions = ["pending", "shortlisted"];

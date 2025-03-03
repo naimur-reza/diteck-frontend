@@ -59,6 +59,7 @@ interface DataTableProps<T> {
   checkboxMode?: boolean;
   selectedRows?: any[];
   setSelectedRows?: React.Dispatch<React.SetStateAction<T[]>>;
+  
 }
 
 export default function ETable<T>({
