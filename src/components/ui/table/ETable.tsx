@@ -33,13 +33,12 @@ import {
   Trash2,
   ToggleLeft,
   ToggleRight,
+  CheckCircle,
 } from "lucide-react";
 import Image from "next/image";
 import { formatDateTime } from "@/utils";
 import CommonPagination from "@/components/dashboard/pagination/Pagination";
 import { TMeta } from "@/types";
-import { Checkbox } from "../checkbox";
-import { Dispatch, SetStateAction } from "react";
 export type TableColumn<T> = {
   label: string;
   key: keyof T;
@@ -59,7 +58,7 @@ interface DataTableProps<T> {
   checkboxMode?: boolean;
   selectedRows?: any[];
   setSelectedRows?: React.Dispatch<React.SetStateAction<T[]>>;
-  
+  performIfNeeded?: (row: T) => void;
 }
 
 export default function ETable<T>({
@@ -77,6 +76,7 @@ export default function ETable<T>({
   checkboxMode = false,
   selectedRows = [],
   setSelectedRows,
+  performIfNeeded,
 }: DataTableProps<T>) {
   // Handle Checkbox Selection
   const handleRowSelect = (row: T) => {
@@ -111,7 +111,11 @@ export default function ETable<T>({
             {columns?.map((col) => (
               <TableHead key={col.key as string}>{col.label}</TableHead>
             ))}
-            {(onEdit || onView || onDelete || handleStatusChanger) && (
+            {(onEdit ||
+              onView ||
+              onDelete ||
+              handleStatusChanger ||
+              performIfNeeded) && (
               <TableHead className="text-right">Actions</TableHead>
             )}
           </TableRow>
@@ -253,6 +257,16 @@ export default function ETable<T>({
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="cursor-pointer" align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
+
+                      {performIfNeeded && defaultKey === "jobApplication" && (
+                        <DropdownMenuItem
+                          className="cursor-pointer flex items-center space-x-2"
+                          onClick={() => performIfNeeded(row)}
+                        >
+                          <CheckCircle className="text-green-500" />{" "}
+                          <span>make shortlisted</span>{" "}
+                        </DropdownMenuItem>
+                      )}
 
                       {onView && (
                         <DropdownMenuItem

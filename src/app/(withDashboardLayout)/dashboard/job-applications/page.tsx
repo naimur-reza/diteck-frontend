@@ -12,6 +12,8 @@ import {
 } from "@/redux/api/adminApi/jobApplicationApi/JobApplicationApi.api";
 import { jobApplicationColumns, statusOptions } from "./_constants/constant";
 import BulkDeleteButton from "@/components/dashboard/BulkDelete/BulkDeleteButton";
+import Modal from "@/components/ui/modal/Modal";
+import ShortlistedConfirmation from "./_components/ShortlistedConfirmation";
 
 const JobApplication = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -20,6 +22,7 @@ const JobApplication = () => {
   const [singleData, setSingleData] = useState<TJobApplication | null>(null);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [isBulkDeleteModal, setIsBulkDelete] = useState(false);
+  const [isShorlistedModal, setIsShortlistedModal] = useState(false);
   const [selectedRows, setSelectedRows] = useState<TJobApplication[]>([]);
   const [status, setStatus] = useState<string>("pending");
 
@@ -75,6 +78,10 @@ const JobApplication = () => {
   };
 
   // Define dynamic status options
+  const handleMakeShortlisted = (item: TJobApplication) => {
+    setSingleData(item);
+    setIsShortlistedModal(true);
+  };
 
   return (
     <div className="space-y-6">
@@ -98,8 +105,8 @@ const JobApplication = () => {
             setLimit={setLimit}
             limit={limit}
             status={status}
-            setStatus={setStatus} // Pass status state handler
-            statusOptions={statusOptions} // Pass dynamic status options
+            setStatus={setStatus}
+            statusOptions={statusOptions}
           />
           <BulkDeleteButton
             selectedRows={selectedRows}
@@ -117,10 +124,22 @@ const JobApplication = () => {
             meta={data?.meta}
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
-            defaultKey="service"
+            defaultKey="jobApplication"
+            performIfNeeded={handleMakeShortlisted}
           />
         </CardContent>
       </Card>
+
+      <Modal
+        isOpen={isShorlistedModal}
+        title="Do you wanna make him shortlisted"
+        onClose={() => setIsShortlistedModal(false)}
+      >
+        <ShortlistedConfirmation
+          setIsShortlistedModal={setIsShortlistedModal}
+          item={singleData as TJobApplication}
+        ></ShortlistedConfirmation>
+      </Modal>
 
       {/* Single delete */}
       <DeleteConfirm

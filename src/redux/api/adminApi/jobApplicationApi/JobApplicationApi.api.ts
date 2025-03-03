@@ -51,9 +51,10 @@ export const jobApplicationApi = baseApi.injectEndpoints({
     }),
 
     updateJobApplicationStatus: builder.mutation({
-      query: ({ id }) => ({
+      query: ({ id, data }) => ({
         url: `/job-application/toggle-archive-status/${id}`,
         method: "PATCH",
+        body: data,
       }),
       invalidatesTags: ["jobApplication"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
