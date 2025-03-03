@@ -9,9 +9,10 @@ import {
 } from "@/redux/api/adminApi/serviceApi/serviceApi";
 import { TError, TService } from "@/types";
 import { useState } from "react";
-import AddService from "./_components/AddService";
 import { columns } from "./_constant/constant";
 import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
+import AddAndEditService from "./_components/AddAndEditService";
+import Modal from "@/components/ui/modal/Modal";
 
 const Services = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -19,6 +20,7 @@ const Services = () => {
   const [limit, setLimit] = useState(50);
   const [singleData, setSingleData] = useState<TService | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
 
   const { data, isLoading } = useGetAllServiceQuery(undefined);
@@ -45,9 +47,17 @@ const Services = () => {
     setIsDeleteModal(true);
     setSingleData(item);
   };
+  const handleEditModal = (item: TService) => {
+    setIsEditModal(true);
+    setSingleData(item);
+  };
 
   const handleDelete = () => {
     deleteService({ id: singleData?._id });
+  };
+
+  const handleClose = () => {
+    setIsEditModal(false);
   };
 
   return (
@@ -57,6 +67,8 @@ const Services = () => {
           <h1 className="text-2xl font-bold tracking-tight">Services</h1>
           <p className="text-muted-foreground">Manage your services.</p>
         </div>
+
+        {/* add service */}
         <CommonDialog
           width={800}
           triggerLabel="New Service"
@@ -65,10 +77,11 @@ const Services = () => {
           isOpen={isAddDialogOpen}
           setIsOpen={setIsAddDialogOpen}
         >
-          <AddService></AddService>
+          <AddAndEditService setIsOpen={setIsAddDialogOpen} />
         </CommonDialog>
       </div>
 
+      {/* table */}
       <Card>
         <CardHeader className="pb-3">
           <CardTitle>All Services</CardTitle>
@@ -85,7 +98,7 @@ const Services = () => {
             isLoading={isLoading}
             columns={columns as TableColumn<TService>[]}
             data={data?.data as TService[]}
-            onEdit={(row) => console.log("edit:", row)}
+            onEdit={handleEditModal}
             onView={(row) => console.log("View:", row)}
             onDelete={handleDeleteModal}
             meta={data?.meta}
@@ -95,6 +108,13 @@ const Services = () => {
           />
         </CardContent>
       </Card>
+
+      <Modal isOpen={isEditModal} onClose={handleClose} title="edit service">
+        <AddAndEditService
+          setIsOpen={setIsEditModal}
+          defaultValues={singleData as TService}
+        />
+      </Modal>
 
       <DeleteConfirm
         isError={dIsError}

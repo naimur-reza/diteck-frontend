@@ -3,41 +3,84 @@ import { EnaFileUpload, EnaForm, EnaInput } from "@/components/forms";
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useNotification } from "@/hooks/useNotification";
-import { useCreateServiceMutation } from "@/redux/api/adminApi/serviceApi/serviceApi";
-import { addServiceSchema } from "@/schema/serviceSchema";
-import { TError } from "@/types";
+import {
+  useCreateServiceMutation,
+  useUpdateServiceMutation,
+} from "@/redux/api/adminApi/serviceApi/serviceApi";
+import { addServiceSchema, editServiceSchema } from "@/schema/serviceSchema";
+import { TError, TService } from "@/types";
+import { useEffect } from "react";
 import { FieldValues } from "react-hook-form";
 
-const AddService = () => {
-  const [createService, { isLoading, isError, isSuccess, data, error }] =
-    useCreateServiceMutation();
-  const handleSubmit = (data: FieldValues) => {
-    const formData = new FormData();
-    if (data.coverImage) {
-      formData.append("coverImage", data.coverImage);
-    }
+interface AddAndEditServiceProps {
+  defaultValues?: TService;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+const AddAndEditService = ({
+  defaultValues,
+  setIsOpen,
+}: AddAndEditServiceProps) => {
+  const isEditMode = !!defaultValues; // Check if we are editing
+  const [
+    createService,
+    { isLoading: isCreating, isError, isSuccess, data, error },
+  ] = useCreateServiceMutation();
+
+  const [
+    editService,
+    {
+      isLoading: uIsLoading,
+      isError: uIsError,
+      data: uData,
+      error: uError,
+      isSuccess: uIsSuccess,
+    },
+  ] = useUpdateServiceMutation();
+
+  const handleSubmit = (formData: FieldValues) => {
     const bodyData = {
-      ...data,
-      price: Number(data?.price),
+      ...formData,
+      price: {
+        basePrice: Number(formData.price.basePrice),
+        customPricingAvailable: true,
+        currency: formData.price.currency,
+      },
     };
 
-    formData.append("data", JSON.stringify(bodyData));
-    createService(formData);
+    const apiData = new FormData();
+    if (formData.coverImage) {
+      apiData.append("file", formData.coverImage);
+    }
+    apiData.append("data", JSON.stringify(bodyData));
+
+    if (isEditMode) {
+      console.log(bodyData);
+      editService({ id: defaultValues?._id, body: apiData });
+    } else {
+      createService(apiData);
+    }
   };
 
+  useEffect(() => {
+    if (isSuccess || uIsSuccess) {
+      setIsOpen(false);
+    }
+  }, [isSuccess, uIsSuccess]);
+
   useNotification({
-    isLoading,
-    isError,
-    isSuccess,
-    data,
-    error: error as TError,
+    isLoading: isCreating || uIsLoading,
+    isError: isError || uIsError,
+    isSuccess: isSuccess || uIsSuccess,
+    data: data || uData,
+    error: (error as TError) || (uError as TError),
   });
+
   return (
-    <div className="">
+    <div>
       <EnaForm
-        schema={addServiceSchema}
-        defaultValues={{}}
+        schema={isEditMode ? editServiceSchema : addServiceSchema}
+        defaultValues={defaultValues || {}}
         onSubmit={handleSubmit}
       >
         <div className="grid grid-cols-2 gap-5 mb-5">
@@ -46,13 +89,19 @@ const AddService = () => {
             name="title"
             placeholder="Enter title"
           />
+          <EnaInput
+            label="Service Category"
+            name="serviceCategory"
+            placeholder="Enter service category"
+          />
 
           <EnaInput
             label="Base Price (USD)"
-            name="price"
+            name="price.basePrice"
             placeholder="7000"
             type="number"
           />
+          <EnaInput label="Current" name="price.currency" placeholder="USD" />
 
           <EnaMultiInput
             label="Features"
@@ -143,6 +192,7 @@ const AddService = () => {
               placeholder="Describe the service"
             />
           </div>
+
           <div className="col-span-2">
             <EnaFileUpload
               label="Cover Image"
@@ -151,9 +201,15 @@ const AddService = () => {
             />
           </div>
         </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+        >
+          {isEditMode ? "Update Service" : "Create Service"}
+        </button>
       </EnaForm>
     </div>
   );
 };
 
-export default AddService;
+export default AddAndEditService;
