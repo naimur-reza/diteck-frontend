@@ -14,11 +14,9 @@ export const reviewApi = baseApi.injectEndpoints({
       invalidatesTags: ["review"],
     }),
     updateReviewStatus: builder.mutation({
-      query: ({ reviewID, data }) => ({
-        url: `/review/update-review-status/${reviewID}`,
+      query: ({ reviewID, reviewStatus }) => ({
+        url: `/review/update-review-status/${reviewID}?reviewStatus=${reviewStatus}`,
         method: "PATCH",
-        body: data,
-        formData: true,
       }),
       invalidatesTags: ["review"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {

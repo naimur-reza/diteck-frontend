@@ -34,6 +34,7 @@ import {
   ToggleLeft,
   ToggleRight,
   CheckCircle,
+  XCircle,
 } from "lucide-react";
 import Image from "next/image";
 import { formatDateTime } from "@/utils";
@@ -59,6 +60,7 @@ interface DataTableProps<T> {
   selectedRows?: any[];
   setSelectedRows?: React.Dispatch<React.SetStateAction<T[]>>;
   performIfNeeded?: (row: T) => void;
+  handleApprovedAndRejected?: (row: T, status: "approved" | "rejected") => void;
 }
 
 export default function ETable<T>({
@@ -77,6 +79,7 @@ export default function ETable<T>({
   selectedRows = [],
   setSelectedRows,
   performIfNeeded,
+  handleApprovedAndRejected,
 }: DataTableProps<T>) {
   // Handle Checkbox Selection
   const handleRowSelect = (row: T) => {
@@ -247,7 +250,11 @@ export default function ETable<T>({
                 </TableCell>
               ))}
 
-              {(onEdit || onView || onDelete || handleStatusChanger) && (
+              {(onEdit ||
+                onView ||
+                onDelete ||
+                handleStatusChanger ||
+                handleApprovedAndRejected) && (
                 <TableCell className="text-right">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -266,6 +273,29 @@ export default function ETable<T>({
                           <CheckCircle className="text-green-500" />{" "}
                           <span>make shortlisted</span>{" "}
                         </DropdownMenuItem>
+                      )}
+                      {handleApprovedAndRejected && (
+                        <>
+                          <DropdownMenuItem
+                            className="cursor-pointer flex items-center space-x-2"
+                            onClick={() =>
+                              handleApprovedAndRejected(row, "approved")
+                            }
+                          >
+                            <CheckCircle className="text-green-500" />
+                            <span>Approve</span>
+                          </DropdownMenuItem>
+
+                          <DropdownMenuItem
+                            className="cursor-pointer flex items-center space-x-2"
+                            onClick={() =>
+                              handleApprovedAndRejected(row, "rejected")
+                            }
+                          >
+                            <XCircle className="text-red-500" />
+                            <span>Reject</span>
+                          </DropdownMenuItem>
+                        </>
                       )}
 
                       {onView && (

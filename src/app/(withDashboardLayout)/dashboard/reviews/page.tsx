@@ -2,13 +2,17 @@
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-import { TReview } from "@/types";
+import { TError, TReview } from "@/types";
 import { useState } from "react";
 
-import { useGetAllReviewsQuery } from "@/redux/api/adminApi/reviewApi/reviewApi";
+import {
+  useGetAllReviewsQuery,
+  useUpdateReviewStatusMutation,
+} from "@/redux/api/adminApi/reviewApi/reviewApi";
 import Modal from "@/components/ui/modal/Modal";
 import ViewReviews from "./_components/ViewReviews";
 import { reviewColumns } from "./_constants/review";
+import { useNotification } from "@/hooks/useNotification";
 
 const Reviews = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -24,6 +28,17 @@ const Reviews = () => {
     { name: "page", value: pageNumber },
   ]);
 
+  const [
+    updateStatus,
+    {
+      isLoading: uIsLoading,
+      isError: uIsError,
+      isSuccess: uIsSuccess,
+      data: uData,
+      error: uError,
+    },
+  ] = useUpdateReviewStatusMutation();
+
   const handlePageChange = (newPage: number) => {
     setPageNumber(newPage);
   };
@@ -35,6 +50,18 @@ const Reviews = () => {
     setSingleViewDetailsModal(true);
     setSingleData(item);
   };
+
+  const handleApprovedAndRejected = (item: TReview, status: string) => {
+    updateStatus({ reviewID: item._id, reviewStatus: status });
+  };
+
+  useNotification({
+    isLoading: uIsLoading,
+    isSuccess: uIsSuccess,
+    data: uData,
+    error: uError as TError,
+    isError: uIsError,
+  });
 
   return (
     <div className="space-y-6">
@@ -67,6 +94,7 @@ const Reviews = () => {
             meta={data?.meta}
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
+            handleApprovedAndRejected={handleApprovedAndRejected}
           />
         </CardContent>
       </Card>
