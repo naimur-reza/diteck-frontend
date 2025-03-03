@@ -16,7 +16,7 @@ const HiringTable = () => {
     const [isDeleteDialog, setIsDeleteDialog] = useState(false);
     const [singleHiring, setSingleHiring] = useState<THiring | null>();
 
-    const { data } = useGetAllHiringPostQuery(undefined);
+    const { data, isLoading: dataIsLoading } = useGetAllHiringPostQuery(undefined);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
@@ -66,13 +66,10 @@ const HiringTable = () => {
 
 
     const columns = [
-        { key: "hiringImage", label: "Photo" },
         { key: "title", label: "Title" },
-        { key: "companyName", label: "Company Name" },
         { key: "jobType", label: "Job Type" },
         { key: "jobNature", label: "Job Nature" },
         { key: "salaryRange", label: "Salary Range" },
-        { key: "location", label: "Location" },
         { key: "experience", label: "Experience" },
         { key: "status", label: "Status" },
         { key: "views", label: "Views" },
@@ -91,6 +88,7 @@ const HiringTable = () => {
                         limit={limit}
                     />
                     <ETable
+                        isLoading={dataIsLoading}
                         columns={columns as TableColumn<THiring>[]}
                         data={data?.data as THiring[]}
                         onEdit={(row) => console.log("edit:", row)}

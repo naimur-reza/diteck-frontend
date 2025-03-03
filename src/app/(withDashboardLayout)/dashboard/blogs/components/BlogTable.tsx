@@ -15,7 +15,7 @@ const BlogTable = () => {
     const [isDeleteDialog, setIsDeleteDialog] = useState(false);
     const [singleBlog, setSingleBlog] = useState<TBlog | null>();
 
-    const { data } = useGetAllBlogsQuery(undefined);
+    const { data, isLoading: dataIsLoading } = useGetAllBlogsQuery(undefined);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
@@ -81,6 +81,7 @@ const BlogTable = () => {
                         limit={limit}
                     />
                     <ETable
+                        isLoading={dataIsLoading}
                         columns={columns as TableColumn<TBlog>[]}
                         data={data?.data as TBlog[]}
                         onEdit={(row) => console.log("edit:", row)}

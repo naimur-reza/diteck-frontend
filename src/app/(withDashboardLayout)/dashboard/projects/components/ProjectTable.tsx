@@ -17,7 +17,7 @@ const ProjectTable = () => {
     const [singleProject, setSingleProject] = useState<TProject | null>();
 
 
-    const { data } = useGetAllProjectsQuery(undefined);
+    const { data, isLoading: dataIsLoading } = useGetAllProjectsQuery(undefined);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
@@ -89,6 +89,7 @@ const ProjectTable = () => {
                         limit={limit}
                     />
                     <ETable
+                        isLoading={dataIsLoading}
                         columns={columns as TableColumn<TProject>[]}
                         data={data?.data as TProject[]}
                         onEdit={(row) => console.log("edit:", row)}
