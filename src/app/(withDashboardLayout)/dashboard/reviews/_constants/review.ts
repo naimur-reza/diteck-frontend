@@ -10,3 +10,5 @@ export const reviewColumns = [
   { key: "serviceUsed", label: "Service Used" },
   { key: "reviewDate", label: "Review Date" },
 ];
+
+export const reviewStatusOptions = ["pending", "approved"];

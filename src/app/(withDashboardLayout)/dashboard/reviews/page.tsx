@@ -11,7 +11,7 @@ import {
 } from "@/redux/api/adminApi/reviewApi/reviewApi";
 import Modal from "@/components/ui/modal/Modal";
 import ViewReviews from "./_components/ViewReviews";
-import { reviewColumns } from "./_constants/review";
+import { reviewColumns, reviewStatusOptions } from "./_constants/review";
 import { useNotification } from "@/hooks/useNotification";
 
 const Reviews = () => {
@@ -21,8 +21,10 @@ const Reviews = () => {
   const [singleData, setSingleData] = useState<TReview | null>(null);
   const [viewDetailsModal, setSingleViewDetailsModal] =
     useState<boolean>(false);
+  const [status, setStatus] = useState<string>("pending");
 
   const { data, isLoading } = useGetAllReviewsQuery([
+    { name: "reviewStatus", value: status },
     { name: "search", value: searchTerm },
     { name: "limit", value: limit },
     { name: "page", value: pageNumber },
@@ -84,6 +86,9 @@ const Reviews = () => {
             searchValue={searchTerm}
             setLimit={setLimit}
             limit={limit}
+            status={status}
+            setStatus={setStatus}
+            statusOptions={reviewStatusOptions}
           />
 
           <ETable
