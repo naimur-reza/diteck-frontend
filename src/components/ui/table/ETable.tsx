@@ -216,7 +216,7 @@ export default function ETable<T>({
                         <MoreVertical className="w-5 h-5" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
+                    <DropdownMenuContent  align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
                       {onView && (
