@@ -2,11 +2,14 @@
 import { DeleteConfirmationDialog } from "@/components/common/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent } from "@/components/ui/card";
+import Modal from "@/components/ui/modal/Modal";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
+import { useModal } from "@/hooks/useModal";
 import { useDeleteProjectMutation, useGetAllProjectsQuery, useSoftDeleteProjectMutation } from "@/redux/api/adminApi/projectApi/projectApi";
 import { TProject } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
+import CreateUpdateProject from "./CreateUpdateProject";
 
 const ProjectTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -16,8 +19,9 @@ const ProjectTable = () => {
     const [isDeleteDialog, setIsDeleteDialog] = useState(false);
     const [singleProject, setSingleProject] = useState<TProject | null>();
 
+    const { isOpen, openModal, closeModal } = useModal();
 
-    const { data } = useGetAllProjectsQuery(undefined);
+    const { data, isLoading: dataIsLoading } = useGetAllProjectsQuery(undefined);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
@@ -27,7 +31,13 @@ const ProjectTable = () => {
         setSearchTerm(value);
     };
 
+    // handle edit modal
+    const handleEditModal = (blog: TProject) => {
+        openModal()
+        setSingleProject(blog);
+    }
 
+    // delete modal
     const handleDialog = (project: TProject) => {
         setIsDeleteDialog(true)
         setSingleProject(project);
@@ -68,7 +78,6 @@ const ProjectTable = () => {
     const columns = [
         { key: "thumbnail", label: "Img" },
         { key: "title", label: "Title" },
-        { key: "description", label: "Description" },
         { key: "category", label: "Category" },
         { key: "timeTakenToDevelop", label: "Development Time" },
         { key: "frontendTech", label: "Frontend Tech" },
@@ -89,9 +98,10 @@ const ProjectTable = () => {
                         limit={limit}
                     />
                     <ETable
+                        isLoading={dataIsLoading}
                         columns={columns as TableColumn<TProject>[]}
                         data={data?.data as TProject[]}
-                        onEdit={(row) => console.log("edit:", row)}
+                        onEdit={(row) => handleEditModal(row)}
                         onView={(row) => console.log("View:", row)}
                         onDelete={(row) => handleDialog(row)}
                         handleStatusChanger={(row, newStatus) =>
@@ -114,6 +124,9 @@ const ProjectTable = () => {
                 entityName={singleProject?.title as string}
                 isLoading={isLoading || softIsLoading}
             />
+            <Modal isOpen={isOpen} onClose={closeModal} title='Edit Project'>
+                <CreateUpdateProject closeModal={closeModal} project={singleProject} />
+            </Modal>
         </div>
     );
 };

@@ -2,18 +2,21 @@
 import classNames from "classnames";
 import { Controller } from "react-hook-form";
 import { Textarea } from "../ui/textarea";
+import { Label } from "../ui/label";
 
 interface EnaInputProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   name: string;
+  label?: string;
 }
 
-const EnaTextArea: React.FC<EnaInputProps> = ({ name, className, ...rest }) => {
+const EnaTextArea: React.FC<EnaInputProps> = ({ name, label, className, ...rest }) => {
   return (
     <div className={classNames("flex flex-col", className)}>
       <Controller
         name={name}
         render={({ field, fieldState: { error } }) => (
-          <>
+          <div className="grid gap-2">
+            {label && <Label htmlFor={name}>{label}</Label>}
             <Textarea
               {...field}
               {...rest}
@@ -27,7 +30,7 @@ const EnaTextArea: React.FC<EnaInputProps> = ({ name, className, ...rest }) => {
             {error && (
               <span className="text-red-500 text-sm mt-1">{error.message}</span>
             )}
-          </>
+          </div>
         )}
       />
     </div>
