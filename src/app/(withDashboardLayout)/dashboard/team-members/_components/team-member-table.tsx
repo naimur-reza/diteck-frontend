@@ -49,13 +49,13 @@ export function TeamMembersTable({
   // Filter members based on search query and role filter
   const filteredMembers = members.filter((member) => {
     const matchesSearch =
-      member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.teamRole.toLowerCase().includes(searchQuery.toLowerCase());
+      member.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      member.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      member.teamRole?.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesRole =
       roleFilter === "all" ||
-      member.teamRole.toLowerCase() === roleFilter.toLowerCase();
+      member?.teamRole?.toLowerCase() === roleFilter?.toLowerCase();
 
     return matchesSearch && matchesRole;
   });

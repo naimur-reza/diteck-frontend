@@ -4,9 +4,15 @@ import { z } from "zod";
 export const teamMemberSchema = z.object({
   name: z.string().nonempty({ message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
-  phoneNumber: z.string().nonempty({ message: "Phone number is required" }),
+  phoneNumber: z
+    .string()
+    .min(10, { message: "Phone number must be at least 10 digits" })
+    .max(15, { message: "Phone number cannot exceed 15 digits" })
+    .nonempty({ message: "Phone number is required" }),
   emergencyContactNumber: z
     .string()
+    .min(10, { message: "Emergency contact must be at least 10 digits" })
+    .max(15, { message: "Emergency contact cannot exceed 15 digits" })
     .nonempty({ message: "Emergency contact number is required" }),
   address: z.string().nonempty({ message: "Address is required" }),
   teamRole: z.string().nonempty({ message: "Team role is required" }),

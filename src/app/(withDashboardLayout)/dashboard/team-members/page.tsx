@@ -9,6 +9,7 @@ import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
 import { useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 import { AddMemberDialog } from "./_components/add-team-dialog";
 import { DeleteMemberDialog } from "./_components/delete-team-member";
 import { EditMemberDialog } from "./_components/edit-team-member";
@@ -60,6 +61,8 @@ export default function TeamMembers() {
       formData.append("file", profilePhoto);
       const newMember = await createMember(formData).unwrap();
       setMembers([...members, newMember]);
+      setIsAddDialogOpen(false);
+      toast.success("Team member added successfully");
 
       console.log("New Member:", newMember);
     } catch (error) {
