@@ -23,7 +23,10 @@ const Services = () => {
   const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
 
-  const { data, isLoading } = useGetAllServiceQuery(undefined);
+  const { data, isLoading } = useGetAllServiceQuery([
+    { name: "search", value: searchTerm },
+    { name: "isDeleted", value: false },
+  ]);
   const [
     deleteService,
     {

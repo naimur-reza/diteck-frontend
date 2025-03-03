@@ -47,16 +47,14 @@ const AddAndEditService = ({
         currency: formData.price.currency,
       },
     };
-
     const apiData = new FormData();
-    if (formData.coverImage) {
+    if (formData.coverImage && formData.coverImage != undefined) {
       apiData.append("file", formData.coverImage);
     }
     apiData.append("data", JSON.stringify(bodyData));
-
     if (isEditMode) {
       console.log(bodyData);
-      editService({ id: defaultValues?._id, body: apiData });
+      editService({ id: defaultValues?._id, data: apiData });
     } else {
       createService(apiData);
     }
@@ -66,7 +64,7 @@ const AddAndEditService = ({
     if (isSuccess || uIsSuccess) {
       setIsOpen(false);
     }
-  }, [isSuccess, uIsSuccess]);
+  }, [isSuccess, uIsSuccess, setIsOpen]);
 
   useNotification({
     isLoading: isCreating || uIsLoading,

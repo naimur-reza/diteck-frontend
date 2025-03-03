@@ -15,6 +15,7 @@ export const serviceApi = baseApi.injectEndpoints({
     }),
     getAllService: builder.query({
       query: (arg) => {
+        console.log(arg);
         const params = new URLSearchParams();
         arg?.forEach((element: TQueryParams) => {
           if (element.value) {
@@ -22,7 +23,7 @@ export const serviceApi = baseApi.injectEndpoints({
           }
         });
         return {
-          url: "/service/get-all-services",
+          url: `/service/get-all-services`,
           method: "GET",
           params: params,
         };
