@@ -49,19 +49,18 @@ export const jobApplicationApi = baseApi.injectEndpoints({
         return { data: res.data, meta: res.meta };
       },
     }),
-
     updateJobApplicationStatus: builder.mutation({
-      query: ({ id }) => ({
+      query: ({ id, data }) => ({
         url: `/job-application/toggle-archive-status/${id}`,
         method: "PATCH",
+        body: data,
       }),
       invalidatesTags: ["jobApplication"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
     }),
-
-    softDeleteJobApplication: builder.mutation({
+    bulkDeleteJobApplication: builder.mutation({
       query: ({ data }) => ({
         url: `/job-application/bulk-delete-shortlisted`,
         method: "DELETE",
@@ -83,7 +82,7 @@ export const {
   useCreateJobApplicationMutation,
   useDeleteJobApplicationMutation,
   useGetAllJobApplicationQuery,
-  useSoftDeleteJobApplicationMutation,
   useGetSingleJobApplicationQuery,
   useUpdateJobApplicationStatusMutation,
+  useBulkDeleteJobApplicationMutation,
 } = jobApplicationApi;
