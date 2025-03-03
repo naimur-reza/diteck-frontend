@@ -6,21 +6,19 @@ import { toast } from "sonner";
 import EnaForm from "@/components/forms/EnaForm";
 import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
-import { useCreateProjectMutation } from "@/redux/api/adminApi/projectApi/projectApi";
+import { useCreateProjectMutation, useUpdateProjectMutation } from "@/redux/api/adminApi/projectApi/projectApi";
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import { projectSchema } from "@/schema/projectSchema";
+import { TProject } from "@/types";
 
-const CreateProject = () => {
+const CreateUpdateProject = ({ closeModal, project }: { closeModal: () => void, project?: TProject | null | undefined }) => {
     const [createProject, { isLoading }] = useCreateProjectMutation();
+    const [updateProject, { isLoading: updateIsLoading }] = useUpdateProjectMutation();
 
     const [thumbnail, setThumbnail] = useState<File | null>(null);
     const [images, setImages] = useState<File[]>([]);
 
-    console.log("Selected Thumbnail:", thumbnail);
-    console.log("Selected Images:", images);
-
     const handleCreateProject = async (data: FieldValues) => {
-        console.log("Project Data:", data);
 
         try {
             const formData = new FormData();
@@ -55,12 +53,17 @@ const CreateProject = () => {
                 });
             }
 
-            await createProject(formData).unwrap();
-            toast.success("Project created successfully!");
+            if (project?._id) {
+                await updateProject({ id: project?._id, data: formData }).unwrap();
+                toast.success("Project Updated successfully!");
+            } else {
+                await createProject(formData).unwrap();
+                toast.success("Project created successfully!");
+            }
 
             setThumbnail(null);
             setImages([]);
-
+            closeModal()
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.error("Error creating project:", err);
@@ -72,11 +75,19 @@ const CreateProject = () => {
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
             <EnaForm
                 defaultValues={{
-                    title: "",
-                    description: "",
-                    requirement: "",
-                    timeTakenToDevelop: "",
-                    category: "",
+                    title: project?.title,
+                    description: project?.description,
+                    requirement: project?.requirement,
+                    timeTakenToDevelop: project?.timeTakenToDevelop,
+                    category: project?.category,
+                    createdBy: "65a3f2b9d4eabc1234567892",
+                    frontendTech: project?.frontendTech || [],
+                    backendTech: project?.backendTech || [],
+                    databases: project?.databases || [],
+                    deployment: project?.deployment || [],
+                    testing: project?.testing || [],
+                    websiteFeatures: project?.websiteFeatures || [],
+                    securityFeatures: project?.securityFeatures || [],
                 }}
                 onSubmit={handleCreateProject}
                 schema={projectSchema}
@@ -125,13 +136,18 @@ const CreateProject = () => {
                 <button
                     type="submit"
                     className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"
-                    disabled={isLoading}
+                    disabled={isLoading || updateIsLoading}
                 >
-                    {isLoading ? "Creating..." : "Create Project"}
+                    {isLoading || updateIsLoading
+                        ? "Processing..."
+                        : project?._id
+                            ? "Update Project"
+                            : "Create Project"
+                    }
                 </button>
             </EnaForm>
         </div>
     );
 };
 
-export default CreateProject;
+export default CreateUpdateProject;
