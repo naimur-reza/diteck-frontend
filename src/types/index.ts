@@ -7,3 +7,4 @@ export * from "./service.types";
 export * from "./admin-manager.types";
 export * from "./blog.types";
 export * from "./project.types";
+export * from "./reviews.types";

@@ -1,7 +1,6 @@
-import { TError, TQueryParams, TResponseWithRedux } from "@/types";
+import { TError, TQueryParams, TResponseWithRedux, TReview } from "@/types";
 import { baseApi } from "../../baseApi";
 import { BaseQueryApi } from "@reduxjs/toolkit/query";
-import { TQuery } from "@/types/query.types";
 
 export const reviewApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -42,7 +41,7 @@ export const reviewApi = baseApi.injectEndpoints({
       },
 
       providesTags: ["review"],
-      transformResponse: (res: TResponseWithRedux<TQuery[]>) => {
+      transformResponse: (res: TResponseWithRedux<TReview[]>) => {
         return { data: res.data, meta: res.meta };
       },
     }),
@@ -52,7 +51,7 @@ export const reviewApi = baseApi.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["review"],
-      transformResponse: (res: TResponseWithRedux<TQuery>) => {
+      transformResponse: (res: TResponseWithRedux<TReview>) => {
         return { data: res.data, meta: res.meta };
       },
     }),
