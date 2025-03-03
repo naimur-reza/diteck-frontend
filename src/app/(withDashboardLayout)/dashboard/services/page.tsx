@@ -22,6 +22,7 @@ const Services = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [selectedRows, setSelectedRows] = useState<TService[]>([]);
 
   const { data, isLoading } = useGetAllServiceQuery([
     { name: "search", value: searchTerm },
@@ -63,6 +64,7 @@ const Services = () => {
     setIsEditModal(false);
   };
 
+  console.log(selectedRows);
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">

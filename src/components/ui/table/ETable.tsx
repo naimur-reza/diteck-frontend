@@ -38,6 +38,8 @@ import Image from "next/image";
 import { formatDateTime } from "@/utils";
 import CommonPagination from "@/components/dashboard/pagination/Pagination";
 import { TMeta } from "@/types";
+import { Checkbox } from "../checkbox";
+import { Dispatch, SetStateAction } from "react";
 export type TableColumn<T> = {
   label: string;
   key: keyof T;
@@ -54,6 +56,9 @@ interface DataTableProps<T> {
   meta?: TMeta;
   pageNumber?: number;
   isLoading: boolean;
+  checkboxMode?: boolean;
+  selectedRows?: any[];
+  setSelectedRows?: React.Dispatch<React.SetStateAction<T[]>>;
 }
 
 export default function ETable<T>({
@@ -68,7 +73,21 @@ export default function ETable<T>({
   meta,
   pageNumber,
   isLoading,
+  checkboxMode = false,
+  selectedRows = [],
+  setSelectedRows,
 }: DataTableProps<T>) {
+  // Handle Checkbox Selection
+  const handleRowSelect = (row: T) => {
+    let updatedSelection = [...selectedRows];
+    if (updatedSelection.includes(row)) {
+      updatedSelection = updatedSelection.filter((r) => r !== row);
+    } else {
+      updatedSelection.push(row);
+    }
+    setSelectedRows(updatedSelection);
+  };
+
   if (isLoading) {
     return <>loading ...</>;
   }
@@ -84,6 +103,7 @@ export default function ETable<T>({
       <Table>
         <TableHeader>
           <TableRow>
+            {checkboxMode && <TableHead>Select</TableHead>}
             {columns?.map((col) => (
               <TableHead key={col.key as string}>{col.label}</TableHead>
             ))}
@@ -95,6 +115,16 @@ export default function ETable<T>({
         <TableBody>
           {data?.map((row, index) => (
             <TableRow key={index}>
+              {checkboxMode && (
+                <TableCell className="cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={selectedRows.includes(row)}
+                    onChange={() => handleRowSelect(row)}
+                    className="w-5 h-5 appearance-none border-2 border-gray-400 rounded-md bg-white cursor-pointer transition-all duration-300 checked:border-blue-500 checked:bg-blue-500 checked:ring-2 checked:ring-blue-300 focus:outline-none hover:border-blue-400"
+                  />
+                </TableCell>
+              )}
               {columns?.map((col) => (
                 <TableCell key={col.key as string}>
                   {col.key === "availabilityStatus" ||
@@ -176,7 +206,8 @@ export default function ETable<T>({
                     col.label === "Photo" ? (
                     <PhotoProvider>
                       <PhotoView src={String(row[col.key] ?? "")}>
-                        {typeof row[col.key] === "string" && (row[col.key] as string).startsWith("http") ? (
+                        {typeof row[col.key] === "string" &&
+                        (row[col.key] as string).startsWith("http") ? (
                           <Image
                             width={30}
                             height={30}
@@ -216,16 +247,22 @@ export default function ETable<T>({
                         <MoreVertical className="w-5 h-5" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent  align="end">
+                    <DropdownMenuContent className="cursor-pointer" align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
                       {onView && (
-                        <DropdownMenuItem onClick={() => onView(row)}>
+                        <DropdownMenuItem
+                          className="cursor-pointer"
+                          onClick={() => onView(row)}
+                        >
                           <Eye className="w-4 h-4 mr-2" /> View
                         </DropdownMenuItem>
                       )}
                       {onEdit && (
-                        <DropdownMenuItem onClick={() => onEdit(row)}>
+                        <DropdownMenuItem
+                          className="cursor-pointer"
+                          onClick={() => onEdit(row)}
+                        >
                           <Pencil className="w-4 h-4 mr-2" /> Edit
                         </DropdownMenuItem>
                       )}
@@ -260,7 +297,7 @@ export default function ETable<T>({
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
                             onClick={() => onDelete(row)}
-                            className="text-red-600"
+                            className="text-red-600 cursor-pointer"
                           >
                             <Trash2 className="w-4 h-4 mr-2" /> Delete
                           </DropdownMenuItem>
