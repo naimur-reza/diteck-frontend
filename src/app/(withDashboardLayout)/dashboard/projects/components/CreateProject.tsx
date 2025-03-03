@@ -1,18 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import EnaForm from "@/components/forms/EnaForm";
 import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
-import EnaFileUpload from "@/components/forms/EnaFileUpload";
 import { useCreateProjectMutation } from "@/redux/api/adminApi/projectApi/projectApi";
-import { projectSchema } from "@/schema/projectSchema";
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
+import { projectSchema } from "@/schema/projectSchema";
 
 const CreateProject = () => {
     const [createProject, { isLoading }] = useCreateProjectMutation();
+
+    const [thumbnail, setThumbnail] = useState<File | null>(null);
+    const [images, setImages] = useState<File[]>([]);
+
+    console.log("Selected Thumbnail:", thumbnail);
+    console.log("Selected Images:", images);
 
     const handleCreateProject = async (data: FieldValues) => {
         console.log("Project Data:", data);
@@ -20,7 +25,6 @@ const CreateProject = () => {
         try {
             const formData = new FormData();
 
-            // Convert JSON data into a string and append it to the "data" field
             const jsonData = {
                 title: data.title,
                 description: data.description,
@@ -37,16 +41,27 @@ const CreateProject = () => {
                 securityFeatures: data?.securityFeatures || [],
             };
 
-            console.log('json ', JSON.stringify(jsonData));
-            console.log("Thumbnail Data:", data.thumbnail);
+            formData.append("data", JSON.stringify(jsonData));
 
+            // Append the thumbnail file
+            if (thumbnail) {
+                formData.append("thumbnail", thumbnail);
+            }
 
-            formData.append("data", JSON.stringify(jsonData)); // ✅ Send JSON as a string
-            formData.append("thumbnail", data.thumbnail); // ✅ Append directly if it's a single 
+            // Append multiple images
+            if (images?.length) {
+                images.forEach((file) => {
+                    formData.append("images", file);
+                });
+            }
 
             await createProject(formData).unwrap();
             toast.success("Project created successfully!");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+            setThumbnail(null);
+            setImages([]);
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.error("Error creating project:", err);
             toast.error(err?.data?.message || "Failed to create project.");
@@ -56,7 +71,6 @@ const CreateProject = () => {
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
             <EnaForm
-                schema={projectSchema}
                 defaultValues={{
                     title: "",
                     description: "",
@@ -65,6 +79,7 @@ const CreateProject = () => {
                     category: "",
                 }}
                 onSubmit={handleCreateProject}
+                schema={projectSchema}
             >
                 <div className="grid grid-cols-2 gap-5 mb-5">
                     <EnaInput name="title" label="Project Title" placeholder="Enter title" />
@@ -83,13 +98,28 @@ const CreateProject = () => {
                     <EnaMultiInput label="Security Features" helperText="List security features" name="securityFeatures" placeholder="Enter security feature" />
 
                     {/* Image Upload Fields */}
-                    <div className="col-span-2">
-                        <EnaFileUpload label="Thumbnail" name="thumbnail" accept="image/*" />
+                    <div className="col-span-1">
+                        <label className="block text-sm font-medium text-gray-700">Thumbnail</label>
+                        <input
+                            type="file"
+                            name="thumbnail"
+                            accept="image/*"
+                            onChange={(e) => setThumbnail(e.target.files?.[0] || null)}
+                            className="mt-1 p-2 w-full border rounded-md"
+                        />
                     </div>
 
-                    {/* <div className="col-span-2">
-                        <EnaFileUpload label="Project Images" name="images" accept="image/*" multiple />
-                    </div> */}
+                    <div className="col-span-1">
+                        <label className="block text-sm font-medium text-gray-700">Project Images</label>
+                        <input
+                            type="file"
+                            name="images"
+                            accept="image/*"
+                            multiple
+                            onChange={(e) => setImages(Array.from(e.target.files || []))}
+                            className="mt-1 p-2 w-full border rounded-md"
+                        />
+                    </div>
                 </div>
 
                 <button

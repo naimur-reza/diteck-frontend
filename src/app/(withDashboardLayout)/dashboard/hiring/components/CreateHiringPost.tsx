@@ -21,7 +21,6 @@ const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
         try {
             const formData = new FormData();
 
-            // Convert JSON data into a string and append it to the "data" field
             const jsonData = {
                 companyName: data.companyName,
                 title: data.title,
@@ -45,7 +44,7 @@ const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
                 interviewRounds: data?.interviewRounds || [],
             };
 
-            formData.append("data", JSON.stringify(jsonData)); // ✅ Send JSON as a string
+            formData.append("data", JSON.stringify(jsonData)); 
             formData.append("file", data.file);
 
             await createHiringPost(formData).unwrap();

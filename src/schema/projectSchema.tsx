@@ -30,10 +30,10 @@ export const projectSchema = z.object({
     ])
     .optional(),
 
-  images: z.array(
-    z.union([
-      z.instanceof(File), // Accepts File upload
-      z.string().url("Invalid image URL"), // Accepts image URLs
-    ])
-  ).optional(),
+  // images: z.array(
+  //   z.union([
+  //     z.instanceof(File), // Accepts File upload
+  //     z.string().url("Invalid image URL"), // Accepts image URLs
+  //   ])
+  // ).optional(),
 });
