@@ -2,11 +2,14 @@
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-import { useDeleteServiceMutation } from "@/redux/api/adminApi/serviceApi/serviceApi";
 import { TError, TJobApplication } from "@/types";
 import { useState } from "react";
 import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
-import { useGetAllJobApplicationQuery } from "@/redux/api/adminApi/jobApplicationApi/JobApplicationApi.api";
+import {
+  useBulkDeleteJobApplicationMutation,
+  useDeleteJobApplicationMutation,
+  useGetAllJobApplicationQuery,
+} from "@/redux/api/adminApi/jobApplicationApi/JobApplicationApi.api";
 import { jobApplicationColumns } from "./_constants/constant";
 import BulkDeleteButton from "@/components/dashboard/BulkDelete/BulkDeleteButton";
 
@@ -16,10 +19,13 @@ const JobApplication = () => {
   const [limit, setLimit] = useState(50);
   const [singleData, setSingleData] = useState<TJobApplication | null>(null);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [isBulkDeleteModal, setIsBulkDelete] = useState(false);
   const [selectedRows, setSelectedRows] = useState<TJobApplication[]>([]);
-  const { data, isLoading } = useGetAllJobApplicationQuery([]);
+  const { data, isLoading } = useGetAllJobApplicationQuery([
+    { name: "status", value: "pending" },
+  ]);
   const [
-    deleteService,
+    deleteJobApplication,
     {
       isLoading: dIsloading,
       isSuccess: dIssuccess,
@@ -27,7 +33,18 @@ const JobApplication = () => {
       data: dData,
       error: dError,
     },
-  ] = useDeleteServiceMutation();
+  ] = useDeleteJobApplicationMutation();
+
+  const [
+    bulkDelete,
+    {
+      isLoading: bIsloading,
+      isSuccess: bIssuccess,
+      isError: bIsError,
+      data: bData,
+      error: bError,
+    },
+  ] = useBulkDeleteJobApplicationMutation();
 
   const handlePageChange = (newPage: number) => {
     setPageNumber(newPage); // Update the current page
@@ -42,11 +59,20 @@ const JobApplication = () => {
     setSingleData(item);
   };
 
+  // delete singleitem
   const handleDelete = () => {
-    deleteService({ id: singleData?._id });
+    deleteJobApplication({ id: singleData?._id });
   };
 
-  console.log(data);
+  const handleBulkDelete = () => {
+    const applicationIDs = selectedRows.map((item) => item._id);
+    bulkDelete({
+      data: {
+        applicationIDs,
+      },
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -69,10 +95,9 @@ const JobApplication = () => {
             setLimit={setLimit}
             limit={limit}
           />
-
           <BulkDeleteButton
             selectedRows={selectedRows}
-            setIsDeleteModal={setIsDeleteModal}
+            setIsDeleteModal={setIsBulkDelete}
           ></BulkDeleteButton>
           <ETable
             checkboxMode={true}
@@ -87,10 +112,15 @@ const JobApplication = () => {
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
             defaultKey="service"
+            handleStatusChanger={(row, newStatus) => {
+              console.log("Status Changed:", row, newStatus);
+              // implement status change logic here
+            }}
           />
         </CardContent>
       </Card>
 
+      {/* single delete */}
       <DeleteConfirm
         isError={dIsError}
         setIsOpen={setIsDeleteModal}
@@ -100,7 +130,20 @@ const JobApplication = () => {
         isSuccess={dIssuccess}
         data={dData}
         error={dError as TError}
-        title="are you sure to delete this service?"
+        title="are you sure to delete this jop application?"
+      ></DeleteConfirm>
+
+      {/* bulk delete */}
+      <DeleteConfirm
+        isError={bIsError}
+        setIsOpen={setIsBulkDelete}
+        isLoading={bIsloading}
+        isOpen={isBulkDeleteModal}
+        onDelete={handleBulkDelete}
+        isSuccess={bIssuccess}
+        data={bData}
+        error={bError as TError}
+        title="are you sure to delete these job applications?"
       ></DeleteConfirm>
     </div>
   );

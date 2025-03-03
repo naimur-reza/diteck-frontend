@@ -79,13 +79,16 @@ export default function ETable<T>({
 }: DataTableProps<T>) {
   // Handle Checkbox Selection
   const handleRowSelect = (row: T) => {
-    let updatedSelection = [...selectedRows];
-    if (updatedSelection.includes(row)) {
-      updatedSelection = updatedSelection.filter((r) => r !== row);
-    } else {
-      updatedSelection.push(row);
+    if (setSelectedRows) {
+      let updatedSelection = [...selectedRows];
+      if (updatedSelection.includes(row)) {
+        updatedSelection = updatedSelection.filter((r) => r !== row);
+      } else {
+        updatedSelection.push(row);
+      }
+
+      setSelectedRows(updatedSelection);
     }
-    setSelectedRows(updatedSelection);
   };
 
   if (isLoading) {
@@ -270,12 +273,6 @@ export default function ETable<T>({
                       {handleStatusChanger && (
                         <DropdownMenuItem className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
-                            {row["isActive" as keyof T] ||
-                            row["status" as keyof T] ? (
-                              <ToggleRight className="w-4 h-4 text-green-500" />
-                            ) : (
-                              <ToggleLeft className="w-4 h-4 text-gray-500" />
-                            )}
                             <p>Status Change</p>
                           </div>
                           <Switch

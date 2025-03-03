@@ -61,7 +61,7 @@ export const jobApplicationApi = baseApi.injectEndpoints({
       },
     }),
 
-    softDeleteJobApplication: builder.mutation({
+    bulkDeleteJobApplication: builder.mutation({
       query: ({ data }) => ({
         url: `/job-application/bulk-delete-shortlisted`,
         method: "DELETE",
@@ -83,7 +83,7 @@ export const {
   useCreateJobApplicationMutation,
   useDeleteJobApplicationMutation,
   useGetAllJobApplicationQuery,
-  useSoftDeleteJobApplicationMutation,
   useGetSingleJobApplicationQuery,
   useUpdateJobApplicationStatusMutation,
+  useBulkDeleteJobApplicationMutation,
 } = jobApplicationApi;
