@@ -82,10 +82,12 @@ export function TeamMembersTable({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Roles</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="developer">Developer</SelectItem>
-            <SelectItem value="designer">Designer</SelectItem>
-            <SelectItem value="marketing">Marketing</SelectItem>
+            <SelectItem value="manager">Manager</SelectItem>
+            <SelectItem value="frontEndDeveloper">
+              Frontend Developer
+            </SelectItem>
+            <SelectItem value="backEndDeveloper">Backend Developer</SelectItem>
+            <SelectItem value="designer">UI/UX Designer</SelectItem>
           </SelectContent>
         </Select>
       </div>
