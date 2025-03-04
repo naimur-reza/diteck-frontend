@@ -4,7 +4,7 @@ import Image from "next/image";
 interface ViewItemDetailsProps<T> {
     item?: T | null;
     excludeFields?: string[];
-    imageFields?: string[]; // যেসব ফিল্ডে ইমেজ আছে
+    imageFields?: string[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
