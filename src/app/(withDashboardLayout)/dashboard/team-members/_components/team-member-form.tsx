@@ -7,7 +7,10 @@ import {
   EnaSelect,
 } from "@/components/forms";
 import { EnaDatePicker } from "@/components/forms/EnaDatePicker";
-import { teamMemberSchema } from "@/schema/teamMemberSchema";
+import {
+  teamMemberSchema,
+  updateTeamMemberSchema,
+} from "@/schema/teamMemberSchema";
 import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
 import { useEffect } from "react";
@@ -38,9 +41,9 @@ export function TeamMemberForm({
     <EnaForm
       onSubmit={onSubmit}
       defaultValues={member ?? {}}
-      schema={teamMemberSchema}
+      schema={member ? updateTeamMemberSchema : teamMemberSchema}
       buttonPosition="right"
-      buttonText="Add Member"
+      buttonText={member ? "Update" : "Add"}
       isLoading={isLoading}
     >
       <div className="grid grid-cols-2 gap-3">

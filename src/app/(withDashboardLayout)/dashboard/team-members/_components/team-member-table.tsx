@@ -49,13 +49,13 @@ export function TeamMembersTable({
   // Filter members based on search query and role filter
   const filteredMembers = members.filter((member) => {
     const matchesSearch =
-      member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.teamRole.toLowerCase().includes(searchQuery.toLowerCase());
+      member.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      member.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      member.teamRole?.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesRole =
       roleFilter === "all" ||
-      member.teamRole.toLowerCase() === roleFilter.toLowerCase();
+      member?.teamRole?.toLowerCase() === roleFilter?.toLowerCase();
 
     return matchesSearch && matchesRole;
   });
@@ -82,10 +82,12 @@ export function TeamMembersTable({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Roles</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="developer">Developer</SelectItem>
-            <SelectItem value="designer">Designer</SelectItem>
-            <SelectItem value="marketing">Marketing</SelectItem>
+            <SelectItem value="manager">Manager</SelectItem>
+            <SelectItem value="frontEndDeveloper">
+              Frontend Developer
+            </SelectItem>
+            <SelectItem value="backEndDeveloper">Backend Developer</SelectItem>
+            <SelectItem value="designer">UI/UX Designer</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -154,9 +156,7 @@ export function TeamMembersTable({
                         {member.status}
                       </span>
                     </TableCell>
-                    <TableCell>
-                      {new Date(member.startDate).toLocaleDateString()}
-                    </TableCell>
+                    <TableCell>{member.startDate}</TableCell>
                     <TableCell className="text-right">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>

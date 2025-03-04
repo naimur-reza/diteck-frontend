@@ -1,14 +1,13 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
+import { FieldValues } from "react-hook-form";
 import { TeamMemberForm } from "./team-member-form";
 
 interface EditMemberDialogProps {
@@ -17,9 +16,8 @@ interface EditMemberDialogProps {
   member: TTeamMember | null;
   formData: TeamMemberFormData;
   setFormData: (data: TeamMemberFormData) => void;
-  onUpdate: () => void;
+  onUpdate: (data: FieldValues) => void;
   isLoading: boolean;
-  resetForm: () => void;
 }
 
 export function EditMemberDialog({
@@ -30,7 +28,6 @@ export function EditMemberDialog({
   setFormData,
   onUpdate,
   isLoading,
-  resetForm,
 }: EditMemberDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -43,21 +40,9 @@ export function EditMemberDialog({
           formData={formData}
           setFormData={setFormData}
           member={member}
+          onSubmit={onUpdate}
+          isLoading={isLoading}
         />
-        <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => {
-              setIsOpen(false);
-              resetForm();
-            }}
-          >
-            Cancel
-          </Button>
-          <Button onClick={onUpdate} disabled={isLoading}>
-            {isLoading ? "Updating..." : "Update Member"}
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
