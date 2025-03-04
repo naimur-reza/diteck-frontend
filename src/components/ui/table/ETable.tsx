@@ -140,75 +140,88 @@ export default function ETable<T>({
                 <TableCell key={col.key as string}>
                   {col.key === "availabilityStatus" ||
                   col.key === "status" ||
-                  col.key === "reviewStatus" ? (
+                  col.key === "reviewStatus" ||
+                  col.key === "user.status" ? (
                     <span
                       className={`inline-block px-3 py-1 text-xs font-medium rounded-md ${
-                        row[col.key] === "approved"
+                        getNestedValue(row, col.key as string) === "approved"
                           ? "bg-blue-100 text-blue-700"
-                          : row[col.key] === "rejected"
+                          : getNestedValue(row, col.key as string) ===
+                            "rejected"
                           ? "bg-red-100 text-red-700"
-                          : row[col.key] === "pending"
+                          : getNestedValue(row, col.key as string) === "pending"
                           ? "bg-yellow-100 text-yellow-700"
                           : row[col.key] === true
                           ? "bg-green-100 text-green-700"
                           : row[col.key] === false
                           ? "bg-gray-100 text-gray-700"
-                          : row[col.key] === "selected"
+                          : getNestedValue(row, col.key as string) ===
+                            "selected"
                           ? "bg-purple-100 text-purple-700"
-                          : row[col.key] === "completed"
+                          : getNestedValue(row, col.key as string) ===
+                            "completed"
                           ? "bg-orange-100 text-orange-700"
-                          : row[col.key] === "active"
+                          : getNestedValue(row, col.key as string) === "active"
                           ? "bg-green-100 text-green-700"
-                          : row[col.key] === "inactive"
+                          : getNestedValue(row, col.key as string) ===
+                            "inactive"
                           ? "bg-gray-200 text-gray-800"
-                          : row[col.key] === "blocked"
+                          : getNestedValue(row, col.key as string) === "blocked"
                           ? "bg-red-200 text-red-800"
-                          : row[col.key] === "trialing"
+                          : getNestedValue(row, col.key as string) ===
+                            "trialing"
                           ? "bg-blue-100 text-blue-700"
-                          : row[col.key] === "resolved"
+                          : getNestedValue(row, col.key as string) ===
+                            "resolved"
                           ? "bg-teal-100 text-teal-700"
-                          : row[col.key] === "shortlisted"
+                          : getNestedValue(row, col.key as string) ===
+                            "shortlisted"
                           ? "bg-indigo-100 text-indigo-700"
-                          : row[col.key] === "archived"
+                          : getNestedValue(row, col.key as string) ===
+                            "archived"
                           ? "bg-gray-300 text-gray-900"
-                          : row[col.key] === "available"
+                          : getNestedValue(row, col.key as string) ===
+                            "available"
                           ? "bg-green-200 text-green-800"
-                          : row[col.key] === "unavailable"
+                          : getNestedValue(row, col.key as string) ===
+                            "unavailable"
                           ? "bg-gray-400 text-gray-900"
                           : "bg-gray-100 text-gray-700"
                       }`}
                     >
-                      {row[col.key] === "approved"
+                      {getNestedValue(row, col.key as string) === "approved"
                         ? "Approved"
-                        : row[col.key] === "rejected"
+                        : getNestedValue(row, col.key as string) === "rejected"
                         ? "Rejected"
-                        : row[col.key] === "pending"
+                        : getNestedValue(row, col.key as string) === "pending"
                         ? "Pending"
-                        : row[col.key] === true
+                        : getNestedValue(row, col.key as string) === true
                         ? "Activated"
-                        : row[col.key] === false
+                        : getNestedValue(row, col.key as string) === false
                         ? "Deactivated"
-                        : row[col.key] === "selected"
+                        : getNestedValue(row, col.key as string) === "selected"
                         ? "Selected"
-                        : row[col.key] === "completed"
+                        : getNestedValue(row, col.key as string) === "completed"
                         ? "Completed"
-                        : row[col.key] === "active"
+                        : getNestedValue(row, col.key as string) === "active"
                         ? "Active"
-                        : row[col.key] === "inactive"
+                        : getNestedValue(row, col.key as string) === "inactive"
                         ? "Inactive"
-                        : row[col.key] === "blocked"
+                        : getNestedValue(row, col.key as string) === "blocked"
                         ? "Blocked"
-                        : row[col.key] === "trialing"
+                        : getNestedValue(row, col.key as string) === "trialing"
                         ? "Trialing"
-                        : row[col.key] === "resolved"
+                        : getNestedValue(row, col.key as string) === "resolved"
                         ? "Resolved"
-                        : row[col.key] === "shortlisted"
+                        : getNestedValue(row, col.key as string) ===
+                          "shortlisted"
                         ? "Shortlisted"
-                        : row[col.key] === "archived"
+                        : getNestedValue(row, col.key as string) === "archived"
                         ? "Archived"
-                        : row[col.key] === "available"
+                        : getNestedValue(row, col.key as string) === "available"
                         ? "Available"
-                        : row[col.key] === "unavailable"
+                        : getNestedValue(row, col.key as string) ===
+                          "unavailable"
                         ? "Unavailable"
                         : "Unknown"}
                     </span>

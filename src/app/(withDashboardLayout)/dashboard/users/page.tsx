@@ -1,11 +1,140 @@
-import React from 'react';
+"use client";
+import { CommonDialog } from "@/components/dashboard/CommonDialog/CommonDialog";
+import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ETable, { TableColumn } from "@/components/ui/table/ETable";
+import {
+  useDeleteServiceMutation,
+  useGetAllServiceQuery,
+} from "@/redux/api/adminApi/serviceApi/serviceApi";
+import { TAdminAndManager, TError, TService } from "@/types";
+import { useState } from "react";
+import { columns } from "./_constant/constant";
+import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
+import Modal from "@/components/ui/modal/Modal";
+import { useGetAllUserQuery } from "@/redux/api/adminApi/userApi/userApi";
+import { userColumn } from "./_constants/user";
 
-const page = () => {
-    return (
+const User = () => {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [limit, setLimit] = useState(50);
+  const [singleData, setSingleData] = useState<TService | null>(null);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditModal, setIsEditModal] = useState(false);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+
+  const { data, isLoading } = useGetAllUserQuery([
+    { name: "search", value: searchTerm },
+    { name: "isDeleted", value: false },
+  ]);
+  const [
+    deleteService,
+    {
+      isLoading: dIsloading,
+      isSuccess: dIssuccess,
+      isError: dIsError,
+      data: dData,
+      error: dError,
+    },
+  ] = useDeleteServiceMutation();
+
+  const handlePageChange = (newPage: number) => {
+    setPageNumber(newPage); // Update the current page
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+  };
+
+  const handleDeleteModal = (item: TService) => {
+    setIsDeleteModal(true);
+    setSingleData(item);
+  };
+  const handleEditModal = (item: TService) => {
+    setIsEditModal(true);
+    setSingleData(item);
+  };
+
+  const handleDelete = () => {
+    deleteService({ id: singleData?._id });
+  };
+
+  const handleClose = () => {
+    setIsEditModal(false);
+  };
+
+  console.log(data?.data);
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
         <div>
-            page
+          <h1 className="text-2xl font-bold tracking-tight">User</h1>
+          <p className="text-muted-foreground">Manage your User.</p>
         </div>
-    );
+
+        {/* add service */}
+        {/* <CommonDialog
+          width={800}
+          triggerLabel="New Service"
+          title="Add Service"
+          dialogType="create"
+          isOpen={isAddDialogOpen}
+          setIsOpen={setIsAddDialogOpen}
+        >
+          <AddAndEditService setIsOpen={setIsAddDialogOpen} />
+        </CommonDialog> */}
+      </div>
+
+      {/* table */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle>All Services</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <TableSearchBar
+            searchPlaceholder="Search book title"
+            onSearchChange={handleSearchChange}
+            searchValue={searchTerm}
+            setLimit={setLimit}
+            limit={limit}
+          />
+          <ETable
+            isLoading={isLoading}
+            columns={userColumn as TableColumn<TAdminAndManager>[]}
+            data={data?.data as TAdminAndManager[]}
+            // onEdit={handleEditModal}
+            onView={(row) => console.log("View:", row)}
+            // onDelete={handleDeleteModal}
+            meta={data?.meta}
+            handlePageChange={handlePageChange}
+            pageNumber={pageNumber}
+            defaultKey="service"
+          />
+        </CardContent>
+      </Card>
+
+      {/* <Modal isOpen={isEditModal} onClose={handleClose} title="edit service">
+        <AddAndEditService
+          setIsOpen={setIsEditModal}
+          defaultValues={singleData as TService}
+        />
+      </Modal> */}
+
+      {/* <DeleteConfirm
+        isError={dIsError}
+        setIsOpen={setIsDeleteModal}
+        isLoading={dIsloading}
+        isOpen={isDeleteModal}
+        onDelete={handleDelete}
+        isSuccess={dIssuccess}
+        data={dData}
+        error={dError as TError}
+        title="are you sure to delete this service?"
+      ></DeleteConfirm> */}
+    </div>
+  );
 };
 
-export default page;
+export default User;

@@ -23,7 +23,7 @@ const Reviews = () => {
     useState<boolean>(false);
   const [status, setStatus] = useState<string>("pending");
 
-  const { data, isLoading } = useGetAllReviewsQuery([
+  const { data, isLoading, isFetching } = useGetAllReviewsQuery([
     { name: "reviewStatus", value: status },
     { name: "search", value: searchTerm },
     { name: "limit", value: limit },
@@ -92,7 +92,7 @@ const Reviews = () => {
           />
 
           <ETable
-            isLoading={isLoading}
+            isLoading={isLoading || isFetching}
             columns={reviewColumns as TableColumn<TReview>[]}
             data={data?.data as TReview[]}
             onView={handleView}
