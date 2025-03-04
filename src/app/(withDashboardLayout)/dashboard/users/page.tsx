@@ -13,9 +13,11 @@ import {
   useDeleteUserMutation,
   useGetAllUserQuery,
   useSoftDeleteUserMutation,
+  useUpdateUserStatusMutation,
 } from "@/redux/api/adminApi/userApi/userApi";
 import { userColumn } from "./_constants/user";
 import AddAndUpdateUser from "./_components/AddAndUpdateUser";
+import { useNotification } from "@/hooks/useNotification";
 
 const User = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -52,6 +54,16 @@ const User = () => {
       error: sError,
     },
   ] = useSoftDeleteUserMutation();
+  const [
+    updateUserStatus,
+    {
+      isLoading: usIsloading,
+      isSuccess: usIssuccess,
+      isError: usIsError,
+      data: usData,
+      error: usError,
+    },
+  ] = useUpdateUserStatusMutation();
 
   const handlePageChange = (newPage: number) => {
     setPageNumber(newPage); // Update the current page
@@ -80,11 +92,18 @@ const User = () => {
   const handleSoftDelete = () => {
     softDeleteUser({ id: singleData?._id });
   };
+  const handleUpdateStatus = (row: TAdminAndManager) => {
+    updateUserStatus({ id: row?.user._id });
+  };
 
+  useNotification({
+    isLoading: usIsloading,
+    isSuccess: usIssuccess,
+    isError: usIsError,
+    data: usData,
+    error: usError as TError,
+  });
 
-  
-
- 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -130,7 +149,7 @@ const User = () => {
             meta={data?.meta}
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
-            defaultKey="service"
+            handleStatusChanger={handleUpdateStatus}
           />
         </CardContent>
       </Card>

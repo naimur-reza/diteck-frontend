@@ -340,14 +340,25 @@ export default function ETable<T>({
                             <p>Status Change</p>
                           </div>
                           <Switch
+                            className="cursor-pointer"
                             onCheckedChange={() => {
                               const isActive = row["isActive" as keyof T];
                               const status = row["status" as keyof T];
-                              handleStatusChanger(row, !isActive && !status);
+                              const user = row["user" as keyof T] as {
+                                status?: string;
+                              };
+                              const userStatus = user?.status === "active";
+
+                              handleStatusChanger(
+                                row,
+                                !isActive || !status || !userStatus
+                              );
                             }}
                             checked={Boolean(
                               row["isActive" as keyof T] ||
-                                row["status" as keyof T]
+                                row["status" as keyof T] ||
+                                (row["user" as keyof T] as { status?: string })
+                                  ?.status === "active"
                             )}
                           />
                         </DropdownMenuItem>
