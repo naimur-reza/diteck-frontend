@@ -36,4 +36,8 @@ export const updateTeamMemberSchema = z.object({
   address: z.string().optional(),
   teamRole: z.string().optional(),
   designation: z.string().optional(),
+  startDate: z.string().optional(),
+  profilePhoto: z
+    .instanceof(File, { message: "Cover image is required" })
+    .optional(),
 });
