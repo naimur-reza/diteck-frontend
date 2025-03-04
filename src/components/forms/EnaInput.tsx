@@ -32,14 +32,14 @@ const EnaInput: React.FC<EnaInputProps> = ({
               {...rest}
               type={type}
               value={type === "number" ? field.value ?? "" : field.value}
-              onChange={(e) => {
-                let value: string | number = e.target.value;
-                if (type === "number") {
-                  value = value === "" ? "" : parseFloat(value);
-                  if (isNaN(value as number)) value = "";
-                }
-                field.onChange(value);
-              }}
+              // onChange={(e) => {
+              //   let value: string | number = e.target.value;
+              //   if (type === "number") {
+              //     value = value === "" ? "" : parseFloat(value);
+              //     if (isNaN(value as number)) value = "";
+              //   }
+              //   field.onChange(value);
+              // }}
               className={classNames(
                 "border rounded-md p-2 focus:outline-none",
                 {
