@@ -10,7 +10,7 @@ interface ViewItemDetailsProps<T> {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ViewItemDetails = <T extends Record<string, any>>({
     item,
-    excludeFields = ["_id", "isDeleted", "createdAt", "updatedAt", "slug", "createdby"],
+    excludeFields = ["_id", "isDeleted", "createdAt", "updatedAt", "slug", "createdBy"],
     imageFields = [],
 }: ViewItemDetailsProps<T>) => {
     if (!item) return <p>No data available.</p>;

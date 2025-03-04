@@ -10,6 +10,7 @@ import { THiring } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
 import CreateUpdateHiringPost from "./CreateUpdateHiringPost";
+import ViewHiring from "./ViewHiring";
 
 const HiringTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -20,6 +21,7 @@ const HiringTable = () => {
     const [singleHiring, setSingleHiring] = useState<THiring | null>();
 
     const { isOpen, openModal, closeModal } = useModal();
+    const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
     const { data, isLoading: dataIsLoading } = useGetAllHiringPostQuery(undefined);
 
@@ -30,6 +32,12 @@ const HiringTable = () => {
     const handleSearchChange = (value: string) => {
         setSearchTerm(value);
     };
+
+    // handle view modal
+    const handleViewModal = (blog: THiring) => {
+        viewOpenModal()
+        setSingleHiring(blog);
+    }
 
     const handleDialog = (blog: THiring) => {
         setIsDeleteDialog(true)
@@ -103,7 +111,7 @@ const HiringTable = () => {
                         columns={columns as TableColumn<THiring>[]}
                         data={data?.data as THiring[]}
                         onEdit={(row) => handleEditModal(row)}
-                        onView={(row) => console.log("View:", row)}
+                        onView={(row) => handleViewModal(row)}
                         onDelete={(row) => handleDialog(row)}
                         handleStatusChanger={(row, newStatus) =>
                             console.log("Status Changed:", row, newStatus)
@@ -129,6 +137,11 @@ const HiringTable = () => {
             {/* Update Hiring */}
             <Modal isOpen={isOpen} onClose={closeModal} title='Edit Hiring Post'>
                 <CreateUpdateHiringPost closeModal={closeModal} hiring={singleHiring} />
+            </Modal>
+
+            {/* View Hiring Post */}
+            <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Hiring Post Details'>
+                <ViewHiring hiring={singleHiring} />
             </Modal>
         </div>
     );
