@@ -27,7 +27,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { TTeamMember } from "@/types";
-import { MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react";
+import { Eye, MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { roles } from "./team-member-form";
 
@@ -36,6 +36,7 @@ interface TeamMembersTableProps {
   onEdit: (member: TTeamMember) => void;
   onDelete: (member: TTeamMember) => void;
   isFetching: boolean;
+  onView: (member: TTeamMember) => void;
 }
 
 export function TeamMembersTable({
@@ -43,6 +44,7 @@ export function TeamMembersTable({
   members,
   onEdit,
   onDelete,
+  onView,
 }: TeamMembersTableProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
@@ -180,6 +182,11 @@ export function TeamMembersTable({
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         {[
+                          {
+                            icon: Eye,
+                            label: "View",
+                            action: () => onView(member),
+                          },
                           {
                             icon: Pencil,
                             label: "Edit",
