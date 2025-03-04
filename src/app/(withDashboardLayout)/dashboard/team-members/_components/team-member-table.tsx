@@ -27,12 +27,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { TTeamMember } from "@/types";
-import { MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react";
+import { Eye, MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 interface TeamMembersTableProps {
   members: TTeamMember[];
   onEdit: (member: TTeamMember) => void;
+  onView: (member: TTeamMember) => void;
   onDelete: (member: TTeamMember) => void;
   isFetching: boolean;
 }
@@ -41,6 +42,7 @@ export function TeamMembersTable({
   isFetching,
   members,
   onEdit,
+  onView,
   onDelete,
 }: TeamMembersTableProps) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -147,11 +149,10 @@ export function TeamMembersTable({
                     <TableCell>{member.teamRole}</TableCell>
                     <TableCell>
                       <span
-                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                          member.status === "Active"
-                            ? "bg-green-100 text-green-800"
-                            : "bg-yellow-100 text-yellow-800"
-                        }`}
+                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${member.status === "Active"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-yellow-100 text-yellow-800"
+                          }`}
                       >
                         {member.status}
                       </span>
@@ -174,6 +175,12 @@ export function TeamMembersTable({
                           >
                             <Pencil className="mr-2 h-4 w-4" />
                             Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            className="cursor-pointer"
+                            onClick={() => onView(member)}
+                          >
+                            <Eye className="w-4 h-4 mr-2" /> View
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => onDelete(member)}
