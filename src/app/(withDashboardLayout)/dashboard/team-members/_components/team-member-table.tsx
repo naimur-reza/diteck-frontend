@@ -177,7 +177,9 @@ export function TeamMembersTable({
                       {status}
                     </span>
                   </TableCell>
-                  <TableCell>{startDate}</TableCell>
+                  <TableCell>
+                    {new Date(startDate).toLocaleDateString()}
+                  </TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
