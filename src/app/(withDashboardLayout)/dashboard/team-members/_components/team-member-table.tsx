@@ -47,19 +47,24 @@ export function TeamMembersTable({
   const [searchQuery, setSearchQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
 
-  // Filter members based on search query and role filter
-  const filteredMembers = members.filter((member) => {
-    const matchesSearch =
-      member.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.teamRole?.toLowerCase().includes(searchQuery.toLowerCase());
-
-    const matchesRole =
-      roleFilter === "all" ||
-      member?.teamRole?.toLowerCase() === roleFilter?.toLowerCase();
-
-    return matchesSearch && matchesRole;
+  const filteredMembers = members.filter(({ name, email, teamRole }) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      [name, email, teamRole].some((field) =>
+        field?.toLowerCase().includes(query)
+      ) &&
+      (roleFilter === "all" || teamRole?.toLowerCase() === roleFilter)
+    );
   });
+
+  const tableHeaders = ["Name", "Role", "Status", "Joined", "Actions"];
+  const roleOptions = [
+    { value: "all", label: "All Roles" },
+    { value: "manager", label: "Manager" },
+    { value: "frontEndDeveloper", label: "Frontend Developer" },
+    { value: "backEndDeveloper", label: "Backend Developer" },
+    { value: "designer", label: "UI/UX Designer" },
+  ];
 
   return (
     <>
@@ -74,21 +79,16 @@ export function TeamMembersTable({
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <Select
-          defaultValue="all"
-          onValueChange={(value) => setRoleFilter(value)}
-        >
+        <Select defaultValue="all" onValueChange={setRoleFilter}>
           <SelectTrigger className="w-[130px]">
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Roles</SelectItem>
-            <SelectItem value="manager">Manager</SelectItem>
-            <SelectItem value="frontEndDeveloper">
-              Frontend Developer
-            </SelectItem>
-            <SelectItem value="backEndDeveloper">Backend Developer</SelectItem>
-            <SelectItem value="designer">UI/UX Designer</SelectItem>
+            {roleOptions.map(({ value, label }) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -96,105 +96,121 @@ export function TeamMembersTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Role</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Joined</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            {tableHeaders.map((header) => (
+              <TableHead
+                key={header}
+                className={header === "Actions" ? "text-right" : ""}
+              >
+                {header}
+              </TableHead>
+            ))}
           </TableRow>
         </TableHeader>
         <TableBody>
           {isFetching ? (
-            <>
-              <TableRow>
-                <TableCell colSpan={5} className="text-center py-8">
-                  Loading team members...
-                </TableCell>
-              </TableRow>
-            </>
+            <TableRow>
+              <TableCell colSpan={5} className="text-center py-8">
+                Loading team members...
+              </TableCell>
+            </TableRow>
+          ) : filteredMembers.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center py-8">
+                No team members found
+              </TableCell>
+            </TableRow>
           ) : (
-            <>
-              {filteredMembers?.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center py-8">
-                    No team members found
-                  </TableCell>
-                </TableRow>
-              ) : (
-                filteredMembers.map((member) => (
-                  <TableRow key={member._id}>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <Avatar>
-                          <AvatarImage
-                            src={member.profilePhoto}
-                            alt={member.name}
-                          />
-                          <AvatarFallback>
-                            {member.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="font-medium">{member.name}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {member.email}
-                          </div>
+            filteredMembers.map((member) => {
+              const {
+                _id,
+                name,
+                email,
+                profilePhoto,
+                teamRole,
+                status,
+                startDate,
+              } = member;
+              const roleLabel = roles.find(
+                (role) => role.value === teamRole
+              )?.label;
+
+              return (
+                <TableRow key={_id}>
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <Avatar>
+                        <AvatarImage src={profilePhoto} alt={name} />
+                        <AvatarFallback>
+                          {name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium">{name}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {email}
                         </div>
                       </div>
-                    </TableCell>
-                    <TableCell>
-                      {
-                        roles.find((role) => role.value === member.teamRole)
-                          ?.label
-                      }
-                    </TableCell>
-                    <TableCell>
-                      <span
-                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                          member.status === "Active"
-                            ? "bg-green-100 text-green-800"
-                            : "bg-yellow-100 text-yellow-800"
-                        }`}
-                      >
-                        {member.status}
-                      </span>
-                    </TableCell>
-                    <TableCell>{member.startDate}</TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Open menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuSeparator />
+                    </div>
+                  </TableCell>
+                  <TableCell>{roleLabel}</TableCell>
+                  <TableCell>
+                    <span
+                      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                        status === "Active"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-yellow-100 text-yellow-800"
+                      }`}
+                    >
+                      {status}
+                    </span>
+                  </TableCell>
+                  <TableCell>{startDate}</TableCell>
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                          <MoreHorizontal className="h-4 w-4" />
+                          <span className="sr-only">Open menu</span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        {[
+                          {
+                            icon: Pencil,
+                            label: "Edit",
+                            action: () => onEdit(member),
+                          },
+                          {
+                            icon: Trash2,
+                            label: "Delete",
+                            action: () => onDelete(member),
+                            destructive: true,
+                          },
+                        ].map(({ icon: Icon, label, action, destructive }) => (
                           <DropdownMenuItem
-                            onClick={() => onEdit(member)}
-                            className="cursor-pointer"
+                            key={label}
+                            onClick={action}
+                            className={`cursor-pointer ${
+                              destructive
+                                ? "text-destructive focus:text-destructive"
+                                : ""
+                            }`}
                           >
-                            <Pencil className="mr-2 h-4 w-4" />
-                            Edit
+                            <Icon className="mr-2 h-4 w-4" />
+                            {label}
                           </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() => onDelete(member)}
-                            className="cursor-pointer text-destructive focus:text-destructive"
-                          >
-                            <Trash2 className="mr-2 h-4 w-4" />
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              );
+            })
           )}
         </TableBody>
       </Table>
