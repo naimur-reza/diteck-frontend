@@ -7,20 +7,23 @@ import { toast } from "sonner";
 import EnaForm from "@/components/forms/EnaForm";
 import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
-import { useCreateHiringPostMutation } from "@/redux/api/adminApi/hiringApi/hiring.api";
+import { useCreateHiringPostMutation, useUpdateHiringPostMutation } from "@/redux/api/adminApi/hiringApi/hiring.api";
 import { hiringSchema } from "@/schema/hiringSchema";
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import { EnaFileUpload, EnaSelect } from "@/components/forms";
+import { THiring } from "@/types";
 
-const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
+const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void, hiring?: THiring | null | undefined }) => {
 
     const [createHiringPost, { isLoading }] = useCreateHiringPostMutation();
+    const [updateHiringPost, { isLoading: updateIsLoading }] = useUpdateHiringPostMutation();
 
     const handleHiring = async (data: FieldValues) => {
 
         try {
             const formData = new FormData();
 
+            // Convert JSON data into a string and append it to the "data" field
             const jsonData = {
                 companyName: data.companyName,
                 title: data.title,
@@ -44,11 +47,20 @@ const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
                 interviewRounds: data?.interviewRounds || [],
             };
 
-            formData.append("data", JSON.stringify(jsonData)); 
-            formData.append("file", data.file);
+            formData.append("data", JSON.stringify(jsonData)); // ✅ Send JSON as a string
 
-            await createHiringPost(formData).unwrap();
-            toast.success("Hiring Post created successfully!");
+            if (data.file) {
+                formData.append("file", data.file);
+            }
+
+
+            if (hiring?._id) {
+                await updateHiringPost({ id: hiring?._id, data: formData }).unwrap();
+                toast.success("Hiring Updated successfully!");
+            } else {
+                await createHiringPost(formData).unwrap();
+                toast.success("Hiring Post created successfully!");
+            }
             closeModal();
         } catch (err: any) {
             console.error("Error creating blog:", err);
@@ -60,8 +72,29 @@ const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
 
             <EnaForm onSubmit={handleHiring}
-                schema={hiringSchema} 
-                defaultValues={{ companyName: "", title: "" }}>
+                schema={hiringSchema}
+                defaultValues={{
+                    companyName: hiring?.companyName || "",
+                    title: hiring?.title || "",
+                    jobNature: hiring?.jobNature,
+                    workingHours: hiring?.workingHours,
+                    workingDays: hiring?.workingDays,
+                    description: hiring?.description,
+                    salaryRange: hiring?.salaryRange,
+                    location: hiring?.location,
+                    experience: hiring?.experience,
+                    applicationDeadline: hiring?.applicationDeadline,
+                    jobType: hiring?.jobType,
+                    status: hiring?.status,
+                    department: hiring?.department,
+                    createdBy: "67c0129af2550046d53c104b",
+
+                    requirements: hiring?.requirements || [],
+                    skillsRequired: hiring?.skillsRequired || [],
+                    benefits: hiring?.benefits || [],
+                    responsibilities: hiring?.responsibilities || [],
+                    interviewRounds: hiring?.interviewRounds || []
+                }}>
                 <div className="grid grid-cols-2 gap-5 mb-5">
                     <EnaInput label="Company Name" name="companyName" placeholder="Company Name" />
                     <EnaInput label="Job Title" name="title" placeholder="Job Title" />
@@ -119,18 +152,22 @@ const CreateHiringPost = ({ closeModal }: { closeModal: () => void }) => {
 
                 <button
                     type="submit"
-
                     className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"
-                    disabled={isLoading}
+                    disabled={isLoading || updateIsLoading}
                 >
-                    {isLoading ? "Creating..." : "Create Job Post"}
+                    {isLoading || updateIsLoading
+                        ? "Processing..."
+                        : hiring?._id
+                            ? "Update Job Post"
+                            : "Create Job Post"
+                    }
                 </button>
             </EnaForm>
-        </div>
+        </div >
     );
 };
 
-export default CreateHiringPost;
+export default CreateUpdateHiringPost;
 
 const jobTypes = [
     { value: "full-time", label: "Full-Time" },

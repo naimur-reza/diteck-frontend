@@ -2,10 +2,10 @@
 import Modal from '@/components/ui/modal/Modal';
 import { useModal } from '@/hooks/useModal';
 import React from 'react';
-import CreateHiringPost from './components/CreateHiringPost';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import HiringTable from './components/HiringTable';
+import CreateUpdateHiringPost from './components/CreateUpdateHiringPost';
 
 const HiringPage = () => {
     const { isOpen, openModal, closeModal } = useModal();
@@ -19,7 +19,7 @@ const HiringPage = () => {
                 </div>
                 <Button onClick={openModal} className='cursor-pointer'><Plus className="size-4" /> New Hiring</Button>
                 <Modal isOpen={isOpen} onClose={closeModal} title='Add New Hiring Post'>
-                    <CreateHiringPost closeModal={closeModal} />
+                    <CreateUpdateHiringPost closeModal={closeModal} />
                 </Modal>
             </div>
             <HiringTable />
