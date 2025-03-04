@@ -35,6 +35,7 @@ import {
   ToggleRight,
   CheckCircle,
   XCircle,
+  Trash,
 } from "lucide-react";
 import Image from "next/image";
 import { formatDateTime } from "@/utils";
@@ -50,6 +51,7 @@ interface DataTableProps<T> {
   onEdit?: (row: T) => void;
   onView?: (row: T) => void;
   onDelete?: (row: T) => void;
+  onSoftDelete?: (row: T) => void;
   handleStatusChanger?: (row: T, newStatus: boolean) => void;
   defaultKey?: string;
   handlePageChange?: (page: number) => void;
@@ -69,6 +71,7 @@ export default function ETable<T>({
   onEdit,
   onView,
   onDelete,
+  onSoftDelete,
   handleStatusChanger,
   defaultKey,
   handlePageChange,
@@ -119,6 +122,7 @@ export default function ETable<T>({
             {(onEdit ||
               onView ||
               onDelete ||
+              onSoftDelete ||
               handleStatusChanger ||
               performIfNeeded) && (
                 <TableHead className="text-right">Actions</TableHead>
@@ -141,77 +145,91 @@ export default function ETable<T>({
               {columns?.map((col) => (
                 <TableCell key={col.key as string}>
                   {col.key === "availabilityStatus" ||
-                    col.key === "status" ||
-                    col.key === "reviewStatus" ? (
+                  col.key === "status" ||
+                  col.key === "reviewStatus" ||
+                  col.key === "user.status" ? (
                     <span
-                      className={`inline-block px-3 py-1 text-xs font-medium rounded-md ${row[col.key] === "approved"
-                        ? "bg-blue-100 text-blue-700"
-                        : row[col.key] === "rejected"
+                      className={`inline-block px-3 py-1 text-xs font-medium rounded-md ${
+                        getNestedValue(row, col.key as string) === "approved"
+                          ? "bg-blue-100 text-blue-700"
+                          : getNestedValue(row, col.key as string) ===
+                            "rejected"
                           ? "bg-red-100 text-red-700"
-                          : row[col.key] === "pending"
-                            ? "bg-yellow-100 text-yellow-700"
-                            : row[col.key] === true
-                              ? "bg-green-100 text-green-700"
-                              : row[col.key] === false
-                                ? "bg-gray-100 text-gray-700"
-                                : row[col.key] === "selected"
-                                  ? "bg-purple-100 text-purple-700"
-                                  : row[col.key] === "completed"
-                                    ? "bg-orange-100 text-orange-700"
-                                    : row[col.key] === "active"
-                                      ? "bg-green-100 text-green-700"
-                                      : row[col.key] === "inactive"
-                                        ? "bg-gray-200 text-gray-800"
-                                        : row[col.key] === "blocked"
-                                          ? "bg-red-200 text-red-800"
-                                          : row[col.key] === "trialing"
-                                            ? "bg-blue-100 text-blue-700"
-                                            : row[col.key] === "resolved"
-                                              ? "bg-teal-100 text-teal-700"
-                                              : row[col.key] === "shortlisted"
-                                                ? "bg-indigo-100 text-indigo-700"
-                                                : row[col.key] === "archived"
-                                                  ? "bg-gray-300 text-gray-900"
-                                                  : row[col.key] === "available"
-                                                    ? "bg-green-200 text-green-800"
-                                                    : row[col.key] === "unavailable"
-                                                      ? "bg-gray-400 text-gray-900"
-                                                      : "bg-gray-100 text-gray-700"
-                        }`}
+                          : getNestedValue(row, col.key as string) === "pending"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : row[col.key] === true
+                          ? "bg-green-100 text-green-700"
+                          : row[col.key] === false
+                          ? "bg-gray-100 text-gray-700"
+                          : getNestedValue(row, col.key as string) ===
+                            "selected"
+                          ? "bg-purple-100 text-purple-700"
+                          : getNestedValue(row, col.key as string) ===
+                            "completed"
+                          ? "bg-orange-100 text-orange-700"
+                          : getNestedValue(row, col.key as string) === "active"
+                          ? "bg-green-100 text-green-700"
+                          : getNestedValue(row, col.key as string) ===
+                            "inactive"
+                          ? "bg-gray-200 text-gray-800"
+                          : getNestedValue(row, col.key as string) === "blocked"
+                          ? "bg-red-200 text-red-800"
+                          : getNestedValue(row, col.key as string) ===
+                            "trialing"
+                          ? "bg-blue-100 text-blue-700"
+                          : getNestedValue(row, col.key as string) ===
+                            "resolved"
+                          ? "bg-teal-100 text-teal-700"
+                          : getNestedValue(row, col.key as string) ===
+                            "shortlisted"
+                          ? "bg-indigo-100 text-indigo-700"
+                          : getNestedValue(row, col.key as string) ===
+                            "archived"
+                          ? "bg-gray-300 text-gray-900"
+                          : getNestedValue(row, col.key as string) ===
+                            "available"
+                          ? "bg-green-200 text-green-800"
+                          : getNestedValue(row, col.key as string) ===
+                            "unavailable"
+                          ? "bg-gray-400 text-gray-900"
+                          : "bg-gray-100 text-gray-700"
+                      }`}
                     >
-                      {row[col.key] === "approved"
+                      {getNestedValue(row, col.key as string) === "approved"
                         ? "Approved"
-                        : row[col.key] === "rejected"
-                          ? "Rejected"
-                          : row[col.key] === "pending"
-                            ? "Pending"
-                            : row[col.key] === true
-                              ? "Activated"
-                              : row[col.key] === false
-                                ? "Deactivated"
-                                : row[col.key] === "selected"
-                                  ? "Selected"
-                                  : row[col.key] === "completed"
-                                    ? "Completed"
-                                    : row[col.key] === "active"
-                                      ? "Active"
-                                      : row[col.key] === "inactive"
-                                        ? "Inactive"
-                                        : row[col.key] === "blocked"
-                                          ? "Blocked"
-                                          : row[col.key] === "trialing"
-                                            ? "Trialing"
-                                            : row[col.key] === "resolved"
-                                              ? "Resolved"
-                                              : row[col.key] === "shortlisted"
-                                                ? "Shortlisted"
-                                                : row[col.key] === "archived"
-                                                  ? "Archived"
-                                                  : row[col.key] === "available"
-                                                    ? "Available"
-                                                    : row[col.key] === "unavailable"
-                                                      ? "Unavailable"
-                                                      : "Unknown"}
+                        : getNestedValue(row, col.key as string) === "rejected"
+                        ? "Rejected"
+                        : getNestedValue(row, col.key as string) === "pending"
+                        ? "Pending"
+                        : getNestedValue(row, col.key as string) === true
+                        ? "Activated"
+                        : getNestedValue(row, col.key as string) === false
+                        ? "Deactivated"
+                        : getNestedValue(row, col.key as string) === "selected"
+                        ? "Selected"
+                        : getNestedValue(row, col.key as string) === "completed"
+                        ? "Completed"
+                        : getNestedValue(row, col.key as string) === "active"
+                        ? "Active"
+                        : getNestedValue(row, col.key as string) === "inactive"
+                        ? "Inactive"
+                        : getNestedValue(row, col.key as string) === "blocked"
+                        ? "Blocked"
+                        : getNestedValue(row, col.key as string) === "trialing"
+                        ? "Trialing"
+                        : getNestedValue(row, col.key as string) === "resolved"
+                        ? "Resolved"
+                        : getNestedValue(row, col.key as string) ===
+                          "shortlisted"
+                        ? "Shortlisted"
+                        : getNestedValue(row, col.key as string) === "archived"
+                        ? "Archived"
+                        : getNestedValue(row, col.key as string) === "available"
+                        ? "Available"
+                        : getNestedValue(row, col.key as string) ===
+                          "unavailable"
+                        ? "Unavailable"
+                        : "Unknown"}
                     </span>
                   ) : col.label === "Img" ||
                     col.label === "Thumbnail" ||
@@ -236,7 +254,8 @@ export default function ETable<T>({
                     col.key === "endDate" ||
                     col.key === "createdAt" ||
                     col.key === "updatedAt" ||
-                    col.key === "applicationDeadline" ? (
+                    col.key === "applicationDeadline" ||
+                    col.key === "submissionDate" ? (
                     formatDateTime(row[col.key] as string)
                   ) : col.key === "packageId.packagePrice" ? (
                     `${String(getNestedValue(row, col.key as string) ?? "-")}$`
@@ -254,6 +273,7 @@ export default function ETable<T>({
               {(onEdit ||
                 onView ||
                 onDelete ||
+                onSoftDelete ||
                 handleStatusChanger ||
                 handleApprovedAndRejected) && (
                   <TableCell className="text-right">

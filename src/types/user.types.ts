@@ -1,20 +1,18 @@
 export interface TUser {
-  _id: string;
   email: string;
   password: string;
   needsPasswordChange: boolean;
-  role: string;
-  permissions: string[];
-  status: string;
-  failedLoginAttempts: number;
-  twoFactorEnabled: boolean;
-  rememberMe: boolean;
-  loginAttempts: number;
-  lastFailedLogin: number;
+  passwordChangedAt?: Date;
+  role: "superAdmin" | "admin" | "manager";
+  permissions?: string[];
+  status: "active" | "inactive" | "blocked";
+  lastLogin?: Date;
+  failedLoginAttempts?: number;
+  accountLockedUntil?: Date;
+  twoFactorEnabled?: boolean;
+  rememberMe?: boolean;
+  loginAttempts?: number;
+  lastFailedLogin?: Date;
   isVerified: boolean;
   isDeleted: boolean;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  lastLogin: string;
 }
