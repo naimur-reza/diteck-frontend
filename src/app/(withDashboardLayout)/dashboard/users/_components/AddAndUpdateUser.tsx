@@ -19,7 +19,6 @@ interface AddAndEditUser {
   defaultValues?: TAdminAndManager;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditUser) => {
   const isEditMode = !!defaultValues; // Check if we are editing
   const [

@@ -27,16 +27,17 @@ const JobApplication = () => {
   const [isShorlistedModal, setIsShortlistedModal] = useState(false);
   const [selectedRows, setSelectedRows] = useState<TJobApplication[]>([]);
   const [status, setStatus] = useState<string>("pending");
-
-  const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
-
+  const {
+    isOpen: ViewIsOpen,
+    openModal: viewOpenModal,
+    closeModal: viewCloseModal,
+  } = useModal();
   const { data, isLoading } = useGetAllJobApplicationQuery([
     { name: "status", value: status },
     { name: "search", value: searchTerm },
     { name: "limit", value: limit },
     { name: "page", value: pageNumber },
   ]);
-
   const [
     deleteJobApplication,
     {
@@ -69,9 +70,9 @@ const JobApplication = () => {
 
   // handle view modal
   const handleViewModal = (job: TJobApplication) => {
-    viewOpenModal()
+    viewOpenModal();
     setSingleData(job);
-  }
+  };
 
   const handleDeleteModal = (item: TJobApplication) => {
     setIsDeleteModal(true);
@@ -178,7 +179,11 @@ const JobApplication = () => {
       />
 
       {/* View Job Application */}
-      <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Job Application Details'>
+      <Modal
+        isOpen={ViewIsOpen}
+        onClose={viewCloseModal}
+        title="Job Application Details"
+      >
         <ViewJobApplication job={singleData} />
       </Modal>
     </div>
