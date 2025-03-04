@@ -16,6 +16,9 @@ import { AddMemberDialog } from "./_components/add-team-dialog";
 import { DeleteMemberDialog } from "./_components/delete-team-member";
 import { EditMemberDialog } from "./_components/edit-team-member";
 import { TeamMembersTable } from "./_components/team-member-table";
+import Modal from "@/components/ui/modal/Modal";
+import { useModal } from "@/hooks/useModal";
+import ViewMember from "./_components/ViewMember";
 
 export default function TeamMembers() {
   // redux hooks
@@ -34,6 +37,8 @@ export default function TeamMembers() {
   const [currentMember, setCurrentMember] = useState<TTeamMember | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
+
   // Form state for add/edit
   const [formData, setFormData] = useState<TeamMemberFormData>({
     name: "",
@@ -51,7 +56,7 @@ export default function TeamMembers() {
   const addTeamMember = async (data: FieldValues) => {
     const { profilePhoto, ...restData } = data;
 
-    console.log("Data:", data);
+
     try {
       const formData = new FormData();
       formData.append("data", JSON.stringify(restData));
@@ -109,6 +114,12 @@ export default function TeamMembers() {
     }
   };
 
+  // handle view modal
+  const handleViewModal = (member: TTeamMember) => {
+    viewOpenModal()
+    setCurrentMember(member);
+  }
+
   const handleEdit = (member: TTeamMember) => {
     setCurrentMember(member);
     setIsEditDialogOpen(true);
@@ -153,6 +164,7 @@ export default function TeamMembers() {
             members={members?.data ?? []}
             onEdit={handleEdit}
             onDelete={handleDelete}
+            onView={handleViewModal}
           />
         </CardContent>
       </Card>
@@ -176,6 +188,11 @@ export default function TeamMembers() {
         onDelete={deleteTeamMember}
         isLoading={isLoading}
       />
+
+      {/* View blog */}
+      <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Blog Details'>
+        <ViewMember member={currentMember} />
+      </Modal>
     </div>
   );
 }

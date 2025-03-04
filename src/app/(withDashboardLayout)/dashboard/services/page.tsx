@@ -1,7 +1,7 @@
 "use client";
 import { CommonDialog } from "@/components/dashboard/CommonDialog/CommonDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
 import {
   useDeleteServiceMutation,
@@ -13,6 +13,8 @@ import { columns } from "./_constant/constant";
 import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
 import AddAndEditService from "./_components/AddAndEditService";
 import Modal from "@/components/ui/modal/Modal";
+import { useModal } from "@/hooks/useModal";
+import ViewService from "./_components/ViewService";
 
 const Services = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -23,6 +25,8 @@ const Services = () => {
   const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [selectedRows, setSelectedRows] = useState<TService[]>([]);
+
+  const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
   const { data, isLoading } = useGetAllServiceQuery([
     { name: "search", value: searchTerm },
@@ -46,6 +50,12 @@ const Services = () => {
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
   };
+
+  // handle view modal
+  const handleViewModal = (service: TService) => {
+    viewOpenModal()
+    setSingleData(service);
+  }
 
   const handleDeleteModal = (item: TService) => {
     setIsDeleteModal(true);
@@ -88,12 +98,9 @@ const Services = () => {
 
       {/* table */}
       <Card>
-        <CardHeader className="pb-3">
-          <CardTitle>All Services</CardTitle>
-        </CardHeader>
         <CardContent>
           <TableSearchBar
-            searchPlaceholder="Search book title"
+            searchPlaceholder="Search Service title"
             onSearchChange={handleSearchChange}
             searchValue={searchTerm}
             setLimit={setLimit}
@@ -104,7 +111,7 @@ const Services = () => {
             columns={columns as TableColumn<TService>[]}
             data={data?.data as TService[]}
             onEdit={handleEditModal}
-            onView={(row) => console.log("View:", row)}
+            onView={(row) => handleViewModal(row)}
             onDelete={handleDeleteModal}
             meta={data?.meta}
             handlePageChange={handlePageChange}
@@ -131,7 +138,12 @@ const Services = () => {
         data={dData}
         error={dError as TError}
         title="are you sure to delete this service?"
-      ></DeleteConfirm>
+      />
+
+      {/* View Service */}
+      <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Service Details'>
+        <ViewService service={singleData} />
+      </Modal>
     </div>
   );
 };

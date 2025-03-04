@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import Modal from '@/components/ui/modal/Modal';
 import { useModal } from '@/hooks/useModal';
 import { Plus } from 'lucide-react';
-import CreateUpdateBlog from './components/CreateUpdateBlog';
-import BlogTable from './components/BlogTable';
+import CreateUpdateBlog from './_components/CreateUpdateBlog';
+import BlogTable from './_components/BlogTable';
 
 const BlogsPage = () => {
     const { isOpen, openModal, closeModal } = useModal();

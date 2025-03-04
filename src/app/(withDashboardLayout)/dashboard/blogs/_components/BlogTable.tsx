@@ -10,6 +10,8 @@ import { TBlog } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
 import CreateUpdateBlog from "./CreateUpdateBlog";
+import ViewBlog from "./ViewBlog";
+import { blogColumns } from "../_constants/constant";
 
 const BlogTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -19,6 +21,7 @@ const BlogTable = () => {
     const [singleBlog, setSingleBlog] = useState<TBlog | null>();
 
     const { isOpen, openModal, closeModal } = useModal();
+    const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
     const { data, isLoading: dataIsLoading } = useGetAllBlogsQuery(undefined);
 
@@ -29,6 +32,12 @@ const BlogTable = () => {
     const handleSearchChange = (value: string) => {
         setSearchTerm(value);
     };
+
+    // handle view modal
+    const handleViewModal = (blog: TBlog) => {
+        viewOpenModal()
+        setSingleBlog(blog);
+    }
 
     // handle edit modal
     const handleEditModal = (blog: TBlog) => {
@@ -74,13 +83,6 @@ const BlogTable = () => {
         }
     };
 
-    const columns = [
-        { key: "thumbnail", label: "Img" },
-        { key: "title", label: "Title" },
-        { key: "bio", label: "Bio" },
-        { key: "content", label: "Content" },
-    ];
-
     return (
         <div>
             <Card>
@@ -94,10 +96,10 @@ const BlogTable = () => {
                     />
                     <ETable
                         isLoading={dataIsLoading}
-                        columns={columns as TableColumn<TBlog>[]}
+                        columns={blogColumns as TableColumn<TBlog>[]}
                         data={data?.data as TBlog[]}
                         onEdit={(row) => handleEditModal(row)}
-                        onView={(row) => console.log("View:", row)}
+                        onView={(row) => handleViewModal(row)}
                         onDelete={(row) => handleDialog(row)}
                         handleStatusChanger={(row, newStatus) =>
                             console.log("Status Changed:", row, newStatus)
@@ -119,9 +121,15 @@ const BlogTable = () => {
                 entityName={singleBlog?.title as string}
                 isLoading={isLoading || softIsLoading}
             />
+
             {/* Update blog */}
             <Modal isOpen={isOpen} onClose={closeModal} title='Edit Blog'>
                 <CreateUpdateBlog closeModal={closeModal} blog={singleBlog} />
+            </Modal>
+
+            {/* View blog */}
+            <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Blog Details'>
+                <ViewBlog blog={singleBlog} />
             </Modal>
         </div>
     );

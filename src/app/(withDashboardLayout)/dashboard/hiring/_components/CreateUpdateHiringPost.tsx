@@ -12,6 +12,7 @@ import { hiringSchema } from "@/schema/hiringSchema";
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import { EnaFileUpload, EnaSelect } from "@/components/forms";
 import { THiring } from "@/types";
+import { jobTypes, status } from "../_constants/constant";
 
 const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void, hiring?: THiring | null | undefined }) => {
 
@@ -169,14 +170,3 @@ const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void
 
 export default CreateUpdateHiringPost;
 
-const jobTypes = [
-    { value: "full-time", label: "Full-Time" },
-    { value: "part-time", label: "Part-Time" },
-    { value: "remote", label: "Remote" },
-    { value: "hybrid", label: "Hybrid" },
-];
-const status = [
-    { value: "active", label: "Active" },
-    { value: "inactive", label: "Inactive" },
-    { value: "expired", label: "Expired" },
-];
