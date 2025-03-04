@@ -40,14 +40,24 @@ const navigation = [
     icon: LayoutDashboard,
   },
   {
+    title: "Team Members",
+    href: "/dashboard/team-members",
+    icon: UserCheck,
+  },
+  {
     title: "Job Applications",
     href: "/dashboard/job-applications",
     icon: FileText,
   },
   {
-    title: "Team Members",
-    href: "/dashboard/team-members",
-    icon: UserCheck,
+    title: "Projects", // previews work
+    href: "/dashboard/projects",
+    icon: Briefcase,
+  },
+  {
+    title: "Services",
+    href: "/dashboard/services",
+    icon: Globe,
   },
   {
     title: "Reviews",
@@ -69,16 +79,7 @@ const navigation = [
     href: "/dashboard/hiring",
     icon: Handshake,
   },
-  {
-    title: "Services",
-    href: "/dashboard/services",
-    icon: Globe,
-  },
-  {
-    title: "Projects", // previews work
-    href: "/dashboard/projects",
-    icon: Briefcase,
-  },
+
   {
     title: "Blogs",
     href: "/dashboard/blogs",
