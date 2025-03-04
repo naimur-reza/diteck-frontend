@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import CreateUpdateBlog from "./CreateUpdateBlog";
 import ViewBlog from "./ViewBlog";
 import { blogColumns } from "../_constants/constant";
+import { useAppSelector } from "@/redux/hooks";
 
 const BlogTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -83,6 +84,9 @@ const BlogTable = () => {
         }
     };
 
+    const { token } = useAppSelector((state) => state.auth)
+    console.log('token', token);
+
     return (
         <div>
             <Card>
@@ -101,9 +105,6 @@ const BlogTable = () => {
                         onEdit={(row) => handleEditModal(row)}
                         onView={(row) => handleViewModal(row)}
                         onDelete={(row) => handleDialog(row)}
-                        handleStatusChanger={(row, newStatus) =>
-                            console.log("Status Changed:", row, newStatus)
-                        }
                         meta={data?.meta}
                         handlePageChange={handlePageChange}
                         pageNumber={pageNumber}

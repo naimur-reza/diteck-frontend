@@ -101,9 +101,9 @@ const HiringTable = () => {
                         onEdit={(row) => handleEditModal(row)}
                         onView={(row) => handleViewModal(row)}
                         onDelete={(row) => handleDialog(row)}
-                        handleStatusChanger={(row, newStatus) =>
-                            console.log("Status Changed:", row, newStatus)
-                        }
+                        // handleStatusChanger={(row, newStatus) =>
+                        //     console.log("Status Changed:", row, newStatus)
+                        // }
                         meta={data?.meta}
                         handlePageChange={handlePageChange}
                         pageNumber={pageNumber}

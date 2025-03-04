@@ -10,6 +10,13 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Auth"],
     }),
+    getLoggedInUser: builder.query({
+      query: () => ({
+        url: `/user/get-me`,
+        method: "GET",
+      }),
+      providesTags: ["Auth"],
+    }),
     changePassword: builder.mutation({
       query: (data: object) => ({
         method: "POST",
@@ -37,4 +44,8 @@ const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginUserMutation, useChangePasswordMutation } = authApi;
+export const {
+  useLoginUserMutation,
+  useGetLoggedInUserQuery,
+  useChangePasswordMutation
+} = authApi;
