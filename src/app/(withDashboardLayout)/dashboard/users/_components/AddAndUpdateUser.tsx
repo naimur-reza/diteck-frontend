@@ -5,24 +5,21 @@ import {
   EnaInput,
   EnaSelect,
 } from "@/components/forms";
-
 import { useNotification } from "@/hooks/useNotification";
 import {
-  useCreateServiceMutation,
-  useUpdateServiceMutation,
-} from "@/redux/api/adminApi/serviceApi/serviceApi";
-import { useCreateUserMutation } from "@/redux/api/adminApi/userApi/userApi";
+  useCreateUserMutation,
+  useUpdateUserMutation,
+} from "@/redux/api/adminApi/userApi/userApi";
 import { updateUserSchema, userSchema } from "@/schema/userSchema";
-import { TError, TService } from "@/types";
+import { TAdminAndManager, TError } from "@/types";
 import { useEffect } from "react";
 import { FieldValues } from "react-hook-form";
-
-interface AddAndEditServiceProps {
-  defaultValues?: TService;
+interface AddAndEditUser {
+  defaultValues?: TAdminAndManager;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditServiceProps) => {
+const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditUser) => {
   const isEditMode = !!defaultValues; // Check if we are editing
   const [
     createUser,
@@ -30,7 +27,7 @@ const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditServiceProps) => {
   ] = useCreateUserMutation();
 
   const [
-    editService,
+    updateUser,
     {
       isLoading: uIsLoading,
       isError: uIsError,
@@ -38,7 +35,7 @@ const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditServiceProps) => {
       error: uError,
       isSuccess: uIsSuccess,
     },
-  ] = useUpdateServiceMutation();
+  ] = useUpdateUserMutation();
 
   const handleSubmit = (formData: FieldValues) => {
     console.log(formData);
@@ -76,7 +73,7 @@ const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditServiceProps) => {
     <div>
       <EnaForm
         schema={isEditMode ? updateUserSchema : userSchema}
-        defaultValues={defaultValues || {}}
+        defaultValues={defaultValues ? defaultValues : {}}
         onSubmit={handleSubmit}
       >
         <div className="grid grid-cols-2 gap-5 mb-5">

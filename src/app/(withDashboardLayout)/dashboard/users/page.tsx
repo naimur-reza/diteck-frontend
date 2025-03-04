@@ -136,7 +136,10 @@ const User = () => {
         onClose={() => setIsEditModal(false)}
         title="edit user"
       >
-        <AddAndUpdateUser setIsOpen={setIsEditModal} />
+        <AddAndUpdateUser
+          defaultValues={singleData as TAdminAndManager}
+          setIsOpen={setIsEditModal}
+        />
       </Modal>
       <DeleteConfirm
         isError={dIsError}
