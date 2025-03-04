@@ -14,6 +14,7 @@ import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
 import Modal from "@/components/ui/modal/Modal";
 import { useGetAllUserQuery } from "@/redux/api/adminApi/userApi/userApi";
 import { userColumn } from "./_constants/user";
+import AddAndUpdateUser from "./_components/AddAndUpdateUser";
 
 const User = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -60,10 +61,6 @@ const User = () => {
     deleteService({ id: singleData?._id });
   };
 
-  const handleClose = () => {
-    setIsEditModal(false);
-  };
-
   console.log(data?.data);
 
   return (
@@ -75,16 +72,16 @@ const User = () => {
         </div>
 
         {/* add service */}
-        {/* <CommonDialog
+        <CommonDialog
           width={800}
-          triggerLabel="New Service"
-          title="Add Service"
+          triggerLabel="New user"
+          title="Add user"
           dialogType="create"
           isOpen={isAddDialogOpen}
           setIsOpen={setIsAddDialogOpen}
         >
-          <AddAndEditService setIsOpen={setIsAddDialogOpen} />
-        </CommonDialog> */}
+          <AddAndUpdateUser setIsOpen={setIsAddDialogOpen} />
+        </CommonDialog>
       </div>
 
       {/* table */}
@@ -115,12 +112,13 @@ const User = () => {
         </CardContent>
       </Card>
 
-      {/* <Modal isOpen={isEditModal} onClose={handleClose} title="edit service">
-        <AddAndEditService
-          setIsOpen={setIsEditModal}
-          defaultValues={singleData as TService}
-        />
-      </Modal> */}
+      <Modal
+        isOpen={isEditModal}
+        onClose={() => setIsEditModal(false)}
+        title="edit user"
+      >
+        <AddAndUpdateUser />
+      </Modal>
 
       {/* <DeleteConfirm
         isError={dIsError}
