@@ -32,7 +32,7 @@ const BlogTable = () => {
         setSearchTerm(value);
     };
 
-    // handle edit modal
+    // handle view modal
     const handleViewModal = (blog: TBlog) => {
         viewOpenModal()
         setSingleBlog(blog);

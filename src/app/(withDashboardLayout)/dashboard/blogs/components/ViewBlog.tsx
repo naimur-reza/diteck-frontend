@@ -1,11 +1,11 @@
 import { TBlog } from "@/types";
 import React from "react";
-import ItemDetails from "./ItemDetails";
+import ViewItemDetails from "../../../../../components/common/ViewItemDetails/ViewItemDetails";
 
 const ViewBlog = ({ blog }: { blog?: TBlog | null | undefined }) => {
     return (
         <div>
-            <ItemDetails item={blog} imageFields={["thumbnail"]}/>
+            <ViewItemDetails item={blog} imageFields={["thumbnail"]} />
         </div>
     );
 };

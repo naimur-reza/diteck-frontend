@@ -10,6 +10,7 @@ import { TProject } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
 import CreateUpdateProject from "./CreateUpdateProject";
+import ViewProject from "./ViewProject";
 
 const ProjectTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -20,6 +21,7 @@ const ProjectTable = () => {
     const [singleProject, setSingleProject] = useState<TProject | null>();
 
     const { isOpen, openModal, closeModal } = useModal();
+    const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
     const { data, isLoading: dataIsLoading } = useGetAllProjectsQuery(undefined);
 
@@ -31,10 +33,16 @@ const ProjectTable = () => {
         setSearchTerm(value);
     };
 
+    // handle view modal
+    const handleViewModal = (project: TProject) => {
+        viewOpenModal()
+        setSingleProject(project);
+    }
+
     // handle edit modal
-    const handleEditModal = (blog: TProject) => {
+    const handleEditModal = (project: TProject) => {
         openModal()
-        setSingleProject(blog);
+        setSingleProject(project);
     }
 
     // delete modal
@@ -102,7 +110,7 @@ const ProjectTable = () => {
                         columns={columns as TableColumn<TProject>[]}
                         data={data?.data as TProject[]}
                         onEdit={(row) => handleEditModal(row)}
-                        onView={(row) => console.log("View:", row)}
+                        onView={(row) => handleViewModal(row)}
                         onDelete={(row) => handleDialog(row)}
                         handleStatusChanger={(row, newStatus) =>
                             console.log("Status Changed:", row, newStatus)
@@ -126,6 +134,11 @@ const ProjectTable = () => {
             />
             <Modal isOpen={isOpen} onClose={closeModal} title='Edit Project'>
                 <CreateUpdateProject closeModal={closeModal} project={singleProject} />
+            </Modal>
+
+            {/* View Project */}
+            <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Project Details'>
+                <ViewProject project={singleProject} />
             </Modal>
         </div>
     );
