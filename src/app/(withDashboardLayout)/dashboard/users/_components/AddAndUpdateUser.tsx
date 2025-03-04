@@ -1,4 +1,5 @@
 "use client";
+import ErrorMessage from "@/components/dashboard/ErrorMessage/ErrorMessage";
 import {
   EnaFileUpload,
   EnaForm,
@@ -48,8 +49,7 @@ const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditUser) => {
     }
     apiData.append("data", JSON.stringify(bodyData));
     if (isEditMode) {
-      console.log(bodyData);
-      // editService({ id: defaultValues?._id, data: apiData });
+      updateUser({ id: defaultValues._id, data: apiData });
     } else {
       createUser(apiData);
     }
@@ -73,7 +73,20 @@ const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditUser) => {
     <div>
       <EnaForm
         schema={isEditMode ? updateUserSchema : userSchema}
-        defaultValues={defaultValues ? defaultValues : {}}
+        defaultValues={
+          defaultValues
+            ? {
+                adminData: {
+                  name: defaultValues?.name || "",
+                  phoneNumber: defaultValues?.phoneNumber || "",
+                  gender: defaultValues?.gender || "",
+                  role: defaultValues?.user?.role || "",
+                  city: defaultValues?.city || "",
+                  address: defaultValues?.address || "",
+                },
+              }
+            : {}
+        }
         onSubmit={handleSubmit}
       >
         <div className="grid grid-cols-2 gap-5 mb-5">
@@ -85,20 +98,24 @@ const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditUser) => {
           />
 
           {/* Password */}
-          <EnaInput
-            label="Password"
-            name="password"
-            type="password"
-            placeholder="Enter user password"
-          />
+          {!defaultValues && (
+            <EnaInput
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="Enter user password"
+            />
+          )}
 
           {/* Email */}
-          <EnaInput
-            label="Email"
-            name="adminData.email"
-            type="email"
-            placeholder="Enter email"
-          />
+          {!defaultValues && (
+            <EnaInput
+              label="Email"
+              name="adminData.email"
+              type="email"
+              placeholder="Enter email"
+            />
+          )}
 
           {/* Phone Number */}
           <EnaInput
@@ -165,6 +182,12 @@ const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditUser) => {
           {isEditMode ? "Update user" : "Create user"}
         </button>
       </EnaForm>
+
+      {(isError || uIsError) && (
+        <ErrorMessage
+          error={(error as TError) || (uError as TError)}
+        ></ErrorMessage>
+      )}
     </div>
   );
 };

@@ -16,10 +16,10 @@ export const userSchema = z.object({
   profilePhoto: z.instanceof(File, { message: "Cover image is required" }),
 });
 export const updateUserSchema = z.object({
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  // password: z.string().min(6, "Password must be at least 6 characters"),
   adminData: z.object({
     name: z.string().min(1, "Name is required"),
-    email: z.string().email("Invalid email address"),
+    // email: z.string().email("Invalid email address"),
     phoneNumber: z.string().min(10, "Phone number must be at least 10 digits"),
     gender: z.enum(["male", "female", "other"], {
       message: "Select a valid gender",
