@@ -14,6 +14,8 @@ import { jobApplicationColumns, statusOptions } from "./_constants/constant";
 import BulkDeleteButton from "@/components/dashboard/BulkDelete/BulkDeleteButton";
 import Modal from "@/components/ui/modal/Modal";
 import ShortlistedConfirmation from "./_components/ShortlistedConfirmation";
+import ViewJobApplication from "./_components/ViewJobApplication";
+import { useModal } from "@/hooks/useModal";
 
 const JobApplication = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -25,6 +27,8 @@ const JobApplication = () => {
   const [isShorlistedModal, setIsShortlistedModal] = useState(false);
   const [selectedRows, setSelectedRows] = useState<TJobApplication[]>([]);
   const [status, setStatus] = useState<string>("pending");
+
+  const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
   const { data, isLoading } = useGetAllJobApplicationQuery([
     { name: "status", value: status },
@@ -62,6 +66,12 @@ const JobApplication = () => {
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
   };
+
+  // handle view modal
+  const handleViewModal = (job: TJobApplication) => {
+    viewOpenModal()
+    setSingleData(job);
+  }
 
   const handleDeleteModal = (item: TJobApplication) => {
     setIsDeleteModal(true);
@@ -119,7 +129,7 @@ const JobApplication = () => {
             isLoading={isLoading}
             columns={jobApplicationColumns as TableColumn<TJobApplication>[]}
             data={data?.data as TJobApplication[]}
-            onView={(row) => console.log("View:", row)}
+            onView={(row) => handleViewModal(row)}
             onDelete={handleDeleteModal}
             meta={data?.meta}
             handlePageChange={handlePageChange}
@@ -166,6 +176,11 @@ const JobApplication = () => {
         error={bError as TError}
         title="Are you sure you want to delete these job applications?"
       />
+
+      {/* View Job Application */}
+      <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Job Application Details'>
+        <ViewJobApplication job={singleData} />
+      </Modal>
     </div>
   );
 };

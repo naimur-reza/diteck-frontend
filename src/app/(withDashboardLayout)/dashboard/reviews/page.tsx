@@ -1,6 +1,6 @@
 "use client";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
 import { TError, TReview } from "@/types";
 import { useState } from "react";
@@ -76,9 +76,6 @@ const Reviews = () => {
 
       {/* Table with Search & Status Tabs */}
       <Card>
-        <CardHeader className="pb-3">
-          <CardTitle>All Job Applications</CardTitle>
-        </CardHeader>
         <CardContent>
           <TableSearchBar
             searchPlaceholder="Search job applications..."

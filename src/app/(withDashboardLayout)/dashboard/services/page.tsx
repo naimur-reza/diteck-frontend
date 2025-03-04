@@ -1,7 +1,7 @@
 "use client";
 import { CommonDialog } from "@/components/dashboard/CommonDialog/CommonDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
 import {
   useDeleteServiceMutation,
@@ -98,12 +98,9 @@ const Services = () => {
 
       {/* table */}
       <Card>
-        <CardHeader className="pb-3">
-          <CardTitle>All Services</CardTitle>
-        </CardHeader>
         <CardContent>
           <TableSearchBar
-            searchPlaceholder="Search book title"
+            searchPlaceholder="Search Service title"
             onSearchChange={handleSearchChange}
             searchValue={searchTerm}
             setLimit={setLimit}

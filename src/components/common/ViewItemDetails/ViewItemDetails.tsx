@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ViewItemDetailsProps<T> {
     item?: T | null;
@@ -23,6 +24,7 @@ const ViewItemDetails = <T extends Record<string, any>>({
                     <div key={key} className="mb-5">
                         <strong className="capitalize block mb-1">{key.replace(/([A-Z])/g, " $1")}:</strong>
 
+                        {/* ✅ Single Image Handling */}
                         {imageFields?.includes(key) && typeof value === "string" ? (
                             <div className="relative w-full h-auto">
                                 <Image
@@ -35,27 +37,42 @@ const ViewItemDetails = <T extends Record<string, any>>({
                                 />
                             </div>
                         ) : Array.isArray(value) ? (
-                            imageFields.includes(key) ? (
-                                <div className="flex gap-2">
+                            // ✅ Array of Images Handling
+                            imageFields.includes(key) && typeof value[0] === "string" ? (
+                                <div className="flex flex-wrap gap-2">
                                     {value.map((imgSrc, index) => (
-                                        <div key={index} className="w-20 h-20 relative">
+                                        <div key={index} className="w-24 h-24 relative">
                                             <Image
                                                 src={imgSrc}
                                                 alt={`${key}-${index}`}
-                                                layout="fill"
-                                                objectFit="cover"
-                                                className="rounded-md border"
+                                                width={96}
+                                                height={96}
+                                                className="rounded-md border object-cover"
                                             />
                                         </div>
                                     ))}
                                 </div>
-                            ) : (
-                                <ul className="list-disc ml-5">
-                                    {value.map((item, index) => (
-                                        <li key={index}>{item}</li>
-                                    ))}
-                                </ul>
-                            )
+                            ) :
+                                // ✅ Array of Objects (like Work Experience)
+                                typeof value[0] === "object" ? (
+                                    <div className="space-y-2">
+                                        {value.map((item, index) => (
+                                            <div key={index} className="p-2 border rounded-md shadow-sm">
+                                                {Object.entries(item).map(([subKey, subValue]) => (
+                                                    <p key={subKey} className="text-sm">
+                                                        <strong className="capitalize">{subKey}: </strong> {String(subValue)}
+                                                    </p>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <ul className="list-disc ml-5">
+                                        {value.map((item, index) => (
+                                            <li key={index}>{String(item)}</li>
+                                        ))}
+                                    </ul>
+                                )
                         ) : typeof value === "object" && value !== null ? (
                             <ul className="list-disc ml-5">
                                 {Object.entries(value).map(([subKey, subValue], index) => (
@@ -64,6 +81,12 @@ const ViewItemDetails = <T extends Record<string, any>>({
                                     </li>
                                 ))}
                             </ul>
+                        ) : typeof value === "string" && value.startsWith("http") ? (
+                            <Link href={value} target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors duration-300">
+                                {value}
+                            </Link>
+                        ) : typeof value === "number" ? (
+                            <span className="ml-2">{value.toLocaleString()}</span>
                         ) : (
                             <span className="ml-2">{String(value)}</span>
                         )}
