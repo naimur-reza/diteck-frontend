@@ -29,6 +29,7 @@ import {
 import { TTeamMember } from "@/types";
 import { MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { roles } from "./team-member-form";
 
 interface TeamMembersTableProps {
   members: TTeamMember[];
@@ -144,7 +145,12 @@ export function TeamMembersTable({
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell>{member.teamRole}</TableCell>
+                    <TableCell>
+                      {
+                        roles.find((role) => role.value === member.teamRole)
+                          ?.label
+                      }
+                    </TableCell>
                     <TableCell>
                       <span
                         className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${

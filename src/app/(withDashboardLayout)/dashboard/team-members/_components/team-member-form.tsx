@@ -96,7 +96,7 @@ export function TeamMemberForm({
   );
 }
 
-const roles = [
+export const roles = [
   {
     label: "Manager",
     value: "manager",
