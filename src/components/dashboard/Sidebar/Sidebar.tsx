@@ -131,11 +131,13 @@ export function AppSidebar() {
 
             return (
               <SidebarMenuItem key={item.href} className="mx-2">
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild className="hover:bg-gray-100">
                   <Link
                     href={item.href}
                     className={`pl-5 py-5 flex items-center gap-2 rounded-md  ${
-                      isActive ? "bg-primary text-white" : ""
+                      isActive
+                        ? "bg-primary text-white hover:bg-primary/80 hover:text-white transition-all"
+                        : ""
                     }`}
                   >
                     <item.icon className="size-6" />
