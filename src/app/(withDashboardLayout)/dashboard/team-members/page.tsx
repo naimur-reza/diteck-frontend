@@ -1,6 +1,8 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Modal from "@/components/ui/modal/Modal";
+import { useModal } from "@/hooks/useModal";
 import {
   useCreateTeamMemberMutation,
   useDeleteTeamMemberMutation,
@@ -16,8 +18,6 @@ import { AddMemberDialog } from "./_components/add-team-dialog";
 import { DeleteMemberDialog } from "./_components/delete-team-member";
 import { EditMemberDialog } from "./_components/edit-team-member";
 import { TeamMembersTable } from "./_components/team-member-table";
-import Modal from "@/components/ui/modal/Modal";
-import { useModal } from "@/hooks/useModal";
 import ViewMember from "./_components/ViewMember";
 
 export default function TeamMembers() {
@@ -37,7 +37,11 @@ export default function TeamMembers() {
   const [currentMember, setCurrentMember] = useState<TTeamMember | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
+  const {
+    isOpen: ViewIsOpen,
+    openModal: viewOpenModal,
+    closeModal: viewCloseModal,
+  } = useModal();
 
   // Form state for add/edit
   const [formData, setFormData] = useState<TeamMemberFormData>({
@@ -56,7 +60,6 @@ export default function TeamMembers() {
   const addTeamMember = async (data: FieldValues) => {
     const { profilePhoto, ...restData } = data;
 
-
     try {
       const formData = new FormData();
       formData.append("data", JSON.stringify(restData));
@@ -73,6 +76,9 @@ export default function TeamMembers() {
 
   const updateTeamMember = async (data: FieldValues) => {
     if (!currentMember) return;
+
+    console.log(currentMember);
+    console.log(data);
 
     const { profilePhoto, ...restData } = data;
 
@@ -116,9 +122,9 @@ export default function TeamMembers() {
 
   // handle view modal
   const handleViewModal = (member: TTeamMember) => {
-    viewOpenModal()
+    viewOpenModal();
     setCurrentMember(member);
-  }
+  };
 
   const handleEdit = (member: TTeamMember) => {
     setCurrentMember(member);
@@ -189,8 +195,12 @@ export default function TeamMembers() {
         isLoading={isLoading}
       />
 
-      {/* View blog */}
-      <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Blog Details'>
+      {/* View Team Member Details */}
+      <Modal
+        isOpen={ViewIsOpen}
+        onClose={viewCloseModal}
+        title="Team Member Details"
+      >
         <ViewMember member={currentMember} />
       </Modal>
     </div>

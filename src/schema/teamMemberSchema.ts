@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { z } from "zod";
 
 export const teamMemberSchema = z.object({
@@ -17,9 +16,7 @@ export const teamMemberSchema = z.object({
   address: z.string().nonempty({ message: "Address is required" }),
   teamRole: z.string().nonempty({ message: "Team role is required" }),
   designation: z.string().nonempty({ message: "Designation is required" }),
-  startDate: z
-    .date({ message: "Start date is required" })
-    .transform((date) => format(date, "dd-MM-yyyy")),
+  startDate: z.string({ message: "Start date is required" }),
   profilePhoto: z.instanceof(File, { message: "Cover image is required" }),
 });
 
@@ -39,4 +36,8 @@ export const updateTeamMemberSchema = z.object({
   address: z.string().optional(),
   teamRole: z.string().optional(),
   designation: z.string().optional(),
+  startDate: z.string().optional(),
+  profilePhoto: z
+    .instanceof(File, { message: "Cover image is required" })
+    .optional(),
 });
