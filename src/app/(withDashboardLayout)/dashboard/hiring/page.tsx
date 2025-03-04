@@ -4,8 +4,8 @@ import { useModal } from '@/hooks/useModal';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
-import HiringTable from './components/HiringTable';
-import CreateUpdateHiringPost from './components/CreateUpdateHiringPost';
+import HiringTable from './_components/HiringTable';
+import CreateUpdateHiringPost from './_components/CreateUpdateHiringPost';
 
 const HiringPage = () => {
     const { isOpen, openModal, closeModal } = useModal();

@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import Modal from '@/components/ui/modal/Modal';
 import { useModal } from '@/hooks/useModal';
 import { Plus } from 'lucide-react';
-import ProjectTable from './components/ProjectTable';
-import CreateUpdateProject from './components/CreateUpdateProject';
+import ProjectTable from './_components/ProjectTable';
+import CreateUpdateProject from './_components/CreateUpdateProject';
 
 const ProjectPage = () => {
     const { isOpen, openModal, closeModal } = useModal();
