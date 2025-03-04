@@ -252,7 +252,8 @@ export default function ETable<T>({
                     col.key === "endDate" ||
                     col.key === "createdAt" ||
                     col.key === "updatedAt" ||
-                    col.key === "applicationDeadline" ? (
+                    col.key === "applicationDeadline" ||
+                    col.key === "submissionDate" ? (
                     formatDateTime(row[col.key] as string)
                   ) : col.key === "packageId.packagePrice" ? (
                     `${String(getNestedValue(row, col.key as string) ?? "-")}$`
