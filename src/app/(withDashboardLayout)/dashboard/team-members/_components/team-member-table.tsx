@@ -128,21 +128,19 @@ export function TeamMembersTable({
                     <TableCell>
                       <div className="flex items-center gap-3">
                         <PhotoProvider>
-                          <PhotoView src={member.profilePhoto ?? "/default-profile.png"}>
+                          <PhotoView src={member.profilePhoto || "/default-profile.png"}>
                             <Avatar>
                               <AvatarImage
-                                src={member.profilePhoto ?? "/default-profile.png"}
-                                alt={member.name}
+                                src={member.profilePhoto || "/default-profile.png"}
+                                alt={member.name || "Unknown"}
                               />
                               <AvatarFallback>
-                                {member.name
-                                  ?.split(" ")
-                                  .map((n) => n[0])
-                                  .join("")}
+                                {member.name ? member.name.split(" ").map(n => n[0]).join("") : "?"}
                               </AvatarFallback>
                             </Avatar>
                           </PhotoView>
                         </PhotoProvider>
+
                         <div>
                           <div className="font-medium">{member.name}</div>
                           <div className="text-sm text-muted-foreground">
