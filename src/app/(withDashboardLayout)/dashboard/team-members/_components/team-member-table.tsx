@@ -154,9 +154,7 @@ export function TeamMembersTable({
                         {member.status}
                       </span>
                     </TableCell>
-                    <TableCell>
-                      {new Date(member.startDate).toLocaleDateString()}
-                    </TableCell>
+                    <TableCell>{member.startDate}</TableCell>
                     <TableCell className="text-right">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>

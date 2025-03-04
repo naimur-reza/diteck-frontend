@@ -3,11 +3,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   useCreateTeamMemberMutation,
+  useDeleteTeamMemberMutation,
   useGetAllTeamMemberQuery,
+  useUpdateTeamMemberMutation,
 } from "@/redux/api/adminApi/teamMemberApi/teamMemberApi";
 import { TTeamMember } from "@/types";
 import { TeamMemberFormData } from "@/types/team-member";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { AddMemberDialog } from "./_components/add-team-dialog";
@@ -17,13 +19,13 @@ import { TeamMembersTable } from "./_components/team-member-table";
 
 export default function TeamMembers() {
   // redux hooks
-  const { data: TeamMembersData, isFetching } =
-    useGetAllTeamMemberQuery(undefined);
-  const [members, setMembers] = useState<TTeamMember[]>(
-    TeamMembersData?.data || []
-  );
+  const { data: members, isFetching } = useGetAllTeamMemberQuery(undefined);
+
   const [createMember, { isLoading: isCreating }] =
     useCreateTeamMemberMutation();
+
+  const [deleteMember] = useDeleteTeamMemberMutation();
+  const [updateMember] = useUpdateTeamMemberMutation();
 
   // states
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -46,11 +48,6 @@ export default function TeamMembers() {
     education: "",
   });
 
-  // fetch all team members
-  useEffect(() => {
-    setMembers(TeamMembersData?.data || []);
-  }, [TeamMembersData]);
-
   const addTeamMember = async (data: FieldValues) => {
     const { profilePhoto, ...restData } = data;
 
@@ -59,8 +56,7 @@ export default function TeamMembers() {
       const formData = new FormData();
       formData.append("data", JSON.stringify(restData));
       formData.append("file", profilePhoto);
-      const newMember = await createMember(formData).unwrap();
-      setMembers([...members, newMember]);
+      const { data: newMember } = await createMember(formData).unwrap();
       setIsAddDialogOpen(false);
       toast.success("Team member added successfully");
 
@@ -70,19 +66,27 @@ export default function TeamMembers() {
     }
   };
 
-  const updateTeamMember = async () => {
+  const updateTeamMember = async (data: FieldValues) => {
     if (!currentMember) return;
+
+    const { profilePhoto, ...restData } = data;
+
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(restData));
+
+    if (profilePhoto) {
+      formData.append("file", profilePhoto);
+    }
 
     setIsLoading(true);
     try {
-      //   const updatedMember = "";
-      //   const updatedMembers = members.map((member) =>
-      //     member.id === currentMember.id
-      //     //   ? { ...member, ...updatedMember }
-      //       : member
-      //   );
-      //   setMembers(updatedMembers);
+      await updateMember({
+        data: formData,
+        id: currentMember._id,
+      });
+
       setIsEditDialogOpen(false);
+      toast.success("Team member updated successfully");
     } catch (error) {
       console.error("Failed to update team member:", error);
     } finally {
@@ -95,12 +99,9 @@ export default function TeamMembers() {
 
     setIsLoading(true);
     try {
-      //   await deleteMember(currentMember.id);
-      const updatedMembers = members.filter(
-        (member) => member._id !== currentMember._id
-      );
-      setMembers(updatedMembers);
+      await deleteMember({ id: currentMember._id });
       setIsDeleteDialogOpen(false);
+      toast.success("Team member deleted successfully");
     } catch (error) {
       console.error("Failed to delete team member:", error);
     } finally {
@@ -149,7 +150,7 @@ export default function TeamMembers() {
         <CardContent>
           <TeamMembersTable
             isFetching={isFetching}
-            members={members}
+            members={members?.data ?? []}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
@@ -165,7 +166,6 @@ export default function TeamMembers() {
         setFormData={setFormData}
         onUpdate={updateTeamMember}
         isLoading={isLoading}
-        resetForm={resetForm}
       />
 
       {/* Delete Confirmation Dialog */}

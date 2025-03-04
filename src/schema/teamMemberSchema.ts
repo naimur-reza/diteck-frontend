@@ -22,3 +22,21 @@ export const teamMemberSchema = z.object({
     .transform((date) => format(date, "dd-MM-yyyy")),
   profilePhoto: z.instanceof(File, { message: "Cover image is required" }),
 });
+
+export const updateTeamMemberSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email({ message: "Invalid email address" }).optional(),
+  phoneNumber: z
+    .string()
+    .min(10, { message: "Phone number must be at least 10 digits" })
+    .max(15, { message: "Phone number cannot exceed 15 digits" })
+    .optional(),
+  emergencyContactNumber: z
+    .string()
+    .min(10, { message: "Emergency contact must be at least 10 digits" })
+    .max(15, { message: "Emergency contact cannot exceed 15 digits" })
+    .optional(),
+  address: z.string().optional(),
+  teamRole: z.string().optional(),
+  designation: z.string().optional(),
+});
