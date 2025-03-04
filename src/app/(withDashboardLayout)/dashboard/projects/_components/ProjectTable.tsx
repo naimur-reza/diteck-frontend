@@ -5,24 +5,26 @@ import { Card, CardContent } from "@/components/ui/card";
 import Modal from "@/components/ui/modal/Modal";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
 import { useModal } from "@/hooks/useModal";
-import { useDeleteBlogMutation, useGetAllBlogsQuery, useSoftDeleteBlogMutation } from "@/redux/api/adminApi/blogApi/blogApi";
-import { TBlog } from "@/types";
+import { useDeleteProjectMutation, useGetAllProjectsQuery, useSoftDeleteProjectMutation } from "@/redux/api/adminApi/projectApi/projectApi";
+import { TProject } from "@/types";
 import { useState } from "react";
 import { toast } from "sonner";
-import CreateUpdateBlog from "./CreateUpdateBlog";
-import ViewBlog from "./ViewBlog";
+import CreateUpdateProject from "./CreateUpdateProject";
+import ViewProject from "./ViewProject";
+import { projectColumns } from "../_constants/constant";
 
-const BlogTable = () => {
+const ProjectTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [limit, setLimit] = useState(50);
+
     const [isDeleteDialog, setIsDeleteDialog] = useState(false);
-    const [singleBlog, setSingleBlog] = useState<TBlog | null>();
+    const [singleProject, setSingleProject] = useState<TProject | null>();
 
     const { isOpen, openModal, closeModal } = useModal();
     const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
-    const { data, isLoading: dataIsLoading } = useGetAllBlogsQuery(undefined);
+    const { data, isLoading: dataIsLoading } = useGetAllProjectsQuery(undefined);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
@@ -33,68 +35,61 @@ const BlogTable = () => {
     };
 
     // handle view modal
-    const handleViewModal = (blog: TBlog) => {
+    const handleViewModal = (project: TProject) => {
         viewOpenModal()
-        setSingleBlog(blog);
+        setSingleProject(project);
     }
 
     // handle edit modal
-    const handleEditModal = (blog: TBlog) => {
+    const handleEditModal = (project: TProject) => {
         openModal()
-        setSingleBlog(blog);
+        setSingleProject(project);
     }
 
     // delete modal
-    const handleDialog = (blog: TBlog) => {
+    const handleDialog = (project: TProject) => {
         setIsDeleteDialog(true)
-        setSingleBlog(blog);
+        setSingleProject(project);
     }
 
     // Hard Delete
-    const [hardDeleteBlog, { isLoading }] = useDeleteBlogMutation();
-    const handleHardDeleteBlog = async () => {
-        if (!singleBlog?._id) return;
+    const [hardDeleteProject, { isLoading }] = useDeleteProjectMutation();
+    const handleHardDeleteProject = async () => {
+        if (!singleProject?._id) return;
 
         try {
-            await hardDeleteBlog({ id: singleBlog._id }).unwrap();
-            toast.success(`Blog "${singleBlog.title}" deleted successfully!`);
+            await hardDeleteProject({ id: singleProject._id }).unwrap();
+            toast.success(`Project "${singleProject.title}" deleted successfully!`);
             setIsDeleteDialog(false);
-            setSingleBlog(null);
+            setSingleProject(null);
         } catch (error) {
             console.error("Delete Error:", error);
-            toast.error("Failed to delete the blog. Please try again.");
+            toast.error("Failed to delete the project. Please try again.");
         }
     };
 
     // Soft Delete
-    const [softDeleteBlog, { isLoading: softIsLoading }] = useSoftDeleteBlogMutation();
-    const handleSoftDeleteBlog = async () => {
-        if (!singleBlog?._id) return;
+    const [softDeleteProject, { isLoading: softIsLoading }] = useSoftDeleteProjectMutation();
+    const handleSoftDeleteProject = async () => {
+        if (!singleProject?._id) return;
 
         try {
-            await softDeleteBlog({ id: singleBlog._id }).unwrap();
-            toast.success(`Blog "${singleBlog.title}" deleted successfully!`);
+            await softDeleteProject({ id: singleProject._id }).unwrap();
+            toast.success(`Project "${singleProject.title}" deleted successfully!`);
             setIsDeleteDialog(false);
-            setSingleBlog(null);
+            setSingleProject(null);
         } catch (error) {
             console.error("Delete Error:", error);
-            toast.error("Failed to delete the blog. Please try again.");
+            toast.error("Failed to delete the project. Please try again.");
         }
     };
-
-    const columns = [
-        { key: "thumbnail", label: "Img" },
-        { key: "title", label: "Title" },
-        { key: "bio", label: "Bio" },
-        { key: "content", label: "Content" },
-    ];
 
     return (
         <div>
             <Card>
                 <CardContent>
                     <TableSearchBar
-                        searchPlaceholder="Search Blog Title..."
+                        searchPlaceholder="Search Project Title..."
                         onSearchChange={handleSearchChange}
                         searchValue={searchTerm}
                         setLimit={setLimit}
@@ -102,8 +97,8 @@ const BlogTable = () => {
                     />
                     <ETable
                         isLoading={dataIsLoading}
-                        columns={columns as TableColumn<TBlog>[]}
-                        data={data?.data as TBlog[]}
+                        columns={projectColumns as TableColumn<TProject>[]}
+                        data={data?.data as TProject[]}
                         onEdit={(row) => handleEditModal(row)}
                         onView={(row) => handleViewModal(row)}
                         onDelete={(row) => handleDialog(row)}
@@ -113,7 +108,7 @@ const BlogTable = () => {
                         meta={data?.meta}
                         handlePageChange={handlePageChange}
                         pageNumber={pageNumber}
-                        defaultKey="blog"
+                        defaultKey="project"
                     />
                 </CardContent>
             </Card>
@@ -121,24 +116,22 @@ const BlogTable = () => {
             <DeleteConfirmationDialog
                 isOpen={isDeleteDialog}
                 setIsOpen={setIsDeleteDialog}
-                entityType="Blog"
-                onHardDelete={handleHardDeleteBlog}
-                onSoftDelete={handleSoftDeleteBlog}
-                entityName={singleBlog?.title as string}
+                entityType="Project"
+                onHardDelete={handleHardDeleteProject}
+                onSoftDelete={handleSoftDeleteProject}
+                entityName={singleProject?.title as string}
                 isLoading={isLoading || softIsLoading}
             />
-
-            {/* Update blog */}
-            <Modal isOpen={isOpen} onClose={closeModal} title='Edit Blog'>
-                <CreateUpdateBlog closeModal={closeModal} blog={singleBlog} />
+            <Modal isOpen={isOpen} onClose={closeModal} title='Edit Project'>
+                <CreateUpdateProject closeModal={closeModal} project={singleProject} />
             </Modal>
 
-            {/* View blog */}
-            <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Blog Details'>
-                <ViewBlog blog={singleBlog} />
+            {/* View Project */}
+            <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Project Details'>
+                <ViewProject project={singleProject} />
             </Modal>
         </div>
     );
 };
 
-export default BlogTable;
+export default ProjectTable;

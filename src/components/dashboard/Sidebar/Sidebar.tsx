@@ -45,6 +45,11 @@ const navigation = [
     icon: FileText,
   },
   {
+    title: "Hiring Post",
+    href: "/dashboard/hiring",
+    icon: Handshake,
+  },
+  {
     title: "Team Members",
     href: "/dashboard/team-members",
     icon: UserCheck,
@@ -63,11 +68,6 @@ const navigation = [
     title: "Users",
     href: "/dashboard/users",
     icon: Users,
-  },
-  {
-    title: "Hiring",
-    href: "/dashboard/hiring",
-    icon: Handshake,
   },
   {
     title: "Services",
@@ -133,9 +133,8 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <Link
                     href={item.href}
-                    className={`pl-5 py-5 flex items-center gap-2 rounded-md  ${
-                      isActive ? "bg-primary text-white" : ""
-                    }`}
+                    className={`pl-5 py-5 flex items-center gap-2 rounded-md  ${isActive ? "bg-primary text-white" : ""
+                      }`}
                   >
                     <item.icon className="size-6" />
                     <span className="text-base">{item.title}</span>

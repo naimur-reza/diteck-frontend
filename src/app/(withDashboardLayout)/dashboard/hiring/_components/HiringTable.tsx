@@ -11,6 +11,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import CreateUpdateHiringPost from "./CreateUpdateHiringPost";
 import ViewHiring from "./ViewHiring";
+import { hiringColumns } from "../_constants/constant";
 
 const HiringTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -82,19 +83,6 @@ const HiringTable = () => {
         }
     };
 
-
-
-    const columns = [
-        { key: "title", label: "Title" },
-        { key: "jobType", label: "Job Type" },
-        { key: "jobNature", label: "Job Nature" },
-        { key: "salaryRange", label: "Salary Range" },
-        { key: "experience", label: "Experience" },
-        { key: "status", label: "Status" },
-        { key: "views", label: "Views" },
-        { key: "applicationDeadline", label: "Application Deadline" },
-    ];
-
     return (
         <div>
             <Card>
@@ -108,7 +96,7 @@ const HiringTable = () => {
                     />
                     <ETable
                         isLoading={dataIsLoading}
-                        columns={columns as TableColumn<THiring>[]}
+                        columns={hiringColumns as TableColumn<THiring>[]}
                         data={data?.data as THiring[]}
                         onEdit={(row) => handleEditModal(row)}
                         onView={(row) => handleViewModal(row)}
