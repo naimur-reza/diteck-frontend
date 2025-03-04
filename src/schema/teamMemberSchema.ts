@@ -16,7 +16,7 @@ export const teamMemberSchema = z.object({
   address: z.string().nonempty({ message: "Address is required" }),
   teamRole: z.string().nonempty({ message: "Team role is required" }),
   designation: z.string().nonempty({ message: "Designation is required" }),
-  startDate: z.date({ message: "Start date is required" }),
+  startDate: z.string({ message: "Start date is required" }),
   profilePhoto: z.instanceof(File, { message: "Cover image is required" }),
 });
 
