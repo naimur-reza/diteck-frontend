@@ -29,6 +29,7 @@ import {
 import { TTeamMember } from "@/types";
 import { Eye, MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 interface TeamMembersTableProps {
   members: TTeamMember[];
@@ -126,18 +127,22 @@ export function TeamMembersTable({
                   <TableRow key={member._id}>
                     <TableCell>
                       <div className="flex items-center gap-3">
-                        <Avatar>
-                          <AvatarImage
-                            src={member.profilePhoto}
-                            alt={member.name}
-                          />
-                          <AvatarFallback>
-                            {member.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </AvatarFallback>
-                        </Avatar>
+                        <PhotoProvider>
+                          <PhotoView src={member.profilePhoto ?? "/default-profile.png"}>
+                            <Avatar>
+                              <AvatarImage
+                                src={member.profilePhoto ?? "/default-profile.png"}
+                                alt={member.name}
+                              />
+                              <AvatarFallback>
+                                {member.name
+                                  ?.split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
+                              </AvatarFallback>
+                            </Avatar>
+                          </PhotoView>
+                        </PhotoProvider>
                         <div>
                           <div className="font-medium">{member.name}</div>
                           <div className="text-sm text-muted-foreground">
