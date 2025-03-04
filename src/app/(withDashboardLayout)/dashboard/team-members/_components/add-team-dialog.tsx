@@ -39,7 +39,7 @@ export function AddMemberDialog({
           Add Member
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-4xl">
+      <DialogContent className="sm:max-w-2xl overflow-y-auto max-h-[calc(95vh-1rem)]">
         <DialogHeader>
           <DialogTitle>Add Team Member</DialogTitle>
           <DialogDescription>

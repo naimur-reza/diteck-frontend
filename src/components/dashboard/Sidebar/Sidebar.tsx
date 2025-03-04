@@ -40,19 +40,24 @@ const navigation = [
     icon: LayoutDashboard,
   },
   {
+    title: "Team Members",
+    href: "/dashboard/team-members",
+    icon: UserCheck,
+  },
+  {
     title: "Job Applications",
     href: "/dashboard/job-applications",
     icon: FileText,
   },
   {
-    title: "Hiring Post",
-    href: "/dashboard/hiring",
-    icon: Handshake,
+    title: "Projects", // previews work
+    href: "/dashboard/projects",
+    icon: Briefcase,
   },
   {
-    title: "Team Members",
-    href: "/dashboard/team-members",
-    icon: UserCheck,
+    title: "Services",
+    href: "/dashboard/services",
+    icon: Globe,
   },
   {
     title: "Reviews",
@@ -70,15 +75,11 @@ const navigation = [
     icon: Users,
   },
   {
-    title: "Services",
-    href: "/dashboard/services",
-    icon: Globe,
+    title: "Hiring",
+    href: "/dashboard/hiring",
+    icon: Handshake,
   },
-  {
-    title: "Projects", // previews work
-    href: "/dashboard/projects",
-    icon: Briefcase,
-  },
+
   {
     title: "Blogs",
     href: "/dashboard/blogs",
@@ -130,11 +131,14 @@ export function AppSidebar() {
 
             return (
               <SidebarMenuItem key={item.href} className="mx-2">
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild className="hover:bg-gray-100">
                   <Link
                     href={item.href}
-                    className={`pl-5 py-5 flex items-center gap-2 rounded-md  ${isActive ? "bg-primary text-white" : ""
-                      }`}
+                    className={`pl-5 py-5 flex items-center gap-2 rounded-md  ${
+                      isActive
+                        ? "bg-primary text-white hover:bg-primary/80 hover:text-white transition-all"
+                        : ""
+                    }`}
                   >
                     <item.icon className="size-6" />
                     <span className="text-base">{item.title}</span>
