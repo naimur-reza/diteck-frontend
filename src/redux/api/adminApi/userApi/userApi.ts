@@ -9,18 +9,9 @@ import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createAdmin: builder.mutation({
+    createUser: builder.mutation({
       query: (data) => ({
-        url: "/user/create-admin",
-        method: "POST",
-        body: data,
-        formData: true,
-      }),
-      invalidatesTags: ["user"],
-    }),
-    createManager: builder.mutation({
-      query: (data) => ({
-        url: "/user/create-manager",
+        url: "/user/create-user",
         method: "POST",
         body: data,
         formData: true,
@@ -47,7 +38,6 @@ export const userApi = baseApi.injectEndpoints({
         return { data: res.data, meta: res.meta };
       },
     }),
-
     getSingleUser: builder.query({
       query: ({ id }) => ({
         url: `/admin-manager/${id}`,
@@ -58,7 +48,6 @@ export const userApi = baseApi.injectEndpoints({
         return { data: res.data, meta: res.meta };
       },
     }),
-
     updateUser: builder.mutation({
       query: ({ data, id }) => ({
         url: `/admin-manager/update/${id}`,
@@ -71,7 +60,6 @@ export const userApi = baseApi.injectEndpoints({
         return res;
       },
     }),
-
     softDeleteUser: builder.mutation({
       query: ({ id }) => ({
         url: `/admin-manager/soft-delete/${id}`,
@@ -79,7 +67,6 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
-
     deleteUser: builder.mutation({
       query: ({ id }) => ({
         url: `/admin-manager/hard-delete/${id}`,
@@ -91,8 +78,7 @@ export const userApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useCreateAdminMutation,
-  useCreateManagerMutation,
+  useCreateUserMutation,
   useGetAllUserQuery,
   useGetSingleUserQuery,
   useUpdateUserMutation,

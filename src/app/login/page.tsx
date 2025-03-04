@@ -27,7 +27,7 @@ const Login = () => {
       const response = await loginUser(data).unwrap();
       // Store user data in Redux
 
-      console.log(response);
+      console.log('response', response);
       dispatch(
         setUser({
           token: response.token,
