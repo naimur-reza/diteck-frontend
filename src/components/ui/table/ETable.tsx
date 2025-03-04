@@ -35,6 +35,7 @@ import {
   ToggleRight,
   CheckCircle,
   XCircle,
+  Trash,
 } from "lucide-react";
 import Image from "next/image";
 import { formatDateTime } from "@/utils";
@@ -50,6 +51,7 @@ interface DataTableProps<T> {
   onEdit?: (row: T) => void;
   onView?: (row: T) => void;
   onDelete?: (row: T) => void;
+  onSoftDelete?: (row: T) => void;
   handleStatusChanger?: (row: T, newStatus: boolean) => void;
   defaultKey?: string;
   handlePageChange?: (page: number) => void;
@@ -69,6 +71,7 @@ export default function ETable<T>({
   onEdit,
   onView,
   onDelete,
+  onSoftDelete,
   handleStatusChanger,
   defaultKey,
   handlePageChange,
@@ -117,6 +120,7 @@ export default function ETable<T>({
             {(onEdit ||
               onView ||
               onDelete ||
+              onSoftDelete ||
               handleStatusChanger ||
               performIfNeeded) && (
               <TableHead className="text-right">Actions</TableHead>
@@ -266,6 +270,7 @@ export default function ETable<T>({
               {(onEdit ||
                 onView ||
                 onDelete ||
+                onSoftDelete ||
                 handleStatusChanger ||
                 handleApprovedAndRejected) && (
                 <TableCell className="text-right">
@@ -355,6 +360,17 @@ export default function ETable<T>({
                             className="text-red-600 cursor-pointer"
                           >
                             <Trash2 className="w-4 h-4 mr-2" /> Delete
+                          </DropdownMenuItem>
+                        </>
+                      )}
+                      {onSoftDelete && (
+                        <>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => onSoftDelete(row)}
+                            className="text-red-600 cursor-pointer"
+                          >
+                            <Trash className="w-4 h-4 mr-2" /> Soft Delete
                           </DropdownMenuItem>
                         </>
                       )}

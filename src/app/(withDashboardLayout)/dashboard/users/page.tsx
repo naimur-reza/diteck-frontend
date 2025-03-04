@@ -3,16 +3,17 @@ import { CommonDialog } from "@/components/dashboard/CommonDialog/CommonDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-import {
-  useDeleteServiceMutation,
-  useGetAllServiceQuery,
-} from "@/redux/api/adminApi/serviceApi/serviceApi";
-import { TAdminAndManager, TError, TService } from "@/types";
+
+import { TAdminAndManager, TError } from "@/types";
 import { useState } from "react";
-import { columns } from "./_constant/constant";
+
 import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
 import Modal from "@/components/ui/modal/Modal";
-import { useGetAllUserQuery } from "@/redux/api/adminApi/userApi/userApi";
+import {
+  useDeleteUserMutation,
+  useGetAllUserQuery,
+  useSoftDeleteUserMutation,
+} from "@/redux/api/adminApi/userApi/userApi";
 import { userColumn } from "./_constants/user";
 import AddAndUpdateUser from "./_components/AddAndUpdateUser";
 
@@ -20,17 +21,19 @@ const User = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [limit, setLimit] = useState(50);
-  const [singleData, setSingleData] = useState<TService | null>(null);
+  const [singleData, setSingleData] = useState<TAdminAndManager | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [isSoftDeleteModal, setIsSoftDeleteModal] = useState(false);
 
   const { data, isLoading } = useGetAllUserQuery([
     { name: "search", value: searchTerm },
-    { name: "isDeleted", value: false },
+    { name: "limit", value: limit },
+    { name: "page", value: pageNumber },
   ]);
   const [
-    deleteService,
+    deleteUser,
     {
       isLoading: dIsloading,
       isSuccess: dIssuccess,
@@ -38,7 +41,17 @@ const User = () => {
       data: dData,
       error: dError,
     },
-  ] = useDeleteServiceMutation();
+  ] = useDeleteUserMutation();
+  const [
+    softDeleteUser,
+    {
+      isLoading: sIsloading,
+      isSuccess: sIssuccess,
+      isError: sIsError,
+      data: sData,
+      error: sError,
+    },
+  ] = useSoftDeleteUserMutation();
 
   const handlePageChange = (newPage: number) => {
     setPageNumber(newPage); // Update the current page
@@ -48,20 +61,25 @@ const User = () => {
     setSearchTerm(value);
   };
 
-  const handleDeleteModal = (item: TService) => {
+  const handleDeleteModal = (item: TAdminAndManager) => {
     setIsDeleteModal(true);
     setSingleData(item);
   };
-  const handleEditModal = (item: TService) => {
+  const handleSoftDeleteModal = (item: TAdminAndManager) => {
+    setIsSoftDeleteModal(true);
+    setSingleData(item);
+  };
+  const handleEditModal = (item: TAdminAndManager) => {
     setIsEditModal(true);
     setSingleData(item);
   };
 
   const handleDelete = () => {
-    deleteService({ id: singleData?._id });
+    deleteUser({ id: singleData?._id });
   };
-
-  console.log(data?.data);
+  const handleSoftDelete = () => {
+    softDeleteUser({ id: singleData?._id });
+  };
 
   return (
     <div className="space-y-6">
@@ -87,7 +105,7 @@ const User = () => {
       {/* table */}
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle>All Services</CardTitle>
+          <CardTitle>All User</CardTitle>
         </CardHeader>
         <CardContent>
           <TableSearchBar
@@ -101,9 +119,10 @@ const User = () => {
             isLoading={isLoading}
             columns={userColumn as TableColumn<TAdminAndManager>[]}
             data={data?.data as TAdminAndManager[]}
-            // onEdit={handleEditModal}
+            onEdit={handleEditModal}
             onView={(row) => console.log("View:", row)}
-            // onDelete={handleDeleteModal}
+            onDelete={handleDeleteModal}
+            onSoftDelete={handleSoftDeleteModal}
             meta={data?.meta}
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
@@ -117,10 +136,9 @@ const User = () => {
         onClose={() => setIsEditModal(false)}
         title="edit user"
       >
-        <AddAndUpdateUser />
+        <AddAndUpdateUser setIsOpen={setIsEditModal} />
       </Modal>
-
-      {/* <DeleteConfirm
+      <DeleteConfirm
         isError={dIsError}
         setIsOpen={setIsDeleteModal}
         isLoading={dIsloading}
@@ -129,8 +147,19 @@ const User = () => {
         isSuccess={dIssuccess}
         data={dData}
         error={dError as TError}
-        title="are you sure to delete this service?"
-      ></DeleteConfirm> */}
+        title="are you sure to delete this user?"
+      ></DeleteConfirm>
+      <DeleteConfirm
+        isError={sIsError}
+        setIsOpen={setIsSoftDeleteModal}
+        isLoading={sIsloading}
+        isOpen={isSoftDeleteModal}
+        onDelete={handleSoftDelete}
+        isSuccess={sIssuccess}
+        data={sData}
+        error={sError as TError}
+        title="are you sure to soft delete this user?"
+      ></DeleteConfirm>
     </div>
   );
 };
