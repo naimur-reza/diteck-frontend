@@ -92,7 +92,7 @@ const Reviews = () => {
             isLoading={isLoading}
             columns={reviewColumns as TableColumn<TReview>[]}
             data={data?.data as TReview[]}
-            onView={handleView}
+            onView={(row) => handleView(row)}
             meta={data?.meta}
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
