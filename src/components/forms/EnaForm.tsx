@@ -53,7 +53,7 @@ const EnaForm = ({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(submit)}>
+      <form className="w-full" onSubmit={handleSubmit(submit)}>
         {children}
 
         {buttonText && (
