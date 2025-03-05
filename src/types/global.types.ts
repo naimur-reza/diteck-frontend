@@ -35,6 +35,11 @@ export type TMeta = {
   totalPage: number;
 };
 
+export type error = {
+  data: {
+    message: string;
+  };
+};
 export type TResponse<T> = {
   data?: T;
   error?: TError;

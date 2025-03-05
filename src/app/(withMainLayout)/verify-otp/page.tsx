@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   InputOTP,
@@ -16,19 +16,49 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Mail, ArrowRight } from "lucide-react";
+import { useVerifyOTPMutation } from "@/redux/api/otpApi/otpApi";
+import { useCreateRequestQueryMutation } from "@/redux/api/adminApi/queryApi/queryApi";
+import { toast } from "sonner";
+import { error } from "@/types";
 
 const VerifyOtp = () => {
+  const [verifyOtp, { isLoading: isVerifying }] = useVerifyOTPMutation();
+  const [requestQuery, { isLoading: isRequesting }] =
+    useCreateRequestQueryMutation();
   const [value, setValue] = useState("");
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
 
-  const onSubmit = async () => {
-    if (value.length === 6) {
-      // Implement your OTP verification logic here
-      console.log("Verifying OTP:", value);
-      // If successful, redirect to the success page
-      // router.push("/success");
+  useEffect(() => {
+    if (!email) {
+      router.push("/");
+    }
+  }, [email, router]);
+
+  const handleVerify = async () => {
+    if (value.length === 6 && email) {
+      try {
+        const response = await verifyOtp({ email, otp: value }).unwrap();
+        if (response.success) {
+          setValue("");
+          toast.success("OTP Verified Successfully");
+        }
+      } catch (error) {
+        toast.error((error as error)?.data?.message || "Verification failed");
+      }
+    }
+  };
+
+  const handleResend = async () => {
+    if (email) {
+      setValue("");
+      try {
+        await requestQuery({ email }).unwrap();
+        toast.success("OTP Resent Successfully");
+      } catch (error) {
+        toast.error((error as error)?.data?.message || "Failed to resend OTP");
+      }
     }
   };
 
@@ -51,40 +81,44 @@ const VerifyOtp = () => {
             <InputOTP
               maxLength={6}
               value={value}
-              onChange={(value) => setValue(value)}
+              onChange={setValue}
               className="gap-2"
             >
-              <InputOTPGroup>
-                <InputOTPSlot index={0} className="rounded-md border-2" />
-                <InputOTPSlot index={1} className="rounded-md border-2" />
-                <InputOTPSlot index={2} className="rounded-md border-2" />
-                <InputOTPSlot index={3} className="rounded-md border-2" />
-                <InputOTPSlot index={4} className="rounded-md border-2" />
-                <InputOTPSlot index={5} className="rounded-md border-2" />
+              <InputOTPGroup className="space-x-2">
+                {[...Array(6)].map((_, index) => (
+                  <InputOTPSlot
+                    key={index}
+                    index={index}
+                    className="rounded-md border-2 size-12"
+                  />
+                ))}
               </InputOTPGroup>
             </InputOTP>
           </div>
           <p className="text-center text-sm text-muted-foreground">
-            {value === "" ? (
-              <>Enter the 6-digit code sent to your email.</>
-            ) : (
-              <>You entered: {value}</>
-            )}
+            {value === ""
+              ? "Enter the 6-digit code sent to your email."
+              : `You entered: ${value}`}
           </p>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
           <Button
-            onClick={onSubmit}
+            onClick={handleVerify}
             className="w-full"
-            disabled={value.length !== 6}
+            disabled={value.length !== 6 || isVerifying}
           >
-            Verify Email
+            {isVerifying ? "Verifying..." : "Verify Email"}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <p className="text-center text-sm text-muted-foreground">
             Did not receive the code?{" "}
-            <Button variant="link" className="p-0 h-auto font-normal">
-              Resend
+            <Button
+              onClick={handleResend}
+              variant="link"
+              className="p-0 h-auto font-normal"
+              disabled={isRequesting}
+            >
+              {isRequesting ? "Resending..." : "Resend"}
             </Button>
           </p>
         </CardFooter>

@@ -1,8 +1,8 @@
 "use client";
 
 import { useCreateRequestQueryMutation } from "@/redux/api/adminApi/queryApi/queryApi";
+import { error } from "@/types";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -14,14 +14,20 @@ const ContactForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [requestQuery, { isLoading, isError, isSuccess, data, error }] =
-    useCreateRequestQueryMutation();
+  const [requestQuery, { isLoading }] = useCreateRequestQueryMutation();
 
   const onSubmit = async (data: FieldValues) => {
-    const response = await requestQuery({ email: data?.email }).unwrap();
-    if (response?.success) {
-      toast.success(response?.message);
-      router.push(`/verify-otp?email=${data.email}`);
+    try {
+      const response = await requestQuery({ email: data?.email }).unwrap();
+      if (response?.success) {
+        toast.success(response?.message);
+        router.push(`/verify-otp?email=${data.email}`);
+      }
+    } catch (error) {
+      toast.error(
+        (error as error)?.data?.message ||
+          "You already have a pending query. Please wait until it is resolved."
+      );
     }
   };
 
@@ -85,13 +91,14 @@ const ContactForm = () => {
       )}
 
       <input
-        className={`${inputStyle} bg-primary col-span-2 hover:bg-primary/90 transition-colors cursor-pointer text-white`}
+        className={`${inputStyle} bg-primary col-span-2 hover:bg-primary/90 transition-colors cursor-pointer text-white disabled:opacity-50`}
         type="submit"
-        value="Submit"
+        value={isLoading ? "Submitting..." : "Submit"}
+        disabled={isLoading}
       />
     </form>
   );
 };
 
 export default ContactForm;
-const inputStyle = "rounded  px-4 py-3 rounded-2xl focus:outline-none w-full  ";
+const inputStyle = "rounded px-4 py-3 rounded-2xl focus:outline-none w-full";
