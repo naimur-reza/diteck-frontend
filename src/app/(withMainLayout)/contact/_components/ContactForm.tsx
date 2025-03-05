@@ -4,6 +4,7 @@ import { useCreateRequestQueryMutation } from "@/redux/api/adminApi/queryApi/que
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const ContactForm = () => {
   const router = useRouter();
@@ -19,6 +20,7 @@ const ContactForm = () => {
   const onSubmit = async (data: FieldValues) => {
     const response = await requestQuery({ email: data?.email }).unwrap();
     if (response?.success) {
+      toast.success(response?.message);
       router.push(`/verify-otp?email=${data.email}`);
     }
   };
