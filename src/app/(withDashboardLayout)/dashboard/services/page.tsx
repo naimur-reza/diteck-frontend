@@ -25,11 +25,17 @@ const Services = () => {
   const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
 
-  const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
+  const {
+    isOpen: ViewIsOpen,
+    openModal: viewOpenModal,
+    closeModal: viewCloseModal,
+  } = useModal();
 
   const { data, isLoading } = useGetAllServiceQuery([
     { name: "search", value: searchTerm },
     { name: "isDeleted", value: false },
+    { name: "limit", value: limit },
+    { name: "page", value: pageNumber },
   ]);
   const [
     deleteService,
@@ -52,9 +58,9 @@ const Services = () => {
 
   // handle view modal
   const handleViewModal = (service: TService) => {
-    viewOpenModal()
+    viewOpenModal();
     setSingleData(service);
-  }
+  };
 
   const handleDeleteModal = (item: TService) => {
     setIsDeleteModal(true);
@@ -139,7 +145,11 @@ const Services = () => {
       />
 
       {/* View Service */}
-      <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Service Details'>
+      <Modal
+        isOpen={ViewIsOpen}
+        onClose={viewCloseModal}
+        title="Service Details"
+      >
         <ViewService service={singleData} />
       </Modal>
     </div>
