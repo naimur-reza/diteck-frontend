@@ -1,0 +1,133 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Mail, ArrowRight } from "lucide-react";
+import { useVerifyOTPMutation } from "@/redux/api/otpApi/otpApi";
+import { useCreateRequestQueryMutation } from "@/redux/api/adminApi/queryApi/queryApi";
+import { toast } from "sonner";
+import { error } from "@/types";
+
+const VerifyOtp = () => {
+  const [verifyOtp, { isLoading: isVerifying }] = useVerifyOTPMutation();
+  const [requestQuery, { isLoading: isRequesting }] =
+    useCreateRequestQueryMutation();
+  const [value, setValue] = useState("");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const email = searchParams.get("email");
+
+  useEffect(() => {
+    if (!email) {
+      router.push("/");
+    }
+  }, [email, router]);
+
+  const handleVerify = async () => {
+    if (value.length === 6 && email) {
+      try {
+        const response = await verifyOtp({ email, otp: value }).unwrap();
+        if (response.success) {
+          setValue("");
+          toast.success(
+            "OTP Verified Successfully and redirected to submit your query"
+          );
+          router.push(`/submit-query?email=${email}&verified=true`);
+        }
+      } catch (error) {
+        toast.error((error as error)?.data?.message || "Verification failed");
+      }
+    }
+  };
+
+  const handleResend = async () => {
+    if (email) {
+      setValue("");
+      try {
+        await requestQuery({ email }).unwrap();
+        toast.success("OTP Resent Successfully");
+      } catch (error) {
+        toast.error((error as error)?.data?.message || "Failed to resend OTP");
+      }
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex justify-center items-center bg-[#F2F1F6]">
+      <Card className="w-full max-w-md shadow-lg">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-center">
+            Verify Your Email
+          </CardTitle>
+          <p className="text-center text-muted-foreground">
+            We have sent a code to {email || "your email"}
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex justify-center">
+            <Mail className="h-12 w-12 text-primary" />
+          </div>
+          <div className="flex justify-center">
+            <InputOTP
+              maxLength={6}
+              value={value}
+              onChange={setValue}
+              className="gap-2"
+            >
+              <InputOTPGroup className="space-x-2">
+                {[...Array(6)].map((_, index) => (
+                  <InputOTPSlot
+                    key={index}
+                    index={index}
+                    className="rounded-md border-2 size-12"
+                  />
+                ))}
+              </InputOTPGroup>
+            </InputOTP>
+          </div>
+          <p className="text-center text-sm text-muted-foreground">
+            {value === ""
+              ? "Enter the 6-digit code sent to your email."
+              : `You entered: ${value}`}
+          </p>
+        </CardContent>
+        <CardFooter className="flex flex-col space-y-4">
+          <Button
+            onClick={handleVerify}
+            className="w-full"
+            disabled={value.length !== 6 || isVerifying}
+          >
+            {isVerifying ? "Verifying..." : "Verify Email"}
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+          <p className="text-center text-sm text-muted-foreground">
+            Did not receive the code?{" "}
+            <Button
+              onClick={handleResend}
+              variant="link"
+              className="p-0 h-auto font-normal"
+              disabled={isRequesting}
+            >
+              {isRequesting ? "Resending..." : "Resend"}
+            </Button>
+          </p>
+        </CardFooter>
+      </Card>
+    </div>
+  );
+};
+
+export default VerifyOtp;
