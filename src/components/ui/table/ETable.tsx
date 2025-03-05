@@ -338,15 +338,6 @@ export default function ETable<T>({
                         </DropdownMenuItem>
                       )}
 
-                      {onEdit && (
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => onEdit(row)}
-                        >
-                          <Pencil className="w-4 h-4 mr-2" /> Edit
-                        </DropdownMenuItem>
-                      )}
-
                       {handleStatusChanger && (
                         <DropdownMenuItem className="flex justify-between items-center">
                           <div className="flex items-center gap-2">

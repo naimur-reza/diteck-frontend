@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[95vh] w-full sm:max-w-2xl  overflow-hidden rounded-2xl p-4">
+      <DialogContent className="max-h-[95vh] w-full sm:max-w-2xl  overflow-hidden rounded-2xl p-4 md:p-6">
         <div className="sticky top-0 z-10 bg-background ">
           <button
             onClick={onClose}
