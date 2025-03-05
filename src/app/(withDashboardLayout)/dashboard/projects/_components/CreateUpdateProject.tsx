@@ -10,8 +10,11 @@ import { useCreateProjectMutation, useUpdateProjectMutation } from "@/redux/api/
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import { projectSchema } from "@/schema/projectSchema";
 import { TProject } from "@/types";
+import { useAppSelector } from "@/redux/hooks";
 
 const CreateUpdateProject = ({ closeModal, project }: { closeModal: () => void, project?: TProject | null | undefined }) => {
+    const { user } = useAppSelector(state => state.auth);
+
     const [createProject, { isLoading }] = useCreateProjectMutation();
     const [updateProject, { isLoading: updateIsLoading }] = useUpdateProjectMutation();
 
@@ -29,7 +32,7 @@ const CreateUpdateProject = ({ closeModal, project }: { closeModal: () => void, 
                 requirement: data.requirement,
                 timeTakenToDevelop: data.timeTakenToDevelop,
                 category: data.category,
-                createdBy: "65a3f2b9d4eabc1234567892",
+                createdBy: user?._id,
                 frontendTech: data?.frontendTech || [],
                 backendTech: data?.backendTech || [],
                 databases: data?.databases || [],

@@ -12,7 +12,6 @@ import { toast } from "sonner";
 import CreateUpdateBlog from "./CreateUpdateBlog";
 import ViewBlog from "./ViewBlog";
 import { blogColumns } from "../_constants/constant";
-import { useAppSelector } from "@/redux/hooks";
 
 const BlogTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -83,9 +82,6 @@ const BlogTable = () => {
             toast.error("Failed to delete the blog. Please try again.");
         }
     };
-
-    const { token } = useAppSelector((state) => state.auth)
-    console.log('token', token);
 
     return (
         <div>
