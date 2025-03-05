@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import Modal from "@/components/ui/modal/Modal";
 import { useModal } from "@/hooks/useModal";
 import {
@@ -21,8 +21,17 @@ import { TeamMembersTable } from "./_components/team-member-table";
 import ViewMember from "./_components/ViewMember";
 
 export default function TeamMembers() {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [limit, setLimit] = useState(50);
+
   // redux hooks
-  const { data: members, isFetching } = useGetAllTeamMemberQuery(undefined);
+  const { data: members, isFetching } = useGetAllTeamMemberQuery([
+    { name: "searchTerm", value: searchTerm },
+    { name: "isDeleted", value: false },
+    { name: "limit", value: limit },
+    { name: "page", value: pageNumber },
+  ]);
 
   const [createMember, { isLoading: isCreating }] =
     useCreateTeamMemberMutation();
@@ -161,9 +170,6 @@ export default function TeamMembers() {
       </div>
 
       <Card>
-        <CardHeader className="pb-3">
-          <CardTitle>All Team Members</CardTitle>
-        </CardHeader>
         <CardContent>
           <TeamMembersTable
             isFetching={isFetching}

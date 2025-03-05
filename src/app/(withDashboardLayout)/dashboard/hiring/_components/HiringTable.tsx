@@ -11,20 +11,26 @@ import { useState } from "react";
 import { toast } from "sonner";
 import CreateUpdateHiringPost from "./CreateUpdateHiringPost";
 import ViewHiring from "./ViewHiring";
-import { hiringColumns } from "../_constants/constant";
+import { hiringColumns, hiringStatusOptions } from "../_constants/constant";
 
 const HiringTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [limit, setLimit] = useState(50);
-
+    const [status, setStatus] = useState<string>("active");
     const [isDeleteDialog, setIsDeleteDialog] = useState(false);
     const [singleHiring, setSingleHiring] = useState<THiring | null>();
 
     const { isOpen, openModal, closeModal } = useModal();
     const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
-    const { data, isLoading: dataIsLoading } = useGetAllHiringPostQuery(undefined);
+    const { data, isLoading: dataIsLoading, isFetching } = useGetAllHiringPostQuery([
+        { name: "searchTerm", value: searchTerm },
+        { name: "status", value: status },
+        { name: "isDeleted", value: false },
+        { name: "limit", value: limit },
+        { name: "page", value: pageNumber },
+    ]);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
@@ -93,9 +99,12 @@ const HiringTable = () => {
                         searchValue={searchTerm}
                         setLimit={setLimit}
                         limit={limit}
+                        status={status}
+                        setStatus={setStatus}
+                        statusOptions={hiringStatusOptions}
                     />
                     <ETable
-                        isLoading={dataIsLoading}
+                        isLoading={dataIsLoading || isFetching}
                         columns={hiringColumns as TableColumn<THiring>[]}
                         data={data?.data as THiring[]}
                         onEdit={(row) => handleEditModal(row)}
