@@ -1,20 +1,20 @@
 "use client";
 import { CommonDialog } from "@/components/dashboard/CommonDialog/CommonDialog";
+import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
 import { Card, CardContent } from "@/components/ui/card";
+import Modal from "@/components/ui/modal/Modal";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
+import { useModal } from "@/hooks/useModal";
 import {
   useDeleteServiceMutation,
   useGetAllServiceQuery,
 } from "@/redux/api/adminApi/serviceApi/serviceApi";
 import { TError, TService } from "@/types";
 import { useState } from "react";
-import { columns } from "./_constant/constant";
-import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
 import AddAndEditService from "./_components/AddAndEditService";
-import Modal from "@/components/ui/modal/Modal";
-import { useModal } from "@/hooks/useModal";
 import ViewService from "./_components/ViewService";
+import { columns } from "./_constant/constant";
 
 const Services = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -31,8 +31,8 @@ const Services = () => {
     closeModal: viewCloseModal,
   } = useModal();
 
-  const { data, isLoading } = useGetAllServiceQuery([
-    { name: "search", value: searchTerm },
+  const { data, isLoading, isFetching } = useGetAllServiceQuery([
+    { name: "searchTerm", value: searchTerm },
     { name: "isDeleted", value: false },
     { name: "limit", value: limit },
     { name: "page", value: pageNumber },
@@ -111,7 +111,7 @@ const Services = () => {
             limit={limit}
           />
           <ETable
-            isLoading={isLoading}
+            isLoading={isLoading || isFetching}
             columns={columns as TableColumn<TService>[]}
             data={data?.data as TService[]}
             onEdit={handleEditModal}
@@ -150,7 +150,7 @@ const Services = () => {
         onClose={viewCloseModal}
         title="Service Details"
       >
-        <ViewService service={singleData} />
+        <ViewService service={singleData as TService} />
       </Modal>
     </div>
   );

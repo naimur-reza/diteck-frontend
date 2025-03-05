@@ -1,18 +1,15 @@
+import { teamRoles } from "@/constants/teamRoles";
+import { TTeamMember } from "@/types";
 import { PlusIcon } from "lucide-react";
 
-interface TMemBer {
-  imgUrl: string;
-  name: string;
-  position: string;
-}
-export const TeamMemberCard = ({ item }: { item: TMemBer }) => {
+export const TeamMemberCard = ({ item }: { item: TTeamMember }) => {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-t-[20px]  rounded-bl-[20px] group cursor-pointer ">
       {/* image */}
       <div
         className="relative teamMember bg-cover  bg-no-repeat h-[500px]  w-full   "
         style={{
-          backgroundImage: `url(${item.imgUrl})`,
+          backgroundImage: `url(${item.profilePhoto})`,
         }}
       ></div>
       <div className=" z-10 absolute inset-x-0 h-0 group-hover:h-[300px] duration-500  bottom-0 bg-gradient-to-t from-[#5963c8]/[5] to-[#5963c8]/[2%] "></div>
@@ -23,7 +20,9 @@ export const TeamMemberCard = ({ item }: { item: TMemBer }) => {
           <h3 className="   text-3xl lg:text-4xl xl:text-[40px] xl:leading-14  font-bold mt-4">
             {item.name}
           </h3>
-          <p className=" text-[16px]  ">{item.position}</p>
+          <p className=" text-[16px]">
+            {teamRoles.find((role) => role.value === item.teamRole)?.label}
+          </p>
         </div>
       </div>
 

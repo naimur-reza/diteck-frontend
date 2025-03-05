@@ -10,11 +10,13 @@ export const querySchema = z.object({
   companyName: z.string().optional(),
   website: z.string().url("Invalid URL").optional(),
   facebookPage: z.string().url("Invalid URL").optional(),
-  whatTheySale: z.string().min(1, "This field is required"),
   location: z.string().min(1, "Location is required"),
   language: z.string().min(1, "Language is required"),
-  queryCategory: z.enum(["general", "technical", "sales"], {
+  queryCategory: z.enum(["general", "service-related"], {
     required_error: "Query Category is required",
+  }),
+  whatTheySale: z.enum(["product", "services", "other"], {
+    required_error: "This field is required",
   }),
   budgetRange: z.object({
     min: z.number().min(1, "Minimum budget must be greater than 0"),

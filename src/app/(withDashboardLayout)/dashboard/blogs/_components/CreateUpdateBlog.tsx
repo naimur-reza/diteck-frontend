@@ -10,10 +10,13 @@ import { useCreateBlogMutation, useUpdateBlogMutation } from "@/redux/api/adminA
 import { blogSchema } from "@/schema/blogSchema";
 import { EnaFileUpload } from "@/components/forms";
 import { TBlog } from "@/types";
+import { useAppSelector } from "@/redux/hooks";
 
 const CreateUpdateBlog = ({ closeModal, blog }: { closeModal: () => void, blog?: TBlog | null | undefined }) => {
     const [createBlog, { isLoading }] = useCreateBlogMutation();
     const [updateBlog, { isLoading: updateIsLoading }] = useUpdateBlogMutation();
+
+    const { user } = useAppSelector(state => state.auth);
 
     const handleCreateUpdate = async (data: FieldValues) => {
         try {
@@ -22,7 +25,7 @@ const CreateUpdateBlog = ({ closeModal, blog }: { closeModal: () => void, blog?:
             const jsonData = {
                 title: data.title,
                 bio: data.bio,
-                author: "65a3f2b9d4eabc1234567892",
+                author: user?._id,
                 content: data.content,
             };
 

@@ -1,12 +1,10 @@
 "use client";
 import { CommonDialog } from "@/components/dashboard/CommonDialog/CommonDialog";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
-
 import { TAdminAndManager, TError } from "@/types";
 import { useState } from "react";
-
 import DeleteConfirm from "@/components/dashboard/DeleteConfirm/DeleteConfirm";
 import Modal from "@/components/ui/modal/Modal";
 import {
@@ -29,8 +27,8 @@ const User = () => {
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [isSoftDeleteModal, setIsSoftDeleteModal] = useState(false);
 
-  const { data, isLoading } = useGetAllUserQuery([
-    { name: "search", value: searchTerm },
+  const { data, isLoading, isFetching } = useGetAllUserQuery([
+    { name: "searchTerm", value: searchTerm },
     { name: "limit", value: limit },
     { name: "page", value: pageNumber },
   ]);
@@ -127,9 +125,6 @@ const User = () => {
 
       {/* table */}
       <Card>
-        <CardHeader className="pb-3">
-          <CardTitle>All User</CardTitle>
-        </CardHeader>
         <CardContent>
           <TableSearchBar
             searchPlaceholder="Search book title"
@@ -139,7 +134,7 @@ const User = () => {
             limit={limit}
           />
           <ETable
-            isLoading={isLoading}
+            isLoading={isLoading || isFetching}
             columns={userColumn as TableColumn<TAdminAndManager>[]}
             data={data?.data as TAdminAndManager[]}
             onEdit={handleEditModal}
@@ -174,7 +169,7 @@ const User = () => {
         data={dData}
         error={dError as TError}
         title="are you sure to delete this user?"
-      ></DeleteConfirm>
+      />
       <DeleteConfirm
         isError={sIsError}
         setIsOpen={setIsSoftDeleteModal}
@@ -185,7 +180,7 @@ const User = () => {
         data={sData}
         error={sError as TError}
         title="are you sure to soft delete this user?"
-      ></DeleteConfirm>
+      />
     </div>
   );
 };

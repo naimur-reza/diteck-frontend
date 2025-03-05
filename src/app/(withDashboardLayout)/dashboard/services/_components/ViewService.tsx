@@ -5,7 +5,7 @@ import { CalendarIcon, Clock, DollarSign } from "lucide-react";
 import Image from "next/image";
 import { formatDateTime } from "@/utils";
 
-const ViewService = ({ service }: { service?: TService }) => {
+const ViewService = ({ service }: { service?: TService | null | undefined }) => {
   if (!service) {
     return (
       <div className="flex items-center justify-center h-96">

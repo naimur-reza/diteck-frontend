@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -9,6 +10,8 @@ import { toast } from "sonner";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { TError } from "@/types";
+import { useNotification } from "@/hooks/useNotification";
 
 const SubmitQuery = () => {
   const searchParams = useSearchParams();
@@ -45,23 +48,22 @@ const SubmitQuery = () => {
   useEffect(() => {
     if (isSuccess) {
       setIsSubmitted(true);
-      toast.success("Query submitted successfully!");
     }
+  }, [isSuccess]);
 
-    if (isError && error) {
-      if ("data" in error) {
-        toast.error((error.data as any)?.message || "Failed to submit query");
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-    }
-  }, [isSuccess, isError, error]);
+  useNotification({
+    isLoading: isLoading,
+    isError: isError,
+    isSuccess: isSuccess,
+    data: data || {},
+    error: error as TError,
+  });
 
   const onSubmit = async (formData: any) => {
     try {
       await createQuery(formData).unwrap();
     } catch (err) {
-      console.error("Error submitting query:", err);
+      //   console.error("Error submitting query:",);
     }
   };
 
@@ -170,6 +172,7 @@ const SubmitQuery = () => {
                 id="contactMethod"
                 className={selectStyle}
               >
+                <option value="">Select Contact</option>
                 <option value="email">Email</option>
                 <option value="phone">Phone</option>
               </select>
@@ -230,13 +233,16 @@ const SubmitQuery = () => {
 
             {/* What They Sell */}
             <div>
-              <input
+              <select
                 {...register("whatTheySale")}
                 id="whatTheySale"
-                className={`${inputStyle} bg-white`}
-                type="text"
-                placeholder="What They Sell"
-              />
+                className={selectStyle}
+              >
+                <option value="">Select what you sale</option>
+                <option value="product">Product</option>
+                <option value="services">Services</option>
+                <option value="other">Other</option>
+              </select>
               {errors.whatTheySale && (
                 <p className={errorStyle}>
                   {errors.whatTheySale.message?.toString()}
@@ -283,9 +289,9 @@ const SubmitQuery = () => {
                 id="queryCategory"
                 className={selectStyle}
               >
+                <option value="">Select Category</option>
                 <option value="general">General</option>
-                <option value="technical">Technical Support</option>
-                <option value="sales">Sales Inquiry</option>
+                <option value="service-related">Service related</option>
               </select>
               {errors.queryCategory && (
                 <p className={errorStyle}>

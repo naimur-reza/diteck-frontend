@@ -27,7 +27,7 @@ const Login = () => {
       const response = await loginUser(data).unwrap();
       // Store user data in Redux
 
-      console.log('response', response);
+      console.log("response", response);
       dispatch(
         setUser({
           token: response.token,
@@ -63,7 +63,7 @@ const Login = () => {
           schema={loginSchema}
           defaultValues={{
             email: "super.admin@example.com",
-            password: "securePassword123",
+            password: "12345678",
           }}
         >
           <EnaInput

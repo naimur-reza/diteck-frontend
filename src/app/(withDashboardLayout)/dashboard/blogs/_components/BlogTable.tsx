@@ -12,7 +12,6 @@ import { toast } from "sonner";
 import CreateUpdateBlog from "./CreateUpdateBlog";
 import ViewBlog from "./ViewBlog";
 import { blogColumns } from "../_constants/constant";
-import { useAppSelector } from "@/redux/hooks";
 
 const BlogTable = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -24,7 +23,12 @@ const BlogTable = () => {
     const { isOpen, openModal, closeModal } = useModal();
     const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
-    const { data, isLoading: dataIsLoading } = useGetAllBlogsQuery(undefined);
+    const { data, isLoading: dataIsLoading, isFetching } = useGetAllBlogsQuery([
+        { name: "searchTerm", value: searchTerm },
+        { name: "isDeleted", value: false },
+        { name: "limit", value: limit },
+        { name: "page", value: pageNumber },
+    ]);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
@@ -84,9 +88,6 @@ const BlogTable = () => {
         }
     };
 
-    const { token } = useAppSelector((state) => state.auth)
-    console.log('token', token);
-
     return (
         <div>
             <Card>
@@ -99,7 +100,7 @@ const BlogTable = () => {
                         limit={limit}
                     />
                     <ETable
-                        isLoading={dataIsLoading}
+                        isLoading={dataIsLoading || isFetching}
                         columns={blogColumns as TableColumn<TBlog>[]}
                         data={data?.data as TBlog[]}
                         onEdit={(row) => handleEditModal(row)}
