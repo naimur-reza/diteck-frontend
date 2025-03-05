@@ -42,7 +42,10 @@ const VerifyOtp = () => {
         const response = await verifyOtp({ email, otp: value }).unwrap();
         if (response.success) {
           setValue("");
-          toast.success("OTP Verified Successfully");
+          toast.success(
+            "OTP Verified Successfully and redirected to submit your query"
+          );
+          router.push(`/submit-query?email=${email}&verified=true`);
         }
       } catch (error) {
         toast.error((error as error)?.data?.message || "Verification failed");

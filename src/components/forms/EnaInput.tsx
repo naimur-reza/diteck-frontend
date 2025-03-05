@@ -23,7 +23,8 @@ const EnaInput: React.FC<EnaInputProps> = ({
       <Controller
         control={control}
         name={name}
-        defaultValue={rest.defaultValue ?? ""}
+      
+        defaultValue={type === "number" ? 0 : ""}
         render={({ field, fieldState: { error } }) => (
           <div className="grid gap-2">
             {label && <Label htmlFor={name}>{label}</Label>}
@@ -31,15 +32,21 @@ const EnaInput: React.FC<EnaInputProps> = ({
               {...field}
               {...rest}
               type={type}
-              value={type === "number" ? field.value ?? "" : field.value}
-              // onChange={(e) => {
-              //   let value: string | number = e.target.value;
-              //   if (type === "number") {
-              //     value = value === "" ? "" : parseFloat(value);
-              //     if (isNaN(value as number)) value = "";
-              //   }
-              //   field.onChange(value);
-              // }}
+              value={
+                type === "number"
+                  ? field.value !== undefined
+                    ? Number(field.value)
+                    : ""
+                  : field.value
+              }
+              onChange={(e) => {
+                let value: number | string = e.target.value;
+                if (type === "number") {
+                  const parsedValue = Number(value);
+                  value = isNaN(parsedValue) ? "" : parsedValue;
+                }
+                field.onChange(value);
+              }}
               className={classNames(
                 "border rounded-md p-2 focus:outline-none",
                 {
