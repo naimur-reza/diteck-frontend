@@ -13,9 +13,10 @@ import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import { EnaFileUpload, EnaSelect } from "@/components/forms";
 import { THiring } from "@/types";
 import { jobTypes, status } from "../_constants/constant";
+import { useAppSelector } from "@/redux/hooks";
 
 const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void, hiring?: THiring | null | undefined }) => {
-
+    const { user } = useAppSelector(state => state.auth);
     const [createHiringPost, { isLoading }] = useCreateHiringPostMutation();
     const [updateHiringPost, { isLoading: updateIsLoading }] = useUpdateHiringPostMutation();
 
@@ -39,7 +40,7 @@ const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void
                 jobType: data.jobType,
                 status: data.status,
                 department: data.department,
-                createdBy: "67c6c4455e0b7f4eece38bab",
+                createdBy: user?._id,
 
                 requirements: data.requirements || [],
                 skillsRequired: data?.skillsRequired || [],

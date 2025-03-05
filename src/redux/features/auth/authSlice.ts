@@ -6,6 +6,7 @@ export type TUser = {
   userName: string;
   iat: number;
   exp: number;
+  _id?: string;
   role: "admin" | "user" | "superAdmin" | "superUser";
 };
 
