@@ -13,12 +13,12 @@ async function getTeamMembers() {
     );
 
     if (!response.ok) {
-      throw new Error("Failed to fetch services");
+      throw new Error("Failed to fetch team members");
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Error fetching services:", error);
+    console.error("Error fetching team members:", error);
     return { data: [] };
   }
 }

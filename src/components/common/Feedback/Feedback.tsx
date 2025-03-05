@@ -1,22 +1,18 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { PulseButton } from "@/components/ui";
+import { TReview } from "@/types";
 import "swiper/css";
 import "swiper/css/pagination";
-import { PulseButton } from "@/components/ui";
+import { Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-type TFeedback = {
-  name: string;
-  quote: string;
-  position: string;
-};
 export const Feedback = ({
   buttonText,
   feedbackData,
 }: {
   buttonText: string;
-  feedbackData: TFeedback[];
+  feedbackData: TReview[];
 }) => {
   return (
     <div
@@ -42,13 +38,13 @@ export const Feedback = ({
           {feedbackData?.map((feedback, index) => (
             <SwiperSlide key={index}>
               <blockquote className="text-[28px] leading-[38px] md:text-[34px] md:leading-[45px] lg:text-[48px] lg:leading-[64px] xl:text-[60px] xl:leading-[80px] text-black font-medium">
-                {feedback.quote}
+                {feedback.comment}
               </blockquote>
 
               <div className="flex justify-center gap-x-4  items-center mt-[40px]">
-                <p className=" text-lg font-semibold">{feedback.name}</p>
+                <p className=" text-lg font-semibold">{feedback.clientName}</p>
                 <span className="bg-black size-1 rounded-full"></span>
-                <p className="text-gray-500">{feedback.position}</p>
+                <p className="text-gray-500">{feedback.clientEmail}</p>
               </div>
             </SwiperSlide>
           ))}
