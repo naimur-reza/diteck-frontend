@@ -1,6 +1,6 @@
 "use client";
 import TableSearchBar from "@/components/dashboard/searchBar/TableSearchBar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import ETable, { TableColumn } from "@/components/ui/table/ETable";
 import { TError, TQuery } from "@/types";
 import { useState } from "react";
@@ -19,8 +19,8 @@ const Query = () => {
   const [singleData, setSingleData] = useState<TQuery | null>(null);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
 
-  const { data, isLoading } = useGetAllQueryQuery([
-    { name: "search", value: searchTerm },
+  const { data, isLoading, isFetching } = useGetAllQueryQuery([
+    { name: "searchTerm", value: searchTerm },
     { name: "limit", value: limit },
     { name: "page", value: pageNumber },
   ]);
@@ -69,9 +69,6 @@ const Query = () => {
 
       {/* Table with Search & Status Tabs */}
       <Card>
-        <CardHeader className="pb-3">
-          <CardTitle>All Job Applications</CardTitle>
-        </CardHeader>
         <CardContent>
           <TableSearchBar
             searchPlaceholder="Search job applications..."
@@ -82,7 +79,7 @@ const Query = () => {
           />
 
           <ETable
-            isLoading={isLoading}
+            isLoading={isLoading || isFetching}
             columns={queryColumns as TableColumn<TQuery>[]}
             data={data?.data as TQuery[]}
             onView={(row) => handleViewModal(row)}

@@ -25,7 +25,7 @@ const Reviews = () => {
 
   const { data, isLoading, isFetching } = useGetAllReviewsQuery([
     { name: "reviewStatus", value: status },
-    { name: "search", value: searchTerm },
+    { name: "searchTerm", value: searchTerm },
     { name: "limit", value: limit },
     { name: "page", value: pageNumber },
   ]);

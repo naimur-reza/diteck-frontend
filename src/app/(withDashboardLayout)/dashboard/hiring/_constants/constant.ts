@@ -20,3 +20,5 @@ export const status = [
     { value: "inactive", label: "Inactive" },
     { value: "expired", label: "Expired" },
 ];
+
+export const hiringStatusOptions = ["active", "inactive", "expired"];

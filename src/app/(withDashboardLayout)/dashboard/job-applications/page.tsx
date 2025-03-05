@@ -34,7 +34,7 @@ const JobApplication = () => {
   } = useModal();
   const { data, isLoading, isFetching } = useGetAllJobApplicationQuery([
     { name: "status", value: status },
-    { name: "search", value: searchTerm },
+    { name: "searchTerm", value: searchTerm },
     { name: "limit", value: limit },
     { name: "page", value: pageNumber },
   ]);

@@ -23,7 +23,12 @@ const BlogTable = () => {
     const { isOpen, openModal, closeModal } = useModal();
     const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
-    const { data, isLoading: dataIsLoading } = useGetAllBlogsQuery(undefined);
+    const { data, isLoading: dataIsLoading, isFetching } = useGetAllBlogsQuery([
+        { name: "searchTerm", value: searchTerm },
+        { name: "isDeleted", value: false },
+        { name: "limit", value: limit },
+        { name: "page", value: pageNumber },
+    ]);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
@@ -95,7 +100,7 @@ const BlogTable = () => {
                         limit={limit}
                     />
                     <ETable
-                        isLoading={dataIsLoading}
+                        isLoading={dataIsLoading || isFetching}
                         columns={blogColumns as TableColumn<TBlog>[]}
                         data={data?.data as TBlog[]}
                         onEdit={(row) => handleEditModal(row)}
