@@ -42,6 +42,7 @@ import { formatDateTime } from "@/utils";
 import CommonPagination from "@/components/dashboard/pagination/Pagination";
 import { TMeta } from "@/types";
 import { ETableSkeleton } from "./ETableSkeleton";
+import { Span } from "next/dist/trace";
 export type TableColumn<T> = {
   label: string;
   key: keyof T;
@@ -191,6 +192,8 @@ export default function ETable<T>({
                           : getNestedValue(row, col.key as string) ===
                             "unavailable"
                           ? "bg-gray-400 text-gray-900"
+                          : getNestedValue(row, col.key as string) === "new"
+                          ? "bg-green-200 text-green-800"
                           : "bg-gray-100 text-gray-700"
                       }`}
                     >
@@ -228,6 +231,8 @@ export default function ETable<T>({
                         : getNestedValue(row, col.key as string) ===
                           "unavailable"
                         ? "Unavailable"
+                        : getNestedValue(row, col.key as string) === "new"
+                        ? "New"
                         : "Unknown"}
                     </span>
                   ) : col.label === "Img" ||
@@ -331,7 +336,13 @@ export default function ETable<T>({
                           className="cursor-pointer"
                           onClick={() => onEdit(row)}
                         >
-                          <Pencil className="w-4 h-4 mr-2" /> Edit
+                          {defaultKey === "query" ? (
+                            <span className="text-green-500">Assign query</span>
+                          ) : (
+                            <span className="flex items-center">
+                              <Pencil className="w-4 h-4 mr-2" /> Edit
+                            </span>
+                          )}
                         </DropdownMenuItem>
                       )}
 

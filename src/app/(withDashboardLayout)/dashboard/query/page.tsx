@@ -11,6 +11,8 @@ import {
   useGetAllQueryQuery,
 } from "@/redux/api/adminApi/queryApi/queryApi";
 import { queryColumns } from "./_constants/query";
+import Modal from "@/components/ui/modal/Modal";
+import AssignQuery from "./_components/AssignQuery";
 
 const Query = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -18,6 +20,7 @@ const Query = () => {
   const [limit, setLimit] = useState(50);
   const [singleData, setSingleData] = useState<TQuery | null>(null);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [isAssignQueryModal, setIsQueryModal] = useState(false);
 
   const { data, isLoading, isFetching } = useGetAllQueryQuery([
     { name: "searchTerm", value: searchTerm },
@@ -47,6 +50,11 @@ const Query = () => {
   // handle view modal
   const handleViewModal = (job: TQuery) => {
     setSingleData(job);
+  };
+
+  const handleAssignQueryModal = (item: TQuery) => {
+    setIsQueryModal(true);
+    setSingleData(item);
   };
 
   const handleDeleteModal = (item: TQuery) => {
@@ -84,13 +92,26 @@ const Query = () => {
             data={data?.data as TQuery[]}
             onView={(row) => handleViewModal(row)}
             onDelete={handleDeleteModal}
+            onEdit={handleAssignQueryModal}
             meta={data?.meta}
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
-            defaultKey="jobApplication"
+            defaultKey="query"
+            
           />
         </CardContent>
       </Card>
+
+      <Modal
+        isOpen={isAssignQueryModal}
+        onClose={() => setIsQueryModal(false)}
+        title="Assign the query"
+      >
+        <AssignQuery
+          item={singleData as TQuery}
+          setIsQueryModal={setIsQueryModal}
+        ></AssignQuery>
+      </Modal>
 
       {/* Single delete */}
       <DeleteConfirm
