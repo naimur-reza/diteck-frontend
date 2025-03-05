@@ -8,7 +8,7 @@ const projectBgColors = [
 
 export const getProjectBgColor = (index: number) => {
   if (index < 0 || index >= projectBgColors.length) {
-    throw new Error("Index out of bounds");
+    return null;
   }
   return projectBgColors[index];
 };
