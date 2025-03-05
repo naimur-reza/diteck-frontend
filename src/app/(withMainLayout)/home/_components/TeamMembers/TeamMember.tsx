@@ -8,6 +8,7 @@ async function getTeamMembers() {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/team-member/get-all-users`,
       {
         cache: "force-cache",
+        next: { revalidate: 3600 },
       }
     );
 
