@@ -32,7 +32,7 @@ const Services = () => {
   } = useModal();
 
   const { data, isLoading } = useGetAllServiceQuery([
-    { name: "search", value: searchTerm },
+    { name: "searchTerm", value: searchTerm },
     { name: "isDeleted", value: false },
     { name: "limit", value: limit },
     { name: "page", value: pageNumber },

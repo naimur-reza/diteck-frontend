@@ -23,7 +23,12 @@ const BlogTable = () => {
     const { isOpen, openModal, closeModal } = useModal();
     const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
-    const { data, isLoading: dataIsLoading } = useGetAllBlogsQuery(undefined);
+    const { data, isLoading: dataIsLoading } = useGetAllBlogsQuery([
+        { name: "searchTerm", value: searchTerm },
+        { name: "isDeleted", value: false },
+        { name: "limit", value: limit },
+        { name: "page", value: pageNumber },
+    ]);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page

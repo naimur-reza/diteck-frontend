@@ -24,7 +24,12 @@ const HiringTable = () => {
     const { isOpen, openModal, closeModal } = useModal();
     const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
-    const { data, isLoading: dataIsLoading } = useGetAllHiringPostQuery(undefined);
+    const { data, isLoading: dataIsLoading } = useGetAllHiringPostQuery([
+        { name: "searchTerm", value: searchTerm },
+        { name: "isDeleted", value: false },
+        { name: "limit", value: limit },
+        { name: "page", value: pageNumber },
+    ]);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
