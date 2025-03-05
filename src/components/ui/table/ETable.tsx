@@ -41,6 +41,7 @@ import Image from "next/image";
 import { formatDateTime } from "@/utils";
 import CommonPagination from "@/components/dashboard/pagination/Pagination";
 import { TMeta } from "@/types";
+import { ETableSkeleton } from "./ETableSkeleton";
 export type TableColumn<T> = {
   label: string;
   key: keyof T;
@@ -99,11 +100,7 @@ export default function ETable<T>({
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-10">
-        <div className="loader" />
-      </div>
-    );
+    return <ETableSkeleton />;
   }
   if (data?.length == 0) {
     return (
