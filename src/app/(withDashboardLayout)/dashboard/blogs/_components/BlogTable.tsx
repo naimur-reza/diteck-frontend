@@ -23,7 +23,7 @@ const BlogTable = () => {
     const { isOpen, openModal, closeModal } = useModal();
     const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
-    const { data, isLoading: dataIsLoading } = useGetAllBlogsQuery([
+    const { data, isLoading: dataIsLoading, isFetching } = useGetAllBlogsQuery([
         { name: "searchTerm", value: searchTerm },
         { name: "isDeleted", value: false },
         { name: "limit", value: limit },
@@ -100,7 +100,7 @@ const BlogTable = () => {
                         limit={limit}
                     />
                     <ETable
-                        isLoading={dataIsLoading}
+                        isLoading={dataIsLoading || isFetching}
                         columns={blogColumns as TableColumn<TBlog>[]}
                         data={data?.data as TBlog[]}
                         onEdit={(row) => handleEditModal(row)}

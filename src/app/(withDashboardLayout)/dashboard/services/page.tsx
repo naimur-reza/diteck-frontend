@@ -31,7 +31,7 @@ const Services = () => {
     closeModal: viewCloseModal,
   } = useModal();
 
-  const { data, isLoading } = useGetAllServiceQuery([
+  const { data, isLoading, isFetching } = useGetAllServiceQuery([
     { name: "searchTerm", value: searchTerm },
     { name: "isDeleted", value: false },
     { name: "limit", value: limit },
@@ -111,7 +111,7 @@ const Services = () => {
             limit={limit}
           />
           <ETable
-            isLoading={isLoading}
+            isLoading={isLoading || isFetching}
             columns={columns as TableColumn<TService>[]}
             data={data?.data as TService[]}
             onEdit={handleEditModal}

@@ -24,7 +24,12 @@ const ProjectTable = () => {
     const { isOpen, openModal, closeModal } = useModal();
     const { isOpen: ViewIsOpen, openModal: viewOpenModal, closeModal: viewCloseModal } = useModal();
 
-    const { data, isLoading: dataIsLoading } = useGetAllProjectsQuery(undefined);
+    const { data, isLoading: dataIsLoading, isFetching } = useGetAllProjectsQuery([
+        { name: "searchTerm", value: searchTerm },
+        { name: "isDeleted", value: false },
+        { name: "limit", value: limit },
+        { name: "page", value: pageNumber },
+    ]);
 
     const handlePageChange = (newPage: number) => {
         setPageNumber(newPage); // Update the current page
@@ -96,7 +101,7 @@ const ProjectTable = () => {
                         limit={limit}
                     />
                     <ETable
-                        isLoading={dataIsLoading}
+                        isLoading={dataIsLoading || isFetching}
                         columns={projectColumns as TableColumn<TProject>[]}
                         data={data?.data as TProject[]}
                         onEdit={(row) => handleEditModal(row)}
