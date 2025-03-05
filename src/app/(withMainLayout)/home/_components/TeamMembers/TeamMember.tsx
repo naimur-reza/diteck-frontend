@@ -1,8 +1,32 @@
-import { TeamMemberCard } from "@/components/ui";
 import { SectionTitle } from "@/components/common";
-import { teamsArray } from "../../_constant/teamMember";
+import { TeamMemberCard } from "@/components/ui";
+import { TTeamMember } from "@/types";
 
-export const TeamMember = () => {
+async function getTeamMembers() {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/team-member/get-all-users`,
+      {
+        cache: "force-cache",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch services");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching services:", error);
+    return { data: [] };
+  }
+}
+
+export const TeamMember = async () => {
+  const { data: teamsArray } = (await getTeamMembers()) as {
+    data: TTeamMember[];
+  };
+
   return (
     <div className="relative container mx-auto">
       <SectionTitle
