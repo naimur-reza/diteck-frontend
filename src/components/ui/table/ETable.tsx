@@ -318,42 +318,52 @@ export default function ETable<T>({
                             </DropdownMenuItem>
                           </>
                         )}
+                      {onView && (
+                        <DropdownMenuItem
+                          className="cursor-pointer"
+                          onClick={() => onView(row)}
+                        >
+                          <Eye className="w-4 h-4 mr-2" /> View
+                        </DropdownMenuItem>
+                      )}
+                      {onEdit && (
+                        <DropdownMenuItem
+                          className="cursor-pointer"
+                          onClick={() => onEdit(row)}
+                        >
+                          <Pencil className="w-4 h-4 mr-2" /> Edit
+                        </DropdownMenuItem>
+                      )}
 
-                        {onView && (
-                          <DropdownMenuItem
+                      {handleStatusChanger && (
+                        <DropdownMenuItem className="flex justify-between items-center">
+                          <div className="flex items-center gap-2">
+                            <p>Status Change</p>
+                          </div>
+                          <Switch
                             className="cursor-pointer"
-                            onClick={() => onView(row)}
-                          >
-                            <Eye className="w-4 h-4 mr-2" /> View
-                          </DropdownMenuItem>
-                        )}
-                        {onEdit && (
-                          <DropdownMenuItem
-                            className="cursor-pointer"
-                            onClick={() => onEdit(row)}
-                          >
-                            <Pencil className="w-4 h-4 mr-2" /> Edit
-                          </DropdownMenuItem>
-                        )}
+                            onCheckedChange={() => {
+                              const isActive = row["isActive" as keyof T];
+                              const status = row["status" as keyof T];
+                              const user = row["user" as keyof T] as {
+                                status?: string;
+                              };
+                              const userStatus = user?.status === "active";
 
-                        {handleStatusChanger && (
-                          <DropdownMenuItem className="flex justify-between items-center">
-                            <div className="flex items-center gap-2">
-                              <p>Status Change</p>
-                            </div>
-                            <Switch
-                              onCheckedChange={() => {
-                                const isActive = row["isActive" as keyof T];
-                                const status = row["status" as keyof T];
-                                handleStatusChanger(row, !isActive && !status);
-                              }}
-                              checked={Boolean(
-                                row["isActive" as keyof T] ||
-                                row["status" as keyof T]
-                              )}
-                            />
-                          </DropdownMenuItem>
-                        )}
+                              handleStatusChanger(
+                                row,
+                                !isActive || !status || !userStatus
+                              );
+                            }}
+                            checked={Boolean(
+                              row["isActive" as keyof T] ||
+                                row["status" as keyof T] ||
+                                (row["user" as keyof T] as { status?: string })
+                                  ?.status === "active"
+                            )}
+                          />
+                        </DropdownMenuItem>
+                      )}
 
                         {onDelete && (
                           <>

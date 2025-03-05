@@ -39,7 +39,7 @@ const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void
                 jobType: data.jobType,
                 status: data.status,
                 department: data.department,
-                createdBy: "67c0129af2550046d53c104b",
+                createdBy: "67c6c4455e0b7f4eece38bab",
 
                 requirements: data.requirements || [],
                 skillsRequired: data?.skillsRequired || [],
@@ -88,7 +88,7 @@ const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void
                     jobType: hiring?.jobType,
                     status: hiring?.status,
                     department: hiring?.department,
-                    createdBy: "67c0129af2550046d53c104b",
+                    createdBy: "67c6c4455e0b7f4eece38bab",
 
                     requirements: hiring?.requirements || [],
                     skillsRequired: hiring?.skillsRequired || [],

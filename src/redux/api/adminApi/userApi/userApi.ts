@@ -60,6 +60,16 @@ export const userApi = baseApi.injectEndpoints({
         return res;
       },
     }),
+    updateUserStatus: builder.mutation({
+      query: ({ id }) => ({
+        url: `/user/update-status/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["user"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
     softDeleteUser: builder.mutation({
       query: ({ id }) => ({
         url: `/admin-manager/soft-delete/${id}`,
@@ -84,4 +94,5 @@ export const {
   useUpdateUserMutation,
   useSoftDeleteUserMutation,
   useDeleteUserMutation,
+  useUpdateUserStatusMutation,
 } = userApi;

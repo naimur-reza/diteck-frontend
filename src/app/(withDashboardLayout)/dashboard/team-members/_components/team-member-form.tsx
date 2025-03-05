@@ -6,7 +6,6 @@ import {
   EnaInput,
   EnaSelect,
 } from "@/components/forms";
-import { EnaDatePicker } from "@/components/forms/EnaDatePicker";
 import {
   teamMemberSchema,
   updateTeamMemberSchema,
@@ -82,8 +81,9 @@ export function TeamMemberForm({
           placeholder="Software Engineer"
         />
 
-        <EnaDatePicker
+        <EnaInput
           name="startDate"
+          type="date"
           label="Start Date"
           placeholder="2021-01-01"
         />
@@ -96,7 +96,7 @@ export function TeamMemberForm({
   );
 }
 
-const roles = [
+export const roles = [
   {
     label: "Manager",
     value: "manager",

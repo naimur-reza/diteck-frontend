@@ -15,4 +15,5 @@ export interface TUser {
   lastFailedLogin?: Date;
   isVerified: boolean;
   isDeleted: boolean;
+  _id: string;
 }
