@@ -13,6 +13,7 @@ import {
 import { queryColumns } from "./_constants/query";
 import Modal from "@/components/ui/modal/Modal";
 import AssignQuery from "./_components/AssignQuery";
+import ResolveQuery from "./_components/ResolveQuery";
 
 const Query = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -21,6 +22,7 @@ const Query = () => {
   const [singleData, setSingleData] = useState<TQuery | null>(null);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [isAssignQueryModal, setIsQueryModal] = useState(false);
+  const [isResolveModal, setIsResolveModal] = useState(false);
 
   const { data, isLoading, isFetching } = useGetAllQueryQuery([
     { name: "searchTerm", value: searchTerm },
@@ -54,6 +56,10 @@ const Query = () => {
 
   const handleAssignQueryModal = (item: TQuery) => {
     setIsQueryModal(true);
+    setSingleData(item);
+  };
+  const handleResolveQueryModal = (item: TQuery) => {
+    setIsResolveModal(true);
     setSingleData(item);
   };
 
@@ -97,7 +103,7 @@ const Query = () => {
             handlePageChange={handlePageChange}
             pageNumber={pageNumber}
             defaultKey="query"
-            
+            performIfNeeded={handleResolveQueryModal}
           />
         </CardContent>
       </Card>
@@ -111,6 +117,16 @@ const Query = () => {
           item={singleData as TQuery}
           setIsQueryModal={setIsQueryModal}
         ></AssignQuery>
+      </Modal>
+      <Modal
+        isOpen={isResolveModal}
+        onClose={() => setIsResolveModal(false)}
+        title="Resolve the query"
+      >
+        <ResolveQuery
+          item={singleData as TQuery}
+          setIsResolveModal={setIsResolveModal}
+        ></ResolveQuery>
       </Modal>
 
       {/* Single delete */}

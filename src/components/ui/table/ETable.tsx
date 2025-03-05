@@ -290,15 +290,22 @@ export default function ETable<T>({
                     <DropdownMenuContent className="cursor-pointer" align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-                      {performIfNeeded && defaultKey === "jobApplication" && (
-                        <DropdownMenuItem
-                          className="cursor-pointer flex items-center space-x-2"
-                          onClick={() => performIfNeeded(row)}
-                        >
-                          <CheckCircle className="text-green-500" />{" "}
-                          <span>make shortlisted</span>{" "}
-                        </DropdownMenuItem>
-                      )}
+                      {performIfNeeded &&
+                        (defaultKey === "jobApplication" ||
+                          defaultKey === "query") && (
+                          <DropdownMenuItem
+                            className="cursor-pointer flex items-center space-x-2"
+                            onClick={() => performIfNeeded(row)}
+                          >
+                            <CheckCircle className="text-green-500" />
+                            <span>
+                              {defaultKey === "jobApplication"
+                                ? "Make Shortlisted"
+                                : "Resolve Query"}
+                            </span>
+                          </DropdownMenuItem>
+                        )}
+
                       {handleApprovedAndRejected && (
                         <>
                           <DropdownMenuItem
