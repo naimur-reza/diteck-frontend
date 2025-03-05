@@ -2,7 +2,7 @@ import ErrorMessage from "@/components/dashboard/ErrorMessage/ErrorMessage";
 import { useNotification } from "@/hooks/useNotification";
 import { useResolveQueryMutation } from "@/redux/api/adminApi/queryApi/queryApi";
 import { TError, TQuery } from "@/types";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const ResolveQuery = ({
@@ -24,6 +24,12 @@ const ResolveQuery = ({
     }
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      setResolutionNotes("");
+      setIsResolveModal(false);
+    }
+  }, [isSuccess]);
   useNotification({
     isLoading,
     isSuccess,
