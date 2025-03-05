@@ -75,7 +75,7 @@ const TableSearchBar = ({
             <SelectValue placeholder="Per Page" />
           </SelectTrigger>
           <SelectContent>
-            {[10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((num) => (
+            {[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((num) => (
               <SelectItem key={num} value={num.toString()}>
                 {num}
               </SelectItem>

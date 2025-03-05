@@ -99,9 +99,11 @@ export default function ETable<T>({
   };
 
   if (isLoading) {
-    return <div className="flex items-center justify-center py-10">
-      <div className="loader" />
-    </div>;
+    return (
+      <div className="flex items-center justify-center py-10">
+        <div className="loader" />
+      </div>
+    );
   }
   if (data?.length == 0) {
     return (
@@ -125,8 +127,8 @@ export default function ETable<T>({
               onSoftDelete ||
               handleStatusChanger ||
               performIfNeeded) && (
-                <TableHead className="text-right">Actions</TableHead>
-              )}
+              <TableHead className="text-right">Actions</TableHead>
+            )}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -237,7 +239,7 @@ export default function ETable<T>({
                     <PhotoProvider>
                       <PhotoView src={String(row[col.key] ?? "")}>
                         {typeof row[col.key] === "string" &&
-                          (row[col.key] as string).startsWith("http") ? (
+                        (row[col.key] as string).startsWith("http") ? (
                           <Image
                             width={30}
                             height={30}
@@ -276,65 +278,48 @@ export default function ETable<T>({
                 onSoftDelete ||
                 handleStatusChanger ||
                 handleApprovedAndRejected) && (
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreVertical className="w-5 h-5" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="cursor-pointer" align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <TableCell className="text-right">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="icon">
+                        <MoreVertical className="w-5 h-5" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="cursor-pointer" align="end">
+                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-                        {performIfNeeded && defaultKey === "jobApplication" && (
+                      {performIfNeeded && defaultKey === "jobApplication" && (
+                        <DropdownMenuItem
+                          className="cursor-pointer flex items-center space-x-2"
+                          onClick={() => performIfNeeded(row)}
+                        >
+                          <CheckCircle className="text-green-500" />{" "}
+                          <span>make shortlisted</span>{" "}
+                        </DropdownMenuItem>
+                      )}
+                      {handleApprovedAndRejected && (
+                        <>
                           <DropdownMenuItem
                             className="cursor-pointer flex items-center space-x-2"
-                            onClick={() => performIfNeeded(row)}
+                            onClick={() =>
+                              handleApprovedAndRejected(row, "approved")
+                            }
                           >
-                            <CheckCircle className="text-green-500" />{" "}
-                            <span>make shortlisted</span>{" "}
+                            <CheckCircle className="text-green-500" />
+                            <span>Approve</span>
                           </DropdownMenuItem>
-                        )}
-                        {handleApprovedAndRejected && (
-                          <>
-                            <DropdownMenuItem
-                              className="cursor-pointer flex items-center space-x-2"
-                              onClick={() =>
-                                handleApprovedAndRejected(row, "approved")
-                              }
-                            >
-                              <CheckCircle className="text-green-500" />
-                              <span>Approve</span>
-                            </DropdownMenuItem>
 
-                            <DropdownMenuItem
-                              className="cursor-pointer flex items-center space-x-2"
-                              onClick={() =>
-                                handleApprovedAndRejected(row, "rejected")
-                              }
-                            >
-                              <XCircle className="text-red-500" />
-                              <span>Reject</span>
-                            </DropdownMenuItem>
-                          </>
-                        )}
-
-                        {onView && (
                           <DropdownMenuItem
-                            className="cursor-pointer"
-                            onClick={() => onView(row)}
+                            className="cursor-pointer flex items-center space-x-2"
+                            onClick={() =>
+                              handleApprovedAndRejected(row, "rejected")
+                            }
                           >
-                            <Eye className="w-4 h-4 mr-2" /> View
+                            <XCircle className="text-red-500" />
+                            <span>Reject</span>
                           </DropdownMenuItem>
-                        )}
-                        {onEdit && (
-                          <DropdownMenuItem
-                            className="cursor-pointer"
-                            onClick={() => onEdit(row)}
-                          >
-                            <Pencil className="w-4 h-4 mr-2" /> Edit
-                          </DropdownMenuItem>
-                        )}
+                        </>
+                      )}
 
                       {onView && (
                         <DropdownMenuItem
@@ -344,6 +329,15 @@ export default function ETable<T>({
                           <Eye className="w-4 h-4 mr-2" /> View
                         </DropdownMenuItem>
                       )}
+                      {onEdit && (
+                        <DropdownMenuItem
+                          className="cursor-pointer"
+                          onClick={() => onEdit(row)}
+                        >
+                          <Pencil className="w-4 h-4 mr-2" /> Edit
+                        </DropdownMenuItem>
+                      )}
+
                       {onEdit && (
                         <DropdownMenuItem
                           className="cursor-pointer"
@@ -383,21 +377,21 @@ export default function ETable<T>({
                         </DropdownMenuItem>
                       )}
 
-                        {onDelete && (
-                          <>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem
-                              onClick={() => onDelete(row)}
-                              className="text-red-600 cursor-pointer"
-                            >
-                              <Trash2 className="w-4 h-4 mr-2" /> Delete
-                            </DropdownMenuItem>
-                          </>
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                )}
+                      {onDelete && (
+                        <>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => onDelete(row)}
+                            className="text-red-600 cursor-pointer"
+                          >
+                            <Trash2 className="w-4 h-4 mr-2" /> Delete
+                          </DropdownMenuItem>
+                        </>
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

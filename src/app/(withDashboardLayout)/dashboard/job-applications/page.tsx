@@ -32,7 +32,7 @@ const JobApplication = () => {
     openModal: viewOpenModal,
     closeModal: viewCloseModal,
   } = useModal();
-  const { data, isLoading } = useGetAllJobApplicationQuery([
+  const { data, isLoading, isFetching } = useGetAllJobApplicationQuery([
     { name: "status", value: status },
     { name: "search", value: searchTerm },
     { name: "limit", value: limit },
@@ -127,7 +127,7 @@ const JobApplication = () => {
             checkboxMode={true}
             selectedRows={selectedRows}
             setSelectedRows={setSelectedRows}
-            isLoading={isLoading}
+            isLoading={isLoading || isFetching}
             columns={jobApplicationColumns as TableColumn<TJobApplication>[]}
             data={data?.data as TJobApplication[]}
             onView={(row) => handleViewModal(row)}
@@ -184,7 +184,7 @@ const JobApplication = () => {
         onClose={viewCloseModal}
         title="Job Application Details"
       >
-        <ViewJobApplication job={singleData} />
+        <ViewJobApplication job={singleData as TJobApplication} />
       </Modal>
     </div>
   );
