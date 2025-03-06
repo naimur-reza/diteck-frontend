@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import StackCard from "./_components/StackCard";
-import BlogNavigator from "./_components/BlogNavigator";
+import ProjectNavigator from "./_components/ProjectNavigator";
 import getAllProjects from "@/utils/fetchData/getAllProjects";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -74,7 +74,7 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
               src={thumbnail}
               fill
               alt=""
-              className="rounded-[40px] object-contain"
+              className="rounded-[40px] object-cover"
             />
           </div>
 
@@ -195,7 +195,7 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
             {/* <div className="relative w-[100px] h-[100px] rounded-[20px] overflow-hidden"></div> */}
           </div>
         </div>
-        <BlogNavigator currentPostId={_id} projects={projects || []} />
+        <ProjectNavigator currentPostId={_id} projects={projects || []} />
       </div>
     </div>
   );

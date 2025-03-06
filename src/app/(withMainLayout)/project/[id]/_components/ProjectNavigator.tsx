@@ -2,7 +2,7 @@ import { TProject } from "@/types";
 import Link from "next/link";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const BlogNavigator = ({ currentPostId, projects }: { currentPostId: string, projects: TProject[] }) => {
+const ProjectNavigator = ({ currentPostId, projects }: { currentPostId: string, projects: TProject[] }) => {
     // Filter out deleted projects
     const validProjects = projects?.filter((project) => !project.isDeleted);
 
@@ -45,4 +45,4 @@ const BlogNavigator = ({ currentPostId, projects }: { currentPostId: string, pro
     );
 };
 
-export default BlogNavigator;
+export default ProjectNavigator;

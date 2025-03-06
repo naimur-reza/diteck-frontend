@@ -6,12 +6,12 @@ import { RiFacebookFill } from "react-icons/ri";
 import { RiTwitterXFill } from "react-icons/ri";
 import { AiFillLinkedin } from "react-icons/ai";
 import { FaRegEnvelope } from "react-icons/fa6";
-import { FaChevronLeft } from "react-icons/fa6";
-import { FaChevronRight } from "react-icons/fa";
 import CommentBox from "./components/CommentBox";
 import CommentForm from "./components/CommentForm";
 import getSingleBlog from "@/utils/fetchData/getSingleBlog";
 import { TBlog } from "@/types";
+import BlogNavigator from "./components/BlogNavigator";
+import getRecentPosts from "@/utils/fetchData/getRecentPosts";
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,7 +20,7 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
   const data = await getSingleBlog(params?.id);
   const { data: blogData }: { data: TBlog } = data;
 
-
+  const { data: recentPosts }: { data: TBlog[] } = await getRecentPosts();
   return (
     <div
       className="container mx-auto bg-no-repeat bg-contain"
@@ -34,7 +34,7 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
         <div className="flex justify-center items-center gap-5">
           <button className="border border-[#636EDF4D] w-fit lg:min-w-fit rounded-[10px] text-black text-[14px] md:text-[18px] px-4 py-1.5  flex items-center gap-2 hover:bg-gray-200 transition">
             <span className="w-2 h-2 rounded-[1px] bg-[#636EDF] animate-pulse"></span>
-            Company
+            Category
           </button>
           <div className="flex gap-2 text-[12px] font-semibold uppercase">
             <p className="text-light">
@@ -73,7 +73,7 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
               </span>
               <div className="text-black">
                 <h5 className="text-[24px] md:text-[32px] font-semibold">
-                  “African décor reflects harmony with nature which is reflected
+                  “This is a dummy quote African décor reflects harmony with nature which is reflected
                   in its materials.”
                 </h5>
                 {/* Before Line + Author Name */}
@@ -83,7 +83,7 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
               </div>
             </blockquote>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              This is a dummy description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
@@ -149,44 +149,7 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
         </div>
 
         {/* Blog Navigator */}
-        <div className="grid grid-cols-2 lg:max-w-[90%] lg:mx-[150px] px-2 py-5 md:p-10 border-y border-black mt-10 gap-5 md:gap-10">
-          <div className="flex items-center gap-5">
-            <div className="flex items-end flex-col justify-end  gap-5">
-              <span className="text-[12px] text-right font-semibold uppercase text-light flex items-center gap-1">
-                <FaChevronLeft /> <span>Previous Post</span>
-              </span>
-              <div>
-                <h5 className="text-[24px] font-medium text-right">
-                  <Link
-                    href="/blog/1"
-                    className="text-[24px] hover:text-primary transition-colors duration-300"
-                  >
-                    The Best Luxury Hotels in the World
-                  </Link>
-                </h5>
-              </div>
-            </div>
-            {/* <div className="relative w-[100px] h-[100px] rounded-[20px] overflow-hidden"></div> */}
-          </div>
-          <div className="flex items-center gap-5">
-            <div className="flex flex-col  gap-5">
-              <span className="text-[12px] font-semibold uppercase text-light flex items-center gap-1">
-                <span>Next Post</span>
-                <FaChevronRight />
-              </span>
-              <div>
-                <h5 className="text-[24px] font-medium">
-                  <Link
-                    href="/blog/1"
-                    className="text-[24px] hover:text-primary transition-colors duration-300"
-                  >
-                    The Best Luxury Hotels in the World
-                  </Link>
-                </h5>
-              </div>
-            </div>
-          </div>
-        </div>
+        <BlogNavigator currentPostId={blogData?._id} posts={recentPosts} />
 
         {/* Comments box */}
         <CommentBox />
