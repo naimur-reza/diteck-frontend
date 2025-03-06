@@ -53,6 +53,7 @@ const Query = () => {
 
   // handle view modal
   const handleViewModal = (job: TQuery) => {
+    setisViewModal(true);
     setSingleData(job);
   };
 
@@ -137,7 +138,7 @@ const Query = () => {
       <Modal
         isOpen={isViewModal}
         onClose={() => setisViewModal(false)}
-        title="Resolve the query"
+        title="View the query"
       >
         <ViewQueryDetails item={singleData as TQuery}></ViewQueryDetails>
       </Modal>
