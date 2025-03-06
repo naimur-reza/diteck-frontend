@@ -1,16 +1,24 @@
+import { TProject } from "@/types";
+import getSingleProject from "@/utils/fetchData/getSingleProject";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const data = [
+const meta = [
   { title: "Date", desc: "27 August, 2024" },
   { title: "Client", desc: "Logistic Company" },
   { title: "Category", desc: "Development" },
   { title: "Location", desc: "New York, USA" },
 ];
 
-const ProjectDetailPage = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ProjectDetailPage = async ({ params }: { params: any }) => {
+  const data = await getSingleProject(params?.id);
+  const { data: project }: { data: TProject } = data;
+
+  console.log('project', project);
+
   return (
     <div className="container mx-auto">
       <div
@@ -41,7 +49,7 @@ const ProjectDetailPage = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:max-w-[70%] mx-auto mt-10 mb-20">
-            {data?.map(({ title, desc }, idx) => (
+            {meta?.map(({ title, desc }, idx) => (
               <div className="text-center" key={idx}>
                 <span className="text-light">{title}</span>
                 <p className="font-medium text-[18px]">{desc}</p>

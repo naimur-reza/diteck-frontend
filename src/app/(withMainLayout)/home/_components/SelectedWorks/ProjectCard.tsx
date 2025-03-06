@@ -5,10 +5,11 @@ import Link from "next/link";
 import React from "react";
 
 const ProjectCard = ({ project, idx }: { project: TProject; idx: number }) => {
-  const { _id, title, category, thumbnail } = project;
+  const { title, category, thumbnail, slug } = project;
+
   return (
     <div className={`${getProjectBgColor(idx)} rounded-[20px]`}>
-      <Link href={`/project/${_id}`}>
+      <Link href={`/project/${slug}`}>
         <div className="relative w-full h-[300px] rounded-[20px] overflow-hidden">
           {/* Background Image */}
           {/* {video ? (
@@ -48,10 +49,10 @@ const ProjectCard = ({ project, idx }: { project: TProject; idx: number }) => {
 
       <div className="text-white py-[30px] px-[40px]">
         <h4 className="text-[26px] font-medium">
-          <Link href={`/project/${_id}`}>{title}</Link>
+          <Link href={`/project/${slug}`}>{title}</Link>
         </h4>
         <h6>
-          <Link href={`/category/${_id}`}>{category}</Link>
+          <Link href={`#`}>{category}</Link>
         </h6>
       </div>
     </div>
