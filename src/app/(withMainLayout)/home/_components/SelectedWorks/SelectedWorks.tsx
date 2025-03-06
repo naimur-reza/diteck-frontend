@@ -2,29 +2,10 @@ import { LinkButtonWithIcon, SectionTitle } from "@/components/common";
 import { TProject } from "@/types";
 import React from "react";
 import ProjectCard from "./ProjectCard";
-
-const getSelectedWorks = async () => {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/previous-work`,
-      {
-        cache: "force-cache",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch services");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching services:", error);
-    return { data: [] };
-  }
-};
+import getAllProjects from "@/utils/fetchData/getAllProjects";
 
 const SelectedWorks = async () => {
-  const { data: projects } = (await getSelectedWorks()) as { data: TProject[] };
+  const { data: projects }: { data: TProject[] } = await getAllProjects();
 
   return (
     <div
@@ -50,7 +31,7 @@ const SelectedWorks = async () => {
           <ProjectCard project={project} key={idx} idx={idx} />
         ))}
       </div>
-      <LinkButtonWithIcon link="/" text="view all works" />
+      <LinkButtonWithIcon link="/project" text="view all works" />
     </div>
   );
 };

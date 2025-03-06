@@ -30,7 +30,6 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
 
   const { data: projects }: { data: TProject[] } = await getAllProjects();
 
-
   return (
     <div className="container mx-auto">
       <div
