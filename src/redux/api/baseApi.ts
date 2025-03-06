@@ -28,5 +28,6 @@ export const baseApi = createApi({
     "otp",
     "Project",
     "review",
+    "Dashboard"
   ],
 });
