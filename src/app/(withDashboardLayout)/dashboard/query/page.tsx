@@ -14,6 +14,7 @@ import { queryColumns } from "./_constants/query";
 import Modal from "@/components/ui/modal/Modal";
 import AssignQuery from "./_components/AssignQuery";
 import ResolveQuery from "./_components/ResolveQuery";
+import ViewQueryDetails from "./_components/ViewQueryDetails";
 
 const Query = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -23,6 +24,7 @@ const Query = () => {
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const [isAssignQueryModal, setIsQueryModal] = useState(false);
   const [isResolveModal, setIsResolveModal] = useState(false);
+  const [isViewModal, setisViewModal] = useState(false);
 
   const { data, isLoading, isFetching } = useGetAllQueryQuery([
     { name: "searchTerm", value: searchTerm },
@@ -51,6 +53,7 @@ const Query = () => {
 
   // handle view modal
   const handleViewModal = (job: TQuery) => {
+    setisViewModal(true);
     setSingleData(job);
   };
 
@@ -108,6 +111,7 @@ const Query = () => {
         </CardContent>
       </Card>
 
+      {/* assign query */}
       <Modal
         isOpen={isAssignQueryModal}
         onClose={() => setIsQueryModal(false)}
@@ -118,6 +122,8 @@ const Query = () => {
           setIsQueryModal={setIsQueryModal}
         ></AssignQuery>
       </Modal>
+
+      {/* resolve query */}
       <Modal
         isOpen={isResolveModal}
         onClose={() => setIsResolveModal(false)}
@@ -127,6 +133,14 @@ const Query = () => {
           item={singleData as TQuery}
           setIsResolveModal={setIsResolveModal}
         ></ResolveQuery>
+      </Modal>
+      {/* view Query details */}
+      <Modal
+        isOpen={isViewModal}
+        onClose={() => setisViewModal(false)}
+        title="View the query"
+      >
+        <ViewQueryDetails item={singleData as TQuery}></ViewQueryDetails>
       </Modal>
 
       {/* Single delete */}
