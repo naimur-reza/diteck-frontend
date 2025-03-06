@@ -6,9 +6,11 @@ import Modal from "@/components/ui/modal/Modal";
 import { useModal } from "@/hooks/useModal";
 import { THiring } from "@/types";
 import { Briefcase, Clock, MapPin } from "lucide-react";
+import Link from "next/link";
 import type React from "react";
 
 const CareerCard: React.FC<THiring> = ({
+  _id,
   title,
   jobType,
   description,
@@ -73,12 +75,14 @@ const CareerCard: React.FC<THiring> = ({
             </p>
           </div>
 
-          <button
-            onClick={closeModal}
-            className="mt-6 mb-4 w-full rounded-full bg-primary px-6 py-3 font-semibold text-white hover:bg-primary/90 cursor-pointer"
-          >
-            Apply Now
-          </button>
+          <Link href={`/career/${_id}`}>
+            <button
+              onClick={closeModal}
+              className="mt-6 mb-4 w-full rounded-full bg-primary px-6 py-3 font-semibold text-white hover:bg-primary/90 cursor-pointer"
+            >
+              Apply Now
+            </button>
+          </Link>
         </div>
       </Modal>
     </div>
