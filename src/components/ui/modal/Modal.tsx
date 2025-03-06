@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { DialogClose } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import type React from "react";
 import { useEffect } from "react";
@@ -30,19 +31,19 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[95vh] w-full sm:max-w-2xl  overflow-hidden rounded-2xl p-4 md:p-6">
-        <div className="sticky top-0 z-10 bg-background">
-          <button
+      <DialogContent className="max-h-[95vh] w-full sm:max-w-2xl  overflow-hidden rounded-2xl p-4 md:p-4.5">
+        <div className="sticky top-0 z-10 bg-background flex items justify-between flex-row-reverse">
+          <DialogClose
             onClick={onClose}
-            className="absolute right-4 top-4 rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="cursor-pointer"
             aria-label="Close modal"
           >
             <X className="h-6 w-6" />
-          </button>
+          </DialogClose>
 
           {title && (
             <DialogHeader>
-              <DialogTitle className="pr-8 text-2xl font-semibold pt-2">
+              <DialogTitle className="pr-8 text-2xl font-semibold pt-2 ">
                 {title}
               </DialogTitle>
             </DialogHeader>
