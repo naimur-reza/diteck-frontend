@@ -1,10 +1,31 @@
 import { SectionTitle } from "@/components/common";
+import { TBlog } from "@/types";
 import React from "react";
-import { recentPosts } from "../../_constant/recentPost";
 import HeaderPost from "./HeaderPost";
 import SinglePost from "./SinglePost";
 
-const RecentPost = () => {
+async function getRecentPost() {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog/all-blog`,
+      {
+        cache: "force-cache",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch recent posts");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching recent posts:", error);
+    return { data: [] };
+  }
+}
+
+const RecentPost = async () => {
+  const { data: recentPosts } = (await getRecentPost()) as { data: TBlog[] };
   return (
     <div className="container mx-auto p-5">
       <SectionTitle

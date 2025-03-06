@@ -1,35 +1,29 @@
+import { TBlog } from "@/types";
 import Link from "next/link";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 
-interface IPost {
-  category: string;
-  date: string;
-  author: string;
-  title: string;
-  shortDesc: string;
-  img: string;
-}
-
-const HeaderPost = ({ post }: { post: IPost }) => {
-  const { category, date, author, title, shortDesc, img } = post;
+const HeaderPost = ({ post }: { post: TBlog }) => {
+  const { createdAt, author, title, thumbnail, content } = post;
   return (
     <div className="relative w-full h-auto border-b border-b-black pb-10">
       <div
         className="relative post-img bg-cover  bg-no-repeat h-[450px] w-full rounded-[40px]"
         style={{
-          backgroundImage: `url(${img})`,
+          backgroundImage: `url(${thumbnail})`,
         }}
       >
         <div className="absolute z-10 -bottom-4 left-0 bg-[#F2EDF3] flex gap-3 text-xs font-semibold uppercase pr-5 pt-5 pb-3 rounded-tr-[20px]">
-          <Link
+          {/* <Link
             href="/blog/1"
             className="text-primary hover:text-light transition-colors duration-300"
           >
             {category}
-          </Link>
-          <p className="text-gray-500">{date}</p>
-          <p className="text-gray-500">{author}</p>
+          </Link> */}
+          <p className="text-gray-500">
+            {new Date(createdAt).toLocaleDateString()}
+          </p>
+          <p className="text-gray-500">{author?.email}</p>
         </div>
       </div>
 
@@ -44,7 +38,7 @@ const HeaderPost = ({ post }: { post: IPost }) => {
               {title}
             </Link>
           </h3>
-          <p className="text-gray-600">{shortDesc.slice(0, 110)}...</p>
+          <p className="text-gray-600">{content?.slice(0, 110)}...</p>
         </div>
 
         {/* Hover Arrow Button */}

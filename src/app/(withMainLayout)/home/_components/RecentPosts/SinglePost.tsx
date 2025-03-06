@@ -1,24 +1,16 @@
+import { TBlog } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 
-interface IPost {
-  category: string;
-  date: string;
-  author: string;
-  title: string;
-  shortDesc: string;
-  img: string;
-}
-
-const SinglePost = ({ post }: { post: IPost }) => {
-  const { category, date, author, title, img } = post;
+const SinglePost = ({ post }: { post: TBlog }) => {
+  const { createdAt, author, title, thumbnail } = post;
   return (
     <div className="flex flex-col md:flex-row items-center gap-10 border-t first:border-t-0 last:border-b border-y-black py-10 bg-[#F2F1F6] relative group transition-all duration-600 md:-mb-[80px] md:hover:mb-[0px]">
       <div className="relative w-full md:max-w-[220px] h-[220px] rounded-[20px]  transition-all duration-600">
         <Image
-          src={img}
+          src={thumbnail}
           alt={title}
           fill
           className="rounded-[20px] object-cover"
@@ -27,10 +19,12 @@ const SinglePost = ({ post }: { post: IPost }) => {
       <div>
         <div className="flex gap-2 text-[12px] font-semibold uppercase mb-4">
           <p className="text-primary hover:text-light transition-colors duration-300">
-            {category}
+            {/* {category} */}
           </p>
-          <p className="text-light">{date}</p>
-          <p className="text-light">{author}</p>
+          <p className="text-light">
+            {new Date(createdAt).toLocaleDateString()}
+          </p>
+          <p className="text-light">{author?.email}</p>
         </div>
         <h3 className="max-w-[90%]">
           <Link
