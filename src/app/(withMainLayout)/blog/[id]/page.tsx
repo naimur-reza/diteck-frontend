@@ -10,8 +10,17 @@ import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa";
 import CommentBox from "./components/CommentBox";
 import CommentForm from "./components/CommentForm";
+import getSingleBlog from "@/utils/fetchData/getSingleBlog";
+import { TBlog } from "@/types";
 
-const BlogDetailPage = () => {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const BlogDetailPage = async ({ params }: { params: any }) => {
+
+  const data = await getSingleBlog(params?.id);
+  const { data: blogData }: { data: TBlog } = data;
+
+
   return (
     <div
       className="container mx-auto bg-no-repeat bg-contain"
@@ -28,8 +37,14 @@ const BlogDetailPage = () => {
             Company
           </button>
           <div className="flex gap-2 text-[12px] font-semibold uppercase">
-            <p className="text-light">20 Nov 2024</p>
-            <p className="text-light">admin</p>
+            <p className="text-light">
+              {new Date(blogData?.createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+            <p className="text-light">{blogData?.author?.role}</p>
           </div>
         </div>
 
@@ -38,25 +53,20 @@ const BlogDetailPage = () => {
           {/* Title */}
           <div>
             <h2 className="text-[30px] md:text-[52px] lg:text-[80px] font-semibold text-center lg:max-w-[90%] mx-auto mt-5">
-              Top Digital Agency Case Studies in Web3 Marketing
+              {blogData?.title}
             </h2>
           </div>
           <div className="relative w-full min-h-[150px] md:min-h-[300px] lg:min-h-[600px] rounded-[40px] mt-10">
             <Image
-              src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/blog_12.jpg"
+              src={blogData?.thumbnail}
               fill
-              alt=""
+              alt={blogData?.title}
               className="rounded-[40px] object-cover"
             />
           </div>
+          {/* Bio */}
           <div className="lg:mx-[150px] mt-10 md:text-[20px] text-light">
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-              aspernatur aut odit aut fugit, sed quia consequuntur magni
-            </p>
+            <p>{blogData.bio}</p>
             <blockquote className="flex gap-5 lg:gap-10 my-10">
               <span className="text-primary">
                 <BiSolidQuoteLeft size={72} />
@@ -100,15 +110,9 @@ const BlogDetailPage = () => {
               />
             </div>
           </div>
+          {/* Content */}
           <div className="lg:mx-[150px] mt-10 md:text-[20px] text-light">
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo.Nemo enim ipsam voluptatem quia voluptas sit
-              aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-              eos qui ratione voluptatem sequi nesciunt.
-            </p>
+            <p>{blogData?.content}</p>
           </div>
         </article>
 
@@ -181,7 +185,6 @@ const BlogDetailPage = () => {
                 </h5>
               </div>
             </div>
-            {/* <div className="relative w-[100px] h-[100px] rounded-[20px] overflow-hidden"></div> */}
           </div>
         </div>
 

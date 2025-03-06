@@ -5,7 +5,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const SinglePost = ({ post }: { post: TBlog }) => {
-  const { createdAt, author, title, thumbnail } = post;
+  const { _id, createdAt, author, title, thumbnail } = post;
   return (
     <div className="flex flex-col md:flex-row items-center gap-10 border-t first:border-t-0 last:border-b border-y-black py-10 bg-[#F2F1F6] relative group transition-all duration-600 md:-mb-[80px] md:hover:mb-[0px]">
       <div className="relative w-full md:max-w-[220px] h-[220px] rounded-[20px]  transition-all duration-600">
@@ -28,7 +28,7 @@ const SinglePost = ({ post }: { post: TBlog }) => {
         </div>
         <h3 className="max-w-[90%]">
           <Link
-            href="/blog/1"
+            href={`/blog/${_id}`}
             className="text-[20px] lg:text-[28px] font-semibold hover:text-primary transition-colors duration-300"
           >
             {title}
@@ -38,7 +38,7 @@ const SinglePost = ({ post }: { post: TBlog }) => {
 
       <div className="absolute right-0 top-[50%] transform -translate-y-[50%] flex items-center ml-auto text-white rounded-[15px] opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <Link
-          href="/blog/1"
+          href={`/blog/${_id}`}
           className="relative flex items-center justify-center w-[50px] h-[50px] bg-primary text-white rounded-[15px] transition-all duration-600 overflow-hidden group/icon"
         >
           {/* First Icon (Moves Out) */}
