@@ -3,30 +3,11 @@ import { TBlog } from "@/types";
 import React from "react";
 import HeaderPost from "./HeaderPost";
 import SinglePost from "./SinglePost";
-
-async function getRecentPost() {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog/all-blog`,
-      {
-        cache: "force-cache",
-        next: { revalidate: 3600 },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch recent posts");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching recent posts:", error);
-    return { data: [] };
-  }
-}
+import getRecentPosts from "@/utils/fetchData/getRecentPosts";
 
 const RecentPost = async () => {
-  const { data: recentPosts } = (await getRecentPost()) as { data: TBlog[] };
+  const { data: recentPosts }: { data: TBlog[] } = await getRecentPosts();
+
   return (
     <div className="container mx-auto p-5">
       <SectionTitle

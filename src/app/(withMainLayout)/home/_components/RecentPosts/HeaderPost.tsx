@@ -4,7 +4,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const HeaderPost = ({ post }: { post: TBlog }) => {
-  const { createdAt, author, title, thumbnail, content } = post;
+  const { _id, createdAt, author, title, thumbnail, content } = post;
   return (
     <div className="relative w-full h-auto border-b border-b-black pb-10">
       <div
@@ -21,7 +21,11 @@ const HeaderPost = ({ post }: { post: TBlog }) => {
             {category}
           </Link> */}
           <p className="text-gray-500">
-            {createdAt && new Date(createdAt).toLocaleDateString()}
+            {createdAt && new Date(createdAt).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </p>
           <p className="text-gray-500">{author?.email}</p>
         </div>
@@ -32,7 +36,7 @@ const HeaderPost = ({ post }: { post: TBlog }) => {
         <div className="mt-5">
           <h3>
             <Link
-              href="/blog/1"
+              href={`/blog/${_id}`}
               className="text-[42px] font-medium hover:text-primary transition-colors duration-300 mb-2 block"
             >
               {title}
