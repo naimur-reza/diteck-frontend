@@ -1,6 +1,7 @@
 import { THiring } from "@/types";
 import Image from "next/image";
 import { Suspense } from "react";
+import ApplicationForm from "../_components/application-form";
 
 const CareerDetails = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
@@ -154,12 +155,12 @@ const CareerDetails = async ({ params }: { params: { id: string } }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className=" p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           Apply for this Position
         </h2>
         <Suspense fallback={<div>Loading application form...</div>}>
-          {/* <ApplicationForm jobId={id} jobTitle={hiringData.title} /> */}
+          <ApplicationForm jobId={id} jobTitle={hiringData?.title} />
         </Suspense>
       </div>
     </div>
