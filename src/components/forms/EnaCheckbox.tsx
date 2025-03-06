@@ -7,7 +7,6 @@ interface EnaCheckboxProps {
   label?: string;
   error?: string;
   className?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }
 
 const EnaCheckbox: React.FC<EnaCheckboxProps> = ({
