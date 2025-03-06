@@ -1,32 +1,28 @@
+"use client";
+
 import { ButtonWithIcon } from "@/components/common";
 import { PulseButton } from "@/components/ui";
 import Modal from "@/components/ui/modal/Modal";
 import { useModal } from "@/hooks/useModal";
+import { THiring } from "@/types";
 import { Briefcase, Clock, MapPin } from "lucide-react";
 import type React from "react";
 
-interface CareerCardProps {
-  title: string;
-  location: string;
-  type: string;
-  description: string;
-  responsibilities: string[];
-  requirements: string[];
-}
-
-const CareerCard: React.FC<CareerCardProps> = ({
+const CareerCard: React.FC<THiring> = ({
   title,
-  type,
+  jobType,
   description,
   location,
   requirements,
   responsibilities,
+  jobNature,
+  workingHours,
 }) => {
   const { isOpen, openModal, closeModal } = useModal();
   return (
     <div className="bg-white rounded-3xl p-6">
       <div className="flex items-center justify-between">
-        <PulseButton buttonText={type} />
+        <PulseButton buttonText={jobType} />
         <p className="text-gray-500">{location}</p>
       </div>
       <h3 className="text-3xl font-semibold mt-14">{title}</h3>
@@ -34,15 +30,15 @@ const CareerCard: React.FC<CareerCardProps> = ({
       <ButtonWithIcon onClick={openModal} text="Learn more" />
 
       <Modal isOpen={isOpen} onClose={closeModal} title={title}>
-        <div className="space-y-6">
+        <div className="space-y-6 ">
           <div className="flex flex-wrap gap-6 text-gray-600">
             <div className="flex items-center gap-2">
               <Briefcase className="h-5 w-5" />
-              <span>Full time</span>
+              <span>{jobNature}</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-5 w-5" />
-              <span>09:00 am - 05:00pm</span>
+              <span>{workingHours}</span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="h-5 w-5" />
@@ -79,7 +75,7 @@ const CareerCard: React.FC<CareerCardProps> = ({
 
           <button
             onClick={closeModal}
-            className="mt-6 w-full rounded-full bg-primary px-6 py-3 font-semibold text-white hover:bg-primary/90"
+            className="mt-6 mb-4 w-full rounded-full bg-primary px-6 py-3 font-semibold text-white hover:bg-primary/90 cursor-pointer"
           >
             Apply Now
           </button>

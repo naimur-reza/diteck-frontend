@@ -1,10 +1,34 @@
-"use client";
-
 import { ParallaxBanner, SectionTitle } from "@/components/common";
+import { THiring } from "@/types";
 import CareerCard from "./_components/CareerCard";
-import { jobs } from "./_constant/careerData";
 
-const Career = () => {
+interface JobResponse {
+  data: THiring[];
+}
+
+async function getJobs(): Promise<JobResponse> {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/hiring-post/get-all-post`,
+      {
+        cache: "force-cache",
+        next: { revalidate: 300 },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch jobs");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    return { data: [] };
+  }
+}
+
+const Career = async () => {
+  const { data: jobs } = await getJobs();
   return (
     <div className="container bg-gradient-to-t from-transparent via-rose-100 to-transparent">
       <ParallaxBanner
@@ -16,7 +40,7 @@ const Career = () => {
       <SectionTitle title="Current openings" buttonText="Apply now" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-7 py-10">
-        {jobs.map((job, index) => (
+        {jobs?.map((job, index) => (
           <CareerCard key={index} {...job} />
         ))}
       </div>
