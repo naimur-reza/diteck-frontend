@@ -21,7 +21,7 @@ const HeaderPost = ({ post }: { post: TBlog }) => {
             {category}
           </Link> */}
           <p className="text-gray-500">
-            {new Date(createdAt).toLocaleDateString()}
+            {createdAt && new Date(createdAt).toLocaleDateString()}
           </p>
           <p className="text-gray-500">{author?.email}</p>
         </div>

@@ -10,6 +10,7 @@ async function getRecentPost() {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/blog/all-blog`,
       {
         cache: "force-cache",
+        next: { revalidate: 3600 },
       }
     );
 

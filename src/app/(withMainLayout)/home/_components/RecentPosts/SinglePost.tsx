@@ -22,7 +22,7 @@ const SinglePost = ({ post }: { post: TBlog }) => {
             {/* {category} */}
           </p>
           <p className="text-light">
-            {new Date(createdAt).toLocaleDateString()}
+            {createdAt && new Date(createdAt).toLocaleDateString()}
           </p>
           <p className="text-light">{author?.email}</p>
         </div>
