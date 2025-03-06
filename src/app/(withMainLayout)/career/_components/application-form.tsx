@@ -51,6 +51,8 @@ const ApplicationForm = ({
     control,
     formState: { errors },
     reset,
+    getValues,
+    setValue,
   } = useForm<ApplicationFormData>({
     defaultValues: {
       applicantName: "",
@@ -76,67 +78,69 @@ const ApplicationForm = ({
   });
 
   const {
-    fields: skillFields,
-    append: appendSkill,
-    remove: removeSkill,
-  } = useFieldArray({
-    control,
-    name: "skills",
-  });
-
-  const {
     fields: experienceFields,
     append: appendExperience,
     remove: removeExperience,
-  } = useFieldArray({
+  } = useFieldArray<ApplicationFormData>({
     control,
     name: "workExperience",
   });
 
+  const addSkill = () => {
+    const skills = getValues("skills");
+    setValue("skills", [...skills, ""]);
+  };
+
+  const removeSkill = (index: number) => {
+    const skills = getValues("skills");
+    setValue(
+      "skills",
+      skills.filter((_, i) => i !== index)
+    );
+  };
+
   const onSubmit = async (data: ApplicationFormData) => {
     setIsSubmitting(true);
     setSubmitError("");
+    console.log(data);
+    // try {
+    //   data.skills = data.skills.filter((skill) => skill.trim() !== "");
 
-    try {
-      // Filter out empty skills
-      data.skills = data.skills.filter((skill) => skill.trim() !== "");
+    //   data.workExperience = data.workExperience.filter(
+    //     (exp) =>
+    //       exp.company.trim() !== "" ||
+    //       exp.role.trim() !== "" ||
+    //       exp.duration.trim() !== ""
+    //   );
 
-      // Filter out empty work experiences
-      data.workExperience = data.workExperience.filter(
-        (exp) =>
-          exp.company.trim() !== "" ||
-          exp.role.trim() !== "" ||
-          exp.duration.trim() !== ""
-      );
+    //   const response = await fetch(
+    //     `${process.env.NEXT_PUBLIC_API_BASE_URL}/applications/apply`,
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         ...data,
+    //         jobId,
+    //       }),
+    //     }
+    //   );
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/applications/apply`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...data,
-            jobId,
-          }),
-        }
-      );
+    //   if (!response.ok) {
+    //     throw new Error("Failed to submit application");
+    //   }
 
-      if (!response.ok) {
-        throw new Error("Failed to submit application");
-      }
-
-      setSubmitSuccess(true);
-      reset();
-    } catch (error) {
-      console.error("Application submission error:", error);
-      setSubmitError(
-        error instanceof Error ? error.message : "Failed to submit application"
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    //   setSubmitSuccess(true);
+    //   reset();
+    // } catch (error) {
+    //   console.error("Application submission error:", error);
+    //   setSubmitError(
+    //     error instanceof Error ? error.message : "Failed to submit application"
+    //   );
+    // } finally {
+    //   setIsSubmitting(false);
+    // }
   };
 
   if (submitSuccess) {
@@ -448,37 +452,31 @@ const ApplicationForm = ({
           </div>
         </div>
 
-        <div className="mt-4">
-          <label className="block text-gray-700 mb-2">Skills *</label>
-          <div className="space-y-3">
-            {skillFields.map((field, index) => (
-              <div key={field.id} className="flex gap-2">
-                <input
-                  type="text"
-                  className={`${inputStyle} border border-gray-300 flex-1`}
-                  placeholder="e.g., JavaScript, React, Node.js"
-                  {...register(`skills.${index}` as const)}
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (skillFields.length > 1) {
-                      removeSkill(index);
-                    }
-                  }}
-                  className="bg-red-100 hover:bg-red-200 text-red-700 p-2 rounded-full"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
+        <div>
+          <h3 className="text-xl font-semibold text-gray-800">Skills</h3>
+          {getValues("skills").map((skill, index) => (
+            <div key={index} className="flex gap-4 items-center mt-2">
+              <input
+                type="text"
+                className={inputStyle}
+                placeholder="Enter skill"
+                {...register(`skills.${index}` as const)}
+              />
+              <button
+                type="button"
+                className="bg-red-500 text-white px-3 py-1 rounded-md"
+                onClick={() => removeSkill(index)}
+              >
+                Remove
+              </button>
+            </div>
+          ))}
           <button
             type="button"
-            onClick={() => appendSkill("")}
-            className="mt-2 text-blue-600 hover:text-blue-800 font-medium flex items-center"
+            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md"
+            onClick={addSkill}
           >
-            + Add another skill
+            Add Skill
           </button>
         </div>
       </div>
