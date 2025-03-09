@@ -19,16 +19,16 @@ const OurServices = ({ initialData }: OurServicesClientProps) => {
   // Helper function to combine all technology/feature arrays into a single array for tags
   const getServiceTags = (service: TService) => {
     const tags = [
-      ...(service.frontendTech || []),
-      ...(service.backendTech || []),
-      ...(service.cssFramework || []),
-      ...(service.database || []),
-      ...(service.componentLibrary || []),
-      ...(service.animationLibrary || []),
-      ...(service.testing || []),
-      ...(service.fileStorage || []),
-      ...(service.paymentGateway || []),
-      ...(service.features || []),
+      ...(service?.frontendTech || []),
+      ...(service?.backendTech || []),
+      ...(service?.cssFramework || []),
+      ...(service?.database || []),
+      ...(service?.componentLibrary || []),
+      ...(service?.animationLibrary || []),
+      ...(service?.testing || []),
+      ...(service?.fileStorage || []),
+      ...(service?.paymentGateway || []),
+      ...(service?.features || []),
     ];
 
     // Return unique tags (remove duplicates)

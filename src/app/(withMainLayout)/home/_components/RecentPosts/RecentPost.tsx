@@ -8,6 +8,17 @@ import getRecentPosts from "@/utils/fetchData/getRecentPosts";
 const RecentPost = async () => {
   const { data: recentPosts }: { data: TBlog[] } = await getRecentPosts();
 
+  if (!recentPosts || recentPosts?.length === 0) {
+    return (
+      <div className="container mx-auto text-center py-20">
+        <h2 className="text-2xl font-bold">No Recent Posts</h2>
+        <p className="text-gray-500">
+          There are no blog posts available at the moment.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto p-5">
       <SectionTitle

@@ -13,14 +13,33 @@ import { TBlog } from "@/types";
 import BlogNavigator from "./components/BlogNavigator";
 import getRecentPosts from "@/utils/fetchData/getRecentPosts";
 
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BlogDetailPage = async ({ params }: { params: any }) => {
-
   const data = await getSingleBlog(params?.id);
   const { data: blogData }: { data: TBlog } = data;
 
   const { data: recentPosts }: { data: TBlog[] } = await getRecentPosts();
+
+  if (data.error) {
+    return (
+      <div className="container mx-auto text-center py-20">
+        <h2 className="text-2xl font-bold text-red-600">Error</h2>
+        <p>{data.error}</p>
+      </div>
+    );
+  }
+
+  if (!recentPosts || recentPosts?.length === 0) {
+    return (
+      <div className="container mx-auto text-center py-20">
+        <h2 className="text-2xl font-bold">No Recent Posts</h2>
+        <p className="text-gray-500">
+          There are no blog posts available at the moment.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div
       className="container mx-auto bg-no-repeat bg-contain"
@@ -73,8 +92,8 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
               </span>
               <div className="text-black">
                 <h5 className="text-[24px] md:text-[32px] font-semibold">
-                  “This is a dummy quote African décor reflects harmony with nature which is reflected
-                  in its materials.”
+                  “This is a dummy quote African décor reflects harmony with
+                  nature which is reflected in its materials.”
                 </h5>
                 {/* Before Line + Author Name */}
                 <cite className="uppercase text-sm not-italic relative block before:content-[''] before:w-12 before:h-[2px] before:bg-black before:absolute before:top-2 before:-left-[55px] ml-[60px] font-semibold mt-2">
@@ -83,13 +102,13 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
               </div>
             </blockquote>
             <p>
-              This is a dummy description Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia.
+              This is a dummy description Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+              nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia.
             </p>
           </div>
           <div className="grid lg:grid-cols-2 gap-5 lg:gap-10">
