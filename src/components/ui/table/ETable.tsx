@@ -125,8 +125,8 @@ export default function ETable<T>({
               onSoftDelete ||
               handleStatusChanger ||
               performIfNeeded) && (
-              <TableHead className="text-right">Actions</TableHead>
-            )}
+                <TableHead className="text-right">Actions</TableHead>
+              )}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -145,95 +145,98 @@ export default function ETable<T>({
               {columns?.map((col) => (
                 <TableCell key={col.key as string}>
                   {col.key === "availabilityStatus" ||
-                  col.key === "status" ||
-                  col.key === "reviewStatus" ||
-                  col.key === "user.status" ? (
+                    col.key === "status" ||
+                    col.key === "reviewStatus" ||
+                    col.key === "user.status" ? (
                     <span
-                      className={`inline-block px-3 py-1 text-xs font-medium rounded-md ${
-                        getNestedValue(row, col.key as string) === "approved"
-                          ? "bg-blue-100 text-blue-700"
-                          : getNestedValue(row, col.key as string) ===
-                            "rejected"
+                      className={`inline-block px-3 py-1 text-xs font-medium rounded-md ${getNestedValue(row, col.key as string) === "approved"
+                        ? "bg-blue-100 text-blue-700"
+                        : getNestedValue(row, col.key as string) ===
+                          "rejected"
                           ? "bg-red-100 text-red-700"
                           : getNestedValue(row, col.key as string) === "pending"
-                          ? "bg-yellow-100 text-yellow-700"
-                          : row[col.key] === true
-                          ? "bg-green-100 text-green-700"
-                          : row[col.key] === false
-                          ? "bg-gray-100 text-gray-700"
-                          : getNestedValue(row, col.key as string) ===
-                            "selected"
-                          ? "bg-purple-100 text-purple-700"
-                          : getNestedValue(row, col.key as string) ===
-                            "completed"
-                          ? "bg-orange-100 text-orange-700"
-                          : getNestedValue(row, col.key as string) === "active"
-                          ? "bg-green-100 text-green-700"
-                          : getNestedValue(row, col.key as string) ===
-                            "inactive"
-                          ? "bg-gray-200 text-gray-800"
-                          : getNestedValue(row, col.key as string) === "blocked"
-                          ? "bg-red-200 text-red-800"
-                          : getNestedValue(row, col.key as string) ===
-                            "trialing"
-                          ? "bg-blue-100 text-blue-700"
-                          : getNestedValue(row, col.key as string) ===
-                            "resolved"
-                          ? "bg-teal-100 text-teal-700"
-                          : getNestedValue(row, col.key as string) ===
-                            "shortlisted"
-                          ? "bg-indigo-100 text-indigo-700"
-                          : getNestedValue(row, col.key as string) ===
-                            "archived"
-                          ? "bg-gray-300 text-gray-900"
-                          : getNestedValue(row, col.key as string) ===
-                            "available"
-                          ? "bg-green-200 text-green-800"
-                          : getNestedValue(row, col.key as string) ===
-                            "unavailable"
-                          ? "bg-gray-400 text-gray-900"
-                          : getNestedValue(row, col.key as string) === "new"
-                          ? "bg-green-200 text-green-800"
-                          : "bg-gray-100 text-gray-700"
-                      }`}
+                            ? "bg-yellow-100 text-yellow-700"
+                            : row[col.key] === true
+                              ? "bg-green-100 text-green-700"
+                              : row[col.key] === false
+                                ? "bg-gray-100 text-gray-700"
+                                : getNestedValue(row, col.key as string) ===
+                                  "selected"
+                                  ? "bg-purple-100 text-purple-700"
+                                  : getNestedValue(row, col.key as string) ===
+                                    "completed"
+                                    ? "bg-orange-100 text-orange-700"
+                                    : getNestedValue(row, col.key as string) === "active"
+                                      ? "bg-green-100 text-green-700"
+                                      : getNestedValue(row, col.key as string) ===
+                                        "inactive"
+                                        ? "bg-gray-200 text-gray-800"
+                                        : getNestedValue(row, col.key as string) === "blocked"
+                                          ? "bg-red-200 text-red-800"
+                                          : getNestedValue(row, col.key as string) === "expired"
+                                            ? "bg-red-200 text-red-800"
+                                            : getNestedValue(row, col.key as string) ===
+                                              "trialing"
+                                              ? "bg-blue-100 text-blue-700"
+                                              : getNestedValue(row, col.key as string) ===
+                                                "resolved"
+                                                ? "bg-teal-100 text-teal-700"
+                                                : getNestedValue(row, col.key as string) ===
+                                                  "shortlisted"
+                                                  ? "bg-indigo-100 text-indigo-700"
+                                                  : getNestedValue(row, col.key as string) ===
+                                                    "archived"
+                                                    ? "bg-gray-300 text-gray-900"
+                                                    : getNestedValue(row, col.key as string) ===
+                                                      "available"
+                                                      ? "bg-green-200 text-green-800"
+                                                      : getNestedValue(row, col.key as string) ===
+                                                        "unavailable"
+                                                        ? "bg-gray-400 text-gray-900"
+                                                        : getNestedValue(row, col.key as string) === "new"
+                                                          ? "bg-green-200 text-green-800"
+                                                          : "bg-gray-100 text-gray-700"
+                        }`}
                     >
                       {getNestedValue(row, col.key as string) === "approved"
                         ? "Approved"
                         : getNestedValue(row, col.key as string) === "rejected"
-                        ? "Rejected"
-                        : getNestedValue(row, col.key as string) === "pending"
-                        ? "Pending"
-                        : getNestedValue(row, col.key as string) === true
-                        ? "Activated"
-                        : getNestedValue(row, col.key as string) === false
-                        ? "Deactivated"
-                        : getNestedValue(row, col.key as string) === "selected"
-                        ? "Selected"
-                        : getNestedValue(row, col.key as string) === "completed"
-                        ? "Completed"
-                        : getNestedValue(row, col.key as string) === "active"
-                        ? "Active"
-                        : getNestedValue(row, col.key as string) === "inactive"
-                        ? "Inactive"
-                        : getNestedValue(row, col.key as string) === "blocked"
-                        ? "Blocked"
-                        : getNestedValue(row, col.key as string) === "trialing"
-                        ? "Trialing"
-                        : getNestedValue(row, col.key as string) === "resolved"
-                        ? "Resolved"
-                        : getNestedValue(row, col.key as string) ===
-                          "shortlisted"
-                        ? "Shortlisted"
-                        : getNestedValue(row, col.key as string) === "archived"
-                        ? "Archived"
-                        : getNestedValue(row, col.key as string) === "available"
-                        ? "Available"
-                        : getNestedValue(row, col.key as string) ===
-                          "unavailable"
-                        ? "Unavailable"
-                        : getNestedValue(row, col.key as string) === "new"
-                        ? "New"
-                        : "Unknown"}
+                          ? "Rejected"
+                          : getNestedValue(row, col.key as string) === "pending"
+                            ? "Pending"
+                            : getNestedValue(row, col.key as string) === true
+                              ? "Activated"
+                              : getNestedValue(row, col.key as string) === false
+                                ? "Deactivated"
+                                : getNestedValue(row, col.key as string) === "selected"
+                                  ? "Selected"
+                                  : getNestedValue(row, col.key as string) === "completed"
+                                    ? "Completed"
+                                    : getNestedValue(row, col.key as string) === "active"
+                                      ? "Active"
+                                      : getNestedValue(row, col.key as string) === "inactive"
+                                        ? "Inactive"
+                                        : getNestedValue(row, col.key as string) === "blocked"
+                                          ? "Blocked"
+                                          : getNestedValue(row, col.key as string) === "expired"
+                                            ? "Expired"
+                                            : getNestedValue(row, col.key as string) === "trialing"
+                                              ? "Trialing"
+                                              : getNestedValue(row, col.key as string) === "resolved"
+                                                ? "Resolved"
+                                                : getNestedValue(row, col.key as string) ===
+                                                  "shortlisted"
+                                                  ? "Shortlisted"
+                                                  : getNestedValue(row, col.key as string) === "archived"
+                                                    ? "Archived"
+                                                    : getNestedValue(row, col.key as string) === "available"
+                                                      ? "Available"
+                                                      : getNestedValue(row, col.key as string) ===
+                                                        "unavailable"
+                                                        ? "Unavailable"
+                                                        : getNestedValue(row, col.key as string) === "new"
+                                                          ? "New"
+                                                          : "Unknown"}
                     </span>
                   ) : col.label === "Img" ||
                     col.label === "Thumbnail" ||
@@ -241,7 +244,7 @@ export default function ETable<T>({
                     <PhotoProvider>
                       <PhotoView src={String(row[col.key] ?? "")}>
                         {typeof row[col.key] === "string" &&
-                        (row[col.key] as string).startsWith("http") ? (
+                          (row[col.key] as string).startsWith("http") ? (
                           <Image
                             width={30}
                             height={30}
@@ -280,124 +283,124 @@ export default function ETable<T>({
                 onSoftDelete ||
                 handleStatusChanger ||
                 handleApprovedAndRejected) && (
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreVertical className="w-5 h-5" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="cursor-pointer" align="end">
-                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                          <MoreVertical className="w-5 h-5" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="cursor-pointer" align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-                      {performIfNeeded &&
-                        (defaultKey === "jobApplication" ||
-                          defaultKey === "query") && (
+                        {performIfNeeded &&
+                          (defaultKey === "jobApplication" ||
+                            defaultKey === "query") && (
+                            <DropdownMenuItem
+                              className="cursor-pointer flex items-center space-x-2"
+                              onClick={() => performIfNeeded(row)}
+                            >
+                              <CheckCircle className="text-green-500" />
+                              <span>
+                                {defaultKey === "jobApplication"
+                                  ? "Make Shortlisted"
+                                  : "Resolve Query"}
+                              </span>
+                            </DropdownMenuItem>
+                          )}
+
+                        {handleApprovedAndRejected && (
+                          <>
+                            <DropdownMenuItem
+                              className="cursor-pointer flex items-center space-x-2"
+                              onClick={() =>
+                                handleApprovedAndRejected(row, "approved")
+                              }
+                            >
+                              <CheckCircle className="text-green-500" />
+                              <span>Approve</span>
+                            </DropdownMenuItem>
+
+                            <DropdownMenuItem
+                              className="cursor-pointer flex items-center space-x-2"
+                              onClick={() =>
+                                handleApprovedAndRejected(row, "rejected")
+                              }
+                            >
+                              <XCircle className="text-red-500" />
+                              <span>Reject</span>
+                            </DropdownMenuItem>
+                          </>
+                        )}
+
+                        {onView && (
                           <DropdownMenuItem
-                            className="cursor-pointer flex items-center space-x-2"
-                            onClick={() => performIfNeeded(row)}
+                            className="cursor-pointer"
+                            onClick={() => onView(row)}
                           >
-                            <CheckCircle className="text-green-500" />
-                            <span>
-                              {defaultKey === "jobApplication"
-                                ? "Make Shortlisted"
-                                : "Resolve Query"}
-                            </span>
+                            <Eye className="w-4 h-4" /> View
+                          </DropdownMenuItem>
+                        )}
+                        {onEdit && (
+                          <DropdownMenuItem
+                            className="cursor-pointer"
+                            onClick={() => onEdit(row)}
+                          >
+                            {defaultKey === "query" ? (
+                              <span className="text-green-500">Assign query</span>
+                            ) : (
+                              <span className="flex items-center">
+                                <Pencil className="w-4 h-4 mr-2" /> Edit
+                              </span>
+                            )}
                           </DropdownMenuItem>
                         )}
 
-                      {handleApprovedAndRejected && (
-                        <>
-                          <DropdownMenuItem
-                            className="cursor-pointer flex items-center space-x-2"
-                            onClick={() =>
-                              handleApprovedAndRejected(row, "approved")
-                            }
-                          >
-                            <CheckCircle className="text-green-500" />
-                            <span>Approve</span>
-                          </DropdownMenuItem>
+                        {handleStatusChanger && (
+                          <DropdownMenuItem className="flex justify-between items-center">
+                            <div className="flex items-center gap-2">
+                              <p>Status Change</p>
+                            </div>
+                            <Switch
+                              className="cursor-pointer"
+                              onCheckedChange={() => {
+                                const isActive = row["isActive" as keyof T];
+                                const status = row["status" as keyof T];
+                                const user = row["user" as keyof T] as {
+                                  status?: string;
+                                };
+                                const userStatus = user?.status === "active";
 
-                          <DropdownMenuItem
-                            className="cursor-pointer flex items-center space-x-2"
-                            onClick={() =>
-                              handleApprovedAndRejected(row, "rejected")
-                            }
-                          >
-                            <XCircle className="text-red-500" />
-                            <span>Reject</span>
-                          </DropdownMenuItem>
-                        </>
-                      )}
-
-                      {onView && (
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => onView(row)}
-                        >
-                          <Eye className="w-4 h-4 mr-2" /> View
-                        </DropdownMenuItem>
-                      )}
-                      {onEdit && (
-                        <DropdownMenuItem
-                          className="cursor-pointer"
-                          onClick={() => onEdit(row)}
-                        >
-                          {defaultKey === "query" ? (
-                            <span className="text-green-500">Assign query</span>
-                          ) : (
-                            <span className="flex items-center">
-                              <Pencil className="w-4 h-4 mr-2" /> Edit
-                            </span>
-                          )}
-                        </DropdownMenuItem>
-                      )}
-
-                      {handleStatusChanger && (
-                        <DropdownMenuItem className="flex justify-between items-center">
-                          <div className="flex items-center gap-2">
-                            <p>Status Change</p>
-                          </div>
-                          <Switch
-                            className="cursor-pointer"
-                            onCheckedChange={() => {
-                              const isActive = row["isActive" as keyof T];
-                              const status = row["status" as keyof T];
-                              const user = row["user" as keyof T] as {
-                                status?: string;
-                              };
-                              const userStatus = user?.status === "active";
-
-                              handleStatusChanger(
-                                row,
-                                !isActive || !status || !userStatus
-                              );
-                            }}
-                            checked={Boolean(
-                              row["isActive" as keyof T] ||
+                                handleStatusChanger(
+                                  row,
+                                  !isActive || !status || !userStatus
+                                );
+                              }}
+                              checked={Boolean(
+                                row["isActive" as keyof T] ||
                                 row["status" as keyof T] ||
                                 (row["user" as keyof T] as { status?: string })
                                   ?.status === "active"
-                            )}
-                          />
-                        </DropdownMenuItem>
-                      )}
-
-                      {onDelete && (
-                        <>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem
-                            onClick={() => onDelete(row)}
-                            className="text-red-600 cursor-pointer"
-                          >
-                            <Trash2 className="w-4 h-4 mr-2" /> Delete
+                              )}
+                            />
                           </DropdownMenuItem>
-                        </>
-                      )}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              )}
+                        )}
+
+                        {onDelete && (
+                          <>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                              onClick={() => onDelete(row)}
+                              className="text-red-600 cursor-pointer"
+                            >
+                              <Trash2 className="w-4 h-4 mr-2" /> Delete
+                            </DropdownMenuItem>
+                          </>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                )}
             </TableRow>
           ))}
         </TableBody>

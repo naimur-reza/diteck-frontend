@@ -3,7 +3,7 @@ import ContactForm from "./_components/ContactForm";
 
 const Contact = () => {
   return (
-    <div className="container">
+    <div>
       <ParallaxBanner
         img={
           "https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/blog_bc.jpg"
@@ -12,7 +12,7 @@ const Contact = () => {
         pageTitle="Contact"
       />
 
-      <div className="mt-10">
+      <div className="container mx-auto mt-10">
         <SectionTitle
           title="We're ready to help you!"
           buttonText="Get in touch"
@@ -20,7 +20,7 @@ const Contact = () => {
 
         <div className="md:grid grid-cols-5 py-10">
           <div className="col-span-2"></div>
-          <ContactForm></ContactForm>
+          <ContactForm />
         </div>
       </div>
     </div>

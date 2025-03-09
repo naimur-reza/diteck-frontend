@@ -5,6 +5,7 @@ export type TUser = {
   email: string;
   userName: string;
   iat: number;
+  user: TUser,
   exp: number;
   _id?: string;
   role: "admin" | "user" | "superAdmin" | "superUser";

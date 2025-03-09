@@ -11,14 +11,17 @@ import { useCreateHiringPostMutation, useUpdateHiringPostMutation } from "@/redu
 import { hiringSchema } from "@/schema/hiringSchema";
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import { EnaFileUpload, EnaSelect } from "@/components/forms";
-import { THiring } from "@/types";
+import { TError, THiring } from "@/types";
 import { jobTypes, status } from "../_constants/constant";
 import { useAppSelector } from "@/redux/hooks";
+import ErrorMessage from "@/components/dashboard/ErrorMessage/ErrorMessage";
 
 const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void, hiring?: THiring | null | undefined }) => {
     const { user } = useAppSelector(state => state.auth);
-    const [createHiringPost, { isLoading }] = useCreateHiringPostMutation();
-    const [updateHiringPost, { isLoading: updateIsLoading }] = useUpdateHiringPostMutation();
+    const [createHiringPost, { isLoading, error: createError }] = useCreateHiringPostMutation();
+    const [updateHiringPost, { isLoading: updateIsLoading, error: updateError }] = useUpdateHiringPostMutation();
+    const error = createError || updateError;
+    const loading = isLoading || updateIsLoading;
 
     const handleHiring = async (data: FieldValues) => {
 
@@ -40,7 +43,7 @@ const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void
                 jobType: data.jobType,
                 status: data.status,
                 department: data.department,
-                createdBy: user?._id,
+                createdBy: user?.user?._id,
 
                 requirements: data.requirements || [],
                 skillsRequired: data?.skillsRequired || [],
@@ -71,7 +74,7 @@ const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void
     };
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <div className="max-w-3xl mx-auto p-2 bg-white shadow-lg rounded-lg">
 
             <EnaForm onSubmit={handleHiring}
                 schema={hiringSchema}
@@ -152,12 +155,15 @@ const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void
                     </div>
                 </div>
 
+                {/* Show error messages */}
+                {!loading && <ErrorMessage error={error as TError} />}
+
                 <button
                     type="submit"
                     className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"
-                    disabled={isLoading || updateIsLoading}
+                    disabled={loading}
                 >
-                    {isLoading || updateIsLoading
+                    {loading
                         ? "Processing..."
                         : hiring?._id
                             ? "Update Job Post"
@@ -165,6 +171,7 @@ const CreateUpdateHiringPost = ({ closeModal, hiring }: { closeModal: () => void
                     }
                 </button>
             </EnaForm>
+
         </div >
     );
 };

@@ -48,7 +48,7 @@ const HeaderPost = ({ post }: { post: TBlog }) => {
         {/* Hover Arrow Button */}
         <div>
           <Link
-            href="#"
+            href={`/blog/${_id}`}
             className="relative flex items-center ml-auto w-[50px] h-[50px] bg-primary text-white rounded-[15px] transition-all duration-600 group overflow-hidden"
           >
             <FaArrowRight className="absolute left-1/2 top-1/2 -translate-1/2 group-hover:left-[100px] transition-all duration-300" />

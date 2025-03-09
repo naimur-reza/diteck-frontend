@@ -23,6 +23,7 @@ const ConnectWithUs = () => {
           invertedBorder={false}
           link="/contact"
           text="Get Started"
+          textColor="text-white"
         />
       </div>
     </section>

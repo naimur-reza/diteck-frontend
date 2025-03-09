@@ -9,14 +9,18 @@ import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useCreateProjectMutation, useUpdateProjectMutation } from "@/redux/api/adminApi/projectApi/projectApi";
 import { EnaMultiInput } from "@/components/forms/EnaMultiInput";
 import { projectSchema } from "@/schema/projectSchema";
-import { TProject } from "@/types";
+import { TError, TProject } from "@/types";
 import { useAppSelector } from "@/redux/hooks";
+import ErrorMessage from "@/components/dashboard/ErrorMessage/ErrorMessage";
 
 const CreateUpdateProject = ({ closeModal, project }: { closeModal: () => void, project?: TProject | null | undefined }) => {
     const { user } = useAppSelector(state => state.auth);
 
-    const [createProject, { isLoading }] = useCreateProjectMutation();
-    const [updateProject, { isLoading: updateIsLoading }] = useUpdateProjectMutation();
+    const [createProject, { isLoading, error: createError }] = useCreateProjectMutation();
+    const [updateProject, { isLoading: updateIsLoading, error: updateError }] = useUpdateProjectMutation();
+
+    const error = createError || updateError;
+    const loading = isLoading || updateIsLoading;
 
     const [thumbnail, setThumbnail] = useState<File | null>(null);
     const [images, setImages] = useState<File[]>([]);
@@ -75,7 +79,7 @@ const CreateUpdateProject = ({ closeModal, project }: { closeModal: () => void, 
     };
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <div className="max-w-3xl mx-auto p-2 bg-white shadow-lg rounded-lg">
             <EnaForm
                 defaultValues={{
                     title: project?.title,
@@ -135,7 +139,9 @@ const CreateUpdateProject = ({ closeModal, project }: { closeModal: () => void, 
                         />
                     </div>
                 </div>
-
+                {/* Show error messages */}
+                {!loading && <ErrorMessage error={error as TError} />}
+                
                 <button
                     type="submit"
                     className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"

@@ -8,13 +8,18 @@ import EnaInput from "@/components/forms/EnaInput";
 import EnaTextArea from "@/components/forms/EnaTextArea";
 import { useCreateBlogMutation, useUpdateBlogMutation } from "@/redux/api/adminApi/blogApi/blogApi";
 import { blogSchema } from "@/schema/blogSchema";
-import { EnaFileUpload } from "@/components/forms";
-import { TBlog } from "@/types";
+import { EnaFileUpload, EnaSelect } from "@/components/forms";
+import { TBlog, TError } from "@/types";
 import { useAppSelector } from "@/redux/hooks";
+import ErrorMessage from "@/components/dashboard/ErrorMessage/ErrorMessage";
+import { categories } from "../_constants/constant";
 
 const CreateUpdateBlog = ({ closeModal, blog }: { closeModal: () => void, blog?: TBlog | null | undefined }) => {
-    const [createBlog, { isLoading }] = useCreateBlogMutation();
-    const [updateBlog, { isLoading: updateIsLoading }] = useUpdateBlogMutation();
+    const [createBlog, { isLoading, error: createError }] = useCreateBlogMutation();
+    const [updateBlog, { isLoading: updateIsLoading, error: updateError }] = useUpdateBlogMutation();
+
+    const error = createError || updateError;
+    const loading = isLoading || updateIsLoading;
 
     const { user } = useAppSelector(state => state.auth);
 
@@ -52,25 +57,28 @@ const CreateUpdateBlog = ({ closeModal, blog }: { closeModal: () => void, blog?:
         }
     };
 
-
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <div className="max-w-3xl mx-auto p-2 bg-white shadow-lg rounded-lg">
             <EnaForm onSubmit={handleCreateUpdate} schema={blogSchema} defaultValues={{
                 title: blog?.title || "",
                 bio: blog?.bio || "",
                 content: blog?.content || "",
             }}>
-                <div className="grid lg:grid-cols-2 gap-5 mb-5">
+                <div className="grid gap-5 mb-5">
                     <EnaInput label="Blog Title" name="title" placeholder="Blog Title" />
                     <EnaFileUpload
                         label="Thumbnail"
                         name="file"
                         accept="image/*"
                     />
+
+                    <EnaSelect label="Category" name="category" placeholder="Category" options={categories} />
+
                     <EnaTextArea label="Short Description" name="bio" placeholder="Short Description (Bio)" />
                     <EnaTextArea label="Blog Content" name="content" placeholder="Blog Content" />
                 </div>
-
+                {/* Show error messages */}
+                {!loading && <ErrorMessage error={error as TError} />}
                 <button
                     type="submit"
                     className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"

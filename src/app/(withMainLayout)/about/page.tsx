@@ -4,9 +4,12 @@ import HighlightFeatures from "./components/HighlightFeatures/HighlightFeatures"
 import CompanyOverView from "./components/CompanyOverview/CompanyOverview";
 import OurAchievements from "./components/OurAchievements/OurAchievements";
 import ConnectWithUs from "./components/ConnectWithUs/ConnectWithUs";
-import { feedbacks } from "../home/_constant/feedback";
+import { getAllReviews } from "@/utils/fetchData/getAllReviews";
+import { TReview } from "@/types";
 
-const AboutPage = () => {
+const AboutPage = async () => {
+  const { data: feedbackData = [] }: { data: TReview[] } = await getAllReviews();
+
   return (
     <div
       className="pt-5 bg-no-repeat bg-top"
@@ -24,7 +27,7 @@ const AboutPage = () => {
       <CompanyOverView />
       <ExploreCompany />
       <HighlightFeatures />
-      <Feedback feedbackData={feedbacks} buttonText="Hear from customer" />
+      <Feedback feedbackData={feedbackData} buttonText="Hear from customer" />
       <OurAchievements />
       <ConnectWithUs />
     </div>

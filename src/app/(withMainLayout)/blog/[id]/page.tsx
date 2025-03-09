@@ -53,7 +53,7 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
         <div className="flex justify-center items-center gap-5">
           <button className="border border-[#636EDF4D] w-fit lg:min-w-fit rounded-[10px] text-black text-[14px] md:text-[18px] px-4 py-1.5  flex items-center gap-2 hover:bg-gray-200 transition">
             <span className="w-2 h-2 rounded-[1px] bg-[#636EDF] animate-pulse"></span>
-            Category
+            {blogData?.category || "Category"}
           </button>
           <div className="flex gap-2 text-[12px] font-semibold uppercase">
             <p className="text-light">
