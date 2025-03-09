@@ -56,7 +56,7 @@ const Hero = () => {
                     textColor="text-white"
                     className="justify-center md:justify-start text-white relative"
                     invertedBorder={false}
-                    link="/"
+                    link="/project"
                     text="View Our Work"
                   />
                 </div>
