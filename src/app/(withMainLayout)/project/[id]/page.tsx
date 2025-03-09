@@ -13,15 +13,34 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
   const data = await getSingleProject(params?.id);
   const { data: project }: { data: TProject } = data;
 
-  const { _id, title, description, author, category, thumbnail, images, createdAt, requirement, websiteFeatures, frontendTech, backendTech, databases, deployment, securityFeatures, testing, timeTakenToDevelop } = project || {};
+  const {
+    _id,
+    title,
+    description,
+    author,
+    category,
+    thumbnail,
+    images,
+    createdAt,
+    requirement,
+    websiteFeatures,
+    frontendTech,
+    backendTech,
+    databases,
+    deployment,
+    securityFeatures,
+    testing,
+    timeTakenToDevelop,
+  } = project || {};
 
   const meta = [
     {
-      title: "Date", desc: new Date(createdAt).toLocaleDateString("en-US", {
+      title: "Date",
+      desc: new Date(createdAt).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric",
-      })
+      }),
     },
     { title: "Client", desc: author?.name || "Client name" },
     { title: "Category", desc: category },
@@ -29,6 +48,16 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
   ];
 
   const { data: projects }: { data: TProject[] } = await getAllProjects();
+
+  if (!project) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-center">
+        <p className="text-2xl font-semibold text-red-500">
+          Failed to load project details. Please try again later.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto">
@@ -70,12 +99,19 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
 
           {/* Featured image */}
           <div className="relative w-full min-h-[150px] md:min-h-[300px] lg:min-h-[600px] rounded-[40px] mt-10">
-            <Image
-              src={thumbnail}
-              fill
-              alt=""
-              className="rounded-[40px] object-cover"
-            />
+            {/* Featured Image */}
+            {thumbnail ? (
+              <div className="relative w-full min-h-[150px] md:min-h-[300px] lg:min-h-[600px] rounded-[40px] mt-10">
+                <Image
+                  src={thumbnail}
+                  fill
+                  alt="Project Thumbnail"
+                  className="rounded-[40px] object-cover"
+                />
+              </div>
+            ) : (
+              <p className="text-center text-red-500">No thumbnail available</p>
+            )}
           </div>
 
           {/* Our Process */}
@@ -87,35 +123,50 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
             </div>
             <div className="">
               <p className="text-[20px] text-light pb-5">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
               </p>
             </div>
           </div>
 
           {/* Images */}
           <div className="grid md:grid-cols-2 gap-5">
-            {images.map((img, idx) => <div key={idx} className="relative w-full min-h-[250px] lg:min-h-[450px] rounded-[40px]">
-              <Image
-                src={img}
-                fill
-                alt=""
-                className="rounded-[40px] object-cover"
-              />
-            </div>)}
+            {images && images.length > 0 ? (
+              images?.map((img, idx) => (
+                <div
+                  key={idx}
+                  className="relative w-full min-h-[250px] lg:min-h-[450px] rounded-[40px]"
+                >
+                  <Image
+                    src={img}
+                    fill
+                    alt=""
+                    className="rounded-[40px] object-cover"
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-500">
+                No additional images available
+              </p>
+            )}
           </div>
 
           <div className="lg:max-w-[80%] mx-auto mt-10 md:text-[20px]">
             <div className="grid md:grid-cols-2 gap-10">
               <p>
                 <span className="block font-semibold">Requirement: </span>
-                <span className="block text-[20px] text-light pb-5">{requirement}</span>
+                <span className="block text-[20px] text-light pb-5">
+                  {requirement}
+                </span>
               </p>
               <p>
                 <span className="block font-semibold">Duration: </span>
-                <span className="block text-[20px] text-light pb-5">{timeTakenToDevelop}</span>
+                <span className="block text-[20px] text-light pb-5">
+                  {timeTakenToDevelop}
+                </span>
               </p>
             </div>
 
@@ -171,7 +222,6 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
               items={securityFeatures}
               description="Security best practices, such as data encryption, authentication mechanisms, and secure API handling, are implemented to safeguard user data and prevent vulnerabilities."
             />
-
           </div>
         </article>
 
@@ -202,4 +252,3 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
 };
 
 export default ProjectDetailPage;
-
