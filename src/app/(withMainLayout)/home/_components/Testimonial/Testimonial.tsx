@@ -27,9 +27,9 @@ export const Testimonial = async () => {
 
   return (
     <div className="container mx-auto">
-      <h2 className="text-white text-[205px] leading-[164px] text-center font-semibold -mb-[40px]">
+      {/* <h2 className="text-white text-[205px] leading-[164px] text-center font-semibold -mb-[40px]">
         testimonials
-      </h2>
+      </h2> */}
       {feedbackData && feedbackData.length > 0 && (
         <Feedback feedbackData={feedbackData} buttonText="Hear from customer" />
       )}
