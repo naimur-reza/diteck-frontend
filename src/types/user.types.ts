@@ -1,4 +1,5 @@
 export interface TUser {
+  avatar: string | undefined;
   name: string;
   email: string;
   password: string;
