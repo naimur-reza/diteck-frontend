@@ -17,7 +17,7 @@ const HomePage = () => {
       <OurServicesPage />
       <WhyUs />
       <SelectedWorks />
-      {/* <TeamMember /> */}
+      <TeamMember />
       {/* <Testimonial /> */}
       {/* <RecentPost /> */}
     </div>
