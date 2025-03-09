@@ -1,6 +1,6 @@
 import { SectionTitle } from "@/components/common";
-import { TeamMemberCard } from "@/components/ui";
 import { TTeamMember } from "@/types";
+import TeamMemberContainer from "./TeamMemberContainer";
 
 async function getTeamMembers() {
   try {
@@ -35,15 +35,7 @@ export const TeamMember = async () => {
         title="Meet the leadership team"
         rightText="We are all passionate and committed to deliver high quality services to our clients"
       />
-      <div className="mt-[50px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 ">
-        {teamsArray && teamsArray.length > 0 ? (
-          teamsArray.map((item, idx) => (
-            <TeamMemberCard key={idx} item={item} />
-          ))
-        ) : (
-          <p className="text-center text-gray-500">No team member available</p>
-        )}
-      </div>
+      <TeamMemberContainer teamsArray={teamsArray} />
     </div>
   );
 };

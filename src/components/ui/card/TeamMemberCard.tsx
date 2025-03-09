@@ -1,10 +1,17 @@
+"use client";
 import { teamRoles } from "@/constants/teamRoles";
 import { TTeamMember } from "@/types";
 import { PlusIcon } from "lucide-react";
 
-export const TeamMemberCard = ({ item }: { item: TTeamMember | null | undefined }) => {
+export const TeamMemberCard = ({
+  item,
+  handleModal,
+}: {
+  item: TTeamMember;
+  handleModal: (item: TTeamMember) => void;
+}) => {
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-t-[20px]  rounded-bl-[20px] group cursor-pointer ">
+    <div className="relative h-full w-full overflow-hidden rounded-t-[20px]  rounded-bl-[20px] group  ">
       {/* image */}
       <div
         className="relative teamMember bg-cover  bg-no-repeat h-[500px]  w-full   "
@@ -27,7 +34,10 @@ export const TeamMemberCard = ({ item }: { item: TTeamMember | null | undefined 
       </div>
 
       {/* plus icon */}
-      <div className="size-16 bg-[#F2F1F6] border-0 z-40 border-[#F2F1F6]  rounded-tl-[20px] absolute bottom-0 right-0   flex items-center justify-center">
+      <div
+        onClick={() => handleModal(item)}
+        className="size-16 cursor-pointer bg-[#F2F1F6] border-0 z-40 border-[#F2F1F6]  rounded-tl-[20px] absolute bottom-0 right-0   flex items-center justify-center"
+      >
         <div className="p-3 group-hover:bg-primary duration-500 group-hover:text-white bg-white size-12 flex justify-center items-center rounded-lg">
           <PlusIcon size={18} />
         </div>
