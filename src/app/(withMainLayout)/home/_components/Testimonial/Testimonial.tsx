@@ -1,29 +1,9 @@
 import { Feedback } from "@/components/common";
 import { TReview } from "@/types";
-
-async function getReviews() {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/review/all-reviews`,
-      {
-        cache: "force-cache",
-        next: { revalidate: 3600 },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch reviews");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching reviews:", error);
-    return { data: [] };
-  }
-}
+import { getAllReviews } from "@/utils/fetchData/getAllReviews";
 
 export const Testimonial = async () => {
-  const { data: feedbackData } = (await getReviews()) as { data: TReview[] };
+  const { data: feedbackData = [] }: { data: TReview[] } = await getAllReviews();
 
   return (
     <div className="container mx-auto ">

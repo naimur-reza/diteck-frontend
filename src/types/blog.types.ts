@@ -7,6 +7,7 @@ export interface TBlog {
   author: TUser;
   thumbnail: string;
   content: string;
+  category: string;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;

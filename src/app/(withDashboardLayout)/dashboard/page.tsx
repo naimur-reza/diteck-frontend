@@ -3,20 +3,18 @@
 import {
   BookOpen,
   Briefcase,
-  ChevronDown,
   Clock,
   MessageSquare,
-  Search,
   Star,
   Users,
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { useGetDashboardAnalyticsQuery } from "@/redux/api/adminApi/dashboardApi/dashboardApi"
 import { Progress } from "@/components/ui/progress"
 import Link from "next/link"
 // import { Activity } from "./_components/ActivityChart"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react"
 
 // Format minutes to hours and minutes
 function formatResponseTime(minutes: number) {
@@ -25,43 +23,33 @@ function formatResponseTime(minutes: number) {
   return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`
 }
 
-export default function Dashboard() {
-  const { data: dashboardData } = useGetDashboardAnalyticsQuery(undefined);
+export default function DashboardStatistics() {
+  const [selectedPeriod, setSelectedPeriod] = useState("7");
+
+  const { data: dashboardData } = useGetDashboardAnalyticsQuery([
+    { name: "days", value: selectedPeriod }]);
 
   return (
-
     <div className="flex min-h-screen bg-muted/40">
-
       <div className="flex-1">
-        <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-6">
-          <div className="flex flex-1 items-center gap-4">
-            <form className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search..."
-                  className="w-full bg-background pl-8 md:w-[300px] lg:w-[300px]"
-                />
-              </div>
-            </form>
-            <div className="ml-auto flex items-center gap-2">
-              <Button variant="outline" size="sm">
-                Today
-              </Button>
-              <Button variant="outline" size="sm">
-                This Week
-              </Button>
-              <Button variant="outline" size="sm">
-                This Month
-                <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </header>
         <main className="flex-1 p-6">
           <div className="flex flex-col gap-6">
-            <h1 className="text-3xl font-bold">Dashboard Statistics</h1>
+            <div className="flex items-center justify-between">
+              <h1 className="text-3xl font-bold">Dashboard Statistics</h1>
+              <div className="ml-auto flex items-center gap-2">
+                <Select onValueChange={(value) => setSelectedPeriod(value)} defaultValue={selectedPeriod}>
+                  <SelectTrigger className="h-9 w-[140px] border-muted-foreground/20">
+                    <SelectValue placeholder="Select period" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="7">Last 7 days</SelectItem>
+                    <SelectItem value="30">Last 30 days</SelectItem>
+                    <SelectItem value="90">Last 90 days</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 

@@ -1,54 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { LuArrowRight } from "react-icons/lu";
-
-const works = [
-  {
-    title: "Works",
-    link: "#",
-  },
-  {
-    title: "Expertise",
-    link: "#",
-  },
-  {
-    title: "About",
-    link: "#",
-  },
-  {
-    title: "Team",
-    link: "#",
-  },
-  {
-    title: "Awards",
-    link: "#",
-  },
-];
-
-const blogs = [
-  {
-    title: "Blogs",
-    link: "#",
-  },
-  {
-    title: "Careers",
-    link: "#",
-  },
-  {
-    title: "Partnerships",
-    link: "#",
-  },
-  {
-    title: "Contact",
-    link: "#",
-  },
-];
-
-const socialLinks = [
-  { title: "Facebook", link: "#" },
-  { title: "Instagram", link: "#" },
-  { title: "YouTube", link: "#" },
-];
+import { routes2, socialLinks, routes1 } from "./_constants/_constant";
 
 const Footer = () => {
   return (
@@ -81,7 +34,7 @@ const Footer = () => {
             </form>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-[50px] border-t-2 border-t-[#ffffff33]">
               <div className="flex flex-col">
-                {works.map(({ title, link }, idx) => (
+                {routes1.map(({ title, link }, idx) => (
                   <Link
                     key={idx}
                     href={link}
@@ -96,7 +49,7 @@ const Footer = () => {
               </div>
 
               <div className="flex flex-col">
-                {blogs.map(({ title, link }, idx) => (
+                {routes2.map(({ title, link }, idx) => (
                   <Link
                     key={idx}
                     href={link}
@@ -114,11 +67,11 @@ const Footer = () => {
                 <h3 className="footer-text">Head Office</h3>
                 <address className="text-[16px] font-normal not-italic flex flex-col gap-2">
                   <span className="block">
-                    2972 Westheimer Rd. Santa Ana, Illinois 85486
+                    34 Amin Model Town, Savar Cantonment, Savar, Dhaka - 1344, Bangladesh
                   </span>
-                  <span className="block">support@example.com</span>
+                  <span className="block">support@enaema.com</span>
                   <span className="block footer-text text-primary w-full">
-                    + (406) 555-0120
+                    01926 080 600
                   </span>
                 </address>
               </div>
