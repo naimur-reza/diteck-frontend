@@ -56,14 +56,12 @@ export function TeamMemberForm({
         <EnaInput
           label="Phone no."
           name="phoneNumber"
-          type="number"
           placeholder="01712345678"
         />
 
         <EnaInput
           name="emergencyContactNumber"
           label="Emergency Phone no."
-          type="number"
           placeholder="01712345678"
         />
 
