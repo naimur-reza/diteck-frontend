@@ -4,11 +4,14 @@ import {
   SectionTitle,
 } from "@/components/common";
 import React from "react";
-import { teamsArray } from "../home/_constant/teamMember";
 import { PulseButton, TeamMemberCard } from "@/components/ui";
 import Image from "next/image";
+import { TTeamMember } from "@/types";
+import getAllTeamMembers from "@/utils/fetchData/getAllTeamMembers";
 
-const OurTeamPage = () => {
+const OurTeamPage = async () => {
+  const { data: teamMembers }: { data: TTeamMember[] } = await getAllTeamMembers();
+
   return (
     <div
       className="pt-5 bg-no-repeat bg-top"
@@ -34,10 +37,7 @@ const OurTeamPage = () => {
           />
         </div>
         <div className="mt-[50px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 ">
-          {teamsArray.map((item, idx) => (
-            <TeamMemberCard key={idx} item={item} />
-          ))}
-          {teamsArray.map((item, idx) => (
+          {teamMembers?.map((item, idx) => (
             <TeamMemberCard key={idx} item={item} />
           ))}
         </div>

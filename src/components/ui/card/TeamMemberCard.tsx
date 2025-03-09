@@ -2,14 +2,14 @@ import { teamRoles } from "@/constants/teamRoles";
 import { TTeamMember } from "@/types";
 import { PlusIcon } from "lucide-react";
 
-export const TeamMemberCard = ({ item }: { item: TTeamMember }) => {
+export const TeamMemberCard = ({ item }: { item: TTeamMember | null | undefined }) => {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-t-[20px]  rounded-bl-[20px] group cursor-pointer ">
       {/* image */}
       <div
         className="relative teamMember bg-cover  bg-no-repeat h-[500px]  w-full   "
         style={{
-          backgroundImage: `url(${item.profilePhoto})`,
+          backgroundImage: `url(${item?.profilePhoto})`,
         }}
       ></div>
       <div className=" z-10 absolute inset-x-0 h-0 group-hover:h-[300px] duration-500  bottom-0 bg-gradient-to-t from-[#5963c8]/[5] to-[#5963c8]/[2%] "></div>
@@ -18,10 +18,10 @@ export const TeamMemberCard = ({ item }: { item: TTeamMember }) => {
       <div className=" absolute inset-x-0 h-[140px]   bottom-0 bg-gradient-to-b from-transparent to-black p-4">
         <div className="max-w-md text-white relative z-20">
           <h3 className="   text-3xl lg:text-4xl xl:text-[40px] xl:leading-14  font-bold mt-4">
-            {item.name}
+            {item?.name}
           </h3>
           <p className=" text-[16px]">
-            {teamRoles.find((role) => role.value === item.teamRole)?.label}
+            {teamRoles.find((role) => role.value === item?.teamRole)?.label}
           </p>
         </div>
       </div>

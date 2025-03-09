@@ -30,7 +30,7 @@ const Hero = () => {
               fill
             />
           </div>
-          <section className="pt-10 md:pt-0 text-center md:text-start relative z-20">
+          <section className="pt-10 md:pt-20 text-center md:text-start relative z-20">
             <div className="flex flex-col gap-4 md:grid md:items-center">
               <div className="col-span-2 flex justify-center md:block">
                 <PulseButton
