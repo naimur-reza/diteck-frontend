@@ -9,12 +9,14 @@ const SinglePost = ({ post }: { post: TBlog }) => {
   return (
     <div className="flex flex-col md:flex-row items-center gap-10 border-t first:border-t-0 last:border-b border-y-black py-10 bg-[#F2F1F6] relative group transition-all duration-600 md:-mb-[80px] md:hover:mb-[0px]">
       <div className="relative w-full md:max-w-[220px] h-[220px] rounded-[20px]  transition-all duration-600">
-        <Image
-          src={thumbnail}
-          alt={title}
-          fill
-          className="rounded-[20px] object-cover"
-        />
+        {thumbnail && (
+          <Image
+            src={thumbnail}
+            alt={title}
+            fill
+            className="rounded-[20px] object-cover"
+          />
+        )}
       </div>
       <div>
         <div className="flex gap-2 text-[12px] font-semibold uppercase mb-4">
@@ -22,11 +24,12 @@ const SinglePost = ({ post }: { post: TBlog }) => {
             {/* {category} */}
           </p>
           <p className="text-light">
-            {createdAt && new Date(createdAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {createdAt &&
+              new Date(createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
           </p>
           <p className="text-light">{author?.email}</p>
         </div>

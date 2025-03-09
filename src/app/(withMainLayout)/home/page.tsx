@@ -19,7 +19,7 @@ const HomePage = () => {
       <SelectedWorks />
       <TeamMember />
       <Testimonial />
-      {/* <RecentPost /> */}
+      <RecentPost />
     </div>
   );
 };
