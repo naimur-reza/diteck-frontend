@@ -32,8 +32,8 @@ const Services = () => {
   } = useModal();
 
   const { data, isLoading, isFetching } = useGetAllServiceQuery([
+    { name: "isDeleted", value: "false" },
     { name: "searchTerm", value: searchTerm },
-    { name: "isDeleted", value: false },
     { name: "limit", value: limit },
     { name: "page", value: pageNumber },
   ]);
