@@ -39,7 +39,20 @@ export function TeamMemberForm({
   return (
     <EnaForm
       onSubmit={onSubmit}
-      defaultValues={member ?? {}}
+      defaultValues={
+        member
+          ? {
+              name: member.name || "",
+              email: member.email || "",
+              phoneNumber: member.phoneNumber || "",
+              emergencyContactNumber: member.emergencyContactNumber || "",
+              address: member.address || "",
+              teamRole: member.teamRole || "",
+              designation: member.designation || "",
+              startDate: member.startDate || "",
+            }
+          : {}
+      }
       schema={member ? updateTeamMemberSchema : teamMemberSchema}
       buttonPosition="right"
       buttonText={member ? "Update" : "Add"}

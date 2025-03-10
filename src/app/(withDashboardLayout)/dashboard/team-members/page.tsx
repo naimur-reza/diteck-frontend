@@ -86,9 +86,6 @@ export default function TeamMembers() {
   const updateTeamMember = async (data: FieldValues) => {
     if (!currentMember) return;
 
-    console.log(currentMember);
-    console.log(data);
-
     const { profilePhoto, ...restData } = data;
 
     const formData = new FormData();
