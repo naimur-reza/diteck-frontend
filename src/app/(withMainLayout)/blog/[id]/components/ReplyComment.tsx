@@ -2,7 +2,7 @@ import { TComment } from "@/types";
 import Image from "next/image";
 import React from "react";
 
-const ReplyComment = ({ reply, parentId }: { reply: TComment, parentId: string }) => {
+const ReplyComment = ({ reply }: { reply: TComment }) => {
   const { commenterName, text, createdAt } = reply;
 
   return (

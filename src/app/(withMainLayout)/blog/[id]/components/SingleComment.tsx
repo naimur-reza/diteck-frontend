@@ -1,9 +1,12 @@
+"use client";
 import { TComment } from "@/types";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import ReplyForm from "./ReplyForm";
 
-const SingleComment = ({ comment }: { comment: TComment }) => {
+const SingleComment = ({ comment, blogId }: { comment: TComment, blogId: string }) => {
   const { commenterName, text, createdAt } = comment;
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex gap-4 items-start justify-start border-b py-6">
@@ -22,9 +25,10 @@ const SingleComment = ({ comment }: { comment: TComment }) => {
           day: "numeric",
         })}</time>
         <p className="mt-3 mb-6">{text}</p>
-        <button className="cursor-pointer underline-offset-1 text-accent">
+        <button onClick={() => setIsOpen((pre) => !pre)} className="cursor-pointer underline-offset-1 text-accent">
           Reply
         </button>
+        {isOpen && <ReplyForm blogId={blogId} parentComment={comment} />}
       </div>
     </div>
   );

@@ -171,9 +171,9 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
         <BlogNavigator currentPostId={blog?._id} posts={recentPosts} />
 
         {/* Comments box */}
-        <CommentBox comments={blog?.comments} />
+        <CommentBox comments={blog?.comments} blogId={blog?._id}/>
 
-        {/* Comments form */}
+        {/* New Comments form */}
         <CommentForm blogId={blog?._id} />
       </div>
     </div>

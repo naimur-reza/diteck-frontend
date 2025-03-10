@@ -86,11 +86,10 @@ export const blogApi = baseApi.injectEndpoints({
     }),
     // Reply Comment
     replyComment: builder.mutation({
-      query: ({ data, parentId }) => ({
-        url: `/comment/reply/${parentId}`,
+      query: ({ data, parentCommentId }) => ({
+        url: `/comment/reply/${parentCommentId}`,
         method: "POST",
         body: data,
-        formData: true,
       }),
       invalidatesTags: ["blog"],
     }),
