@@ -24,7 +24,7 @@ async function getTeamMembers() {
 }
 
 export const TeamMember = async () => {
-  const { data: teamsArray } = (await getTeamMembers()) as {
+  const { data: teamsArray = [] } = (await getTeamMembers()) as {
     data: TTeamMember[];
   };
 
@@ -35,7 +35,7 @@ export const TeamMember = async () => {
         title="Meet the leadership team"
         rightText="We are all passionate and committed to deliver high quality services to our clients"
       />
-      <TeamMemberContainer teamsArray={teamsArray} />
+      <TeamMemberContainer teamsArray={teamsArray?.slice(0, 4)} />
     </div>
   );
 };

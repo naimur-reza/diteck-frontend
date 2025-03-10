@@ -4,10 +4,11 @@ import {
   SectionTitle,
 } from "@/components/common";
 import React from "react";
-import { PulseButton, TeamMemberCard } from "@/components/ui";
+import { PulseButton } from "@/components/ui";
 import Image from "next/image";
 import { TTeamMember } from "@/types";
 import getAllTeamMembers from "@/utils/fetchData/getAllTeamMembers";
+import TeamMemberContainer from "../home/_components/TeamMembers/TeamMemberContainer";
 
 const OurTeamPage = async () => {
   const { data: teamMembers }: { data: TTeamMember[] } = await getAllTeamMembers();
@@ -36,11 +37,7 @@ const OurTeamPage = async () => {
             title="Meet the leadership team"
           />
         </div>
-        <div className="mt-[50px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 ">
-          {teamMembers?.map((item, idx) => (
-            <TeamMemberCard key={idx} item={item} />
-          ))}
-        </div>
+        <TeamMemberContainer teamsArray={teamMembers} />
       </section>
 
       {/* Dual banner */}
