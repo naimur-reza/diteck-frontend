@@ -16,6 +16,7 @@ import {
 import { userColumn } from "./_constants/user";
 import AddAndUpdateUser from "./_components/AddAndUpdateUser";
 import { useNotification } from "@/hooks/useNotification";
+import ViewUser from "./_components/ViewUser";
 
 const User = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -25,6 +26,7 @@ const User = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [isViewModal, setIsViewModal] = useState(false);
   const [isSoftDeleteModal, setIsSoftDeleteModal] = useState(false);
 
   const { data, isLoading, isFetching } = useGetAllUserQuery([
@@ -84,6 +86,11 @@ const User = () => {
     setSingleData(item);
   };
 
+  const handleViewModal = (item: TAdminAndManager) => {
+    setIsViewModal(true);
+    setSingleData(item);
+  };
+
   const handleDelete = () => {
     deleteUser({ id: singleData?._id });
   };
@@ -138,7 +145,7 @@ const User = () => {
             columns={userColumn as TableColumn<TAdminAndManager>[]}
             data={data?.data as TAdminAndManager[]}
             onEdit={handleEditModal}
-            onView={(row) => console.log("View:", row)}
+            onView={handleViewModal}
             onDelete={handleDeleteModal}
             onSoftDelete={handleSoftDeleteModal}
             meta={data?.meta}
@@ -149,6 +156,7 @@ const User = () => {
         </CardContent>
       </Card>
 
+      {/* edit user */}
       <Modal
         isOpen={isEditModal}
         onClose={() => setIsEditModal(false)}
@@ -158,6 +166,15 @@ const User = () => {
           defaultValues={singleData as TAdminAndManager}
           setIsOpen={setIsEditModal}
         />
+      </Modal>
+
+      {/* view */}
+      <Modal
+        isOpen={isViewModal}
+        onClose={() => setIsViewModal(false)}
+        title="View the user"
+      >
+        <ViewUser item={singleData as TAdminAndManager}></ViewUser>
       </Modal>
       <DeleteConfirm
         isError={dIsError}
