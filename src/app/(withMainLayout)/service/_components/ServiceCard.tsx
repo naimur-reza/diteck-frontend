@@ -26,7 +26,7 @@ export const ServiceCard = ({ item }: { item: TService }) => {
         </div>
         <div className="mt-6 md:mt-0">
           <LinkButtonWithIcon
-            link={`/service/${item.title}`}
+            link={`/service/${item.slug}`}
             text="Learn more"
             invertedBorder={false}
             position="start"

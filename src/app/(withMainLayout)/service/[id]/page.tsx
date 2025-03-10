@@ -5,10 +5,15 @@ import {
   ProblemWeSolve,
   ServiceFeatures,
 } from "./_components";
+import getSingleService from "@/utils/fetchData/getSingleService";
+import { TService } from "@/types";
 
-const ServiceDetails = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ServiceDetails = async ({ params }: { params: any }) => {
+  const { data: service }: { data: TService } = await getSingleService(params?.id);
+
   return (
-    <div className="space-y-8 md:space-y-10 ">
+    <div className="space-y-8 md:space-y-10">
       <h3 className=" font-medium  text-[28px] leading-[30px]  md:text-[32px] md:leading-[40px]">
         A digital marketing agency can help businesses of all sizes and
         industries to improve their online visibility, generate leads, and
