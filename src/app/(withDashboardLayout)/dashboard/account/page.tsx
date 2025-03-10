@@ -2,45 +2,71 @@
 
 import type React from "react";
 
-import { useState } from "react";
-import { useGetLoggedInUserQuery } from "@/redux/api/authApi/authApi";
-import { Button } from "@/components/ui/button";
+import {
+  useChangePasswordMutation,
+  useGetLoggedInUserQuery,
+} from "@/redux/api/authApi/authApi";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Eye, EyeOff, User, Mail, Shield, Calendar, Lock } from "lucide-react";
-
-const UserAccount = () => {
-  const { data, isLoading } = useGetLoggedInUserQuery(undefined);
-  const [showPassword, setShowPassword] = useState(false);
-  const [passwordForm, setPasswordForm] = useState({
-    oldPassword: "",
-    newPassword: "",
-    confirmPassword: "",
+import { User, Mail, Shield, Calendar, Lock } from "lucide-react";
+import { EnaForm, EnaInput } from "@/components/forms";
+import { z } from "zod";
+import { FieldValues } from "react-hook-form";
+import { useEffect } from "react";
+import { useAppDispatch } from "@/redux/hooks";
+import { useRouter } from "next/router";
+import { logout } from "@/redux/features/auth/authSlice";
+import { useNotification } from "@/hooks/useNotification";
+import { TError } from "@/types";
+const passwordChangeSchema = z
+  .object({
+    oldPassword: z.string().min(1, "Current password is required"),
+    newPassword: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
   });
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordForm({
-      ...passwordForm,
-      [e.target.name]: e.target.value,
+const UserAccount = () => {
+  const dispatch = useAppDispatch();
+  const { data, isLoading } = useGetLoggedInUserQuery(undefined);
+  const [
+    changePassword,
+    { isError, isLoading: cIsLoading, isSuccess, error, data: cData },
+  ] = useChangePasswordMutation();
+
+  const handleSubmitPasswordChange = (data: FieldValues) => {
+    changePassword({
+      newPassword: data?.newPassword,
+      oldPassword: data?.oldPassword,
     });
   };
 
-  const handleSubmitPasswordChange = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Implement password change logic here
-    console.log("Password change submitted", passwordForm);
-  };
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(logout());
+    }
+  }, [isSuccess]);
+
+  useNotification({
+    isError,
+    isLoading: cIsLoading,
+    isSuccess,
+    data: cData,
+    error: error as TError,
+  });
 
   if (isLoading) {
     return (
@@ -201,66 +227,35 @@ const UserAccount = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form
+                  <EnaForm
                     onSubmit={handleSubmitPasswordChange}
-                    className="space-y-4"
+                    schema={passwordChangeSchema}
+                    defaultValues={{
+                      oldPassword: "",
+                      newPassword: "",
+                      confirmPassword: "",
+                    }}
                   >
-                    <div className="space-y-2">
-                      <Label htmlFor="oldPassword">Current Password</Label>
-                      <div className="relative">
-                        <Input
-                          id="oldPassword"
-                          name="oldPassword"
-                          type={showPassword ? "text" : "password"}
-                          value={passwordForm.oldPassword}
-                          onChange={handlePasswordChange}
-                          required
-                        />
-                        <button
-                          type="button"
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-4 w-4 text-muted-foreground" />
-                          ) : (
-                            <Eye className="h-4 w-4 text-muted-foreground" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
+                    <EnaInput
+                      name="oldPassword"
+                      type={"password"}
+                      placeholder="Enter your current password"
+                      className="mb-4"
+                    />
+                    <EnaInput
+                      name="newPassword"
+                      type={"password"}
+                      placeholder="Enter your new password"
+                      className="mb-4"
+                    />
+                    <EnaInput
+                      name="confirmPassword"
+                      type={"password"}
+                      placeholder="Confirm your new password"
+                      className="mb-4"
+                    />
 
-                    <div className="space-y-2">
-                      <Label htmlFor="newPassword">New Password</Label>
-                      <div className="relative">
-                        <Input
-                          id="newPassword"
-                          name="newPassword"
-                          type={showPassword ? "text" : "password"}
-                          value={passwordForm.newPassword}
-                          onChange={handlePasswordChange}
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="confirmPassword">
-                        Confirm New Password
-                      </Label>
-                      <div className="relative">
-                        <Input
-                          id="confirmPassword"
-                          name="confirmPassword"
-                          type={showPassword ? "text" : "password"}
-                          value={passwordForm.confirmPassword}
-                          onChange={handlePasswordChange}
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="flex items-center gap-2 mb-4">
                       <Lock className="h-4 w-4 text-muted-foreground" />
                       <p className="text-sm text-muted-foreground">
                         Password must be at least 8 characters and include a mix
@@ -268,12 +263,14 @@ const UserAccount = () => {
                       </p>
                     </div>
 
-                    <CardFooter className="px-0 pt-4">
-                      <Button type="submit" className="w-full">
-                        Update Password
-                      </Button>
-                    </CardFooter>
-                  </form>
+                    <button
+                      type="submit"
+                      className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-hover cursor-pointer"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Updating..." : "Update Password"}
+                    </button>
+                  </EnaForm>
                 </CardContent>
               </Card>
             </TabsContent>
