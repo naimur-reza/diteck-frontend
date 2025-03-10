@@ -10,6 +10,7 @@ import {
   LogOutIcon,
   MessageSquare,
   Newspaper,
+  User,
   UserCheck,
   Users,
 } from "lucide-react";
@@ -84,6 +85,11 @@ const navigation = [
     title: "Blogs",
     href: "/dashboard/blogs",
     icon: Newspaper,
+  },
+  {
+    title: "Account",
+    href: "/dashboard/account",
+    icon: User,
   },
 ];
 

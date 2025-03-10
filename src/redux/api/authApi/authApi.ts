@@ -1,3 +1,4 @@
+import { TAdminAndManager, TResponseWithRedux } from "@/types";
 import { baseApi } from "../baseApi";
 
 const authApi = baseApi.injectEndpoints({
@@ -16,6 +17,9 @@ const authApi = baseApi.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["Auth"],
+      transformResponse: (res: TResponseWithRedux<TAdminAndManager>) => {
+        return { data: res.data, meta: res.meta };
+      },
     }),
     changePassword: builder.mutation({
       query: (data: object) => ({
@@ -47,5 +51,5 @@ const authApi = baseApi.injectEndpoints({
 export const {
   useLoginUserMutation,
   useGetLoggedInUserQuery,
-  useChangePasswordMutation
+  useChangePasswordMutation,
 } = authApi;

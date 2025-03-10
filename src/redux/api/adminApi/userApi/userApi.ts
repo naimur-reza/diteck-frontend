@@ -1,11 +1,5 @@
-import {
-  TAdminAndManager,
-  TError,
-  TQueryParams,
-  TResponseWithRedux,
-} from "@/types";
+import { TAdminAndManager, TQueryParams, TResponseWithRedux } from "@/types";
 import { baseApi } from "../../baseApi";
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -18,7 +12,6 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
-
     getAllUser: builder.query({
       query: (arg) => {
         const params = new URLSearchParams();
@@ -56,9 +49,6 @@ export const userApi = baseApi.injectEndpoints({
         formData: true,
       }),
       invalidatesTags: ["user"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
-      },
     }),
     updateUserStatus: builder.mutation({
       query: ({ id }) => ({
@@ -66,9 +56,6 @@ export const userApi = baseApi.injectEndpoints({
         method: "PATCH",
       }),
       invalidatesTags: ["user"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
-      },
     }),
     softDeleteUser: builder.mutation({
       query: ({ id }) => ({
