@@ -68,7 +68,7 @@ export const projectApi = baseApi.injectEndpoints({
 
     deleteProject: builder.mutation({
       query: ({ id }) => ({
-        url: `/previous-work/delete-previous-work/${id}`,
+        url: `/previous-work/permanent-delete-previous-work/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Project"],

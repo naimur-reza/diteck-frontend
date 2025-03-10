@@ -1,24 +1,20 @@
 import React from "react";
 import SingleComment from "./SingleComment";
+import { TComment } from "@/types";
+import ReplyComment from "./ReplyComment";
 
-const comment = {
-  name: "John Doe",
-  text: "This is exactly what i was looking for, thank you so much for these tutorials",
-  date: "6 Dec 2024",
-  userImg:
-    "https://secure.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=80&d=mm&r=g",
-};
-
-const CommentBox = () => {
+const CommentBox = ({ comments, blogId }: { comments: TComment[], blogId: string }) => {
   return (
     <div className="lg:max-w-[90%] lg:mx-[150px]">
-      <p className="text-[34px] my-7 font-semibold">3 Comments</p>
-      {[1, 2].map((_, idx) => (
+      <p className="text-[34px] my-7 font-semibold">{comments?.length || 0} Comments</p>
+
+      {comments?.map((comment, idx) => (
         <div key={idx}>
-          <SingleComment comment={comment} />
-          <div className="ml-16">
-            <SingleComment comment={comment} />
-          </div>
+          <SingleComment comment={comment} blogId={blogId} />
+          {/* Replies */}
+          {comment?.replies?.map((reply, idx) => <div key={idx} className="ml-16">
+            <ReplyComment reply={reply} />
+          </div>)}
         </div>
       ))}
     </div>

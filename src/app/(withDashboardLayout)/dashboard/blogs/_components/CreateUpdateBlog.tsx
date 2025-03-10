@@ -1,6 +1,5 @@
 "use client";
-
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import EnaForm from "@/components/forms/EnaForm";
@@ -13,8 +12,11 @@ import { TBlog, TError } from "@/types";
 import { useAppSelector } from "@/redux/hooks";
 import ErrorMessage from "@/components/dashboard/ErrorMessage/ErrorMessage";
 import { categories } from "../_constants/constant";
+import EnaEditor from "@/components/common/EnaEditor/EnaEditor";
 
 const CreateUpdateBlog = ({ closeModal, blog }: { closeModal: () => void, blog?: TBlog | null | undefined }) => {
+    const [description, setDescription] = useState("");
+
     const [createBlog, { isLoading, error: createError }] = useCreateBlogMutation();
     const [updateBlog, { isLoading: updateIsLoading, error: updateError }] = useUpdateBlogMutation();
 
@@ -22,6 +24,8 @@ const CreateUpdateBlog = ({ closeModal, blog }: { closeModal: () => void, blog?:
     const loading = isLoading || updateIsLoading;
 
     const { user } = useAppSelector(state => state.auth);
+
+
 
     const handleCreateUpdate = async (data: FieldValues) => {
         try {
@@ -31,7 +35,9 @@ const CreateUpdateBlog = ({ closeModal, blog }: { closeModal: () => void, blog?:
                 title: data.title,
                 bio: data.bio,
                 author: user?._id,
-                content: data.content,
+                category: data.category,
+                // content: data.content,
+                content: description,
             };
 
             formData.append("data", JSON.stringify(jsonData));
@@ -62,6 +68,7 @@ const CreateUpdateBlog = ({ closeModal, blog }: { closeModal: () => void, blog?:
             <EnaForm onSubmit={handleCreateUpdate} schema={blogSchema} defaultValues={{
                 title: blog?.title || "",
                 bio: blog?.bio || "",
+                category: blog?.category || "",
                 content: blog?.content || "",
             }}>
                 <div className="grid gap-5 mb-5">
@@ -75,7 +82,10 @@ const CreateUpdateBlog = ({ closeModal, blog }: { closeModal: () => void, blog?:
                     <EnaSelect label="Category" name="category" placeholder="Category" options={categories} />
 
                     <EnaTextArea label="Short Description" name="bio" placeholder="Short Description (Bio)" />
-                    <EnaTextArea label="Blog Content" name="content" placeholder="Blog Content" />
+
+                    {/* <EnaTextArea label="Blog Content" name="content" placeholder="Blog Content" /> */}
+
+                    <EnaEditor defaultValue={blog?.content || description} setDescription={setDescription} />
                 </div>
                 {/* Show error messages */}
                 {!loading && <ErrorMessage error={error as TError} />}

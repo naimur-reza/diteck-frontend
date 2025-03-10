@@ -3,11 +3,12 @@ import { ButtonWithIcon } from "@/components/common";
 import Input from "@/components/common/Input/Input";
 import Textarea from "@/components/common/TextArea/TextArea";
 import { useNotification } from "@/hooks/useNotification";
-import { useNewCommentMutation } from "@/redux/api/adminApi/blogApi/blogApi";
+import { useReplyCommentMutation } from "@/redux/api/adminApi/blogApi/blogApi";
+import { TComment } from "@/types";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-interface CommentFormData {
+interface ReplyFormData {
   commenterName: string;
   text: string;
   email: string;
@@ -15,26 +16,26 @@ interface CommentFormData {
   saveInfo: boolean;
 }
 
-const CommentForm = ({ blogId }: { blogId: string }) => {
+const ReplyForm = ({ blogId, parentComment }: { blogId: string, parentComment: TComment }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset
-  } = useForm<CommentFormData>();
+  } = useForm<ReplyFormData>();
 
-  const [newComment, { isLoading, isError, isSuccess, data }] = useNewCommentMutation();
+  const [replyComment, { isLoading, isError, isSuccess, data }] = useReplyCommentMutation();
 
-  const onSubmit: SubmitHandler<CommentFormData> = (data) => {
-    newComment({ ...data, blogId });
-    reset();
+  const onSubmit: SubmitHandler<ReplyFormData> = (data) => {
+    replyComment({ data: { ...data, blogId }, parentCommentId: parentComment?._id });
+    reset()
   };
 
   useNotification({ isLoading, isError, isSuccess, data });
 
   return (
-    <div className="lg:max-w-[90%] lg:mx-[150px]">
-      <h2 className="text-[42px] my-7 font-medium">Leave A Comment</h2>
+    <div className="lg:max-w-[90%]">
+      <h2 className="text-[42px] my-7 font-medium">Reply to {parentComment?.commenterName}</h2>
       <p>
         Your email address will not be published. Required fields are marked *
       </p>
@@ -97,11 +98,11 @@ const CommentForm = ({ blogId }: { blogId: string }) => {
 
         {/* Submit Button */}
         <div>
-          <ButtonWithIcon text="Post Comment" type="submit" />
+          <ButtonWithIcon text=" Reply Comment" type="submit" />
         </div>
       </form>
     </div>
   );
 };
 
-export default CommentForm;
+export default ReplyForm;

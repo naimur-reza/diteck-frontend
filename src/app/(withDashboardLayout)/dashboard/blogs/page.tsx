@@ -9,6 +9,7 @@ import BlogTable from './_components/BlogTable';
 
 const BlogsPage = () => {
     const { isOpen, openModal, closeModal } = useModal();
+
     return (
         <div>
             <div className='flex justify-between items-center mb-5'>
