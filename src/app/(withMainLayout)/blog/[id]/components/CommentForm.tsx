@@ -2,26 +2,27 @@
 import { ButtonWithIcon } from "@/components/common";
 import Input from "@/components/common/Input/Input";
 import Textarea from "@/components/common/TextArea/TextArea";
+import { useNewCommentMutation } from "@/redux/api/adminApi/blogApi/blogApi";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface CommentFormData {
-  name: string;
+  commenterName: string;
+  text: string;
   email: string;
   website?: string;
-  comment: string;
   saveInfo: boolean;
 }
 
-const CommentForm = () => {
+const CommentForm = ({ blogId }: { blogId: string }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CommentFormData>();
-
+  const [newComment, { }] = useNewCommentMutation();
   const onSubmit: SubmitHandler<CommentFormData> = (data) => {
-    console.log("Submitted Data:", data);
+    newComment({ ...data, blogId });
   };
 
   return (
@@ -37,10 +38,10 @@ const CommentForm = () => {
           <div>
             <Input
               placeholder="Your Name *"
-              {...register("name", { required: "Name is required" })}
+              {...register("commenterName", { required: "Name is required" })}
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            {errors.commenterName && (
+              <p className="text-red-500 text-sm">{errors.commenterName.message}</p>
             )}
           </div>
 
@@ -70,10 +71,10 @@ const CommentForm = () => {
             <Textarea
               placeholder="Comment *"
               rows={6}
-              {...register("comment", { required: "Comment is required" })}
+              {...register("text", { required: "Comment is required" })}
             />
-            {errors.comment && (
-              <p className="text-red-500 text-sm">{errors.comment.message}</p>
+            {errors.text && (
+              <p className="text-red-500 text-sm">{errors.text.message}</p>
             )}
           </div>
         </div>

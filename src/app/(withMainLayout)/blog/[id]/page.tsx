@@ -16,7 +16,7 @@ import getRecentPosts from "@/utils/fetchData/getRecentPosts";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BlogDetailPage = async ({ params }: { params: any }) => {
   const data = await getSingleBlog(params?.id);
-  const { data: blogData }: { data: TBlog } = data;
+  const { data: blog }: { data: TBlog } = data;
 
   const { data: recentPosts }: { data: TBlog[] } = await getRecentPosts();
 
@@ -53,17 +53,17 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
         <div className="flex justify-center items-center gap-5">
           <button className="border border-[#636EDF4D] w-fit lg:min-w-fit rounded-[10px] text-black text-[14px] md:text-[18px] px-4 py-1.5  flex items-center gap-2 hover:bg-gray-200 transition">
             <span className="w-2 h-2 rounded-[1px] bg-[#636EDF] animate-pulse"></span>
-            {blogData?.category || "Category"}
+            {blog?.category || "Category"}
           </button>
           <div className="flex gap-2 text-[12px] font-semibold uppercase">
             <p className="text-light">
-              {new Date(blogData?.createdAt).toLocaleDateString("en-US", {
+              {new Date(blog?.createdAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
             </p>
-            <p className="text-light">{blogData?.author?.role}</p>
+            <p className="text-light">{blog?.author?.role}</p>
           </div>
         </div>
 
@@ -72,20 +72,20 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
           {/* Title */}
           <div>
             <h2 className="text-[30px] md:text-[52px] lg:text-[80px] font-semibold text-center lg:max-w-[90%] mx-auto mt-5">
-              {blogData?.title}
+              {blog?.title}
             </h2>
           </div>
           <div className="relative w-full min-h-[150px] md:min-h-[300px] lg:min-h-[600px] rounded-[40px] mt-10">
             <Image
-              src={blogData?.thumbnail}
+              src={blog?.thumbnail}
               fill
-              alt={blogData?.title}
+              alt={blog?.title}
               className="rounded-[40px] object-cover"
             />
           </div>
           {/* Bio */}
           <div className="lg:mx-[150px] mt-10 md:text-[20px] text-light">
-            <p>{blogData.bio}</p>
+            <p>{blog.bio}</p>
             <blockquote className="flex gap-5 lg:gap-10 my-10">
               <span className="text-primary">
                 <BiSolidQuoteLeft size={72} />
@@ -131,7 +131,7 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
           </div>
           {/* Content */}
           <div className="lg:mx-[150px] mt-10 md:text-[20px] text-light">
-            <p>{blogData?.content}</p>
+            <p>{blog?.content}</p>
           </div>
         </article>
 
@@ -168,13 +168,13 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
         </div>
 
         {/* Blog Navigator */}
-        <BlogNavigator currentPostId={blogData?._id} posts={recentPosts} />
+        <BlogNavigator currentPostId={blog?._id} posts={recentPosts} />
 
         {/* Comments box */}
-        <CommentBox />
+        <CommentBox comments={blog?.comments} />
 
         {/* Comments form */}
-        <CommentForm />
+        <CommentForm blogId={blog?._id} />
       </div>
     </div>
   );

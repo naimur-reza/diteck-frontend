@@ -2,8 +2,8 @@ import { TComment } from "@/types";
 import Image from "next/image";
 import React from "react";
 
-const SingleComment = ({ comment }: { comment: TComment }) => {
-  const { commenterName, text, createdAt } = comment;
+const ReplyComment = ({ reply, parentId }: { reply: TComment, parentId: string }) => {
+  const { commenterName, text, createdAt } = reply;
 
   return (
     <div className="flex gap-4 items-start justify-start border-b py-6">
@@ -22,12 +22,12 @@ const SingleComment = ({ comment }: { comment: TComment }) => {
           day: "numeric",
         })}</time>
         <p className="mt-3 mb-6">{text}</p>
-        <button className="cursor-pointer underline-offset-1 text-accent">
+        {/* <button className="cursor-pointer underline-offset-1 text-accent">
           Reply
-        </button>
+        </button> */}
       </div>
     </div>
   );
 };
 
-export default SingleComment;
+export default ReplyComment;

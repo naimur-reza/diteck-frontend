@@ -73,6 +73,27 @@ export const blogApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["blog"],
     }),
+
+    // New Comment
+    newComment: builder.mutation({
+      query: (data) => ({
+        url: "/comment/create",
+        method: "POST",
+        body: data,
+        formData: true,
+      }),
+      invalidatesTags: ["blog"],
+    }),
+    // Reply Comment
+    replyComment: builder.mutation({
+      query: ({ data, parentId }) => ({
+        url: `/comment/reply/${parentId}`,
+        method: "POST",
+        body: data,
+        formData: true,
+      }),
+      invalidatesTags: ["blog"],
+    }),
   }),
 });
 
@@ -83,4 +104,6 @@ export const {
   useUpdateBlogMutation,
   useSoftDeleteBlogMutation,
   useDeleteBlogMutation,
+  useNewCommentMutation,
+  useReplyCommentMutation
 } = blogApi;
