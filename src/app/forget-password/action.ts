@@ -10,7 +10,7 @@ export async function requestPasswordReset(
 ): Promise<ResetPasswordResponse> {
   try {
     const response = await fetch(
-      `${process.env.API_URL}/auth/forgot-password`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/update-forgot-password`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
