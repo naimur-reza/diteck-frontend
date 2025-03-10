@@ -6,7 +6,7 @@ import { TService } from "@/types";
 const getServicesData = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/service/get-all-services`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/service/get-all-services?isDeleted=false`,
       {
         next: { revalidate: 3000 },
       }
