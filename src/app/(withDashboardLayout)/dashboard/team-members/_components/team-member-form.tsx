@@ -29,7 +29,6 @@ export function TeamMemberForm({
   onSubmit,
   isLoading,
 }: TeamMemberFormProps) {
-  // Initialize form with member data if editing
   useEffect(() => {
     if (member) {
       setFormData(member);
