@@ -98,7 +98,7 @@ const ReplyForm = ({ blogId, parentComment }: { blogId: string, parentComment: T
 
         {/* Submit Button */}
         <div>
-          <ButtonWithIcon text="Post Comment" type="submit" />
+          <ButtonWithIcon text=" Reply Comment" type="submit" />
         </div>
       </form>
     </div>

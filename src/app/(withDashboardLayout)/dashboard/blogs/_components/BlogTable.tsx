@@ -133,6 +133,7 @@ const BlogTable = () => {
             <Modal isOpen={ViewIsOpen} onClose={viewCloseModal} title='Blog Details'>
                 <ViewBlog blog={singleBlog} />
             </Modal>
+
         </div>
     );
 };

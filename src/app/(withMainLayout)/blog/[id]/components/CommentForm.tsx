@@ -34,7 +34,7 @@ const CommentForm = ({ blogId }: { blogId: string }) => {
 
   return (
     <div className="lg:max-w-[90%] lg:mx-[150px]">
-      <h2 className="text-[42px] my-7 font-medium">Leave A Reply</h2>
+      <h2 className="text-[42px] my-7 font-medium">Leave A Comment</h2>
       <p>
         Your email address will not be published. Required fields are marked *
       </p>

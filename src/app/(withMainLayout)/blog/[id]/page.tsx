@@ -1,17 +1,12 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
-import { BiSolidQuoteLeft } from "react-icons/bi";
-import { RiFacebookFill } from "react-icons/ri";
-import { RiTwitterXFill } from "react-icons/ri";
-import { AiFillLinkedin } from "react-icons/ai";
-import { FaRegEnvelope } from "react-icons/fa6";
 import CommentBox from "./components/CommentBox";
 import CommentForm from "./components/CommentForm";
 import getSingleBlog from "@/utils/fetchData/getSingleBlog";
 import { TBlog } from "@/types";
 import BlogNavigator from "./components/BlogNavigator";
 import getRecentPosts from "@/utils/fetchData/getRecentPosts";
+// import TagAndShare from "./components/TagAndShare";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BlogDetailPage = async ({ params }: { params: any }) => {
@@ -83,95 +78,28 @@ const BlogDetailPage = async ({ params }: { params: any }) => {
               className="rounded-[40px] object-cover"
             />
           </div>
+
           {/* Bio */}
           <div className="lg:mx-[150px] mt-10 md:text-[20px] text-light">
-            <p>{blog.bio}</p>
-            <blockquote className="flex gap-5 lg:gap-10 my-10">
-              <span className="text-primary">
-                <BiSolidQuoteLeft size={72} />
-              </span>
-              <div className="text-black">
-                <h5 className="text-[24px] md:text-[32px] font-semibold">
-                  “This is a dummy quote African décor reflects harmony with
-                  nature which is reflected in its materials.”
-                </h5>
-                {/* Before Line + Author Name */}
-                <cite className="uppercase text-sm not-italic relative block before:content-[''] before:w-12 before:h-[2px] before:bg-black before:absolute before:top-2 before:-left-[55px] ml-[60px] font-semibold mt-2">
-                  Jane Cooper
-                </cite>
-              </div>
-            </blockquote>
-            <p>
-              This is a dummy description Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-              nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-              occaecat cupidatat non proident, sunt in culpa qui officia.
-            </p>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-5 lg:gap-10">
-            <div className="relative w-full min-h-[250px] md:min-h-[450px] rounded-[40px] mt-10">
-              <Image
-                src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/img_blog1.jpg"
-                fill
-                alt=""
-                className="rounded-[40px] object-cover"
-              />
-            </div>
-            <div className="relative w-full min-h-[250px] md:min-h-[450px] rounded-[40px] mt-10">
-              <Image
-                src="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/img_blog2.jpg"
-                fill
-                alt=""
-                className="rounded-[40px] object-cover"
-              />
-            </div>
-          </div>
-          {/* Content */}
-          <div className="lg:mx-[150px] mt-10 md:text-[20px] text-light">
-            <p>{blog?.content}</p>
+            {/* Blog bio */}
+            <p>{blog?.bio}</p>
+
+            {/* Blog content */}
+            <article
+              className="blog-content mt-12"
+              dangerouslySetInnerHTML={{ __html: blog?.content || "" }}
+            />
           </div>
         </article>
 
         {/* Tags and social share */}
-        <div className="flex items-center justify-between flex-col sm:flex-row mt-10 lg:max-w-[90%] lg:mx-[150px]">
-          <div className="flex gap-5 flex-wrap mt-10 items-center">
-            {["Hotel", "Lifestyle", "Luxury", "Resort"].map((tag, idx) => (
-              <Link
-                href="#"
-                key={idx}
-                className="border px-2 py-1 rounded-md text-light hover:bg-primary hover:text-white transition-colors duration-300"
-              >
-                {tag}
-              </Link>
-            ))}
-          </div>
-          <div className="flex items-center justify-between mt-10 gap-5">
-            <span className="uppercase text-sm font-semibold">Share</span>
-            <div className="flex gap-3">
-              <button className="hover:text-primary cursor-pointer transition-colors duration-300">
-                <RiFacebookFill />
-              </button>
-              <button className="hover:text-primary cursor-pointer transition-colors duration-300">
-                <RiTwitterXFill />
-              </button>
-              <button className="hover:text-primary cursor-pointer transition-colors duration-300">
-                <AiFillLinkedin />
-              </button>
-              <button className="hover:text-primary cursor-pointer transition-colors duration-300">
-                <FaRegEnvelope />
-              </button>
-            </div>
-          </div>
-        </div>
+        {/* <TagAndShare /> */}
 
         {/* Blog Navigator */}
         <BlogNavigator currentPostId={blog?._id} posts={recentPosts} />
 
         {/* Comments box */}
-        <CommentBox comments={blog?.comments} blogId={blog?._id}/>
+        <CommentBox comments={blog?.comments} blogId={blog?._id} />
 
         {/* New Comments form */}
         <CommentForm blogId={blog?._id} />
