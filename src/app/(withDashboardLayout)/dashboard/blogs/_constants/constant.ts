@@ -2,7 +2,7 @@ export const blogColumns = [
     { key: "thumbnail", label: "Img" },
     { key: "title", label: "Title" },
     { key: "bio", label: "Bio" },
-    { key: "content", label: "Content" },
+    { key: "category", label: "Category" },
 ];
 
 export const categories = [
