@@ -307,32 +307,33 @@ export default function DashboardStatistics() {
 
 
               {/* Blogs Card */}
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium">Blogs</CardTitle>
-                  <BookOpen className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{dashboardData?.data?.blog.totalBlogs}</div>
-                  <p className="text-xs text-muted-foreground">Total blog posts</p>
-                  <div className="mt-4">
-                    <div className="rounded-lg bg-muted p-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium">Recent Activity</span>
-                      </div>
-                      <div className="mt-3 flex items-center justify-between">
-                        <div className="flex items-center">
-                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                          <span className="ml-2 text-xs">Active</span>
+              {dashboardData?.data?.blog && (
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between pb-2">
+                    <CardTitle className="text-sm font-medium">Blogs</CardTitle>
+                    <BookOpen className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{dashboardData?.data?.blog.totalBlogs}</div>
+                    <p className="text-xs text-muted-foreground">Total blog posts</p>
+                    <div className="mt-4">
+                      <div className="rounded-lg bg-muted p-4">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">Recent Activity</span>
                         </div>
-                        <Link href={`/dashboard/blogs`} className="flex h-8 w-24 items-center justify-center rounded-md bg-muted-foreground/10 text-xs font-medium">
-                          View All
-                        </Link>
+                        <div className="mt-3 flex items-center justify-between">
+                          <div className="flex items-center">
+                            <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                            <span className="ml-2 text-xs">Active</span>
+                          </div>
+                          <Link href={`/dashboard/blogs`} className="flex h-8 w-24 items-center justify-center rounded-md bg-muted-foreground/10 text-xs font-medium">
+                            View All
+                          </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>)}
             </div>
 
             {/* Summary Section */}

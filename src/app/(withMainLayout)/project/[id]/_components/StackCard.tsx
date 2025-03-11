@@ -4,7 +4,7 @@ const StackCard = ({ title, description, items }: { title: string, description?:
     return (
         <div className="grid md:grid-cols-[2fr_4fr] gap-x-20 border-t py-10">
             <div>
-                <h4 className="font-medium text-[30px] lg:text-[42px] leading-[42px]">
+                <h4 className="font-medium text-[30px] lg:text-[42px] leading-[50px]">
                     {title}
                 </h4>
             </div>
