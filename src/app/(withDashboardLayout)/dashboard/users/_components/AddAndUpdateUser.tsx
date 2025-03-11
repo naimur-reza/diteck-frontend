@@ -75,15 +75,15 @@ const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditUser) => {
         defaultValues={
           defaultValues
             ? {
-                adminData: {
-                  name: defaultValues?.name || "",
-                  phoneNumber: defaultValues?.phoneNumber || "",
-                  gender: defaultValues?.gender || "",
-                  role: defaultValues?.user?.role || "",
-                  city: defaultValues?.city || "",
-                  address: defaultValues?.address || "",
-                },
-              }
+              adminData: {
+                name: defaultValues?.name || "",
+                phoneNumber: defaultValues?.phoneNumber || "",
+                gender: defaultValues?.gender || "",
+                role: defaultValues?.user?.role || "",
+                city: defaultValues?.city || "",
+                address: defaultValues?.address || "",
+              },
+            }
             : {}
         }
         onSubmit={handleSubmit}
@@ -143,6 +143,7 @@ const AddAndUpdate = ({ defaultValues, setIsOpen }: AddAndEditUser) => {
             label="Role"
             name="adminData.role"
             options={[
+              { value: "superAdmin", label: "Super Admin" },
               { value: "admin", label: "Admin" },
               { value: "manager", label: "Manager" },
             ]}
