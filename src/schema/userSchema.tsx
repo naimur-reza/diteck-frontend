@@ -9,7 +9,7 @@ export const userSchema = z.object({
     gender: z.enum(["male", "female", "other"], {
       message: "Select a valid gender",
     }),
-    role: z.enum(["admin", "manager"], { message: "Select a valid role" }),
+    role: z.enum(["superAdmin", "admin", "manager"], { message: "Select a valid role" }),
     city: z.string().min(1, "City is required"),
     address: z.string().min(1, "Address is required"),
   }),
@@ -24,7 +24,7 @@ export const updateUserSchema = z.object({
     gender: z.enum(["male", "female", "other"], {
       message: "Select a valid gender",
     }),
-    role: z.enum(["admin", "manager"], { message: "Select a valid role" }),
+    role: z.enum(["superAdmin", "admin", "manager"], { message: "Select a valid role" }),
     city: z.string().min(1, "City is required"),
     address: z.string().min(1, "Address is required"),
   }),
