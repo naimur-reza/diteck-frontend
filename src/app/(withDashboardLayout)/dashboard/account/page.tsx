@@ -24,10 +24,12 @@ import { z } from "zod";
 import { FieldValues } from "react-hook-form";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/redux/hooks";
-import { useRouter } from "next/router";
 import { logout } from "@/redux/features/auth/authSlice";
 import { useNotification } from "@/hooks/useNotification";
 import { TError } from "@/types";
+import { useRouter } from "next/navigation";
+import { removeClientAuthCookie } from "@/lib/auth";
+import { toast } from "sonner";
 const passwordChangeSchema = z
   .object({
     oldPassword: z.string().min(1, "Current password is required"),
@@ -41,11 +43,23 @@ const passwordChangeSchema = z
 
 const UserAccount = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const { data, isLoading } = useGetLoggedInUserQuery(undefined);
   const [
     changePassword,
     { isError, isLoading: cIsLoading, isSuccess, error, data: cData },
   ] = useChangePasswordMutation();
+
+  const handleLogout = () => {
+    // Clear user from Redux
+    dispatch(logout());
+
+    // Remove the auth cookie
+    removeClientAuthCookie();
+
+    // Redirect to login page
+    router.push("/login");
+  };
 
   const handleSubmitPasswordChange = (data: FieldValues) => {
     changePassword({
@@ -56,7 +70,7 @@ const UserAccount = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(logout());
+      handleLogout();
     }
   }, [isSuccess]);
 

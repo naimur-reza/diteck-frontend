@@ -5,6 +5,7 @@ import EnaInput from "@/components/forms/EnaInput";
 import { setClientAuthCookie } from "@/lib/auth";
 import { useLoginUserMutation } from "@/redux/api/authApi/authApi";
 import { setUser } from "@/redux/features/auth/authSlice";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { FieldValues } from "react-hook-form";
@@ -25,7 +26,6 @@ const Login = () => {
   const handleLogin = async (data: FieldValues) => {
     try {
       const response = await loginUser(data).unwrap();
-      // Store user data in Redux
 
       dispatch(
         setUser({
@@ -77,6 +77,14 @@ const Login = () => {
             placeholder="Enter your password"
             className="mb-4"
           />
+          <div className="text-right mb-4">
+            <Link
+              href="/forget-password"
+              className="text-primary text-sm hover:underline"
+            >
+              Forgot Password?
+            </Link>
+          </div>
 
           <button
             type="submit"
