@@ -4,7 +4,7 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const HeaderPost = ({ post }: { post: TBlog }) => {
-  const { _id, createdAt, author, title, thumbnail, content } = post;
+  const { _id, createdAt, author, title, thumbnail } = post;
   return (
     <div className="relative w-full h-auto border-b border-b-black pb-10">
       <div
@@ -42,7 +42,7 @@ const HeaderPost = ({ post }: { post: TBlog }) => {
               {title}
             </Link>
           </h3>
-          <p className="text-gray-600">{content?.slice(0, 110)}...</p>
+          {/* <p className="text-gray-600">{content?.slice(0, 110)}...</p> */}
         </div>
 
         {/* Hover Arrow Button */}
