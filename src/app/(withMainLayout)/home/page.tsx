@@ -1,4 +1,3 @@
-import Hero from "@/components/sections/Hero/Hero";
 import {
   RecentPost,
   SelectedWorks,
@@ -8,11 +7,12 @@ import {
   WhyUs,
 } from "./_components";
 import OurServicesPage from "./_components/OurServices/OurServicesPage";
+import HeroSection from "./_components/Hero/NewHero/HeroSection";
 
 const HomePage = () => {
   return (
     <div className="space-y-8 md:space-y-14 lg:space-y-20">
-      <Hero />
+      <HeroSection />
       <WhoWeAre />
       <OurServicesPage />
       <WhyUs />
