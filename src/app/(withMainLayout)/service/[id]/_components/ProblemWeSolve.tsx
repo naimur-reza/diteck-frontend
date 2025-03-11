@@ -1,7 +1,10 @@
+import { TService } from "@/types";
 import { services } from "../constant";
 import { ServiceTitleAndDescription } from "./ServiceTitleAndDescription";
 
-export const ProblemWeSolve = () => {
+export const ProblemWeSolve = ({ service }: { service: TService }) => {
+  const { } = service || {};
+
   return (
     <div className="border-b border-gray-300 pb-[50px] ">
       <ServiceTitleAndDescription

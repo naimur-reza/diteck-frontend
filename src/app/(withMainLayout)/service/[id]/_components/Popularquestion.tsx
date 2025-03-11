@@ -5,9 +5,11 @@ import { Plus, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { faqData } from "../constant";
+import { TService } from "@/types";
 
-export const PopularQuestion = () => {
+export const PopularQuestion = ({ service }: { service: TService }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const { } = service;
 
   return (
     <div>

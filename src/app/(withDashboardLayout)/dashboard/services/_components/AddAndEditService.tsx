@@ -99,7 +99,7 @@ const AddAndEditService = ({
             placeholder="7000"
             type="number"
           />
-          <EnaInput label="Current" name="price.currency" placeholder="USD" />
+          <EnaInput label="Currency" name="price.currency" placeholder="USD" />
 
           <EnaMultiInput
             label="Features"
