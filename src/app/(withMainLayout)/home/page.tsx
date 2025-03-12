@@ -7,7 +7,7 @@ import {
   WhyUs,
 } from "./_components";
 import OurServicesPage from "./_components/OurServices/OurServicesPage";
-import HeroSection from "./_components/Hero/NewHero/HeroSection";
+import HeroSection from "./_components/Hero/HeroSection/HeroSection";
 
 const HomePage = () => {
   return (

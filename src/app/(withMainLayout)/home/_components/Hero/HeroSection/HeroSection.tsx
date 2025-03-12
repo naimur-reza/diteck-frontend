@@ -10,7 +10,7 @@ export default function HeroSection() {
       <InteractiveGridBackground />
 
       <div className="relative z-10 max-w-4xl">
-        <div className="inline-block px-4 py-1.5 mb-6 text-sm font-medium text-white bg-opacity-20 bg-blue-900 rounded-full border border-blue-700">
+        <div className="inline-block px-4 py-1.5 mb-6 text-sm font-medium text-white bg-opacity-20 rounded-full border border-blue-700">
           Affordable Hosting for Everyone
         </div>
 
