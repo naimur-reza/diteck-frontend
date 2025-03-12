@@ -47,7 +47,7 @@ const GridCell = ({ x, y, size, isActive, totalWidth }: GridCellProps) => {
         scale: isActive ? 1.02 : 1,
       }}
       transition={{
-        duration: isActive ? 0.15 : 0.3,
+        duration: isActive ? 0.15 : 0.3, // Faster transition when activating, slower when deactivating
         opacity: {
           duration: isActive ? 0.15 : 0.3,
           ease: isActive ? "easeOut" : "easeInOut",
@@ -63,12 +63,13 @@ const GridCell = ({ x, y, size, isActive, totalWidth }: GridCellProps) => {
 
 export default function InteractiveGridBackground() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const gridRef = useRef<HTMLDivElement>(null)
+  const animationRef = useRef<number>(0)
+  const lastTimeRef = useRef<number>(0)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+  const [scrollPosition, setScrollPosition] = useState({ x: 0, y: 0 })
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [scrollY, setScrollY] = useState(0)
   const cellSize = 70
-  const scrollSpeed = 0.3 // Reduced for smoother movement
+  const scrollSpeed = 0.5 // pixels per frame at 60fps
 
   // Update dimensions on resize
   useEffect(() => {
@@ -89,9 +90,10 @@ export default function InteractiveGridBackground() {
     }
   }, [])
 
-  // Track mouse position
+  // Track mouse position - no debounce for immediate response
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      // Immediate update for responsive hover
       setMousePosition({
         x: e.clientX,
         y: e.clientY,
@@ -105,36 +107,36 @@ export default function InteractiveGridBackground() {
     }
   }, [])
 
-  // Smoother animation using direct DOM manipulation
+  // Animate scroll position using requestAnimationFrame for smoother animation
   useEffect(() => {
-    if (!gridRef.current) return
-
-    let animationFrameId: number
-    let yOffset = 0
-
-    const animate = () => {
-      if (!gridRef.current) return
-
-      // Increment offset and reset when it reaches cellSize
-      yOffset = (yOffset + scrollSpeed) % cellSize
-
-      // Apply transform directly to the DOM element
-      gridRef.current.style.transform = `translateY(${yOffset}px)`
-
-      // Update state occasionally for React to know the position (for hover effects)
-      if (Math.floor(yOffset) % 5 === 0) {
-        setScrollY(yOffset)
+    const animate = (time: number) => {
+      if (!lastTimeRef.current) {
+        lastTimeRef.current = time
       }
 
-      animationFrameId = requestAnimationFrame(animate)
+      const deltaTime = time - lastTimeRef.current
+      lastTimeRef.current = time
+
+      setScrollPosition((prev) => {
+        // Calculate smooth movement based on time delta
+        const newY = (prev.y + scrollSpeed * (deltaTime / 16.67)) % cellSize
+        return {
+          x: 0,
+          y: newY,
+        }
+      })
+
+      animationRef.current = requestAnimationFrame(animate)
     }
 
-    animationFrameId = requestAnimationFrame(animate)
+    animationRef.current = requestAnimationFrame(animate)
 
     return () => {
-      cancelAnimationFrame(animationFrameId)
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
     }
-  }, [cellSize, scrollSpeed])
+  }, [cellSize])
 
   // Calculate grid cells with optimized hover detection
   const renderGridCells = useCallback(() => {
@@ -144,9 +146,9 @@ export default function InteractiveGridBackground() {
     const cols = Math.ceil(dimensions.width / cellSize) + 1
     const rows = Math.ceil(dimensions.height / cellSize) + 1
 
-    // Calculate which cell the mouse is over
+    // Calculate which cell the mouse is over - more direct calculation
     const hoverCellX = Math.floor(mousePosition.x / cellSize)
-    const hoverCellY = Math.floor((mousePosition.y - scrollY) / cellSize)
+    const hoverCellY = Math.floor((mousePosition.y - scrollPosition.y) / cellSize)
 
     for (let y = -1; y < rows; y++) {
       for (let x = -1; x < cols; x++) {
@@ -160,25 +162,23 @@ export default function InteractiveGridBackground() {
     }
 
     return cells
-  }, [dimensions, mousePosition, scrollY, cellSize])
+  }, [dimensions, mousePosition, scrollPosition, cellSize])
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none bg-black/90">
       {/* Gradient overlays for side fade effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-80 z-10" />
 
-      <div
-        ref={gridRef}
-        className="absolute inset-0 will-change-transform"
+      <motion.div
+        className="absolute inset-0"
         style={{
-          willChange: "transform",
-          backfaceVisibility: "hidden",
-          transform: "translateY(0)",
-          transformStyle: "preserve-3d",
+          x: 0,
+          y: scrollPosition.y,
         }}
+        transition={{ type: "tween", ease: "linear" }}
       >
         {renderGridCells()}
-      </div>
+      </motion.div>
     </div>
   )
 }
