@@ -1,25 +1,22 @@
+"use client";
 import { THiring } from "@/types";
 import Image from "next/image";
 import { Suspense } from "react";
 import ApplicationForm from "../_components/application-form";
 
-const CareerDetails = async ({ params }: { params: { id: string } }) => {
-  const id = params.id;
+import { useParams } from "next/navigation";
+import { useGetSingleHiringPostQuery } from "@/redux/api/adminApi/hiringApi/hiring.api";
+const CareerDetails = () => {
+  const { id } = useParams();
+  const { data, isLoading } = useGetSingleHiringPostQuery({ id });
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/hiring-post/get-single-post/${id}`,
-    {
-      cache: "no-cache",
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch career details");
+  if (isLoading) {
+    return <div>loading ...</div>;
   }
 
-  const data = await response.json();
   const hiringData: THiring = data?.data;
 
+  console.log(data);
   return (
     <div className="container mx-auto py-8 px-4">
       <div className=" p-6 mb-8">

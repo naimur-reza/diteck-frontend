@@ -24,6 +24,7 @@ const CareerCard: React.FC<THiring> = ({
   responsibilities,
   jobNature,
   workingHours,
+  slug,
 }) => {
   const [
     requestJobApplication,
@@ -64,7 +65,9 @@ const CareerCard: React.FC<THiring> = ({
       closeModal();
       setEmailError("");
       router.push(
-        `/career/verify?jobId=${_id}&email=${encodeURIComponent(email)}`
+        `/career/verify?jobId=${_id}&email=${encodeURIComponent(
+          email
+        )}&slug=${slug}`
       );
     }
   };

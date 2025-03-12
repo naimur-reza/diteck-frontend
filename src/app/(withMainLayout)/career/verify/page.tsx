@@ -30,13 +30,14 @@ const VerifyJobApplication = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
+  const slug = searchParams.get("slug");
   const jobId = searchParams.get("jobId");
 
   useEffect(() => {
-    if (!email || !jobId) {
+    if (!email || !jobId || !slug) {
       router.push("/");
     }
-  }, [email, router, jobId]);
+  }, [email, router, jobId, slug]);
 
   const handleVerify = async () => {
     if (value.length === 6 && email) {
@@ -45,9 +46,11 @@ const VerifyJobApplication = () => {
         if (response.success) {
           setValue("");
           toast.success(
-            "OTP Verified Successfully and redirected to submit your query"
+            "OTP Verified Successfully and redirected to submit your jop application"
           );
-          router.push(`/submit-query?email=${email}&verified=true`);
+          router.push(
+            `/career/${slug}?email=${email}&verified=true&jobId=${jobId}`
+          );
         }
       } catch (error) {
         toast.error((error as error)?.data?.message || "Verification failed");
