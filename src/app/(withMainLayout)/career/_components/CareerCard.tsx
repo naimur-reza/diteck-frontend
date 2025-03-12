@@ -56,19 +56,18 @@ const CareerCard: React.FC<THiring> = ({
       setEmailError("Please enter a valid email address");
       return;
     }
-    const res = await requestJobApplication({ data: { email }, jobId: _id });
-    console.log(res);
+    const res = await requestJobApplication({
+      data: { email },
+      jobId: _id,
+    }).unwrap();
+    if (res?.success) {
+      closeModal();
+      setEmailError("");
+      router.push(
+        `/career/verify?jobId=${_id}&email=${encodeURIComponent(email)}`
+      );
+    }
   };
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     closeModal();
-  //     setEmailError("");
-  //     router.push(
-  //       `/career/verify?jobId=${_id}&email=${encodeURIComponent(email)}`
-  //     );
-  //   }
-  // }, [isSuccess]);
 
   useNotification({
     isError,
