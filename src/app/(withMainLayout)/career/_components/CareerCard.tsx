@@ -4,10 +4,15 @@ import { ButtonWithIcon } from "@/components/common";
 import { PulseButton } from "@/components/ui";
 import Modal from "@/components/ui/modal/Modal";
 import { useModal } from "@/hooks/useModal";
-import { THiring } from "@/types";
+import type { TError, THiring } from "@/types";
 import { Briefcase, Clock, MapPin } from "lucide-react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import type React from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useRequestJobApplicationMutation } from "@/redux/api/adminApi/jobApplicationApi/JobApplicationApi.api";
+import { useNotification } from "@/hooks/useNotification";
 
 const CareerCard: React.FC<THiring> = ({
   _id,
@@ -20,7 +25,58 @@ const CareerCard: React.FC<THiring> = ({
   jobNature,
   workingHours,
 }) => {
+  const [
+    requestJobApplication,
+    { isSuccess, isLoading, isError, data, error },
+  ] = useRequestJobApplicationMutation();
   const { isOpen, openModal, closeModal } = useModal();
+  const [email, setEmail] = useState("");
+  const [showEmailInput, setShowEmailInput] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const router = useRouter();
+
+  const handleApplyClick = () => {
+    setShowEmailInput(true);
+  };
+
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email) {
+      setEmailError("Email is required");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+    const res = await requestJobApplication({ data: { email }, jobId: _id });
+    console.log(res);
+  };
+
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     closeModal();
+  //     setEmailError("");
+  //     router.push(
+  //       `/career/verify?jobId=${_id}&email=${encodeURIComponent(email)}`
+  //     );
+  //   }
+  // }, [isSuccess]);
+
+  useNotification({
+    isError,
+    isLoading,
+    isSuccess,
+    data,
+    error: error as TError,
+  });
   return (
     <div className="bg-white rounded-3xl p-6">
       <div className="flex items-center justify-between">
@@ -32,7 +88,7 @@ const CareerCard: React.FC<THiring> = ({
       <ButtonWithIcon onClick={openModal} text="Learn more" />
 
       <Modal isOpen={isOpen} onClose={closeModal} title={title}>
-        <div className="space-y-6 ">
+        <div className="space-y-6">
           <div className="flex flex-wrap gap-6 text-gray-600">
             <div className="flex items-center gap-2">
               <Briefcase className="h-5 w-5" />
@@ -75,14 +131,42 @@ const CareerCard: React.FC<THiring> = ({
             </p>
           </div>
 
-          <Link href={`/career/${_id}`}>
+          {!showEmailInput ? (
             <button
-              onClick={closeModal}
+              onClick={handleApplyClick}
               className="mt-6 mb-4 w-full rounded-full bg-primary px-6 py-3 font-semibold text-white hover:bg-primary/90 cursor-pointer"
             >
               Apply Now
             </button>
-          </Link>
+          ) : (
+            <form onSubmit={handleEmailSubmit} className="mt-6 space-y-4">
+              <div className="space-y-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Enter your email to continue
+                </label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your.email@example.com"
+                  className={emailError ? "border-red-500" : ""}
+                />
+                {emailError && (
+                  <p className="text-sm text-red-500">{emailError}</p>
+                )}
+              </div>
+              <Button
+                type="submit"
+                className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-white hover:bg-primary/90"
+              >
+                Continue
+              </Button>
+            </form>
+          )}
         </div>
       </Modal>
     </div>
