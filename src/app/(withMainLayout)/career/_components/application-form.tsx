@@ -15,9 +15,11 @@ const inputStyle =
 const ApplicationForm = ({
   jobId,
   jobTitle,
+  email,
 }: {
   jobId: string;
   jobTitle: string;
+  email: string;
 }) => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [applyJopApplication, { isError, isLoading, isSuccess, data, error }] =
@@ -32,7 +34,7 @@ const ApplicationForm = ({
   } = useForm<ApplicationFormData>({
     defaultValues: {
       applicantName: "",
-      applicantEmail: "",
+      applicantEmail: email || "",
       applicantPhone: "",
       resumeLink: "",
       linkedInProfile: "",
@@ -163,6 +165,8 @@ const ApplicationForm = ({
                 Email Address *
               </label>
               <input
+                readOnly
+                value={email}
                 type="email"
                 className={`${inputStyle} ${
                   errors.applicantEmail

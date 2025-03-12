@@ -1,14 +1,16 @@
 import { baseApi } from "@/redux/api/baseApi";
-import {
-  TError,
-  TJobApplication,
-  TQueryParams,
-  TResponseWithRedux,
-} from "@/types";
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
+import { TJobApplication, TQueryParams, TResponseWithRedux } from "@/types";
 
 export const jobApplicationApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    requestJobApplication: builder.mutation({
+      query: ({ data, jobId }) => ({
+        url: `/job-application/request-for-submit-application/${jobId}`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["jobApplication"],
+    }),
     createJobApplication: builder.mutation({
       query: (data) => ({
         url: "/job-application/submit-application",
@@ -17,7 +19,6 @@ export const jobApplicationApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["jobApplication"],
     }),
-
     getAllJobApplication: builder.query({
       query: (arg) => {
         const params = new URLSearchParams();
@@ -56,9 +57,6 @@ export const jobApplicationApi = baseApi.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ["jobApplication"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
-      },
     }),
     bulkDeleteJobApplication: builder.mutation({
       query: ({ data }) => ({
@@ -85,4 +83,5 @@ export const {
   useGetSingleJobApplicationQuery,
   useUpdateJobApplicationStatusMutation,
   useBulkDeleteJobApplicationMutation,
+  useRequestJobApplicationMutation,
 } = jobApplicationApi;
