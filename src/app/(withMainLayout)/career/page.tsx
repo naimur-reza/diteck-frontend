@@ -12,7 +12,6 @@ async function getJobs(): Promise<JobResponse> {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/hiring-post/get-all-post?status=active`,
       {
         cache: "no-cache",
-        // next: { revalidate: 300 },
       }
     );
 
