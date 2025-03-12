@@ -1,4 +1,4 @@
-export * from "./Popularquestion";
+export * from "./PopularQuestion";
 export * from "./ProblemWeSolve";
 export * from "./ServiceCategory";
 export * from "./ServiceFeatures";
