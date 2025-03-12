@@ -5,12 +5,12 @@ export const hiringApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createNewsLetter: builder.mutation({
       query: (data) => ({
-        url: "/hiring-post/create",
+        url: "/newsletter/subscribe",
         method: "POST",
         body: data,
         formData: true,
       }),
-      invalidatesTags: ["Hiring"],
+      invalidatesTags: ["news-letter"],
     }),
 
     getAllNewsLetter: builder.query({
@@ -27,7 +27,7 @@ export const hiringApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      providesTags: ["Hiring"],
+      providesTags: ["news-letter"],
       transformResponse: (res: TResponseWithRedux<THiring[]>) => {
         return { data: res.data, meta: res.meta };
       },
