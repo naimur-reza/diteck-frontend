@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import { LuArrowRight } from "react-icons/lu";
 import { routes2, socialLinks, routes1 } from "./_constants/_constant";
+import FooterForm from "./_components/FooterForm";
 
 const Footer = () => {
   return (
@@ -15,23 +15,7 @@ const Footer = () => {
             </h2>
           </div>
           <div>
-            <form>
-              <p className="footer-text">
-                Get the latest inspiration & insights
-              </p>
-              <div className="my-5 relative lg:w-[70%]">
-                <input
-                  type="text"
-                  placeholder="Your Email..."
-                  className="bg-white p-4 placeholder:text-[#111] placeholder:font-bold rounded-2xl w-full text-[#111]"
-                />
-                <div className="absolute right-1 top-1">
-                  <button className="bg-primary p-4 rounded-xl">
-                    <LuArrowRight />
-                  </button>
-                </div>
-              </div>
-            </form>
+            <FooterForm />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-[50px] border-t-2 border-t-[#ffffff33]">
               <div className="flex flex-col">
                 {routes1.map(({ title, link }, idx) => (
@@ -67,7 +51,8 @@ const Footer = () => {
                 <h3 className="footer-text">Head Office</h3>
                 <address className="text-[16px] font-normal not-italic flex flex-col gap-2">
                   <span className="block">
-                    34 Amin Model Town, Savar Cantonment, Savar, Dhaka - 1344, Bangladesh
+                    34 Amin Model Town, Savar Cantonment, Savar, Dhaka - 1344,
+                    Bangladesh
                   </span>
                   <span className="block">support@enaema.com</span>
                   <span className="block footer-text text-primary w-full">

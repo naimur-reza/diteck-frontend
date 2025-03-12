@@ -76,5 +76,6 @@ export const baseApi = createApi({
     "Project",
     "review",
     "Dashboard",
+    "news-letter"
   ],
 });
