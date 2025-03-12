@@ -1,25 +1,74 @@
 "use client";
-import { THiring } from "@/types";
+
+import type { THiring } from "@/types";
 import Image from "next/image";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import ApplicationForm from "../_components/application-form";
-
-import { useParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useGetSingleHiringPostQuery } from "@/redux/api/adminApi/hiringApi/hiring.api";
-const CareerDetails = () => {
-  const { id } = useParams();
-  const { data, isLoading } = useGetSingleHiringPostQuery({ id });
+import { toast } from "sonner";
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+const CareerDetails = () => {
+  const { id: slugParams } = useParams();
+  const { data, isLoading, isError, error } = useGetSingleHiringPostQuery({
+    id: slugParams,
+  });
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const email = searchParams.get("email");
+  const verified = searchParams.get("verified");
+  const jobId = searchParams.get("jobId");
+
+  useEffect(() => {
+    if (!email || verified !== "true" || !slugParams || !jobId) {
+      toast.error("Unauthorized access");
+      router.push("/");
+    }
+  }, [email, verified, router, slugParams, jobId]);
+
+  // Handle loading state
   if (isLoading) {
-    return <div>loading ...</div>;
+    return (
+      <div className="container mx-auto py-16 px-4 flex justify-center items-center">
+        <div className="animate-pulse text-lg font-medium">
+          Loading job details...
+        </div>
+      </div>
+    );
+  }
+
+  // Handle error state
+  if (isError || !data?.data) {
+    return (
+      <div className="container mx-auto py-8 px-4">
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>
+            {error
+              ? `Failed to load job details: ${error.toString()}`
+              : "Failed to load job details. Please try again later."}
+          </AlertDescription>
+        </Alert>
+        <div className="mt-4">
+          <button
+            onClick={() => router.push("/")}
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md"
+          >
+            Return to Home
+          </button>
+        </div>
+      </div>
+    );
   }
 
   const hiringData: THiring = data?.data;
 
-  console.log(data);
   return (
     <div className="container mx-auto py-8 px-4">
-      <div className=" p-6 mb-8">
+      <div className="p-6 mb-8">
         <div className="flex flex-col md:flex-row justify-between items-start gap-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
@@ -152,12 +201,18 @@ const CareerDetails = () => {
         </div>
       </div>
 
-      <div className=" p-6">
+      <div className="p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           Apply for this Position
         </h2>
         <Suspense fallback={<div>Loading application form...</div>}>
-          <ApplicationForm jobId={id} jobTitle={hiringData?.title} />
+          {jobId && email && (
+            <ApplicationForm
+              email={email}
+              jobId={jobId as string}
+              jobTitle={hiringData.title}
+            />
+          )}
         </Suspense>
       </div>
     </div>

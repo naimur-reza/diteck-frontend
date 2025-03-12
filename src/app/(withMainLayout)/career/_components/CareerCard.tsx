@@ -6,7 +6,7 @@ import Modal from "@/components/ui/modal/Modal";
 import { useModal } from "@/hooks/useModal";
 import type { TError, THiring } from "@/types";
 import { Briefcase, Clock, MapPin } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { Button } from "@/components/ui/button";
