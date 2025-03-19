@@ -7,7 +7,7 @@ import type { TError } from "@/types";
 import { ApplicationFormData } from "@/types/jopApplicationForm.types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 
 const inputStyle =
   "rounded px-4 py-3 rounded-2xl focus:outline-none w-full bg-white";
@@ -565,7 +565,7 @@ const ApplicationForm = ({
             <button
               type="button"
               onClick={() => appendSkill({ value: "" })}
-              className="text-blue-600 cursor-pointer hover:text-blue-800 font-medium flex items-center mt-2"
+              className="text-primary cursor-pointer hover:text-primary/90 font-medium flex items-center mt-2"
             >
               + Add skills
             </button>

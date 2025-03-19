@@ -122,7 +122,7 @@ export function AppSidebar() {
                 <BriefcaseIcon className="size-4" />
               </div>
               <Link href={"/"} className="flex flex-col gap-0.5 leading-none">
-                <span className="font-semibold">EnaEma</span>
+                <span className="font-semibold">Diteck</span>
                 <span className="text-xs text-muted-foreground">Dashboard</span>
               </Link>
             </SidebarMenuButton>

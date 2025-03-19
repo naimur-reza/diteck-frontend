@@ -6,8 +6,8 @@ import {
   WhoWeAre,
   WhyUs,
 } from "./_components";
-import OurServicesPage from "./_components/OurServices/OurServicesPage";
 import HeroSection from "./_components/Hero/HeroSection/HeroSection";
+import OurServicesPage from "./_components/OurServices/OurServicesPage";
 
 const HomePage = () => {
   return (

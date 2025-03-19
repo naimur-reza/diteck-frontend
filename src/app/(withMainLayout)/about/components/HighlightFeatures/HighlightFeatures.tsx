@@ -1,8 +1,8 @@
 import { highlightFeatures } from "@/app/(withMainLayout)/home/_constant/highlightFeatures";
 import { SectionTitle } from "@/components/common";
+import Image from "next/image";
 import React from "react";
 import SingleFeature from "./SingleFeature";
-import Image from "next/image";
 
 const HighlightFeatures = () => {
   return (
@@ -48,7 +48,7 @@ const HighlightFeatures = () => {
                   className="object-cover"
                 />
                 <span className="text-white font-medium text-[18px] block">
-                  Founder of Ena Ema
+                  Founder of Diteck
                 </span>
               </div>
             </div>

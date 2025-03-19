@@ -2,16 +2,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { useNotification } from "@/hooks/useNotification";
 import { useCreateQueryMutation } from "@/redux/api/adminApi/queryApi/queryApi";
 import { querySchema } from "@/schema/querySchema";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import { CheckCircle, Loader2 } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { TError } from "@/types";
-import { useNotification } from "@/hooks/useNotification";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CheckCircle, Loader2 } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const SubmitQuery = () => {
   const searchParams = useSearchParams();
@@ -80,7 +80,7 @@ const SubmitQuery = () => {
             Thank You for Your Query!
           </h2>
           <p className="text-gray-600 mb-6">
-            Your message has been successfully submitted to Ena Ema Technology.
+            Your message has been successfully submitted to Diteck Technology.
             Our team will review your request and get back to you shortly via
             your preferred contact method.
           </p>
@@ -108,7 +108,7 @@ const SubmitQuery = () => {
       <div className="max-w-5xl w-full  p-8 rounded-lg ">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800">
-            Submit Your Query to Ena Ema Technology
+            Submit Your Query to Diteck Technology
           </h1>
           <p className="text-gray-600 mt-2">
             Please fill out the form below and our team will get back to you as

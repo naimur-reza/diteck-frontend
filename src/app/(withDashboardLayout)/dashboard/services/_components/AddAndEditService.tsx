@@ -201,7 +201,8 @@ const AddAndEditService = ({
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+          className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary
+          /90 transition"
         >
           {isEditMode ? "Update Service" : "Create Service"}
         </button>

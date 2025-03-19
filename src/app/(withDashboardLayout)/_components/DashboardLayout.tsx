@@ -5,9 +5,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import AuthProvider from "@/provides/AuthProviders";
-import { cn } from "@/lib/utils";
 import useFetchUser from "@/hooks/useFetchUser";
+import { cn } from "@/lib/utils";
+import AuthProvider from "@/provides/AuthProviders";
 
 const DashboardLayout = ({
   children,
@@ -26,7 +26,7 @@ const DashboardLayout = ({
           <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-background px-6">
             <SidebarTrigger />
             <div className="flex items-center gap-2">
-              <h2 className="font-semibold">EnaEma Dashboard</h2>
+              <h2 className="font-semibold">Diteck Dashboard</h2>
             </div>
           </header>
           <main className="flex-1">

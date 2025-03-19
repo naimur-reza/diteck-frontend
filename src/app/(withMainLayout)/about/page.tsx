@@ -1,14 +1,15 @@
 import { Feedback, ParallaxBanner } from "@/components/common";
+import { TReview } from "@/types";
+import { getAllReviews } from "@/utils/fetchData/getAllReviews";
+import CompanyOverView from "./components/CompanyOverview/CompanyOverview";
+import ConnectWithUs from "./components/ConnectWithUs/ConnectWithUs";
 import ExploreCompany from "./components/ExploreCompany/ExploreCompany";
 import HighlightFeatures from "./components/HighlightFeatures/HighlightFeatures";
-import CompanyOverView from "./components/CompanyOverview/CompanyOverview";
 import OurAchievements from "./components/OurAchievements/OurAchievements";
-import ConnectWithUs from "./components/ConnectWithUs/ConnectWithUs";
-import { getAllReviews } from "@/utils/fetchData/getAllReviews";
-import { TReview } from "@/types";
 
 const AboutPage = async () => {
-  const { data: feedbackData = [] }: { data: TReview[] } = await getAllReviews();
+  const { data: feedbackData = [] }: { data: TReview[] } =
+    await getAllReviews();
 
   return (
     <div
@@ -21,7 +22,7 @@ const AboutPage = async () => {
       <ParallaxBanner
         img="https://demo2.wpopal.com/diteck/wp-content/uploads/2024/11/about_bc.jpg"
         pageTitle="About Us"
-        title="We are Ena Ema"
+        title="We are Diteck"
         description="We’re a team of expert designers, web developers and marketers who’ve been delivering digital success for more than a decade."
       />
       <CompanyOverView />
