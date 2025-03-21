@@ -14,7 +14,7 @@ const WhoWeAre = () => {
   return (
     <div className="container mx-auto">
       <div>
-        <div className="container mx-auto pb-5">
+        <div className="pb-5">
           <SectionTitle
             buttonText="Who you are"
             description="We're a team of expert designers, web developers and marketers who've

@@ -14,7 +14,6 @@ const navMenu = [
   { title: "Services", path: "/service" },
   { title: "Our Team", path: "/our-team" },
   { title: "Career", path: "/career" },
-  { title: "Animations", path: "/animation-examples" },
   { title: "Contact", path: "/contact" },
 ];
 
