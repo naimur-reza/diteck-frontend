@@ -14,7 +14,7 @@ export const TeamMemberCard = ({
     <div className="relative h-full w-full overflow-hidden rounded-t-[20px]  rounded-bl-[20px] group  ">
       {/* image */}
       <div
-        className="relative teamMember bg-cover  bg-no-repeat h-[500px]  w-full   "
+        className="relative teamMember bg-center bg-cover  bg-no-repeat h-[500px]  w-full   "
         style={{
           backgroundImage: `url(${item?.profilePhoto})`,
         }}

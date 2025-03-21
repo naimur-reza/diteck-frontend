@@ -11,7 +11,7 @@ export const Testimonial = async () => {
       <h2 className="text-white text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[205px] leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[164px] text-center font-semibold -mb-3 md:-mb-6 lg:-mb-[40px]">
         testimonials
       </h2>
-      <div className="bg-white/20 backdrop-blur-lg rounded-2xl">
+      <div className="bg-white/20 backdrop-blur-lg rounded-4xl shadow-accent-foreground">
         {testimonials && testimonials.length > 0 ? (
           <AnimatedTestimonials
             testimonials={testimonials.map((review) => ({

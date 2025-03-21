@@ -18,7 +18,11 @@ const ViewTeamMemberDetails = ({
     <div className="space-y-4">
       <div className="flex flex-col items-center text-center">
         <Avatar className="h-24 w-24 mb-3">
-          <AvatarImage src={singleData.profilePhoto} alt={singleData.name} />
+          <AvatarImage
+            className="object-cover"
+            src={singleData.profilePhoto}
+            alt={singleData.name}
+          />
           <AvatarFallback>
             {singleData?.name?.substring(0, 2).toUpperCase()}
           </AvatarFallback>
