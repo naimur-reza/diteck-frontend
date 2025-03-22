@@ -8,8 +8,8 @@ import {
   FetchArgs,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
-import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/authSlice";
+import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -76,6 +76,6 @@ export const baseApi = createApi({
     "Project",
     "review",
     "Dashboard",
-    "news-letter"
+    "news-letter",
   ],
 });
