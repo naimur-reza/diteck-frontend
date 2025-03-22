@@ -1,6 +1,5 @@
-import { TError, TQueryParams, TResponseWithRedux, TReview } from "@/types";
+import { TQueryParams, TResponseWithRedux, TReview } from "@/types";
 import { baseApi } from "../../baseApi";
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
 export const reviewApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -19,8 +18,8 @@ export const reviewApi = baseApi.injectEndpoints({
         method: "PATCH",
       }),
       invalidatesTags: ["review"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
+      transformErrorResponse: (baseQueryReturnValue) => {
+        return baseQueryReturnValue;
       },
     }),
     getAllReviews: builder.query({

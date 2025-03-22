@@ -99,7 +99,7 @@ const ApplicationForm = ({
       setSubmitSuccess(true);
       reset();
     }
-  }, [isSuccess]);
+  }, [isSuccess, reset]);
 
   useNotification({
     isLoading: isLoading,

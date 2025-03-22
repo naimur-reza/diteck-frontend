@@ -29,7 +29,7 @@ const ResolveQuery = ({
       setResolutionNotes("");
       setIsResolveModal(false);
     }
-  }, [isSuccess]);
+  }, [isSuccess, setIsResolveModal]);
   useNotification({
     isLoading,
     isSuccess,

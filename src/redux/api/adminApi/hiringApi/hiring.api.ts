@@ -1,6 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
-import { TError, THiring, TQueryParams, TResponseWithRedux } from "@/types";
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
+import { THiring, TQueryParams, TResponseWithRedux } from "@/types";
 
 export const hiringApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -53,8 +52,8 @@ export const hiringApi = baseApi.injectEndpoints({
         formData: true,
       }),
       invalidatesTags: ["Hiring"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
+      transformErrorResponse: (baseQueryReturnValue) => {
+        return baseQueryReturnValue;
       },
     }),
     softDeleteHiringPost: builder.mutation({

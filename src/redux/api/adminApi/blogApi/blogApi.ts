@@ -1,6 +1,5 @@
-import { TBlog, TError, TQueryParams, TResponseWithRedux } from "@/types";
+import { TBlog, TQueryParams, TResponseWithRedux } from "@/types";
 import { baseApi } from "../../baseApi";
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
 export const blogApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -53,8 +52,8 @@ export const blogApi = baseApi.injectEndpoints({
         formData: true,
       }),
       invalidatesTags: ["blog"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
+      transformErrorResponse: (baseQueryReturnValue) => {
+        return baseQueryReturnValue;
       },
     }),
 
@@ -104,5 +103,5 @@ export const {
   useSoftDeleteBlogMutation,
   useDeleteBlogMutation,
   useNewCommentMutation,
-  useReplyCommentMutation
+  useReplyCommentMutation,
 } = blogApi;

@@ -1,6 +1,5 @@
-import { TError, TQueryParams, TResponseWithRedux, TTeamMember } from "@/types";
+import { TQueryParams, TResponseWithRedux, TTeamMember } from "@/types";
 import { baseApi } from "../../baseApi";
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
 export const teamMemberApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -53,8 +52,8 @@ export const teamMemberApi = baseApi.injectEndpoints({
         formData: true,
       }),
       invalidatesTags: ["teamMember"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
+      transformErrorResponse: (baseQueryReturnValue) => {
+        return baseQueryReturnValue;
       },
     }),
     softDeleteTeamMember: builder.mutation({

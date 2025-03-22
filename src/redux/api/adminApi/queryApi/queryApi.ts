@@ -1,7 +1,6 @@
-import { TError, TQueryParams, TResponseWithRedux } from "@/types";
-import { baseApi } from "../../baseApi";
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
+import { TQueryParams, TResponseWithRedux } from "@/types";
 import { TQuery } from "@/types/query.types";
+import { baseApi } from "../../baseApi";
 
 export const queryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -70,8 +69,8 @@ export const queryApi = baseApi.injectEndpoints({
         formData: true,
       }),
       invalidatesTags: ["query"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
+      transformErrorResponse: (baseQueryReturnValue) => {
+        return baseQueryReturnValue;
       },
     }),
     resolveQuery: builder.mutation({
@@ -82,8 +81,8 @@ export const queryApi = baseApi.injectEndpoints({
         formData: true,
       }),
       invalidatesTags: ["query"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
+      transformErrorResponse: (baseQueryReturnValue) => {
+        return baseQueryReturnValue;
       },
     }),
     deleteQuery: builder.mutation({

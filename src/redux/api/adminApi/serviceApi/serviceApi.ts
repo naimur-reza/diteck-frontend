@@ -1,6 +1,5 @@
-import { TError, TQueryParams, TResponseWithRedux, TService } from "@/types";
+import { TQueryParams, TResponseWithRedux, TService } from "@/types";
 import { baseApi } from "../../baseApi";
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
 export const serviceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -53,8 +52,8 @@ export const serviceApi = baseApi.injectEndpoints({
         formData: true,
       }),
       invalidatesTags: ["service"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
+      transformErrorResponse: (baseQueryReturnValue) => {
+        return baseQueryReturnValue;
       },
     }),
 

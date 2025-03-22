@@ -21,16 +21,16 @@ import { TeamMembersTable } from "./_components/team-member-table";
 import ViewMember from "./_components/ViewMember";
 
 export default function TeamMembers() {
-  const [pageNumber, setPageNumber] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [limit, setLimit] = useState(50);
+  const [_pageNumber] = useState(1);
+  const [_searchTerm] = useState("");
+  const [_limit] = useState(50);
 
   // redux hooks
   const { data: members, isFetching } = useGetAllTeamMemberQuery([
-    { name: "searchTerm", value: searchTerm },
+    { name: "searchTerm", value: _searchTerm },
     { name: "isDeleted", value: false },
-    { name: "limit", value: limit },
-    { name: "page", value: pageNumber },
+    { name: "limit", value: _limit },
+    { name: "page", value: _pageNumber },
   ]);
 
   const [createMember, { isLoading: isCreating }] =

@@ -2,12 +2,8 @@
 
 import type React from "react";
 
-import {
-  useChangePasswordMutation,
-  useGetLoggedInUserQuery,
-} from "@/redux/api/authApi/authApi";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { EnaForm, EnaInput } from "@/components/forms";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -15,21 +11,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { User, Mail, Shield, Calendar, Lock } from "lucide-react";
-import { EnaForm, EnaInput } from "@/components/forms";
-import { z } from "zod";
-import { FieldValues } from "react-hook-form";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/redux/hooks";
-import { logout } from "@/redux/features/auth/authSlice";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useNotification } from "@/hooks/useNotification";
-import { TError } from "@/types";
-import { useRouter } from "next/navigation";
 import { removeClientAuthCookie } from "@/lib/auth";
-import { toast } from "sonner";
+import {
+  useChangePasswordMutation,
+  useGetLoggedInUserQuery,
+} from "@/redux/api/authApi/authApi";
+import { logout } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { TError } from "@/types";
+import { Calendar, Lock, Mail, Shield, User } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect } from "react";
+import { FieldValues } from "react-hook-form";
+import { z } from "zod";
 const passwordChangeSchema = z
   .object({
     oldPassword: z.string().min(1, "Current password is required"),
@@ -50,7 +49,7 @@ const UserAccount = () => {
     { isError, isLoading: cIsLoading, isSuccess, error, data: cData },
   ] = useChangePasswordMutation();
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     // Clear user from Redux
     dispatch(logout());
 
@@ -59,7 +58,7 @@ const UserAccount = () => {
 
     // Redirect to login page
     router.push("/login");
-  };
+  }, [dispatch, router]);
 
   const handleSubmitPasswordChange = (data: FieldValues) => {
     changePassword({
@@ -72,7 +71,7 @@ const UserAccount = () => {
     if (isSuccess) {
       handleLogout();
     }
-  }, [isSuccess]);
+  }, [isSuccess, handleLogout]);
 
   useNotification({
     isError,

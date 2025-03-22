@@ -1,6 +1,5 @@
-import { TError, TProject, TQueryParams, TResponseWithRedux } from "@/types";
+import { TProject, TQueryParams, TResponseWithRedux } from "@/types";
 import { baseApi } from "../../baseApi";
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
 export const projectApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -53,8 +52,8 @@ export const projectApi = baseApi.injectEndpoints({
         formData: true,
       }),
       invalidatesTags: ["Project"],
-      transformErrorResponse: (res: TError & BaseQueryApi) => {
-        return res;
+      transformErrorResponse: (baseQueryReturnValue) => {
+        return baseQueryReturnValue;
       },
     }),
 
@@ -82,5 +81,5 @@ export const {
   useGetSingleProjectQuery,
   useUpdateProjectMutation,
   useSoftDeleteProjectMutation,
-  useDeleteProjectMutation
+  useDeleteProjectMutation,
 } = projectApi;
