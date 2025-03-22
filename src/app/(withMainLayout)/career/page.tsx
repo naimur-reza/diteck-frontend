@@ -7,11 +7,17 @@ interface JobResponse {
 }
 
 async function getJobs(): Promise<JobResponse> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   try {
+    if (!baseUrl) {
+      console.error("API base URL is undefined");
+      return { data: [] };
+    }
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/hiring-post/get-all-post?status=active`,
+      `${baseUrl}/hiring-post/get-all-post?status=active`,
       {
-        cache: "no-cache",
+        next: { revalidate: 3600 },
       }
     );
 
