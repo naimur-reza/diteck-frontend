@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/sidebar";
 import useFetchUser from "@/hooks/useFetchUser";
 import { cn } from "@/lib/utils";
-import AuthProvider from "@/provides/AuthProviders";
+import AuthProvider from "@/providers/AuthProviders";
 
 const DashboardLayout = ({
   children,
