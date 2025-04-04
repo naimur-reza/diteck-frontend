@@ -1,6 +1,8 @@
 "use client";
 import { LinkButtonWithIcon } from "@/components/common";
 import cn from "classnames";
+import dynamic from "next/dynamic";
+
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,21 +10,22 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 
-const navMenu = [
-  { title: "Home", path: "/" },
-  { title: "About", path: "/about" },
-  { title: "Services", path: "/service" },
-  { title: "Our Team", path: "/our-team" },
-  { title: "Career", path: "/career" },
-  { title: "Contact", path: "/contact" },
-];
+const AuthButton = dynamic(() => import("./AuthButton"), {
+  ssr: false,
+});
 
 const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
-
   const pathName = usePathname();
-
   const isHome = pathName === "/";
+
+  const navMenu = [
+    { title: "Home", path: "/" },
+    { title: "About", path: "/about" },
+    { title: "Services", path: "/service" },
+    { title: "Our Team", path: "/our-team" },
+    { title: "Career", path: "/career" },
+  ];
 
   return (
     <div
@@ -73,11 +76,13 @@ const Header = () => {
                 )}
               </Link>
             ))}
+
+            <AuthButton />
           </div>
           {/* Mobile menu sidebar */}
           <div
             className={`min-h-screen bg-white w-[300px] absolute top-0 transition-all duration-300 ease-in-out ${
-              isOpenMenu ? "left-0 z-50" : "left-[-300px]"
+              isOpenMenu ? "right-0" : "-right-[300px]"
             }`}
           >
             <div className="absolute right-4 top-4">
@@ -97,18 +102,6 @@ const Header = () => {
                 style={{ objectFit: "contain" }}
               />
             </div>
-
-            <div className="flex flex-col gap-y-5">
-              {navMenu.map(({ title, path }, idx) => (
-                <Link
-                  key={idx}
-                  href={path}
-                  className="flex flex-col items-center gap-2 hover:text-primary font-semibold transition-colors"
-                >
-                  {title}
-                </Link>
-              ))}
-            </div>
           </div>
           {/* Nav Icon */}
           <div className="lg:hidden flex order-1">
@@ -119,13 +112,14 @@ const Header = () => {
               <FaBars color={"white"} />
             </button>
           </div>
-          {/* Button */}
+
+          {/* Contact Button */}
           <div className="order-3 hidden md:flex">
             <LinkButtonWithIcon
+              text="Contact"
               textColor={isHome ? "text-white" : "text-black"}
               invertedBorder={false}
               link="/contact"
-              text="Get In Touch"
             />
           </div>
         </div>
