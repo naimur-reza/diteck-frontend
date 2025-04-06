@@ -54,7 +54,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="min-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+      <div className="max-w-md w-full mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold mb-5 text-center">Login</h2>
 
         <EnaForm

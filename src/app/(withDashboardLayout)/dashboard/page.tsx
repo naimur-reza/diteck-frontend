@@ -38,9 +38,13 @@ function formatResponseTime(minutes: number) {
 export default function DashboardStatistics() {
   const [selectedPeriod, setSelectedPeriod] = useState("7");
 
-  const { data: dashboardData } = useGetDashboardAnalyticsQuery([
+  const { data: dashboardData, isLoading } = useGetDashboardAnalyticsQuery([
     { name: "days", value: selectedPeriod },
   ]);
+
+  if (isLoading) {
+    return <div className="">Loading...</div>;
+  }
 
   return (
     <div className="flex min-h-screen bg-muted/40">

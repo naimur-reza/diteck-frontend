@@ -31,8 +31,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[95vh] w-full sm:max-w-2xl  overflow-hidden rounded-2xl p-4 md:p-4.5">
-        <div className="sticky top-0 z-10 bg-background flex items justify-between flex-row-reverse">
+      <DialogContent className="max-h-[95vh] w-full sm:max-w-2xl overflow-hidden rounded-2xl p-4 md:p-4.5">
+        <div className="sticky top-0 z-10 bg-background flex items-center justify-between flex-row-reverse">
           <DialogClose
             onClick={onClose}
             className="cursor-pointer"
@@ -43,14 +43,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
 
           {title && (
             <DialogHeader>
-              <DialogTitle className="pr-8 text-2xl font-semibold pt-2 ">
+              <DialogTitle className="pr-8 text-2xl font-semibold pt-2">
                 {title}
               </DialogTitle>
             </DialogHeader>
           )}
         </div>
 
-        <div className="max-h-[calc(90vh-5rem)]  overflow-y-auto mt-6 ">
+        <div className="overflow-y-auto max-h-[calc(90vh-5rem)] mt-6">
           {children}
         </div>
       </DialogContent>
