@@ -9,9 +9,6 @@ export interface TProject {
   frontendTech: string[];
   backendTech: string[];
   databases: string[];
-  deployment: string[];
-  testing: string[];
-  requirement: string;
   timeTakenToDevelop: string;
   websiteFeatures: string[];
   securityFeatures: string[];
