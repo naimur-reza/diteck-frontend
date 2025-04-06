@@ -1,12 +1,12 @@
 import { TProject } from "@/types";
+import getAllProjects from "@/utils/fetchData/getAllProjects";
 import getSingleProject from "@/utils/fetchData/getSingleProject";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import StackCard from "./_components/StackCard";
 import ProjectNavigator from "./_components/ProjectNavigator";
-import getAllProjects from "@/utils/fetchData/getAllProjects";
+import StackCard from "./_components/StackCard";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ProjectDetailPage = async ({ params }: { params: any }) => {
@@ -22,14 +22,14 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
     thumbnail,
     images,
     createdAt,
-    requirement,
+
     websiteFeatures,
     frontendTech,
     backendTech,
     databases,
-    deployment,
+
     securityFeatures,
-    testing,
+
     timeTakenToDevelop,
   } = project || {};
 
@@ -157,12 +157,6 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
           <div className="lg:max-w-[80%] mx-auto mt-10 md:text-[20px]">
             <div className="grid md:grid-cols-2 gap-10">
               <p>
-                <span className="block font-semibold">Requirement: </span>
-                <span className="block text-[20px] text-light pb-5">
-                  {requirement}
-                </span>
-              </p>
-              <p>
                 <span className="block font-semibold">Duration: </span>
                 <span className="block text-[20px] text-light pb-5">
                   {timeTakenToDevelop}
@@ -200,20 +194,6 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
               title="Databases"
               items={databases}
               description="A well-structured database system is implemented to store, retrieve, and manage data efficiently, ensuring high performance and data integrity."
-            />
-
-            {/* Deployment */}
-            <StackCard
-              title="Deployment"
-              items={deployment}
-              description="This project is deployed on a reliable hosting platform, ensuring optimal uptime, scalability, and seamless user access across different regions."
-            />
-
-            {/* Testing */}
-            <StackCard
-              title="Testing"
-              items={testing}
-              description="Extensive testing methodologies, including unit testing, integration testing, and end-to-end testing, have been employed to ensure a bug-free and stable application."
             />
 
             {/* Security Features */}
