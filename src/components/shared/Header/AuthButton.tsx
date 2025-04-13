@@ -42,7 +42,7 @@ const AuthButton = ({ className }: { className?: string }) => {
         <Link
           href={linkPath}
           className={cn(
-            "flex items-center justify-center w-full text-lg font-medium py-3 px-4 rounded-lg transition-colors",
+            "flex items-center  justify-center w-full text-lg font-medium py-3 px-4 rounded-lg transition-colors",
             isDashboard && isTokenValid
               ? "bg-primary text-white"
               : "bg-primary/10 text-primary hover:bg-primary/20"
@@ -54,9 +54,8 @@ const AuthButton = ({ className }: { className?: string }) => {
         // Desktop nav version - inline with other nav items
         <Link
           href={linkPath}
-          className="flex items-center text-lg gap-2 hover:text-primary font-medium transition-colors"
+          className="flex ml-2 bg-primary text-white px-4 py-2 rounded-lg items-center text-lg gap-2 hover:text-primary font-medium transition-colors"
         >
-          <span className="ml-2 w-1.5 h-1.5 bg-primary" />
           {linkText}
         </Link>
       )}
