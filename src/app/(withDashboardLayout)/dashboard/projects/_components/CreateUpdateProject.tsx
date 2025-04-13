@@ -93,7 +93,7 @@ const CreateUpdateProject = ({
           description: project?.description,
           timeTakenToDevelop: project?.timeTakenToDevelop,
           category: project?.category,
-          createdBy: "65a3f2b9d4eabc1234567892",
+          createdBy: user?._id,
           frontendTech: project?.frontendTech || [],
           backendTech: project?.backendTech || [],
           databases: project?.databases || [],

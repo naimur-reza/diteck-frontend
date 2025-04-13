@@ -54,7 +54,7 @@ const AuthButton = ({ className }: { className?: string }) => {
         // Desktop nav version - inline with other nav items
         <Link
           href={linkPath}
-          className="flex ml-2 bg-primary text-white px-4 py-2 rounded-lg items-center text-lg gap-2 hover:text-primary font-medium transition-colors"
+          className="flex ml-4 md:ml-0 items-center text-lg gap-2 hover:text-primary font-medium transition-colors"
         >
           {linkText}
         </Link>

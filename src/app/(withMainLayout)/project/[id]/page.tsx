@@ -4,7 +4,6 @@ import getSingleProject from "@/utils/fetchData/getSingleProject";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ProjectNavigator from "./_components/ProjectNavigator";
 import StackCard from "./_components/StackCard";
 
@@ -114,23 +113,6 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
             )}
           </div>
 
-          {/* Our Process */}
-          <div className="lg:max-w-[80%] mx-auto grid md:grid-cols-[2fr_4fr] gap-x-20 border-t py-10">
-            <div>
-              <h4 className="font-medium text-[30px] lg:text-[42px] leading-[42px]">
-                Our Process
-              </h4>
-            </div>
-            <div className="">
-              <p className="text-[20px] text-light pb-5">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          </div>
-
           {/* Images */}
           <div className="grid md:grid-cols-2 gap-5">
             {images && images.length > 0 ? (
@@ -205,26 +187,6 @@ const ProjectDetailPage = async ({ params }: { params: any }) => {
           </div>
         </article>
 
-        {/* Blog Navigator */}
-        <div className="grid md:grid-cols-2 px-2 mt-10 gap-1 rounded-lg">
-          <div className="flex items-center justify-center gap-5 bg-white rounded-l-[20px] p-5">
-            <Link href={"#"}>
-              <span className="text-[24px] text-right font-semibold flex items-center gap-1">
-                <FaChevronLeft /> <span>Previous Post</span>
-              </span>
-            </Link>
-            {/* <div className="relative w-[100px] h-[100px] rounded-[20px] overflow-hidden"></div> */}
-          </div>
-          <div className="flex items-center justify-center gap-5 rounded-r-[20px] bg-white p-5">
-            <Link href={"#"}>
-              <span className="text-[24px] font-semibold flex items-center gap-1">
-                <span>Next Post</span>
-                <FaChevronRight />
-              </span>
-            </Link>
-            {/* <div className="relative w-[100px] h-[100px] rounded-[20px] overflow-hidden"></div> */}
-          </div>
-        </div>
         <ProjectNavigator currentPostId={_id} projects={projects || []} />
       </div>
     </div>
