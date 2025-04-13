@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import InteractiveGridBackground from "./interactive-grid-background";
 
@@ -9,7 +8,7 @@ export default function HeroSection() {
       <InteractiveGridBackground />
 
       <div className="relative z-10 max-w-4xl">
-        <div className="inline-block px-4 py-1.5 mb-6 text-sm font-medium text-white bg-opacity-20 rounded-full border border-blue-700">
+        <div className="inline-block px-4 py-1.5 mb-6 text-sm font-medium text-white bg-opacity-20 rounded-full border border-primary">
           Affordable Hosting for Everyone
         </div>
 
@@ -37,7 +36,7 @@ export default function HeroSection() {
           </Link>
           <Link
             href="/contact"
-            className="px-6 py-3 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+            className="px-6 py-3 font-medium text-white bg-primary rounded-md hover:bg-primary/70 transition-colors"
           >
             Contact Sales
           </Link>

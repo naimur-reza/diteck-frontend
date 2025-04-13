@@ -124,7 +124,7 @@ const Header = () => {
                 key={idx}
                 href={path}
                 className={cn(
-                  "flex items-center text-lg font-medium gap-2 transition-colors",
+                  "flex ml-4 md:ml-0 items-center text-lg gap-2 hover:text-primary font-medium transition-colors",
                   className
                 )}
               >
